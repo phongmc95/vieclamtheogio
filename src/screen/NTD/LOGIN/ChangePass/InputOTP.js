@@ -11,6 +11,8 @@ import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {scale} from 'react-native-size-matters';
 import {Modal, Portal} from 'react-native-paper';
 import LogIn_NTD from '../../../../base/API/apiNTD/LogIn_NTD';
+import {getDeviceWidth} from '../../../../Utils/CheckDevice';
+import ButtonStyle from '../../../../components/ButtonStyle';
 
 const InputOTP = ({navigation, route}) => {
   const {token_changePass, email_changePass} = route.params;
@@ -31,12 +33,7 @@ const InputOTP = ({navigation, route}) => {
   }, []);
 
   const submit = () => {
-    if (!otp) {
-      setMessage('Bạn chưa nhập mã OTP ');
-      setVisible(true);
-    } else {
-      callApi();
-    }
+    navigation.navigate('NewPass', {token_pass: ''});
   };
   const callApi = async () => {
     try {
@@ -57,12 +54,16 @@ const InputOTP = ({navigation, route}) => {
     }
   };
   return (
-    <View>
+    <View style={{backgroundColor: '#F5F5FF', flex: 1}}>
       <ScrollView>
         <View style={styles.container}>
           <Image
-            source={require('../../../../../assets/images/logoBG.png')}
+            source={require('../../../../../assets/images/Bgheader.png')}
             style={styles.logo}
+          />
+          <Image
+            source={require('../../../../../assets/images/logoapp.png')}
+            style={styles.logoapp}
           />
           <Text style={styles.title}>
             Nhập mã xác thực được gửi tới email :
@@ -89,24 +90,13 @@ const InputOTP = ({navigation, route}) => {
               <Text style={styles.email}>Gửi lại</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={submit}>
-            <Text style={styles.btn}>Xác nhận</Text>
-          </TouchableOpacity>
+          <ButtonStyle
+            Title="Xác nhận"
+            onPress={submit}
+            styleBtn={{width: scale(120)}}
+          />
         </View>
       </ScrollView>
-      <Modal visible={visible} onDismiss={hideModal}>
-        <View style={styles.viewModal}>
-          <View style={styles.viewContent}>
-            <Text style={styles.tbmd}>Thông báo</Text>
-            <Text style={styles.content}>{message}.</Text>
-          </View>
-          <TouchableOpacity
-            style={styles.btntb}
-            onPress={() => setVisible(false)}>
-            <Text style={styles.confirm}>OK</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
     </View>
   );
 };
@@ -117,10 +107,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: '#F5F5FF',
   },
   logo: {
-    height: scale(144),
-    width: '100%',
+    height: scale(173),
+    width: getDeviceWidth,
+    marginBottom: scale(10),
   },
   underlineStyleBase: {
     color: '#404040',
@@ -149,54 +141,11 @@ const styles = StyleSheet.create({
     marginTop: scale(10),
     marginLeft: scale(20),
   },
-  btn: {
-    fontSize: scale(16),
-    fontWeight: '500',
-    color: 'white',
-    paddingHorizontal: scale(17),
-    paddingVertical: scale(11),
-    backgroundColor: '#307df1',
-    borderRadius: scale(30),
-    marginTop: scale(20),
-  },
-  viewModal: {
-    height: scale(200),
-    backgroundColor: 'white',
-    width: scale(300),
 
-    margin: scale(25),
-    borderRadius: scale(30),
-    marginTop: scale(-50),
-  },
-  tbmd: {
-    fontSize: scale(24),
-    fontWeight: '700',
-    color: '#307df1',
-    marginTop: scale(15),
-  },
-  content: {
-    fontSize: scale(18),
-    fontWeight: '600',
-    color: '#404040',
-    margin: scale(15),
-    textAlign: 'center',
-  },
-  confirm: {
-    color: '#307df1',
-    fontSize: scale(24),
-    marginTop: scale(8),
-  },
-  btntb: {
-    borderTopWidth: scale(0.3),
-    borderColor: '#404040',
-    width: scale(300),
-
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: scale(20),
-  },
-  viewContent: {
-    alignItems: 'center',
-    height: scale(130),
+  logoapp: {
+    height: scale(100),
+    width: scale(165),
+    position: 'absolute',
+    top: scale(50),
   },
 });

@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
-import {ButtonDAY, ButtonDAY2} from '../../../components/Button/ButtonItem';
 import CircleCheckBox, {LABEL_POSITION} from 'react-native-circle-checkbox';
 
 const SuaTin = ({navigation}) => {
@@ -59,19 +58,6 @@ const SuaTin = ({navigation}) => {
       </View>
 
       {/* view */}
-      <View style={styles.btnDay}>
-        <ButtonDAY nameBTN="Thứ 2" />
-        <ButtonDAY nameBTN="Thứ 3" />
-        <ButtonDAY nameBTN="Thứ 4" />
-      </View>
-      <View style={styles.btnDay}>
-        <ButtonDAY nameBTN="Thứ 5" />
-        <ButtonDAY nameBTN="Thứ 6" />
-        <ButtonDAY nameBTN="Thứ 7" />
-      </View>
-      <View style={styles.btnDay}>
-        <ButtonDAY2 nameBTN="Chủ nhật" />
-      </View>
     </View>
   );
   return (

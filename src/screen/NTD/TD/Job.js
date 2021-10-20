@@ -10,7 +10,6 @@ import {
 import {scale} from 'react-native-size-matters';
 import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
 import TD_API from '../../../base/API/apiNTD/TD_API';
-import {ButtonDAY, ButtonDAY2} from '../../../components/Button/ButtonItem';
 
 const Job = ({navigation}) => {
   const [data, setData] = useState([]);

@@ -13,10 +13,7 @@ import {scale} from 'react-native-size-matters';
 import {useSelector} from 'react-redux';
 import {NotificationICON} from '../../../../assets/icon';
 import HomeAPi from '../../../base/API/apiNTD/HomeAPi';
-import {
-  ButtonItemBoqua,
-  ButtonItemLuu,
-} from '../../../components/Button/ButtonItem';
+import {isIos} from '../../../Utils/CheckDevice';
 
 const Home = () => {
   const get_token = useSelector(state => state.LOGIN.tokenlogin);
@@ -86,12 +83,8 @@ const Home = () => {
         <Text style={[styles.TextR, {color: 'black'}]}>{item.created_at}</Text>
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <TouchableOpacity style={{margin: scale(5)}}>
-          <ButtonItemLuu nameBTN="Lưu" />
-        </TouchableOpacity>
-        <TouchableOpacity style={{margin: scale(5)}}>
-          <ButtonItemBoqua nameBTN="Bỏ qua" />
-        </TouchableOpacity>
+        <TouchableOpacity style={{margin: scale(5)}}></TouchableOpacity>
+        <TouchableOpacity style={{margin: scale(5)}}></TouchableOpacity>
       </View>
     </View>
   );
@@ -213,10 +206,11 @@ const styles = StyleSheet.create({
   },
   StatusBar: {
     backgroundColor: '#307DF1',
-    height: scale(60),
+    height: isIos ? scale(100) : scale(60),
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
     flexDirection: 'row',
+
     alignItems: 'center',
     justifyContent: 'space-between',
   },

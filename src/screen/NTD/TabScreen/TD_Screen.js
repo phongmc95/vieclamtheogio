@@ -17,8 +17,8 @@ import {
   HsIcon,
   LocalIcon,
   ViewIcon,
+  EyeIconPass,
 } from '../../../../assets/icon';
-import {ButtonGiaiPhap, ButtonSua} from '../../../components/Button/ButtonItem';
 import {TabView, TabBar} from 'react-native-tab-view';
 const TD_Screen = ({navigation}) => {
   const DATA = [
@@ -119,7 +119,7 @@ const TD_Screen = ({navigation}) => {
       <FAB
         style={styles.fab}
         small
-        icon="plus"
+        icon={() => <EyeIconPass />}
         onPress={() => navigation.navigate('DangTin')}
         color="white"
       />
@@ -175,14 +175,10 @@ const TD_Screen = ({navigation}) => {
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <TouchableOpacity
           style={{margin: scale(5)}}
-          onPress={() => navigation.navigate('GiaiPhap')}>
-          <ButtonGiaiPhap nameBTN="Giải pháp" />
-        </TouchableOpacity>
+          onPress={() => navigation.navigate('GiaiPhap')}></TouchableOpacity>
         <TouchableOpacity
           style={{margin: scale(5)}}
-          onPress={() => navigation.navigate('SuaTin')}>
-          <ButtonSua nameBTN="Sửa" />
-        </TouchableOpacity>
+          onPress={() => navigation.navigate('SuaTin')}></TouchableOpacity>
       </View>
     </View>
   );
