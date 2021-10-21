@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '../../components/title/TitleBasic';
@@ -10,53 +10,16 @@ import SkillPersonalScreen from './profile/SkillPersonalScreen';
 import WorkSessionScreen from './profile/WorkSessionScreen';
 import {TabView, TabBar} from 'react-native-tab-view';
 import DesiredJobScreen from './profile/DesiredJobScreen';
-import {ScrollView} from 'react-native-gesture-handler';
-import icons from '../../constant/icons';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function ProfileScreen() {
   const [index, setIndex] = useState(0);
-  const [dataFlc, setDataFlc] = useState([]);
-  const [percent, setPercent] = useState('');
-  const [avatar, setAvatar] = useState(null);
-  const [username, setUsername] = useState('')
-  const token = useSelector(state => state.Token.data);
-  // console.log(avatar)
-
-  useEffect(() => {
-    const fetchFlc = async () => {
-      var data = new FormData();
-      data.append('token', token);
-      var config = {
-        method: 'post',
-        url: 'https://vieclamtheogio.timviec365.vn/api_app/api_job/uv_menubar_qltk.php',
-        data: data,
-      };
-
-      axios(config)
-        .then(function (response) {
-          const info = response.data.data.thongtin_uv;
-          const percent = response.data.data.hoanthien_hs_pt;
-          setDataFlc(info);
-          setPercent(parseInt(percent));
-          setAvatar(info.map(item => item.uv_avatar));
-          setUsername(info.map(item => item.uv_username))
-          // console.log(JSON.stringify(response.data))
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    };
-    fetchFlc()
-    return () => {};
-  }, []);
 
   const handleIndexChange = indexTab => {
     setIndex(indexTab);
   };
 
-  const [routes, setRoutes] = useState([
+  const [routes] = React.useState([
     {key: 'info', title: 'THÔNG TIN LIÊN HỆ', type: 0},
     {key: 'job', title: 'CÔNG VIỆC MONG MUỐN', type: 1},
     {key: 'skill', title: 'KỸ NĂNG CÁ NHÂN', type: 2},
@@ -108,16 +71,16 @@ export default function ProfileScreen() {
       <ScrollView>
         <View style={{padding: scale(20)}}>
           <View style={{alignItems: 'center'}}>
-            <Image style={styles.avatar} source={avatar ? {uri: String(avatar)} : images.avatar} />
-            <Text style={styles.txtAvatar}>{username}</Text>
+            <Image style={styles.avatar} source={images.avatar} />
+            <Text style={styles.txtAvatar}>Hoàng Phong</Text>
           </View>
           <View>
             <Text style={styles.txtProgress}>
               Mức độ hoàn thiện hồ sơ:{' '}
-              <Text style={{color: '#307df1'}}>{percent}%</Text>
+              <Text style={{color: '#307df1'}}>50%</Text>
             </Text>
             <Progress.Bar
-              progress={percent/100}
+              progress={0.5}
               width={scale(305)}
               height={scale(5)}
               unfilledColor="#808080"
@@ -146,7 +109,7 @@ const styles = StyleSheet.create({
   avatar: {
     height: scale(100),
     width: scale(100),
-    borderRadius: scale(50),
+    borderRadius: scale(200),
   },
   txtAvatar: {
     fontSize: scale(20),
@@ -154,7 +117,6 @@ const styles = StyleSheet.create({
     marginTop: scale(10),
     color: '#404040',
     marginBottom: scale(30),
-
   },
   txtProgress: {
     fontSize: scale(14),

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, {useRef, useState} from 'react';
 
 import {
@@ -8,44 +7,11 @@ import {
   TouchableOpacity,
   View,
   TextInput,
-  Alert,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {useDispatch} from 'react-redux';
 import images from '../../../constant/images';
-import {TokenFlc} from '../../../redux/actions/freelancer';
 
 const LoginScreen = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
-
-  const _submit = () => {
-    var data = new FormData();
-    data.append('uv_email', email);
-    data.append('uv_password', password);
-    var config = {
-      method: 'post',
-      url: 'https://vieclamtheogio.timviec365.vn/api_app/api_job/uv_dangnhap.php',
-      data: data,
-    };
-
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-
-        if (response.data.error == null) {
-          const token = response.data.data.token;
-          dispatch(TokenFlc(token));
-          navigation.navigate('BottomTabFlc')
-        } else if (response.data.data == null) {
-          Alert.alert(response.data.error.message);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
   return (
     <View style={styles.Container}>
       <View style={{alignItems: 'center'}}>
@@ -63,28 +29,21 @@ const LoginScreen = ({navigation}) => {
         </View>
         <View style={styles.boxTextInput}>
           <TextInput
-            style={[styles.textInput]}
-            placeholder="Email"
-            placeholderTextColor="#404040"
-            value={email}
-            onChangeText={text => setEmail(text)}
+            style={[styles.textInput, {textAlign: 'center'}]}
+            placeholder="Nhập số điện thoại"
           />
         </View>
         <View style={styles.boxTextInput}>
           <TextInput
-            style={[styles.textInput]}
+            style={[styles.textInput, {textAlign: 'center'}]}
             placeholder="Mật khẩu"
-            placeholderTextColor="#404040"
-            value={password}
-            onChangeText={text => setPassword(text)}
-            secureTextEntry
           />
         </View>
         <Text
           style={{fontSize: scale(13), color: '#404040', marginLeft: '60%'}}>
           Quên mật khẩu
         </Text>
-        <TouchableOpacity onPress={_submit}>
+        <TouchableOpacity onPress={() => navigation.navigate('BottomTabFlc')}>
           <Text style={styles.btnLogin}>Đăng nhập</Text>
         </TouchableOpacity>
         <View style={{alignItems: 'center'}}>
@@ -109,11 +68,7 @@ const LoginScreen = ({navigation}) => {
               Bạn chưa có tài khoản?{' '}
             </Text>
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('RegisterFlc', {
-                  item: {cit_name: '', cit_id: ''},
-                })
-              }>
+              onPress={() => navigation.navigate('RegisterFlc')}>
               <Text style={{fontSize: scale(15), color: '#307df1'}}>
                 ĐĂNG KÝ NGAY
               </Text>
@@ -156,7 +111,6 @@ const styles = StyleSheet.create({
     fontSize: scale(16),
     fontStyle: 'italic',
     marginLeft: scale(15),
-    color: '#404040',
   },
   boxTextInput: {
     width: scale(330),

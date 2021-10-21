@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '../../constant/icons';
 import images from '../../constant/images';
-import Logout from '../../components/Logout';
+import Logout from '@components/Logout';
 
 export default function ManageFlc({navigation}) {
   const [modal, setModal] = useState(false);

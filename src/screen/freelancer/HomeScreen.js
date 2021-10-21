@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,49 +9,15 @@ import {
   ScrollView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {useSelector} from 'react-redux';
 import TitleHome from '../../components/title/TitleHome';
 import icons from '../../constant/icons';
 import jobs from '../../data/Jobs';
 
 export default function HomeScreen({navigation}) {
-  const token = useSelector(state => state.Token.data);
-  const [dataFlc, setDataFlc] = useState([]);
-  const avatar = dataFlc.map(item => item.uv_avatar);
-  const username = dataFlc.map(item => item.uv_username)
-
-  console.log(avatar);
-
-  useEffect(() => {
-    const fetchHome = async () => {
-      var data = new FormData();
-      data.append('token', token);
-      var config = {
-        method: 'post',
-        url: 'https://vieclamtheogio.timviec365.vn/api_app/api_job/uv_menubar_qltk.php',
-        data: data,
-      };
-
-      axios(config)
-        .then(function (response) {
-          const info = response.data.data.thongtin_uv;
-          setDataFlc(info);
-          // console.log(dataFlc);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    };
-    fetchHome()
-    return () => {};
-  }, []);
   return (
     <View style={styles.container}>
       <ScrollView style={{marginBottom: scale(65)}}>
-        <TitleHome
-          img={!token ? {uri: avatar} : icons.avatar}
-          name={username}
-        />
+        <TitleHome />
         <View style={styles.viewCategory}>
           <View
             style={{

@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, Text, View, StatusBar} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import BottomTapsNTD from './BottomTaps/BottomTapsNTD';
 import BottomTabFlc from './BottomTaps/BottomTabFlc';
 import OnbroadScreen from '../screen/intro/OnbroadScreen';
@@ -20,8 +20,6 @@ import UpdateSkillPersonal from '../screen/freelancer/profile/UpdateSkillPersona
 import UpdateWorkSession from '../screen/freelancer/profile/UpdateWorkSession';
 import JobDetailScreen from '../screen/freelancer/JobDetailScreen';
 import ListJobScreen from '../screen/freelancer/ListJobScreen';
-import CityScreen from '../screen/freelancer/address/CityScreen';
-import DistrictScreen from '../screen/freelancer/address/DistrictScreen';
 import LoginScreen from '../screen/freelancer/login/LoginScreen';
 import RegisterScreen from '../screen/freelancer/login/RegisterScreen';
 import OTPScreen from '../screen/freelancer/login/OTPScreen';
@@ -41,7 +39,7 @@ import Sagaly from '../screen/NTD/TD/Sagaly';
 import UpdateInfoNTD from '../screen/NTD/ProfileNTD/UpdateInfoNTD';
 import ChangePassNTD from '../screen/NTD/ProfileNTD/ChangePassNTD';
 import DetailUV from '../screen/NTD/ProfileUV/DetailUV';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import Store from '../redux/store/Store';
 import OTP_Confirm from '../screen/NTD/LOGIN/OTP_Confirm';
 import SelectNTD from '../screen/NTD/LOGIN/SelectNTD';
@@ -52,6 +50,7 @@ import ListFilter from '../.../../screen/NTD/UV/ListFilter';
 import Filter2 from '../.../../screen/NTD/UV/Filter2';
 import ListFilter2 from '../.../../screen/NTD/UV/ListFilter2';
 import NewPass from '../screen/NTD/LOGIN/ChangePass/NewPass';
+import SplashScreen from '@screens/intro/SplashScreen'
 
 const Stack = createStackNavigator();
 const StackNavigation = () => {
@@ -63,6 +62,7 @@ const StackNavigation = () => {
     <Provider store={Store}>
       <NavigationContainer>
         <Stack.Navigator headerMode="none">
+          <Stack.Screen name="SplashScreen" component={SplashScreen} />
           <Stack.Screen name="Intro" component={OnbroadScreen} />
 
           {/* nhà tuyển dụng */}
@@ -106,8 +106,6 @@ const StackNavigation = () => {
           <Stack.Screen name="UpdateWork" component={UpdateWorkSession} />
           <Stack.Screen name="JobDetail" component={JobDetailScreen} />
           <Stack.Screen name="ListJob" component={ListJobScreen} />
-          <Stack.Screen name="CityFlc" component={CityScreen} />
-          <Stack.Screen name="DistrictFlc" component={DistrictScreen} />
           <Stack.Screen name="LoginFlc" component={LoginScreen} />
           <Stack.Screen name="RegisterFlc" component={RegisterScreen} />
           <Stack.Screen name="OTPFlc" component={OTPScreen} />
