@@ -10,7 +10,7 @@ import {
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {scale} from 'react-native-size-matters';
 import {Modal, Portal} from 'react-native-paper';
-import SignIn_NTD from '../../../base/API/apiNTD/SignIn_NTD';
+import SignIn_NTD from '@base/API/apiNTD/SignIn_NTD';
 const OTP_Confirm = ({navigation, route}) => {
   const {token, email_otp} = route.params;
   const [timerCount, setTimer] = useState(300);
@@ -59,7 +59,7 @@ const OTP_Confirm = ({navigation, route}) => {
       <ScrollView>
         <View style={styles.container}>
           <Image
-            source={require('../../../../assets/images/logoBG.png')}
+            source={require('@assets/images/logoBG.png')}
             style={styles.logo}
           />
           <Text style={styles.title}>

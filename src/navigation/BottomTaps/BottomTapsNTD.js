@@ -13,7 +13,7 @@ import {
   UVICON,
   ChatICON,
   ProfileICON,
-} from '../../../assets/icon';
+} from '@assets/icon';
 
 const Tab = createBottomTabNavigator();
 const BottomTapsNTD = () => {

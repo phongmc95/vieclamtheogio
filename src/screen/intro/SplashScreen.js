@@ -30,7 +30,7 @@ const SplashScreen = ({navigation}) => {
   return (
     <Animated.View style={[styles.container, {opacity: fadeAnim}]}>
       <Image
-        source={require('../../../assets/images/logoapp.png')}
+        source={require('@assets/images/logoapp.png')}
         style={styles.logo}
       />
     </Animated.View>

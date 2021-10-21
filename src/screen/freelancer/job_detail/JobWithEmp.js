@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, FlatList} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import icons from '../../../constant/icons';
-import listJob from '../../../data/ListJob';
+import icons from '@constant/icons';
+import listJob from '@data/ListJob';
 
 export default function JobWithEmp() {
   return (

@@ -18,7 +18,7 @@ import {
   SelectDowIcon,
   BackIcon,
   DeleteICon,
-} from '../../../../assets/icon/index';
+} from '@assets/icon/index';
 import {SwipeListView} from 'react-native-swipe-list-view';
 const ListFilter2 = ({navigation}) => {
   const DATA = [

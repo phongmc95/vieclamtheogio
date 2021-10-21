@@ -17,8 +17,8 @@ import {
   HsIcon,
   LocalIcon,
   ViewIcon,
-} from '../../../../assets/icon';
-import {ButtonGiaiPhap, ButtonSua} from '../../../components/Button/ButtonItem';
+} from '@assets/icon';
+import {ButtonGiaiPhap, ButtonSua} from '@components/Button/ButtonItem';
 import {TabView, TabBar} from 'react-native-tab-view';
 const TD_Screen = ({navigation}) => {
   const DATA = [

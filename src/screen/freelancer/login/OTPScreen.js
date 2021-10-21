@@ -8,10 +8,10 @@ import {
   Dimensions,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import images from '../../../constant/images';
+import images from '@constant/images';
 import OTPTextView from 'react-native-otp-textinput';
-import Button from '../../../components/Button/Button';
-import NotifiSuccess from '../../../components/NotifiSuccess';
+import Button from '@components/Button/Button';
+import NotifiSuccess from '@components/NotifiSuccess';
 
 const width = Dimensions.get('window').width;
 

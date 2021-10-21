@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {BackIcon, CameraIcon, Selecter} from '../../../../assets/icon';
+import {BackIcon, CameraIcon, Selecter} from '@assets/icon';
 
 const UpdateInfoNTD = ({navigation}) => {
   return (
@@ -25,7 +25,7 @@ const UpdateInfoNTD = ({navigation}) => {
       <ScrollView style={{marginBottom: scale(30)}}>
         <View style={styles.viewAvtar}>
           <Image
-            source={require('./../../../../assets/img/logoVin.png')}
+            source={require('@assets/img/logoVin.png')}
             style={styles.avatar}
           />
           <TouchableOpacity style={styles.btnCamera}>

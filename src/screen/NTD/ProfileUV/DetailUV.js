@@ -15,7 +15,7 @@ import {
   HsIcon,
   EyeIcon,
   LocalIcon,
-} from '../../../../assets/icon';
+} from '@assets/icon';
 import {Modal} from 'react-native-paper';
 import {TabView, TabBar} from 'react-native-tab-view';
 import InfoUV from './InfoUV';

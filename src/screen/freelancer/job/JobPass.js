@@ -1,10 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import TitleBasic from '../../../components/title/TitleBasic';
-import icons from '../../../constant/icons';
+import TitleBasic from '@components/title/TitleBasic';
+import icons from '@constant/icons';
 import {SwipeListView} from 'react-native-swipe-list-view';
-import listJob from '../../../data/ListJob';
+import listJob from '@data/ListJob';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 

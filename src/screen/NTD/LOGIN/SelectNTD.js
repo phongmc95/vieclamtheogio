@@ -5,11 +5,11 @@ const SelectNTD = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../../../../assets/images/logoBG.png')}
+        source={require('@assets/images/logoBG.png')}
         style={styles.logo}
       />
       <Image
-        source={require('../../../../assets/images/selectNTD.png')}
+        source={require('@assets/images/selectNTD.png')}
         style={styles.body}
       />
       <TouchableOpacity

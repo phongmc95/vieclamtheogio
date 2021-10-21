@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import City_NTD from '../../../base/API/apiNTD/City_NTD';
+import City_NTD from '@base/API/apiNTD/City_NTD';
 import {useNavigation} from '@react-navigation/native';
 const CityNTD = () => {
   const [City, setCity] = useState([]);

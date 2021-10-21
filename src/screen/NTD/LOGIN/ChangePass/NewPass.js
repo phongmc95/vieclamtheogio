@@ -9,9 +9,9 @@ import {
   TextInput,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {EyeIconPass} from '../../../../../assets/icon';
+import {EyeIconPass} from '@assets/icon';
 import {Modal, Portal} from 'react-native-paper';
-import LogIn_NTD from '../../../../base/API/apiNTD/LogIn_NTD';
+import LogIn_NTD from '@base/API/apiNTD/LogIn_NTD';
 import {data} from 'browserslist';
 const NewPass = ({navigation, route}) => {
   const {token_pass} = route.params;
@@ -63,7 +63,7 @@ const NewPass = ({navigation, route}) => {
       <ScrollView>
         <View style={styles.container}>
           <Image
-            source={require('../../../../../assets/images/logoBG.png')}
+            source={require('@assets/images/logoBG.png')}
             style={styles.logo}
           />
           <View style={styles.boxRow}>
@@ -112,7 +112,7 @@ const NewPass = ({navigation, route}) => {
             </Text>
           </TouchableOpacity>
           <Image
-            source={require('../../../../../assets/images/bro.png')}
+            source={require('@assets/images/bro.png')}
             style={styles.foodter}
           />
         </View>

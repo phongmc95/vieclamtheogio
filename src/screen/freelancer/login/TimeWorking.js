@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {scale} from 'react-native-size-matters';
-import Button from '../../../components/Button/Button';
+import Button from '@components/Button/Button';
 
 export default function TimeWorking({navigation}) {
   const [time_id, setTime_id] = useState([]);

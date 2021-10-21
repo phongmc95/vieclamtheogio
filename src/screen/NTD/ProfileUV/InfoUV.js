@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList, Image} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {LocalIcon} from '../../../../assets/icon';
+import {LocalIcon} from '@assets/icon';
 const InfoUV = () => {
   const DATA = [
     {

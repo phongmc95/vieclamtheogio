@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import jobs from '../../../data/Jobs';
+import jobs from '@data/Jobs';
 
 export default function JobDesied() {
   return (

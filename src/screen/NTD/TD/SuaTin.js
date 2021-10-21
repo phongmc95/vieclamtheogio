@@ -9,8 +9,8 @@ import {
   TextInput,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
-import {ButtonDAY, ButtonDAY2} from '../../../components/Button/ButtonItem';
+import {BackIcon, Selecter, DateIcon} from '@assets/icon';
+import {ButtonDAY, ButtonDAY2} from '@components/Button/ButtonItem';
 import CircleCheckBox, {LABEL_POSITION} from 'react-native-circle-checkbox';
 
 const SuaTin = ({navigation}) => {

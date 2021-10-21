@@ -7,8 +7,8 @@ import {
   ScrollView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import Button from '../../../components/Button/Button';
-import TitleBasic from '../../../components/title/TitleBasic';
+import Button from '@components/Button/Button';
+import TitleBasic from '@components/title/TitleBasic';
 
 const UpdateWorkSession = () => {
   const [check, setCheck] = useState(false);

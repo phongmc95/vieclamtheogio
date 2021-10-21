@@ -11,12 +11,12 @@ import {
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {useSelector} from 'react-redux';
-import {NotificationICON} from '../../../../assets/icon';
-import HomeAPi from '../../../base/API/apiNTD/HomeAPi';
+import {NotificationICON} from '@assets/icon';
+import HomeAPi from '@base/API/apiNTD/HomeAPi';
 import {
   ButtonItemBoqua,
   ButtonItemLuu,
-} from '../../../components/Button/ButtonItem';
+} from '@components/Button/ButtonItem';
 
 const Home = () => {
   const get_token = useSelector(state => state.LOGIN.tokenlogin);
@@ -105,7 +105,7 @@ const Home = () => {
             source={
               data
                 ? {uri: data.avatar}
-                : require('../../../../assets/img/logoVin.png')
+                : require('@assets/img/logoVin.png')
             }
             style={styles.logo}
           />

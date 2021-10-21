@@ -8,11 +8,11 @@ import {
   Image,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import Buttonn from '../../../components/Button/Button';
-import TitleBasic from '../../../components/title/TitleBasic';
-import icons from '../../../constant/icons';
+import Buttonn from '@components/Button/Button';
+import TitleBasic from '@components/title/TitleBasic';
+import icons from '@constant/icons';
 import Modal from 'react-native-modal';
-import images from '../../../constant/images';
+import images from '@constant/images';
 
 export default function UpdatePassword() {
   const [modal, setModal] = useState(false);

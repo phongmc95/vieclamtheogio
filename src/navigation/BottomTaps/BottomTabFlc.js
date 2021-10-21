@@ -7,7 +7,7 @@ import {
   UVICON,
   ChatICON,
   ProfileICON,
-} from '../../../assets/icon';
+} from '@assets/icon';
 import HomeScreen from '../../screen/freelancer/HomeScreen';
 import ProfileScreen from '../../screen/freelancer/ProfileScreen';
 import ChatScreen from '../../screen/freelancer/ChatScreen';

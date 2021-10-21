@@ -9,11 +9,11 @@ import {
   ScrollView,
 } from 'react-native';
 import {s, scale} from 'react-native-size-matters';
-import {CameraIcon, Selecter, EyeIconPass} from '../../../../assets/icon';
+import {CameraIcon, Selecter, EyeIconPass} from '@assets/icon';
 import * as ImagePicker from 'react-native-image-picker';
 import {Modal, Portal} from 'react-native-paper';
-import {isVietnamesePhoneNumber, validateEmail} from '../../../base/Validate';
-import SignIn_NTD from '../../../base/API/apiNTD/SignIn_NTD';
+import {isVietnamesePhoneNumber, validateEmail} from '@base/Validate';
+import SignIn_NTD from '@base/API/apiNTD/SignIn_NTD';
 const SignInNTD = ({navigation, route}) => {
   const {item} = route.params;
   const cityid = item.cit_id;
@@ -156,7 +156,7 @@ const SignInNTD = ({navigation, route}) => {
               style={styles.avatar}
               source={
                 !logo
-                  ? require('../../../../assets/images/avatar_icon.png')
+                  ? require('@assets/images/avatar_icon.png')
                   : {uri: logo.assets[0].uri}
               }
             />

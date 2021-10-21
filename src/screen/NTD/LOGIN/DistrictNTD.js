@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {useNavigation} from '@react-navigation/native';
-import District_NTD from '../../../base/API/apiNTD/District_NTD';
+import District_NTD from '@base/API/apiNTD/District_NTD';
 import {useRoute} from '@react-navigation/native';
 const DistrictNTD = () => {
   const [District, setDistrict] = useState([]);

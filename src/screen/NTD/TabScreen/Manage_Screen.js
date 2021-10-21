@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {FoderICon, FocusIcon, LogoutIcon} from '../../../../assets/icon';
+import {FoderICon, FocusIcon, LogoutIcon} from '@assets/icon';
 import {Modal} from 'react-native-paper';
 const Manage_Screen = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
@@ -13,7 +13,7 @@ const Manage_Screen = ({navigation}) => {
     <View style={styles.contener}>
       <View style={styles.StatusBar}>
         <Image
-          source={require('./../../../../assets/img/logoVin.png')}
+          source={require('@assets/img/logoVin.png')}
           style={styles.avatar}
         />
         <Text style={styles.title}>Vingroup</Text>
@@ -42,7 +42,7 @@ const Manage_Screen = ({navigation}) => {
       </TouchableOpacity>
 
       <Image
-        source={require('./../../../../assets/img/imgbgJob.png')}
+        source={require('@assets/img/imgbgJob.png')}
         style={{
           backgroundColor: 'white',
           height: scale(211),

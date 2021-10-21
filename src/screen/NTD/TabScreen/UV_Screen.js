@@ -17,7 +17,7 @@ import {
   PhoneIcon,
   ClockIcon,
   SelectDowIcon,
-} from '../../../../assets/icon';
+} from '@assets/icon';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {Modal} from 'react-native-paper';
 const UV_Screen = ({navigation}) => {

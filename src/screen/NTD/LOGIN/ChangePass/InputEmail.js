@@ -8,9 +8,9 @@ import {
   Image,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {validateEmail} from '../../../../base/Validate';
+import {validateEmail} from '@base/Validate';
 import {Modal, Portal} from 'react-native-paper';
-import LogIn_NTD from '../../../../base/API/apiNTD/LogIn_NTD';
+import LogIn_NTD from '@base/API/apiNTD/LogIn_NTD';
 const InputEmail = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [visible, setVisible] = React.useState(false);
@@ -50,7 +50,7 @@ const InputEmail = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../../../../../assets/images/header.png')}
+        source={require('@assets/images/header.png')}
         style={styles.header}
       />
       <Text
@@ -91,7 +91,7 @@ const InputEmail = ({navigation}) => {
         </Text>
       </TouchableOpacity>
       <Image
-        source={require('../../../../../assets/images/bro.png')}
+        source={require('@assets/images/bro.png')}
         style={styles.foodter}
       />
       <Modal visible={visible} onDismiss={hideModal}>

@@ -9,10 +9,10 @@ import {
   ScrollView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import TitleBasic from '../../../components/title/TitleBasic';
-import icons from '../../../constant/icons';
-import images from '../../../constant/images';
-import Button from '../../../components/Button/Button';
+import TitleBasic from '@components/title/TitleBasic';
+import icons from '@constant/icons';
+import images from '@constant/images';
+import Button from '@components/Button/Button';
 
 export default function UpdateExperience() {
   return (

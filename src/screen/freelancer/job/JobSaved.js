@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import TitleBasic from '../../../components/title/TitleBasic';
-import icons from '../../../constant/icons';
+import TitleBasic from '@components/title/TitleBasic';
+import icons from '@constant/icons';
 
 export default function JobSaved() {
   const [check, setCheck] = useState(false);

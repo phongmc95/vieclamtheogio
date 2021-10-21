@@ -9,7 +9,7 @@ import {
   TextInput,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import images from '../../../constant/images';
+import images from '@constant/images';
 
 const LoginScreen = ({navigation}) => {
   return (

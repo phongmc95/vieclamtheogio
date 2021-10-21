@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import icons from '../../../constant/icons';
+import icons from '@constant/icons';
 
 export default function WorkSessionScreen() {
   const navigation = useNavigation();

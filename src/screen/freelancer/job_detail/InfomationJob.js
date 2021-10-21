@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, ScrollView} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import icons from '../../../constant/icons';
-import Button from '../../../components/Button/Button'
+import icons from '@constant/icons';
+import Button from '@components/Button/Button'
 
 export default function InfomationJob() {
   return (

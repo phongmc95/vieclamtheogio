@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import icons from '../../../constant/icons';
-import jobs from '../../../data/Jobs';
+import icons from '@constant/icons';
+import jobs from '@data/Jobs';
 
 export default function DesiredJobScreen({navigation}) {
 

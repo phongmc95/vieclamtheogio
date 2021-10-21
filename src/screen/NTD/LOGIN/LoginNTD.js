@@ -12,12 +12,12 @@ import {scale} from 'react-native-size-matters';
 import {Dimensions} from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-import {EyeIconPass} from '../../../../assets/icon';
+import {EyeIconPass} from '@assets/icon';
 import {Modal, Portal} from 'react-native-paper';
-import {validateEmail} from '../../../base/Validate';
-import LogIn_NTD from '../../../base/API/apiNTD/LogIn_NTD';
+import {validateEmail} from '@base/Validate';
+import LogIn_NTD from '@base/API/apiNTD/LogIn_NTD';
 import {useDispatch, useSelector} from 'react-redux';
-import {TOKEN_LoginNTD} from '../../../redux/actions/actions';
+import {TOKEN_LoginNTD} from '@redux/actions/actions';
 const LoginNTD = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -63,7 +63,7 @@ const LoginNTD = ({navigation}) => {
     <View style={styles.contener}>
       <ImageBackground
         style={styles.img}
-        source={require('../../../../assets/img/LogInBG.png')}>
+        source={require('@assets/img/LogInBG.png')}>
         <Text style={styles.TitleLogin}>Đăng nhập</Text>
         <View style={[styles.boxInput, {marginTop: scale(90)}]}>
           <TextInput

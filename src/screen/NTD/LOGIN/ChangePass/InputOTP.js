@@ -10,7 +10,7 @@ import {
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {scale} from 'react-native-size-matters';
 import {Modal, Portal} from 'react-native-paper';
-import LogIn_NTD from '../../../../base/API/apiNTD/LogIn_NTD';
+import LogIn_NTD from '@base/API/apiNTD/LogIn_NTD';
 
 const InputOTP = ({navigation, route}) => {
   const {token_changePass, email_changePass} = route.params;
@@ -61,7 +61,7 @@ const InputOTP = ({navigation, route}) => {
       <ScrollView>
         <View style={styles.container}>
           <Image
-            source={require('../../../../../assets/images/logoBG.png')}
+            source={require('@assets/images/logoBG.png')}
             style={styles.logo}
           />
           <Text style={styles.title}>

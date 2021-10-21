@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {BackIcon} from '../../../../assets/icon';
+import {BackIcon} from '@assets/icon';
 const Filter2 = ({navigation}) => {
   return (
     <View style={styles.contener}>
