@@ -15,10 +15,11 @@ const CityNTD = () => {
   const [filterData, setFilterData] = useState([]);
   const [search, setSearch] = useState('');
   const navigation = useNavigation();
+  
   useEffect(() => {
     const fetchCity = async () => {
       try {
-        const params = {};
+        // const params = {};
         const response = await City_NTD.getAll();
 
         setCity(response.data.tinhthanh);

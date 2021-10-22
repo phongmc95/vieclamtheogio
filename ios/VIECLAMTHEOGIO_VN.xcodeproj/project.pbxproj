@@ -11,7 +11,9 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		7907734E013EBD829DEB291E /* libPods-VIECLAMTHEOGIO_VN.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A730023E26F73072F1F8059E /* libPods-VIECLAMTHEOGIO_VN.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		B8966A70268CBB26CD6260B0 /* libPods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFD41E023021F7E352FDC0B8 /* libPods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +36,13 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = VIECLAMTHEOGIO_VN/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = VIECLAMTHEOGIO_VN/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = VIECLAMTHEOGIO_VN/main.m; sourceTree = "<group>"; };
+		2EF9A0D11D8ACB06C5BFFB93 /* Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.debug.xcconfig"; path = "Target Support Files/Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests/Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.debug.xcconfig"; sourceTree = "<group>"; };
+		39C1904FCAA6F48D21E79705 /* Pods-VIECLAMTHEOGIO_VN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VIECLAMTHEOGIO_VN.release.xcconfig"; path = "Target Support Files/Pods-VIECLAMTHEOGIO_VN/Pods-VIECLAMTHEOGIO_VN.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = VIECLAMTHEOGIO_VN/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		832EAA8967B70853EF210E52 /* Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.release.xcconfig"; path = "Target Support Files/Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests/Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.release.xcconfig"; sourceTree = "<group>"; };
+		A730023E26F73072F1F8059E /* libPods-VIECLAMTHEOGIO_VN.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VIECLAMTHEOGIO_VN.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFD41E023021F7E352FDC0B8 /* libPods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D054E94D936B778BAD50B705 /* Pods-VIECLAMTHEOGIO_VN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VIECLAMTHEOGIO_VN.debug.xcconfig"; path = "Target Support Files/Pods-VIECLAMTHEOGIO_VN/Pods-VIECLAMTHEOGIO_VN.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -43,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8966A70268CBB26CD6260B0 /* libPods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7907734E013EBD829DEB291E /* libPods-VIECLAMTHEOGIO_VN.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,8 +100,22 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				A730023E26F73072F1F8059E /* libPods-VIECLAMTHEOGIO_VN.a */,
+				AFD41E023021F7E352FDC0B8 /* libPods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5118CA123AED35BD00AD7950 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D054E94D936B778BAD50B705 /* Pods-VIECLAMTHEOGIO_VN.debug.xcconfig */,
+				39C1904FCAA6F48D21E79705 /* Pods-VIECLAMTHEOGIO_VN.release.xcconfig */,
+				2EF9A0D11D8ACB06C5BFFB93 /* Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.debug.xcconfig */,
+				832EAA8967B70853EF210E52 /* Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -109,6 +133,7 @@
 				00E356EF1AD99517003FC87E /* VIECLAMTHEOGIO_VNTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				5118CA123AED35BD00AD7950 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -131,9 +156,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "VIECLAMTHEOGIO_VNTests" */;
 			buildPhases = (
+				EE83903BB868A4709331130B /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
+				3870E469E33EB702EB3816AB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -149,11 +176,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "VIECLAMTHEOGIO_VN" */;
 			buildPhases = (
+				2212D963370D99B58E158B2E /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				82DDB4E47F392DFEDB71754D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -234,6 +263,84 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
+		2212D963370D99B58E158B2E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VIECLAMTHEOGIO_VN-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3870E469E33EB702EB3816AB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests/Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests/Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests/Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		82DDB4E47F392DFEDB71754D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VIECLAMTHEOGIO_VN/Pods-VIECLAMTHEOGIO_VN-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VIECLAMTHEOGIO_VN/Pods-VIECLAMTHEOGIO_VN-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VIECLAMTHEOGIO_VN/Pods-VIECLAMTHEOGIO_VN-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EE83903BB868A4709331130B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -286,6 +393,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2EF9A0D11D8ACB06C5BFFB93 /* Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -312,6 +420,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 832EAA8967B70853EF210E52 /* Pods-VIECLAMTHEOGIO_VN-VIECLAMTHEOGIO_VNTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -335,6 +444,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D054E94D936B778BAD50B705 /* Pods-VIECLAMTHEOGIO_VN.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -360,6 +470,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 39C1904FCAA6F48D21E79705 /* Pods-VIECLAMTHEOGIO_VN.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

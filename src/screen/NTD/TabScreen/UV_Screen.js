@@ -20,6 +20,7 @@ import {
 } from '../../../../assets/icon';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {Modal} from 'react-native-paper';
+import HeaderStyle from '../../../components/HeaderStyle';
 const UV_Screen = ({navigation}) => {
   const DATA = [
     {
@@ -195,14 +196,7 @@ const UV_Screen = ({navigation}) => {
   };
   return (
     <View style={styles.contener}>
-      <View style={styles.StatusBar}>
-        <Text style={styles.title}>ỨNG VIÊN ĐÃ ỨNG TUYỂN</Text>
-        <TouchableOpacity
-          style={{margin: scale(5)}}
-          onPress={() => navigation.navigate('Filter')}>
-          <FilterIcon />
-        </TouchableOpacity>
-      </View>
+      <HeaderStyle type="filter" Title="Ứng viên đã ứng tuyển" />
       {/* main */}
       <View style={styles.main}>
         <SwipeListView

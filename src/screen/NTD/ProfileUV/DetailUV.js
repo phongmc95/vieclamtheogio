@@ -23,6 +23,7 @@ import DesiredJobUV from './DesiredJobUV';
 import SkillUV from './SkillUV';
 import ExperienceUV from './ExperienceUV';
 import WorkSessionUV from './WorkSessionUV';
+import ButtonStyle from '../../../components/ButtonStyle';
 const DetailUV = ({navigation, route}) => {
   const {item} = route.params;
   const [index, setIndex] = useState(0);
@@ -135,22 +136,6 @@ const DetailUV = ({navigation, route}) => {
           />
         </View>
       </ScrollView>
-      <View style={styles.Foodter}>
-        <TouchableOpacity>
-          <Text
-            style={{
-              paddingHorizontal: scale(23),
-              paddingVertical: scale(11),
-              backgroundColor: '#307DF1',
-              color: 'white',
-              borderRadius: scale(30),
-              fontSize: scale(16),
-              fontWeight: '500',
-            }}>
-            Xem liên hệ
-          </Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
@@ -194,7 +179,11 @@ const styles = StyleSheet.create({
 
     color: 'white',
   },
-  viewRowBw: {justifyContent: 'space-between', flexDirection: 'row'},
+  viewRowBw: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    marginTop: scale(30),
+  },
   textitem: {
     fontWeight: '400',
     fontSize: scale(12),

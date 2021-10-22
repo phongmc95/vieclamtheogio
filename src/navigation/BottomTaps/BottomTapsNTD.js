@@ -14,6 +14,7 @@ import {
   ChatICON,
   ProfileICON,
 } from '../../../assets/icon';
+import {isIos} from '../../Utils/CheckDevice';
 
 const Tab = createBottomTabNavigator();
 const BottomTapsNTD = () => {
@@ -27,7 +28,7 @@ const BottomTapsNTD = () => {
         style: {
           position: 'absolute',
           backgroundColor: '#ffffff',
-          height: scale(60),
+          height: isIos ? scale(80) : scale(60),
           borderTopLeftRadius: scale(20),
           borderTopRightRadius: scale(20),
         },
@@ -248,7 +249,7 @@ const styles = StyleSheet.create({
   viewIconTab: {
     width: scale(40),
     height: scale(40),
-    backgroundColor: '#C4C4C4',
+    backgroundColor: '#EBEBEB',
     borderRadius: scale(50),
     alignContent: 'center',
     alignItems: 'center',

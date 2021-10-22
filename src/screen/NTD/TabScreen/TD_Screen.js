@@ -20,6 +20,7 @@ import {
   EyeIconPass,
 } from '../../../../assets/icon';
 import {TabView, TabBar} from 'react-native-tab-view';
+import HeaderStyle from '../../../components/HeaderStyle';
 const TD_Screen = ({navigation}) => {
   const DATA = [
     {
@@ -119,7 +120,7 @@ const TD_Screen = ({navigation}) => {
       <FAB
         style={styles.fab}
         small
-        icon={() => <EyeIconPass />}
+        icon={() => <Text style={{fontSize: 24, color: 'white'}}>+</Text>}
         onPress={() => navigation.navigate('DangTin')}
         color="white"
       />
@@ -273,9 +274,7 @@ const TD_Screen = ({navigation}) => {
   return (
     <View style={styles.contener}>
       <View style={{backgroundColor: '#FFFFFF'}}>
-        <View style={styles.StatusBar}>
-          <Text style={styles.title}>Tuyển dụng</Text>
-        </View>
+        <HeaderStyle type="nomal" Title="Tuyển dụng" />
       </View>
       {/* main */}
 

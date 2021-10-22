@@ -52,17 +52,19 @@ import ListFilter from '../.../../screen/NTD/UV/ListFilter';
 import Filter2 from '../.../../screen/NTD/UV/Filter2';
 import ListFilter2 from '../.../../screen/NTD/UV/ListFilter2';
 import NewPass from '../screen/NTD/LOGIN/ChangePass/NewPass';
+import SplashScreen from '../screen/intro/SplashScreen';
 
 const Stack = createStackNavigator();
 const StackNavigation = () => {
-  useEffect(() => {
-    StatusBar.setBackgroundColor('#307DF1');
-  }, []);
+  // useEffect(() => {
+  //   StatusBar.setBackgroundColor('#307DF1');
+  // }, []);
 
   return (
     <Provider store={Store}>
       <NavigationContainer>
         <Stack.Navigator headerMode="none">
+          <Stack.Screen name="SplashScreen" component={SplashScreen} />
           <Stack.Screen name="Intro" component={OnbroadScreen} />
 
           {/* nhà tuyển dụng */}
