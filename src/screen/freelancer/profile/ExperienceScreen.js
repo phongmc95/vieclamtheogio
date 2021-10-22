@@ -1,11 +1,11 @@
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 
 export default function ExperienceScreen() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
   return (
     <View style={styles.box}>
       <View style={{width: '85%'}}>
@@ -19,9 +19,10 @@ export default function ExperienceScreen() {
         </Text>
       </View>
       <View>
-      <TouchableOpacity onPress={() => navigation.navigate('UpdateExperience')}>
-        <Image style={styles.pen} source={icons.pen} />
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('UpdateExperience')}>
+          <Image style={styles.pen} source={icons.pen} />
+        </TouchableOpacity>
         <Image style={styles.trash} source={icons.trash_black} />
       </View>
     </View>

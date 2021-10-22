@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   Image,
   TextInput,
@@ -11,7 +10,6 @@ import {
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '@components/title/TitleBasic';
 import icons from '@constant/icons';
-import images from '@constant/images';
 import Button from '@components/Button/Button';
 
 export default function UpdateDesiredJob() {
@@ -63,7 +61,8 @@ export default function UpdateDesiredJob() {
                 height: scale(1),
                 marginHorizontal: scale(12),
                 marginTop: scale(30),
-              }}></View>
+              }}
+            />
 
             <View style={[styles.boxTextInput, {width: scale(79)}]}>
               <TextInput
@@ -113,7 +112,6 @@ const styles = StyleSheet.create({
     width: scale(330),
     height: scale(40),
     backgroundColor: '#fff',
-    borderRadius: 1,
     borderColor: '#307df1',
     elevation: 5,
     borderRadius: scale(5),

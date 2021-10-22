@@ -1,11 +1,9 @@
 import React, {useRef, useState} from 'react';
-
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Swiper from 'react-native-swiper';
-
-import {useNavigation} from '@react-navigation/native';
 import images from '../../constant/images';
+import fonts from '@constant/fonts';
 
 const OnbroadScreen = ({navigation}) => {
   const swiper = useRef(null);
@@ -21,38 +19,36 @@ const OnbroadScreen = ({navigation}) => {
           activeDotStyle={styles.activeSwiperDot}
           dotStyle={styles.swiperdot}>
           <View>
-            <View style={styles.imagecontainer}>
+            <View style={styles.imgContainer}>
               <Image style={styles.image} source={images.rafiki} />
             </View>
             <View style={styles.textcontainer}>
-              <Text style={[styles.title, {textTransform: 'uppercase'}]}>
+              <Text style={styles.title}>
                 Đáp ứng nhu cầu tìm việc ngay lập tức
               </Text>
             </View>
           </View>
           <View>
-            <View style={styles.imagecontainer}>
+            <View style={styles.imgContainer}>
               <Image style={styles.image} source={images.bro} />
             </View>
             <View style={styles.textcontainer}>
-              <Text style={[styles.title, {textTransform: 'uppercase'}]}>
+              <Text style={styles.title}>
                 Tìm kiếm sàng lọc ứng viên chất lượng
               </Text>
             </View>
           </View>
           <View>
-            <View style={styles.imagecontainer}>
+            <View style={styles.imgContainer}>
               <Image style={styles.image} source={images.cuate} />
             </View>
             <View style={styles.textcontainer}>
-              <Text style={[styles.title, {textTransform: 'uppercase'}]}>
-                Hỗ trợ 24/7
-              </Text>
+              <Text style={styles.title}>Hỗ trợ 24/7</Text>
             </View>
           </View>
         </Swiper>
       </View>
-      <View style={{marginTop: scale(30)}}>
+      <View style={styles.viewButton}>
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('LoadingFlc')}>
@@ -100,19 +96,20 @@ const styles = StyleSheet.create({
     paddingRight: scale(20),
   },
   title: {
-    fontWeight: '700',
     lineHeight: scale(25),
     fontSize: scale(20),
     marginBottom: scale(24),
     color: '#307DF1',
     textAlign: 'center',
+    fontFamily: fonts.BOLD,
+    textTransform: 'uppercase',
   },
   textBegin: {
     alignSelf: 'center',
     lineHeight: scale(19),
     fontSize: scale(14),
   },
-  imagecontainer: {
+  imgContainer: {
     overflow: 'hidden',
     height: scale(350),
     width: '100%',
@@ -126,7 +123,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: scale(20),
     color: '#307DF1',
-    fontWeight: 'bold',
+    fontFamily: fonts.BOLD,
   },
   button: {
     alignSelf: 'center',
@@ -137,7 +134,6 @@ const styles = StyleSheet.create({
     borderColor: '#307DF1',
     borderWidth: scale(1),
     borderRadius: scale(4),
-    marginBottom: scale(5),
     elevation: 5,
     backgroundColor: '#fff',
     marginBottom: scale(10),
@@ -159,4 +155,5 @@ const styles = StyleSheet.create({
     marginLeft: scale(8),
     marginRight: scale(8),
   },
+  viewButton: {marginTop: scale(30)},
 });

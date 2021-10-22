@@ -16,7 +16,9 @@ export default function JobWithEmp() {
             borderBottomWidth: 1,
             marginTop: scale(10),
           }}>
-          <Text style={[styles.title, {textTransform: 'uppercase'}]}>{item.title}</Text>
+          <Text style={[styles.title, {textTransform: 'uppercase'}]}>
+            {item.title}
+          </Text>
           <View style={{flexDirection: 'row'}}>
             <View>
               <View

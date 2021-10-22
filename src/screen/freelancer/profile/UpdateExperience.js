@@ -52,7 +52,8 @@ export default function UpdateExperience() {
                 height: scale(1),
                 marginHorizontal: scale(5),
                 marginTop: scale(30),
-              }}></View>
+              }}
+            />
 
             <View style={[styles.boxTextInput, {width: scale(152)}]}>
               <TextInput
@@ -107,7 +108,6 @@ const styles = StyleSheet.create({
     width: scale(330),
     height: scale(40),
     backgroundColor: '#fff',
-    borderRadius: 1,
     borderColor: '#307df1',
     elevation: 5,
     borderRadius: scale(5),
@@ -117,7 +117,6 @@ const styles = StyleSheet.create({
     width: scale(330),
     height: scale(160),
     backgroundColor: '#fff',
-    borderRadius: 1,
     borderColor: '#307df1',
     elevation: 5,
     borderRadius: scale(5),

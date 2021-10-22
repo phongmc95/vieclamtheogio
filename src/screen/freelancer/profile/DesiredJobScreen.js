@@ -5,7 +5,6 @@ import icons from '@constant/icons';
 import jobs from '@data/Jobs';
 
 export default function DesiredJobScreen({navigation}) {
-
   return (
     <View style={styles.box}>
       <View style={{flexDirection: 'row'}}>

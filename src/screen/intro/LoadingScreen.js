@@ -1,29 +1,17 @@
-import React, {useRef, useState} from 'react';
-
+import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {useNavigation} from '@react-navigation/native';
 import images from '../../constant/images';
+import fonts from '@constant/fonts';
 
 const LoadingScreen = ({navigation}) => {
   return (
     <View style={styles.Container}>
       <View style={styles.swiper}>
-        <Image
-          style={{width: scale(375), height: scale(175)}}
-          source={images.wave}
-        />
-        <Image
-          style={{
-            width: scale(300),
-            height: scale(222),
-            marginTop: scale(60),
-            marginBottom: scale(20),
-          }}
-          source={images.loading}
-        />
+        <Image style={styles.imgWave} source={images.wave} />
+        <Image style={styles.imgLoading} source={images.loading} />
       </View>
-      <View style={{marginTop: scale(30)}}>
+      <View style={styles.viewButton}>
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('LoginFlc')}>
@@ -31,11 +19,7 @@ const LoadingScreen = ({navigation}) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() =>
-            navigation.navigate('RegisterFlc', {
-              item: {cit_name: '', cit_id: ''},
-            })
-          }>
+          onPress={() => navigation.navigate('RegisterFlc')}>
           <Text style={styles.buttonText}>{'Đăng ký'}</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -57,7 +41,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: scale(20),
     color: '#307DF1',
-    fontWeight: 'bold',
+    fontFamily: fonts.BOLD,
   },
   button: {
     alignSelf: 'center',
@@ -71,6 +55,13 @@ const styles = StyleSheet.create({
     marginBottom: scale(5),
     elevation: 5,
     backgroundColor: '#fff',
-    marginBottom: scale(10),
   },
+  imgLoading: {
+    width: scale(300),
+    height: scale(222),
+    marginTop: scale(60),
+    marginBottom: scale(20),
+  },
+  imgWave: {width: scale(375), height: scale(175)},
+  viewButton: {marginTop: scale(30)},
 });

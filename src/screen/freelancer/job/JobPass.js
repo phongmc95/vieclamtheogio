@@ -5,21 +5,13 @@ import TitleBasic from '@components/title/TitleBasic';
 import icons from '@constant/icons';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import listJob from '@data/ListJob';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useNavigation} from '@react-navigation/native';
 
 export default function JobPass() {
-  const navigation = useNavigation();
-
   const renderItem = ({item}) => (
     <View style={styles.boxJob}>
-      <View style={{flexDirection: 'row'}}>
+      <View style={styles.row}>
         <Image style={styles.logoJob} source={icons.logoHCI} />
-        <View
-          style={{
-            marginHorizontal: scale(8),
-            width: '90%',
-          }}>
+        <View style={styles.viewCompany}>
           <Text style={styles.txtTitleJob}>{item.title}</Text>
           <Text style={styles.txtAddress}>{item.company}</Text>
         </View>
@@ -118,5 +110,10 @@ const styles = StyleSheet.create({
     fontSize: scale(12),
     lineHeight: scale(20),
     color: '#404040',
+  },
+  row: {flexDirection: 'row'},
+  viewCompany: {
+    marginHorizontal: scale(8),
+    width: '90%',
   },
 });

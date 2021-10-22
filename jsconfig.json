@@ -2,18 +2,44 @@
     "compilerOptions": {
         "baseUrl": "./",
         "paths": {
-            "@assets/*": ["assets/*"],
-            "@components/*": ["src/components/*"],
-            "@constant/*": ["src/constant/*"],
-            "@data/*": ["src/data/*"],
-            "@i18n/*": ["src/i18n/*"],
-            "@screens/*": ["src/screen/*"],
-            "@redux/*": ["src/redux/*"],
-            "@navigation/*": ["src/navigation/*"],
-            "@theme/*": ["src/theme/*"],
-            "@utils/*": ["src/Utils/*"],
-            "@base/*": ["src/base/*"]
+            "@assets/*": [
+                "assets/*"
+            ],
+            "@components/*": [
+                "src/components/*"
+            ],
+            "@constant/*": [
+                "src/constant/*"
+            ],
+            "@data/*": [
+                "src/data/*"
+            ],
+            "@i18n/*": [
+                "src/i18n/*"
+            ],
+            "@screens/*": [
+                "src/screen/*"
+            ],
+            "@redux/*": [
+                "src/redux/*"
+            ],
+            "@navigation/*": [
+                "src/navigation/*"
+            ],
+            "@theme/*": [
+                "src/theme/*"
+            ],
+            "@utils/*": [
+                "src/Utils/*"
+            ],
+            "@base/*": [
+                "src/base/*"
+            ]
         }
     },
-    "exclude": ["node_modules", "babel.config.js", "metro.config.js"]
+    "exclude": [
+        "node_modules",
+        "babel.config.js",
+        "metro.config.js"
+    ]
 }

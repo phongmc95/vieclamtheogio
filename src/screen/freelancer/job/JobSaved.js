@@ -42,7 +42,7 @@ export default function JobSaved() {
         <TouchableOpacity onPress={() => setCheck(!check)}>
           <Image
             style={{marginTop: scale(80), marginLeft: scale(10)}}
-            source={!check ? icons.check2: icons.checked2}
+            source={!check ? icons.check2 : icons.checked2}
           />
         </TouchableOpacity>
       </View>

@@ -1,3 +1,4 @@
+import fonts from '@constant/fonts';
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {scale} from 'react-native-size-matters';
@@ -27,11 +28,7 @@ export default function NotificationScreen() {
     <View style={styles.container}>
       <TitleBasic title="Thông báo" />
       {items.map(item => (
-        <View
-          style={{
-            paddingTop: scale(10),
-            paddingHorizontal: scale(20),
-          }}>
+        <View style={styles.content}>
           <View style={styles.viewItem}>
             <Image style={styles.icon} source={icons.logoHCI} />
             <View>
@@ -66,7 +63,7 @@ const styles = StyleSheet.create({
     fontSize: scale(16),
     lineHeight: scale(20),
     color: '#404040',
-    fontWeight: '500',
+    fontFamily: fonts.NORMAL,
     flexWrap: 'wrap',
     width: '65%',
   },
@@ -74,7 +71,11 @@ const styles = StyleSheet.create({
     fontSize: scale(14),
     lineHeight: scale(20),
     color: '#404040',
-    fontWeight: '300',
+    fontFamily: fonts.NORMAL,
     marginBottom: scale(5),
+  },
+  content: {
+    paddingTop: scale(10),
+    paddingHorizontal: scale(20),
   },
 });

@@ -1,17 +1,7 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, View, TextInput, ScrollView} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '@components/title/TitleBasic';
-import icons from '@constant/icons';
-import images from '@constant/images';
 import Button from '@components/Button/Button';
 
 export default function UpdateDesiredJob() {
@@ -36,15 +26,7 @@ export default function UpdateDesiredJob() {
           </View>
         </View>
       </ScrollView>
-      <View
-        style={{
-          height: scale(60),
-          width: '100%',
-          backgroundColor: '#fff',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          paddingTop: scale(10),
-        }}>
+      <View style={styles.viewButton}>
         <Button title="Lưu" color="#fff" bg="#307df1" right={scale(10)} />
         <Button title="Không lưu" color="#307df1" bg="#fff" />
       </View>
@@ -62,7 +44,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     marginLeft: scale(15),
     width: '90%',
-    color: '#000'
+    color: '#000',
   },
   boxTextInput: {
     width: scale(330),
@@ -71,7 +53,6 @@ const styles = StyleSheet.create({
     borderRadius: 1,
     borderColor: '#307df1',
     elevation: 5,
-    borderRadius: scale(5),
     marginVertical: scale(10),
   },
   icon: {width: scale(30), height: scale(30), marginTop: scale(5)},
@@ -80,5 +61,13 @@ const styles = StyleSheet.create({
     height: scale(10),
     marginTop: scale(15),
     marginLeft: scale(10),
+  },
+  viewButton: {
+    height: scale(60),
+    width: '100%',
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingTop: scale(10),
   },
 });

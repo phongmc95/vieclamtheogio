@@ -63,7 +63,6 @@ export default function RegisterScreen({navigation}) {
               <TextInput style={styles.textInput} placeholder="Địa chỉ" />
             </View>
 
-
             <View style={styles.boxTextInput}>
               <TextInput
                 style={styles.textInput}
@@ -154,7 +153,6 @@ const styles = StyleSheet.create({
     width: scale(330),
     height: scale(40),
     backgroundColor: '#fff',
-    borderRadius: 1,
     borderColor: '#307df1',
     borderRadius: scale(5),
     marginVertical: scale(5),

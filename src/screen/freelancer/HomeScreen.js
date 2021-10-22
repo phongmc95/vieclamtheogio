@@ -1,3 +1,5 @@
+import colors from '@constant/colors';
+import fonts from '@constant/fonts';
 import React from 'react';
 import {
   StyleSheet,
@@ -5,7 +7,6 @@ import {
   View,
   Image,
   TouchableOpacity,
-  FlatList,
   ScrollView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
@@ -16,25 +17,17 @@ import jobs from '../../data/Jobs';
 export default function HomeScreen({navigation}) {
   return (
     <View style={styles.container}>
-      <ScrollView style={{marginBottom: scale(65)}}>
+      <ScrollView style={styles.scroll}>
         <TitleHome />
         <View style={styles.viewCategory}>
-          <View
-            style={{
-              flexDirection: 'row',
-            }}>
+          <View style={styles.row}>
             <Text style={styles.txtTitle}>Việc làm nổi bật trong ngày</Text>
             <TouchableOpacity onPress={() => navigation.navigate('JobHot')}>
               <Text style={styles.txtSeeMore}>Xem thêm</Text>
             </TouchableOpacity>
           </View>
 
-          <View
-            style={{
-              width: '100%',
-              height: scale(270),
-              flexWrap: 'wrap',
-            }}>
+          <View style={styles.listJob}>
             {jobs.map(item => (
               <View style={styles.boxCategory}>
                 <Image style={styles.iconCategory} source={item.img} />
@@ -43,23 +36,16 @@ export default function HomeScreen({navigation}) {
             ))}
           </View>
           <View>
-            <View
-              style={{
-                flexDirection: 'row',
-              }}>
+            <View style={styles.row}>
               <Text style={styles.txtTitle}>Việc làm dành cho bạn</Text>
               <TouchableOpacity onPress={() => navigation.navigate('ListJob')}>
                 <Text style={styles.txtSeeMore}>Xem thêm</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.boxJob}>
-              <View style={{flexDirection: 'row'}}>
+              <View style={styles.row}>
                 <Image style={styles.logoJob} source={icons.logoHCI} />
-                <View
-                  style={{
-                    marginHorizontal: scale(8),
-                    width: '60%',
-                  }}>
+                <View style={styles.titleJob}>
                   <Text style={styles.txtTitleJob}>
                     Kỹ sư lập trình ứng dụng di động
                   </Text>
@@ -67,38 +53,31 @@ export default function HomeScreen({navigation}) {
                 </View>
                 <Image style={styles.iconHeart} source={icons.heart} />
               </View>
-              <View style={{flexDirection: 'row', marginTop: scale(5)}}>
+              <View style={styles.row}>
                 <Image style={styles.iconJob} source={icons.bag} />
                 <Text style={styles.txtStatus}>Toàn thời gian</Text>
               </View>
-              <View style={{flexDirection: 'row', marginTop: scale(5)}}>
+              <View style={styles.row}>
                 <Image style={styles.iconJob} source={icons.money} />
                 <Text style={styles.txtStatus}>7 - 10 Triệu</Text>
               </View>
-              <View style={{flexDirection: 'row', marginTop: scale(5)}}>
+              <View style={styles.row}>
                 <Image style={styles.iconJob} source={icons.local} />
                 <Text style={styles.txtStatus}>Hà Nội, Hồ Chí Minh</Text>
               </View>
             </View>
           </View>
           <View>
-            <View
-              style={{
-                flexDirection: 'row',
-              }}>
+            <View style={styles.row}>
               <Text style={styles.txtTitle}>Việc làm theo giờ mới nhất</Text>
               <TouchableOpacity onPress={() => navigation.navigate('ListJob')}>
                 <Text style={styles.txtSeeMore}>Xem thêm</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.boxJob}>
-              <View style={{flexDirection: 'row'}}>
+              <View style={styles.row}>
                 <Image style={styles.logoJob} source={icons.logoHCI} />
-                <View
-                  style={{
-                    marginHorizontal: scale(8),
-                    width: '60%',
-                  }}>
+                <View style={styles.viewTitle}>
                   <Text style={styles.txtTitleJob}>
                     Kỹ sư lập trình ứng dụng di động
                   </Text>
@@ -106,15 +85,15 @@ export default function HomeScreen({navigation}) {
                 </View>
                 <Image style={styles.iconHeart} source={icons.heart} />
               </View>
-              <View style={{flexDirection: 'row', marginTop: scale(5)}}>
+              <View style={styles.row}>
                 <Image style={styles.iconJob} source={icons.bag} />
                 <Text style={styles.txtStatus}>Toàn thời gian</Text>
               </View>
-              <View style={{flexDirection: 'row', marginTop: scale(5)}}>
+              <View style={styles.row}>
                 <Image style={styles.iconJob} source={icons.money} />
                 <Text style={styles.txtStatus}>7 - 10 Triệu</Text>
               </View>
-              <View style={{flexDirection: 'row', marginTop: scale(5)}}>
+              <View style={styles.row}>
                 <Image style={styles.iconJob} source={icons.local} />
                 <Text style={styles.txtStatus}>Hà Nội, Hồ Chí Minh</Text>
               </View>
@@ -129,7 +108,7 @@ export default function HomeScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.LIGHT_WHITE,
   },
   viewCategory: {
     paddingVertical: scale(10),
@@ -140,13 +119,14 @@ const styles = StyleSheet.create({
     fontSize: scale(18),
     lineHeight: scale(20),
     color: '#307df1',
-    fontWeight: 'bold',
+    fontFamily: fonts.BOLD,
     width: '78%',
   },
   txtSeeMore: {
     fontSize: scale(15),
     lineHeight: scale(20),
     color: '#404040',
+    fontFamily: fonts.NORMAL,
   },
   boxCategory: {
     height: scale(100),
@@ -171,13 +151,14 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     width: '70%',
     textAlign: 'center',
+    fontFamily: fonts.NORMAL,
   },
   boxJob: {
     paddingHorizontal: scale(12),
     paddingVertical: scale(12),
     borderWidth: 0.5,
     borderRadius: scale(20),
-    width: scale(240),
+    width: scale(310),
     backgroundColor: '#fff',
     elevation: 5,
     marginVertical: scale(10),
@@ -191,13 +172,14 @@ const styles = StyleSheet.create({
     fontSize: scale(15),
     lineHeight: scale(20),
     color: '#404040',
-    fontWeight: '500',
+    fontFamily: fonts.NORMAL,
     flexWrap: 'wrap',
   },
   txtAddress: {
     fontSize: scale(12),
     lineHeight: scale(20),
     color: '#404040',
+    fontFamily: fonts.NORMAL,
   },
   iconHeart: {
     height: scale(18),
@@ -214,5 +196,21 @@ const styles = StyleSheet.create({
     fontSize: scale(12),
     lineHeight: scale(20),
     color: '#404040',
+    fontFamily: fonts.NORMAL,
+  },
+  row: {flexDirection: 'row', marginTop: scale(5)},
+  viewTitle: {
+    marginHorizontal: scale(8),
+    width: '60%',
+  },
+  listJob: {
+    width: '100%',
+    height: scale(270),
+    flexWrap: 'wrap',
+  },
+  scroll: {marginBottom: scale(65)},
+  titleJob: {
+    marginHorizontal: scale(8),
+    width: '60%',
   },
 });

@@ -13,6 +13,7 @@ import TitleBasic from '@components/title/TitleBasic';
 import icons from '@constant/icons';
 import Modal from 'react-native-modal';
 import images from '@constant/images';
+import Button from '@components/Button/Button';
 
 export default function UpdatePassword() {
   const [modal, setModal] = useState(false);
@@ -115,7 +116,6 @@ const styles = StyleSheet.create({
     width: scale(330),
     height: scale(40),
     backgroundColor: '#fff',
-    borderRadius: 1,
     borderColor: '#307df1',
     elevation: 5,
     marginLeft: scale(10),

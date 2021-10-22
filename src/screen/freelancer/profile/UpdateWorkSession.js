@@ -49,16 +49,7 @@ const UpdateWorkSession = () => {
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={toggleCheck}>
-                <Text
-                  style={[
-                    styles.button,
-                    {
-                      color: !check ? '#307DF1' : '#fff',
-                      backgroundColor: !check ? '#ebebeb' : '#FFA800',
-                    },
-                  ]}>
-                  Tối
-                </Text>
+                <Text style={styles.button(check)}>Tối</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -148,17 +139,17 @@ const styles = StyleSheet.create({
     marginBottom: scale(5),
     fontWeight: 'bold',
   },
-  button: {
+  button: check => ({
     fontSize: scale(16),
-    color: '#307DF1',
     width: scale(90),
     paddingVertical: scale(10),
     textAlign: 'center',
-    backgroundColor: '#ebebeb',
     paddingTop: scale(8),
     borderRadius: scale(5),
     marginRight: scale(20),
-  },
+    color: !check ? '#307DF1' : '#fff',
+    backgroundColor: !check ? '#ebebeb' : '#FFA800',
+  }),
 });
 
 export default UpdateWorkSession;

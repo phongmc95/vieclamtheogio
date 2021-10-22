@@ -1,7 +1,7 @@
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import {scale} from 'react-native-size-matters';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { scale } from 'react-native-size-matters';
 import icons from '@constant/icons';
 
 export default function WorkSessionScreen() {
@@ -11,63 +11,63 @@ export default function WorkSessionScreen() {
       <TouchableOpacity onPress={() => navigation.navigate('UpdateWork')}>
         <Image style={styles.pen} source={icons.pen} />
       </TouchableOpacity>
-      <View style={{marginBottom: scale(20)}}>
+      <View style={styles.bottom}>
         <Text style={styles.txtProgress}>Thứ 2</Text>
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.row}>
           <Text style={styles.button}>Sáng</Text>
           <Text style={styles.button}>Chiều</Text>
           <Text style={styles.button}>Tối</Text>
         </View>
       </View>
 
-      <View style={{marginBottom: scale(20)}}>
+      <View style={styles.bottom}>
         <Text style={styles.txtProgress}>Thứ 3</Text>
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.row}>
           <Text style={styles.button}>Sáng</Text>
           <Text style={styles.button}>Chiều</Text>
           <Text style={styles.button}>Tối</Text>
         </View>
       </View>
 
-      <View style={{marginBottom: scale(20)}}>
+      <View style={styles.bottom}>
         <Text style={styles.txtProgress}>Thứ 4</Text>
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.row}>
           <Text style={styles.button}>Sáng</Text>
           <Text style={styles.button}>Chiều</Text>
           <Text style={styles.button}>Tối</Text>
         </View>
       </View>
 
-      <View style={{marginBottom: scale(20)}}>
+      <View style={styles.bottom}>
         <Text style={styles.txtProgress}>Thứ 5</Text>
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.row}>
           <Text style={styles.button}>Sáng</Text>
           <Text style={styles.button}>Chiều</Text>
           <Text style={styles.button}>Tối</Text>
         </View>
       </View>
 
-      <View style={{marginBottom: scale(20)}}>
+      <View style={styles.bottom}>
         <Text style={styles.txtProgress}>Thứ 6</Text>
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.row}>
           <Text style={styles.button}>Sáng</Text>
           <Text style={styles.button}>Chiều</Text>
           <Text style={styles.button}>Tối</Text>
         </View>
       </View>
 
-      <View style={{marginBottom: scale(20)}}>
+      <View style={styles.bottom}>
         <Text style={styles.txtProgress}>Thứ 7</Text>
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.row}>
           <Text style={styles.button}>Sáng</Text>
           <Text style={styles.button}>Chiều</Text>
           <Text style={styles.button}>Tối</Text>
         </View>
       </View>
 
-      <View style={{marginBottom: scale(20)}}>
+      <View style={styles.bottom}>
         <Text style={styles.txtProgress}>Chủ nhật</Text>
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.row}>
           <Text style={styles.button}>Sáng</Text>
           <Text style={styles.button}>Chiều</Text>
           <Text style={styles.button}>Tối</Text>
@@ -102,4 +102,6 @@ const styles = StyleSheet.create({
     borderRadius: scale(5),
     marginRight: scale(20),
   },
+  row: { flexDirection: 'row' },
+  bottom: { marginBottom: scale(20) }
 });

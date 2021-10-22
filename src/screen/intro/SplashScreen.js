@@ -12,6 +12,7 @@ const SplashScreen = ({navigation}) => {
     return () => {
       clearTimeout(time);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const fadeIn = () => {
     Animated.timing(fadeAnim, {
@@ -21,12 +22,12 @@ const SplashScreen = ({navigation}) => {
     }).start();
   };
 
-  const fadeOut = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      duration: 3000,
-    }).start();
-  };
+  // const fadeOut = () => {
+  //   Animated.timing(fadeAnim, {
+  //     toValue: 0,
+  //     duration: 3000,
+  //   }).start();
+  // };
   return (
     <Animated.View style={[styles.container, {opacity: fadeAnim}]}>
       <Image
