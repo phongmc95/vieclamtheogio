@@ -1,7 +1,7 @@
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import { scale } from 'react-native-size-matters';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 
 export default function WorkSessionScreen() {
@@ -102,6 +102,6 @@ const styles = StyleSheet.create({
     borderRadius: scale(5),
     marginRight: scale(20),
   },
-  row: { flexDirection: 'row' },
-  bottom: { marginBottom: scale(20) }
+  row: {flexDirection: 'row'},
+  bottom: {marginBottom: scale(20)},
 });

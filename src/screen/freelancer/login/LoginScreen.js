@@ -15,61 +15,32 @@ import fonts from '@constant/fonts';
 const LoginScreen = ({navigation}) => {
   return (
     <View style={styles.Container}>
-      <View style={{alignItems: 'center'}}>
-        <View
-          style={{
-            alignItems: 'center',
-            marginBottom: scale(20),
-          }}>
+      <View style={styles.alignItems}>
+        <View style={styles.header}>
           <Image style={styles.imgWave} source={images.wave} />
 
           <Text style={styles.txtTitle}>Đăng nhập</Text>
         </View>
         <View style={styles.boxTextInput}>
           <TextInput
-            style={[styles.textInput, {textAlign: 'center'}]}
+            style={styles.textInput}
             placeholder="Nhập số điện thoại"
           />
         </View>
         <View style={styles.boxTextInput}>
-          <TextInput
-            style={[styles.textInput, {textAlign: 'center'}]}
-            placeholder="Mật khẩu"
-          />
+          <TextInput style={styles.textInput} placeholder="Mật khẩu" pla />
         </View>
-        <Text
-          style={{fontSize: scale(13), color: '#404040', marginLeft: '60%'}}>
-          Quên mật khẩu
-        </Text>
+        <Text style={styles.txtPass}>Quên mật khẩu</Text>
         <TouchableOpacity onPress={() => navigation.navigate('BottomTabFlc')}>
           <Text style={styles.btnLogin}>Đăng nhập</Text>
         </TouchableOpacity>
-        <View style={{alignItems: 'center'}}>
-          <Image
-            style={{
-              width: scale(375),
-              height: scale(294),
-            }}
-            source={images.hunting_job}
-          />
-          <View
-            style={{
-              position: 'absolute',
-              marginTop: scale(10),
-              flexDirection: 'row',
-            }}>
-            <Text
-              style={{
-                fontSize: scale(15),
-                color: '#000',
-              }}>
-              Bạn chưa có tài khoản?{' '}
-            </Text>
+        <View style={styles.alignItems}>
+          <Image style={styles.imgFooter} source={images.hunting_job} />
+          <View style={styles.footer}>
+            <Text style={styles.txtFooter}>Bạn chưa có tài khoản? </Text>
             <TouchableOpacity
               onPress={() => navigation.navigate('RegisterFlc')}>
-              <Text style={{fontSize: scale(15), color: '#307df1'}}>
-                ĐĂNG KÝ NGAY
-              </Text>
+              <Text style={styles.txtRegister}>ĐĂNG KÝ NGAY</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -104,10 +75,10 @@ const styles = StyleSheet.create({
     marginBottom: scale(10),
   },
   textInput: {
-    fontWeight: '300',
     fontSize: scale(16),
     fontStyle: 'italic',
     marginLeft: scale(15),
+    fontFamily: fonts.NORMAL,
   },
   boxTextInput: {
     width: scale(330),
@@ -119,25 +90,52 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   btnLogin: {
-    width: scale(100),
-    height: scale(40),
     backgroundColor: '#307df1',
     borderRadius: scale(5),
     fontSize: scale(16),
-    fontWeight: '500',
     color: '#fff',
     textAlign: 'center',
     paddingVertical: scale(10),
     marginVertical: scale(15),
     fontFamily: fonts.NORMAL,
+    paddingHorizontal: scale(10),
   },
   txtTitle: {
     fontSize: scale(30),
     color: '#fff',
-    fontWeight: 'bold',
     position: 'absolute',
     marginTop: scale(50),
     fontFamily: fonts.BOLD,
   },
   imgWave: {width: scale(375), height: scale(175)},
+  alignItems: {alignItems: 'center'},
+  header: {
+    alignItems: 'center',
+    marginBottom: scale(20),
+  },
+  txtPass: {
+    fontSize: scale(13),
+    color: '#404040',
+    marginLeft: '60%',
+    fontFamily: fonts.NORMAL,
+  },
+  imgFooter: {
+    width: scale(375),
+    height: scale(294),
+  },
+  footer: {
+    position: 'absolute',
+    marginTop: scale(10),
+    flexDirection: 'row',
+  },
+  txtFooter: {
+    fontSize: scale(15),
+    color: '#000',
+    fontFamily: fonts.NORMAL,
+  },
+  txtRegister: {
+    fontSize: scale(15),
+    color: '#307df1',
+    fontFamily: fonts.NORMAL,
+  },
 });

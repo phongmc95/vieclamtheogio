@@ -11,28 +11,15 @@ import {
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 import Button from '@components/Button/Button';
+import fonts from '@constant/fonts';
 
 export default function RegisterScreen({navigation}) {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={{padding: scale(20), alignItems: 'center'}}>
-          <Text
-            style={{
-              fontSize: scale(30),
-              fontWeight: 'bold',
-              color: '#307df1',
-              marginVertical: scale(10),
-            }}>
-            Đăng ký ứng viên
-          </Text>
-          <Text
-            style={{
-              fontSize: scale(14),
-              color: '#307df1',
-              lineHeight: scale(16),
-              textAlign: 'center',
-            }}>
+        <View style={styles.content}>
+          <Text style={styles.text30}>Đăng ký ứng viên</Text>
+          <Text style={styles.text14}>
             Nhập đầy đủ thông tin để hoàn thành đăng ký
           </Text>
           <View style={{alignItems: 'center'}}>
@@ -164,5 +151,19 @@ const styles = StyleSheet.create({
     height: scale(10),
     marginTop: scale(15),
     marginLeft: scale(10),
+  },
+  content: {padding: scale(20), alignItems: 'center'},
+  text30: {
+    fontSize: scale(30),
+    fontFamily: fonts.BOLD,
+    color: '#307df1',
+    marginVertical: scale(10),
+  },
+  text14: {
+    fontSize: scale(14),
+    color: '#307df1',
+    lineHeight: scale(16),
+    textAlign: 'center',
+    fontFamily: fonts.NORMAL,
   },
 });
