@@ -17,9 +17,10 @@ import {
   HsIcon,
   LocalIcon,
   ViewIcon,
-} from '@assets/icon';
-import {ButtonGiaiPhap, ButtonSua} from '@components/Button/ButtonItem';
+  EyeIconPass,
+} from '../../../../assets/icon';
 import {TabView, TabBar} from 'react-native-tab-view';
+import HeaderStyle from '../../../components/HeaderStyle';
 const TD_Screen = ({navigation}) => {
   const DATA = [
     {
@@ -119,7 +120,7 @@ const TD_Screen = ({navigation}) => {
       <FAB
         style={styles.fab}
         small
-        icon="plus"
+        icon={() => <Text style={{fontSize: 24, color: 'white'}}>+</Text>}
         onPress={() => navigation.navigate('DangTin')}
         color="white"
       />
@@ -175,14 +176,12 @@ const TD_Screen = ({navigation}) => {
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <TouchableOpacity
           style={{margin: scale(5)}}
-          onPress={() => navigation.navigate('GiaiPhap')}>
-          <ButtonGiaiPhap nameBTN="Giải pháp" />
-        </TouchableOpacity>
+          onPress={() => navigation.navigate('GiaiPhap')}
+        />
         <TouchableOpacity
           style={{margin: scale(5)}}
-          onPress={() => navigation.navigate('SuaTin')}>
-          <ButtonSua nameBTN="Sửa" />
-        </TouchableOpacity>
+          onPress={() => navigation.navigate('SuaTin')}
+        />
       </View>
     </View>
   );
@@ -277,9 +276,7 @@ const TD_Screen = ({navigation}) => {
   return (
     <View style={styles.contener}>
       <View style={{backgroundColor: '#FFFFFF'}}>
-        <View style={styles.StatusBar}>
-          <Text style={styles.title}>Tuyển dụng</Text>
-        </View>
+        <HeaderStyle type="nomal" Title="Tuyển dụng" />
       </View>
       {/* main */}
 

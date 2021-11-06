@@ -12,8 +12,11 @@ import {s, scale} from 'react-native-size-matters';
 import {CameraIcon, Selecter, EyeIconPass} from '@assets/icon';
 import * as ImagePicker from 'react-native-image-picker';
 import {Modal, Portal} from 'react-native-paper';
-import {isVietnamesePhoneNumber, validateEmail} from '@base/Validate';
-import SignIn_NTD from '@base/API/apiNTD/SignIn_NTD';
+import {isVietnamesePhoneNumber, validateEmail} from '../../../base/Validate';
+import SignIn_NTD from '../../../base/API/apiNTD/SignIn_NTD';
+import TextInputStyle from '../../../components/TextInputStyle';
+import TextInputPassword from '../../../components/TextInputPassword';
+import ButtonStyle from '../../../components/ButtonStyle';
 const SignInNTD = ({navigation, route}) => {
   const {item} = route.params;
   const cityid = item.cit_id;
@@ -95,41 +98,7 @@ const SignInNTD = ({navigation, route}) => {
       PostSignUp();
     }
   };
-  const PostSignUp = async () => {
-    try {
-      var data = new FormData();
-      data.append('email', email);
-      data.append('phone', phone);
-      data.append('name', name);
-      data.append('pass', pass);
-      data.append('re_pass', pass1);
-      data.append('tinhthanh', cityid);
-      data.append('quanhuyen', districtID);
-      data.append('address', address);
-      if (logo) {
-        const file = {
-          uri: logo.assets[0].uri,
-          name: logo.assets[0].fileName,
-          type: logo.assets[0].type,
-        };
-        data.append('logo', file);
-      }
-      const response = await SignIn_NTD.SignUp(data);
-      if (response.data == null) {
-        setMessage(response.error.message);
-        setVisible(true);
-      } else {
-        navigation.navigate('OTP_Confirm', {
-          token: response.data.token,
-          email_otp: email,
-        });
-        console.log(response.data.token);
-      }
-      console.log(response.data.token);
-    } catch (error) {
-      console.log('Call lỗi rồi đại ca ơi!' + error);
-    }
-  };
+  const PostSignUp = async () => {};
   const AddressChecker = () => {
     if (city == 'Tỉnh thành') {
       setMessage('Bạn phải chọn Tỉnh thành trước');
@@ -167,89 +136,40 @@ const SignInNTD = ({navigation, route}) => {
           <TouchableOpacity onPress={openLibry}>
             <Text style={styles.openLibry}>Chọn ảnh</Text>
           </TouchableOpacity>
-          <View style={[styles.boxInput, {marginTop: scale(20)}]}>
-            <TextInput
-              placeholder="Nhập số điện thoại"
+          <View style={{marginTop: scale(20), marginBottom: '7%'}}>
+            <TextInputStyle
+              Label="Phone"
               value={phone}
-              onChangeText={input => setPhone(input)}
-              style={styles.textInput}
-              keyboardType="phone-pad"
+              onChangeText={text => setPhone(text)}
             />
-          </View>
-          <View style={styles.boxRow}>
-            <TextInput
-              secureTextEntry={showP}
-              placeholder="Nhập mật khẩu"
+            <TextInputPassword
+              Label="Password"
               value={pass}
-              onChangeText={input => setPass(input)}
-              style={styles.textInput}
+              onChangeText={text => setPass(text)}
             />
-            <TouchableOpacity
-              style={{marginRight: scale(10)}}
-              onPress={() => setShowP(!showP)}>
-              <EyeIconPass color="#808080" />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.boxRow}>
-            <TextInput
-              secureTextEntry={showP}
-              placeholder="Nhập lại mật khẩu"
+            <TextInputPassword
+              Label="Confirm Password"
               value={pass1}
-              onChangeText={input => setPass1(input)}
-              style={styles.textInput}
+              onChangeText={text => setPass1(text)}
             />
-            <TouchableOpacity
-              style={{marginRight: scale(10)}}
-              onPress={() => setShowP(!showP)}>
-              <EyeIconPass color="#808080" />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.boxInput}>
-            <TextInput
-              placeholder="Tên doanh nghiệp"
-              style={styles.textInput}
+            <TextInputStyle
+              Label="Name"
               value={name}
-              onChangeText={input => setName(input)}
+              onChangeText={text => setName(text)}
             />
-          </View>
-          <View style={styles.boxInput}>
-            <TextInput
-              placeholder="Email"
-              style={styles.textInput}
+            <TextInputStyle
+              Label="Email"
               value={email}
-              onChangeText={input => setEmail(input)}
+              onChangeText={text => setEmail(text)}
             />
-          </View>
-          <View style={styles.boxInput}>
-            <TextInput
-              placeholder="Địa chỉ"
-              style={styles.textInput}
+            <TextInputStyle
+              Label="Address"
               value={address}
-              onChangeText={input => setAddress(input)}
+              onChangeText={text => setAddress(text)}
             />
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('CityNTD');
-            }}>
-            <View style={styles.boxRow}>
-              <Text style={styles.textInput}>{city}</Text>
-              <View style={{marginRight: scale(10)}}>
-                <Selecter />
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={AddressChecker}>
-            <View style={styles.boxRow}>
-              <Text style={styles.textInput}>{district}</Text>
-              <View style={{marginRight: scale(10)}}>
-                <Selecter />
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={submit}>
-            <Text style={styles.btnSigin}>Đăng ký</Text>
-          </TouchableOpacity>
+
+          <ButtonStyle Title="Đăng Kí" styleBtn={{width: scale(120)}} />
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.txt_login}>Bạn đã có tài khoản ?</Text>
             <TouchableOpacity onPress={() => navigation.navigate('LoginNTD')}>
@@ -258,19 +178,6 @@ const SignInNTD = ({navigation, route}) => {
           </View>
         </View>
       </ScrollView>
-      <Modal visible={visible} onDismiss={hideModal}>
-        <View style={styles.viewModal}>
-          <View style={styles.viewContent}>
-            <Text style={styles.tbmd}>Thông báo</Text>
-            <Text style={styles.content}>{message}.</Text>
-          </View>
-          <TouchableOpacity
-            style={styles.btntb}
-            onPress={() => setVisible(false)}>
-            <Text style={styles.confirm}>OK</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
     </View>
   );
 };
@@ -282,19 +189,20 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#F5F5FF',
   },
   title: {
     fontWeight: '700',
     fontSize: scale(30),
     textAlign: 'center',
-    color: '#307DF1',
-    marginTop: scale(10),
+    color: '#4C5BD4',
+    marginTop: '20%',
   },
   title2: {
     fontWeight: '400',
     fontSize: scale(14),
     textAlign: 'center',
-    color: '#307DF1',
+    color: '#4C5BD4',
     marginTop: scale(10),
   },
   camera: {
@@ -311,7 +219,7 @@ const styles = StyleSheet.create({
     width: scale(325),
     height: scale(40),
     borderWidth: scale(1),
-    borderColor: '#307DF1',
+    borderColor: '#4C5BD4',
 
     justifyContent: 'center',
     margin: scale(5),
@@ -323,30 +231,7 @@ const styles = StyleSheet.create({
     marginLeft: scale(20),
     color: '#404040',
   },
-  btnSigin: {
-    fontWeight: '500',
 
-    fontSize: scale(16),
-    textAlign: 'center',
-    backgroundColor: '#307DF1',
-    paddingHorizontal: scale(23),
-    paddingVertical: scale(11),
-    borderRadius: scale(30),
-    color: 'white',
-    marginTop: scale(20),
-  },
-  boxRow: {
-    width: scale(325),
-    height: scale(40),
-    borderWidth: scale(1),
-    borderColor: '#307DF1',
-
-    margin: scale(5),
-    borderRadius: scale(5),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
   avatar: {
     height: scale(80),
     width: scale(80),
@@ -358,12 +243,12 @@ const styles = StyleSheet.create({
   openLibry: {
     fontSize: scale(16),
     fontWeight: '600',
-    color: '#307df1',
+    color: '#4C5BD4',
     borderWidth: scale(0.5),
-    borderColor: '#307df1',
+    borderColor: '#4C5BD4',
     paddingHorizontal: scale(15),
     paddingVertical: scale(5),
-    borderRadius: scale(30),
+    borderRadius: scale(10),
     marginTop: scale(10),
   },
   txt_login: {
@@ -380,44 +265,4 @@ const styles = StyleSheet.create({
     marginTop: scale(28),
   },
   // modal
-  viewModal: {
-    height: scale(200),
-    backgroundColor: 'white',
-    width: scale(300),
-
-    margin: scale(25),
-    borderRadius: scale(30),
-    marginTop: scale(-50),
-  },
-  tbmd: {
-    fontSize: scale(24),
-    fontWeight: '700',
-    color: '#307df1',
-    marginTop: scale(15),
-  },
-  content: {
-    fontSize: scale(18),
-    fontWeight: '600',
-    color: '#404040',
-    margin: scale(15),
-    textAlign: 'center',
-  },
-  confirm: {
-    color: '#307df1',
-    fontSize: scale(24),
-    marginTop: scale(8),
-  },
-  btntb: {
-    borderTopWidth: scale(0.3),
-    borderColor: '#404040',
-    width: scale(300),
-
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: scale(20),
-  },
-  viewContent: {
-    alignItems: 'center',
-    height: scale(130),
-  },
 });

@@ -15,7 +15,6 @@ import {
   LocalIcon,
   PhoneIcon,
   ClockIcon,
-  SelectDowIcon,
   BackIcon,
   DeleteICon,
 } from '@assets/icon/index';

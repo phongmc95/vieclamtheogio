@@ -8,9 +8,8 @@ import {
   FlatList,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {BackIcon, Selecter, DateIcon} from '@assets/icon';
-import TD_API from '@base/API/apiNTD/TD_API';
-import {ButtonDAY, ButtonDAY2} from '@components/Button/ButtonItem';
+import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
+import TD_API from '../../../base/API/apiNTD/TD_API';
 
 const Job = ({navigation}) => {
   const [data, setData] = useState([]);
@@ -116,7 +115,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     margin: scale(5),
     borderRadius: scale(5),
-    justifyContent: 'center',
     marginLeft: scale(15),
   },
   textInput: {

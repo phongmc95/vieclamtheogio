@@ -11,33 +11,12 @@ import {
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {useSelector} from 'react-redux';
-import {NotificationICON} from '@assets/icon';
-import HomeAPi from '@base/API/apiNTD/HomeAPi';
-import {
-  ButtonItemBoqua,
-  ButtonItemLuu,
-} from '@components/Button/ButtonItem';
-
+import {NotificationICON} from '../../../../assets/icon';
+import HomeAPi from '../../../base/API/apiNTD/HomeAPi';
+import HeaderStyle from '../../../components/HeaderStyle';
+import {isIos} from '../../../Utils/CheckDevice';
+const data = null;
 const Home = () => {
-  const get_token = useSelector(state => state.LOGIN.tokenlogin);
-  const [data, setData] = useState(null);
-  useEffect(() => {
-    const callApi = async () => {
-      try {
-        var data = new FormData();
-        data.append('token', get_token);
-
-        const response = await HomeAPi.getAll(data);
-
-        console.log(response);
-        setData(response.data);
-      } catch (error) {
-        console.log('lỗi rồi Tuấn ơi??????' + error);
-      }
-    };
-    callApi();
-  }, []);
-
   const renderItem = ({item}) => (
     <View style={styles.ViewFlatlist}>
       <Text style={styles.TextTitle}>{item.vi_tri}</Text>
@@ -86,12 +65,8 @@ const Home = () => {
         <Text style={[styles.TextR, {color: 'black'}]}>{item.created_at}</Text>
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <TouchableOpacity style={{margin: scale(5)}}>
-          <ButtonItemLuu nameBTN="Lưu" />
-        </TouchableOpacity>
-        <TouchableOpacity style={{margin: scale(5)}}>
-          <ButtonItemBoqua nameBTN="Bỏ qua" />
-        </TouchableOpacity>
+        <TouchableOpacity style={{margin: scale(5)}} />
+        <TouchableOpacity style={{margin: scale(5)}} />
       </View>
     </View>
   );
@@ -99,24 +74,7 @@ const Home = () => {
   return (
     <View style={styles.contener}>
       {/* tusBar */}
-      <View style={styles.StatusBar}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Image
-            source={
-              data
-                ? {uri: data.avatar}
-                : require('@assets/img/logoVin.png')
-            }
-            style={styles.logo}
-          />
-          <Text style={styles.NameNTD}>{data ? data.ten_ntd : ''}</Text>
-        </View>
-        <TouchableOpacity
-          style={styles.Notification}
-          onPress={() => console.log(get_token)}>
-          <NotificationICON />
-        </TouchableOpacity>
-      </View>
+      <HeaderStyle type="home" Title="HÀ Anh Tuấn" />
       {/* main */}
       <ScrollView style={{marginBottom: scale(65)}}>
         <View style={styles.main}>
@@ -210,38 +168,6 @@ export default Home;
 const styles = StyleSheet.create({
   contener: {
     flex: 1,
-  },
-  StatusBar: {
-    backgroundColor: '#307DF1',
-    height: scale(60),
-    borderBottomLeftRadius: scale(20),
-    borderBottomRightRadius: scale(20),
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  logo: {
-    height: scale(40),
-    width: scale(40),
-    margin: scale(10),
-    marginLeft: scale(10),
-    borderRadius: scale(20),
-  },
-  NameNTD: {
-    color: 'white',
-    fontSize: scale(18),
-    fontWeight: '700',
-    lineHeight: scale(20),
-  },
-  Notification: {
-    backgroundColor: 'white',
-    width: scale(35),
-    height: scale(35),
-
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: scale(50),
-    margin: scale(10),
   },
 
   main: {

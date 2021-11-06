@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, {useEffect} from 'react';
+import {StyleSheet, Text, View, StatusBar} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import BottomTapsNTD from './BottomTaps/BottomTapsNTD';
 import BottomTabFlc from './BottomTaps/BottomTabFlc';
 import OnbroadScreen from '../screen/intro/OnbroadScreen';
@@ -39,8 +39,6 @@ import Sagaly from '../screen/NTD/TD/Sagaly';
 import UpdateInfoNTD from '../screen/NTD/ProfileNTD/UpdateInfoNTD';
 import ChangePassNTD from '../screen/NTD/ProfileNTD/ChangePassNTD';
 import DetailUV from '../screen/NTD/ProfileUV/DetailUV';
-import { Provider } from 'react-redux';
-import Store from '../redux/store/Store';
 import OTP_Confirm from '../screen/NTD/LOGIN/OTP_Confirm';
 import SelectNTD from '../screen/NTD/LOGIN/SelectNTD';
 import InputEmail from '../screen/NTD/LOGIN/ChangePass/InputEmail';
@@ -50,14 +48,12 @@ import ListFilter from '../.../../screen/NTD/UV/ListFilter';
 import Filter2 from '../.../../screen/NTD/UV/Filter2';
 import ListFilter2 from '../.../../screen/NTD/UV/ListFilter2';
 import NewPass from '../screen/NTD/LOGIN/ChangePass/NewPass';
-import SplashScreen from '@screens/intro/SplashScreen'
+import SplashScreen from '../screen/intro/SplashScreen';
+import {Provider} from 'react-redux';
+import {Store} from '../redux/store/Store';
 
 const Stack = createStackNavigator();
 const StackNavigation = () => {
-  useEffect(() => {
-    StatusBar.setBackgroundColor('#307DF1');
-  }, []);
-
   return (
     <Provider store={Store}>
       <NavigationContainer>
@@ -65,7 +61,6 @@ const StackNavigation = () => {
           <Stack.Screen name="SplashScreen" component={SplashScreen} />
           <Stack.Screen name="Intro" component={OnbroadScreen} />
 
-          {/* nhà tuyển dụng */}
           <Stack.Screen name="SelectNTD" component={SelectNTD} />
           <Stack.Screen name="LoginNTD" component={LoginNTD} />
           <Stack.Screen name="InputEmail" component={InputEmail} />
@@ -119,5 +114,3 @@ const StackNavigation = () => {
 };
 
 export default StackNavigation;
-
-const styles = StyleSheet.create({});
