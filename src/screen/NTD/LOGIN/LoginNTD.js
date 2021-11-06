@@ -13,14 +13,24 @@ import TextInputPassword from '../../../components/TextInputPassword';
 import {getDeviceWidth} from '../../../Utils/CheckDevice';
 import ButtonStyle from '../../../components/ButtonStyle';
 import {validateEmail} from '../../../base/Validate';
+import ModalStyle from '../../../components/ModalStyle';
+import {EMaskUnits} from 'react-native-svg';
 const LoginNTD = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
 
-  const [passErro, setpassErro] = useState('');
+  const [modal, setModal] = useState(false);
+  const [error, setError] = useState('');
 
   const submit = () => {
-    navigation.navigate('tabNTD');
+    if (!email || !pass) {
+      return;
+    } else if (!validateEmail(email)) {
+      setModal(true);
+      setError('Bạn nhập email không đúng định dạng . Vui  lòng nhập lại ! ');
+    }
+
+    // navigation.navigate('tabNTD');
   };
   return (
     <View style={styles.contener}>
@@ -77,6 +87,11 @@ const LoginNTD = ({navigation}) => {
           style={styles.fodter}
         />
       </ScrollView>
+      <ModalStyle
+        isVisible={modal}
+        onBackdropPress={() => setModal(false)}
+        content={error}
+      />
     </View>
   );
 };
