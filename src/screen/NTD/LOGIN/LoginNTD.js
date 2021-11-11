@@ -24,13 +24,14 @@ const LoginNTD = ({navigation}) => {
 
   const submit = () => {
     if (!email || !pass) {
-      return;
+      setModal(true);
+      setError('Các ô nhập là bắt buộc không được để trống! ');
     } else if (!validateEmail(email)) {
       setModal(true);
       setError('Bạn nhập email không đúng định dạng . Vui  lòng nhập lại ! ');
     }
 
-    // navigation.navigate('tabNTD');
+    //navigation.navigate('tabNTD');
   };
   return (
     <View style={styles.contener}>

@@ -53,67 +53,78 @@ import ListFilter2 from '../.../../screen/NTD/UV/ListFilter2';
 import NewPass from '../screen/NTD/LOGIN/ChangePass/NewPass';
 import SplashScreen from '../screen/intro/SplashScreen';
 import {Provider} from 'react-redux';
-import {Store} from '../redux/store/Store';
-
+import {persistor, Store} from '../redux/store/Store';
+import {PersistGate} from 'redux-persist/integration/react';
 const Stack = createStackNavigator();
 const StackNavigation = () => {
   return (
     <Provider store={Store}>
-      <NavigationContainer>
-        <Stack.Navigator headerMode="none">
-          <Stack.Screen name="SplashScreen" component={SplashScreen} />
-          <Stack.Screen name="Intro" component={OnbroadScreen} />
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <Stack.Navigator headerMode="none">
+            <Stack.Screen name="SplashScreen" component={SplashScreen} />
+            <Stack.Screen name="Intro" component={OnbroadScreen} />
 
-          <Stack.Screen name="SelectNTD" component={SelectNTD} />
-          <Stack.Screen name="LoginNTD" component={LoginNTD} />
-          <Stack.Screen name="InputEmail" component={InputEmail} />
-          <Stack.Screen name="InputOTP" component={InputOTP} />
-          <Stack.Screen name="NewPass" component={NewPass} />
-          <Stack.Screen name="OTP_Confirm" component={OTP_Confirm} />
-          <Stack.Screen name="SignInNTD" component={SignInNTD} />
-          <Stack.Screen name="DistrictNTD" component={DistrictNTD} />
-          <Stack.Screen name="CityNTD" component={CityNTD} />
-          <Stack.Screen name="tabNTD" component={BottomTapsNTD} />
-          <Stack.Screen name="GiaiPhap" component={GiaiPhap} />
-          <Stack.Screen name="DangTin" component={DangTin} />
-          <Stack.Screen name="SuaTin" component={SuaTin} />
-          <Stack.Screen name="Job" component={Job} />
-          <Stack.Screen name="Sagaly" component={Sagaly} />
-          <Stack.Screen name="Filter" component={Filter} />
-          <Stack.Screen name="ListFilter" component={ListFilter} />
-          <Stack.Screen name="Filter2" component={Filter2} />
-          <Stack.Screen name="ListFilter2" component={ListFilter2} />
-          <Stack.Screen name="UpdateInfoNTD" component={UpdateInfoNTD} />
-          <Stack.Screen name="ChangePassNTD" component={ChangePassNTD} />
-          <Stack.Screen name="DetailUV" component={DetailUV} />
+            <Stack.Screen name="SelectNTD" component={SelectNTD} />
+            <Stack.Screen name="LoginNTD" component={LoginNTD} />
+            <Stack.Screen name="InputEmail" component={InputEmail} />
+            <Stack.Screen name="InputOTP" component={InputOTP} />
+            <Stack.Screen name="NewPass" component={NewPass} />
+            <Stack.Screen name="OTP_Confirm" component={OTP_Confirm} />
+            <Stack.Screen name="SignInNTD" component={SignInNTD} />
+            <Stack.Screen name="DistrictNTD" component={DistrictNTD} />
+            <Stack.Screen name="CityNTD" component={CityNTD} />
+            <Stack.Screen name="tabNTD" component={BottomTapsNTD} />
+            <Stack.Screen name="GiaiPhap" component={GiaiPhap} />
+            <Stack.Screen name="DangTin" component={DangTin} />
+            <Stack.Screen name="SuaTin" component={SuaTin} />
+            <Stack.Screen name="Job" component={Job} />
+            <Stack.Screen name="Sagaly" component={Sagaly} />
+            <Stack.Screen name="Filter" component={Filter} />
+            <Stack.Screen name="ListFilter" component={ListFilter} />
+            <Stack.Screen name="Filter2" component={Filter2} />
+            <Stack.Screen name="ListFilter2" component={ListFilter2} />
+            <Stack.Screen name="UpdateInfoNTD" component={UpdateInfoNTD} />
+            <Stack.Screen name="ChangePassNTD" component={ChangePassNTD} />
+            <Stack.Screen name="DetailUV" component={DetailUV} />
 
-          {/* ứng viên */}
-          <Stack.Screen name="TabTopFlc" component={TabTopFlc} />
-          <Stack.Screen name="BottomTabFlc" component={BottomTabFlc} />
-          <Stack.Screen name="Notification" component={NotificationScreen} />
-          <Stack.Screen name="Search" component={SearchScreen} />
-          <Stack.Screen name="JobHot" component={JobHotScreen} />
-          <Stack.Screen name="Filters" component={FilterScreen} />
-          <Stack.Screen name="JobSaved" component={JobSaved} />
-          <Stack.Screen name="JobPass" component={JobPass} />
-          <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
-          <Stack.Screen name="UpdateDesiredJob" component={UpdateDesiredJob} />
-          <Stack.Screen name="UpdateExperience" component={UpdateExperience} />
-          <Stack.Screen name="UpdateInfomation" component={UpdateInfomation} />
-          <Stack.Screen name="UpdateSkill" component={UpdateSkillPersonal} />
-          <Stack.Screen name="UpdateWork" component={UpdateWorkSession} />
-          <Stack.Screen name="JobDetail" component={JobDetailScreen} />
-          <Stack.Screen name="ListJob" component={ListJobScreen} />
-          <Stack.Screen name="CityFlc" component={CityScreen} />
-          <Stack.Screen name="DistrictFlc" component={DistrictScreen} />
-          <Stack.Screen name="LoginFlc" component={LoginScreen} />
-          <Stack.Screen name="RegisterFlc" component={RegisterScreen} />
-          <Stack.Screen name="OTPFlc" component={OTPScreen} />
-          <Stack.Screen name="TimeWorkingFlc" component={TimeWorking} />
-          <Stack.Screen name="JobDesiedFlc" component={JobDesied} />
-          <Stack.Screen name="LoadingFlc" component={LoadingScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+            {/* ứng viên */}
+            <Stack.Screen name="TabTopFlc" component={TabTopFlc} />
+            <Stack.Screen name="BottomTabFlc" component={BottomTabFlc} />
+            <Stack.Screen name="Notification" component={NotificationScreen} />
+            <Stack.Screen name="Search" component={SearchScreen} />
+            <Stack.Screen name="JobHot" component={JobHotScreen} />
+            <Stack.Screen name="Filters" component={FilterScreen} />
+            <Stack.Screen name="JobSaved" component={JobSaved} />
+            <Stack.Screen name="JobPass" component={JobPass} />
+            <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
+            <Stack.Screen
+              name="UpdateDesiredJob"
+              component={UpdateDesiredJob}
+            />
+            <Stack.Screen
+              name="UpdateExperience"
+              component={UpdateExperience}
+            />
+            <Stack.Screen
+              name="UpdateInfomation"
+              component={UpdateInfomation}
+            />
+            <Stack.Screen name="UpdateSkill" component={UpdateSkillPersonal} />
+            <Stack.Screen name="UpdateWork" component={UpdateWorkSession} />
+            <Stack.Screen name="JobDetail" component={JobDetailScreen} />
+            <Stack.Screen name="ListJob" component={ListJobScreen} />
+            <Stack.Screen name="CityFlc" component={CityScreen} />
+            <Stack.Screen name="DistrictFlc" component={DistrictScreen} />
+            <Stack.Screen name="LoginFlc" component={LoginScreen} />
+            <Stack.Screen name="RegisterFlc" component={RegisterScreen} />
+            <Stack.Screen name="OTPFlc" component={OTPScreen} />
+            <Stack.Screen name="TimeWorkingFlc" component={TimeWorking} />
+            <Stack.Screen name="JobDesiedFlc" component={JobDesied} />
+            <Stack.Screen name="LoadingFlc" component={LoadingScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 };
