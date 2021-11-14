@@ -1,14 +1,16 @@
 import {
+  CHECK_TYPE_LOGIN,
   FETCH_POST_LOGIN_ERROR,
   FETCH_POST_LOGIN_REQUEST,
   FETCH_POST_LOGIN_SUCCESS,
-} from '../../actions/type/Type';
+} from '../actions/type/Type';
 
 const initialState = {
   requesting: false,
   success: false,
   message: null,
   data: null,
+  check_type: null,
 };
 const LogIn = (state = initialState, action) => {
   switch (action.type) {
@@ -29,6 +31,11 @@ const LogIn = (state = initialState, action) => {
         ...state,
         requesting: false,
         message: action.message,
+      };
+    case CHECK_TYPE_LOGIN:
+      return {
+        ...state,
+        check_type: action.data,
       };
 
     default:

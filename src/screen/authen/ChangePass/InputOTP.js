@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {scale} from 'react-native-size-matters';
-import {getDeviceWidth} from '../../../../Utils/CheckDevice';
-import ButtonStyle from '../../../../components/ButtonStyle';
+import {getDeviceWidth} from '../../../Utils/CheckDevice';
+import ButtonStyle from '../../../components/ButtonStyle';
 
 const InputOTP = ({navigation, route}) => {
   const [timerCount, setTimer] = useState(300);
@@ -35,11 +35,11 @@ const InputOTP = ({navigation, route}) => {
       <ScrollView>
         <View style={styles.container}>
           <Image
-            source={require('../../../../../assets/images/Bgheader.png')}
+            source={require('../../../../assets/images/Bgheader.png')}
             style={styles.logo}
           />
           <Image
-            source={require('../../../../../assets/images/logoapp.png')}
+            source={require('../../../../assets/images/logoapp.png')}
             style={styles.logoapp}
           />
           <Text style={styles.title}>

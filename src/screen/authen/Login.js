@@ -8,19 +8,22 @@ import {
   Image,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import TextInputStyle from '../../../components/TextInputStyle';
-import TextInputPassword from '../../../components/TextInputPassword';
-import {getDeviceWidth} from '../../../Utils/CheckDevice';
-import ButtonStyle from '../../../components/ButtonStyle';
-import {validateEmail} from '../../../base/Validate';
-import ModalStyle from '../../../components/ModalStyle';
-const LoginNTD = ({navigation}) => {
+import TextInputStyle from '../../components/TextInputStyle';
+import TextInputPassword from '../../components/TextInputPassword';
+import {getDeviceWidth} from '../../Utils/CheckDevice';
+import ButtonStyle from '../../components/ButtonStyle';
+import {validateEmail} from '../../base/Validate';
+import ModalStyle from '../../components/ModalStyle';
+import {useSelector} from 'react-redux';
+
+const Login = ({navigation}) => {
+  const checkLogin = useSelector(state => state.LOGIN.check_type);
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
 
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
-
+  console.log('>>>', checkLogin);
   const submit = () => {
     if (!email || !pass) {
       setModal(true);
@@ -33,7 +36,7 @@ const LoginNTD = ({navigation}) => {
   return (
     <View style={styles.contener}>
       <Image
-        source={require('../../../../assets/images/Bgheader.png')}
+        source={require('../../../assets/images/Bgheader.png')}
         style={styles.logo}
       />
       <Text style={styles.TitleLogin}>Đăng nhập</Text>
@@ -70,18 +73,13 @@ const LoginNTD = ({navigation}) => {
           />
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.text1}>Bạn chưa có tài khoản?</Text>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('SignInNTD', {
-                  item: {cit_name: '', cit_id: ''},
-                })
-              }>
+            <TouchableOpacity onPress={() => navigation.navigate('Resgister')}>
               <Text style={styles.text2}>Đăng ký ngay</Text>
             </TouchableOpacity>
           </View>
         </View>
         <Image
-          source={require('../../../../assets/images/hunting_job.png')}
+          source={require('../../../assets/images/hunting_job.png')}
           style={styles.fodter}
         />
       </ScrollView>
@@ -94,7 +92,7 @@ const LoginNTD = ({navigation}) => {
   );
 };
 
-export default LoginNTD;
+export default Login;
 
 const styles = StyleSheet.create({
   contener: {

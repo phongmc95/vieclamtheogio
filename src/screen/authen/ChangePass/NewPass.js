@@ -10,29 +10,16 @@ import {
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 
-import {getDeviceWidth} from '../../../../Utils/CheckDevice';
-import TextInputPassword from '../../../../components/TextInputPassword';
-import ButtonStyle from '../../../../components/ButtonStyle';
+import {getDeviceWidth} from '../../../Utils/CheckDevice';
+import TextInputPassword from '../../../components/TextInputPassword';
+import ButtonStyle from '../../../components/ButtonStyle';
 const NewPass = ({navigation, route}) => {
   const [pass, setPass] = useState('');
   const [pass1, setPass1] = useState('');
   const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
   const submit = () => {
-    // if (!pass || !pass1) {
-    //   setMessage('Các ô nhập là bắt buộc không được để trống');
-    //   setVisible(true);
-    // } else if (reg.test(pass) === false) {
-    //   setMessage(
-    //     'Mật khẩu cần có ít nhất 8 ký tự, ít nhất một chữ cái và một số và không có dấu cách',
-    //   );
-    //   setVisible(true);
-    // } else if (pass1 != pass) {
-    //   setMessage('Nhập lại mật khẩu không trùng khớp ');
-    //   setVisible(true);
-    // } else {
-    //   callApi();
-    // }
+
     navigation.navigate('LoginNTD');
   };
 
@@ -41,11 +28,11 @@ const NewPass = ({navigation, route}) => {
       <ScrollView>
         <View style={styles.container}>
           <Image
-            source={require('../../../../../assets/images/Bgheader.png')}
+            source={require('../../../../assets/images/Bgheader.png')}
             style={styles.logo}
           />
           <Image
-            source={require('../../../../../assets/images/logoapp.png')}
+            source={require('../../../../assets/images/logoapp.png')}
             style={styles.logoapp}
           />
           <View style={{marginBottom: '10%'}}>
@@ -73,7 +60,7 @@ const NewPass = ({navigation, route}) => {
               alignItems: 'flex-end',
             }}>
             <Image
-              source={require('../../../../../assets/images/bro.png')}
+              source={require('../../../../assets/images/bro.png')}
               style={styles.foodter}
             />
           </View>

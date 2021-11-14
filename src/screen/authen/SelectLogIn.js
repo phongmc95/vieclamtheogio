@@ -10,49 +10,40 @@ import {
   Dimensions,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-const SelectNTD = ({navigation}) => {
+const Resgister = ({navigation}) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#4C9BD4" />
       <View style={{alignItems: 'center'}}>
         <Image
-          source={require('../../../../assets/images/Bgheader.png')}
+          source={require('../../../assets/images/Bgheader.png')}
           style={styles.logo}
         />
         <Image
-          source={require('../../../../assets/images/logoapp.png')}
+          source={require('../../../assets/images/logoapp.png')}
           style={styles.logoapp}
         />
       </View>
 
       <Image
-        source={require('../../../../assets/images/selectNTD.png')}
+        source={require('../../../assets/images/selectNTD.png')}
         style={styles.body}
       />
       <TouchableOpacity
         style={styles.btn}
-        onPress={() => navigation.navigate('LoginNTD')}>
+        onPress={() => navigation.navigate('Login')}>
         <Text style={styles.text}>Đăng nhập</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.btn}
-        onPress={() =>
-          navigation.navigate('SignInNTD', {
-            item: {cit_name: '', cit_id: ''},
-          })
-        }>
+        onPress={() => navigation.navigate('Resgister')}>
         <Text style={styles.text}>Đăng ký</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={{height: scale(40), width: scale(335)}}>
-        {/* <Text style={[styles.text, {color: '#404040'}]}>
-          Đăng nhập với tư cách khách
-        </Text> */}
       </TouchableOpacity>
     </View>
   );
 };
 
-export default SelectNTD;
+export default Resgister;
 
 const styles = StyleSheet.create({
   container: {

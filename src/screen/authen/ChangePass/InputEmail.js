@@ -8,16 +8,16 @@ import {
   Image,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {getDeviceWidth} from '../../../../Utils/CheckDevice';
-import TextInputStyle from '../../../../components/TextInputStyle';
-import ButtonStyle from '../../../../components/ButtonStyle';
+import {getDeviceWidth} from '../../../Utils/CheckDevice';
+import TextInputStyle from '../../../components/TextInputStyle';
+import ButtonStyle from '../../../components/ButtonStyle';
 const InputEmail = ({navigation}) => {
   const [email, setEmail] = useState('');
 
   return (
     <View style={styles.container}>
       <Image
-        source={require('../../../../../assets/images/Bgheader.png')}
+        source={require('../../../../assets/images/Bgheader.png')}
         style={styles.logo}
       />
       <Text
@@ -40,7 +40,7 @@ const InputEmail = ({navigation}) => {
       </View>
       <ButtonStyle Title="Xác nhận" styleBtn={{width: scale(120)}} />
       <Image
-        source={require('../../../../../assets/images/bro.png')}
+        source={require('../../../../assets/images/bro.png')}
         style={styles.foodter}
       />
     </View>

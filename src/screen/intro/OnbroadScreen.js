@@ -4,13 +4,22 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Swiper from 'react-native-swiper';
 
-import {useNavigation} from '@react-navigation/native';
 import images from '../../constant/images';
+import {useDispatch} from 'react-redux';
+import {checkLogin} from '../../redux/actions/actions';
 
 const OnbroadScreen = ({navigation}) => {
+  const dispatch = useDispatch();
   const swiper = useRef(null);
   const [page, setPage] = useState(0);
-
+  const handleFreelancer = () => {
+    dispatch(checkLogin('flc'));
+    navigation.navigate('SelectLogIN');
+  };
+  const handleEmployer = () => {
+    dispatch(checkLogin('emp'));
+    navigation.navigate('SelectLogIN');
+  };
   return (
     <View style={styles.Container}>
       <View style={styles.swiper}>
@@ -53,14 +62,10 @@ const OnbroadScreen = ({navigation}) => {
         </Swiper>
       </View>
       <View style={{marginTop: scale(30)}}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('LoadingFlc')}>
+        <TouchableOpacity style={styles.button} onPress={handleFreelancer}>
           <Text style={styles.buttonText}>{'Ứng viên'}</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('SelectNTD')}>
+        <TouchableOpacity style={styles.button} onPress={handleEmployer}>
           <Text style={styles.buttonText}>{'Nhà tuyển dụng'}</Text>
         </TouchableOpacity>
       </View>
@@ -137,7 +142,7 @@ const styles = StyleSheet.create({
     borderColor: '#307DF1',
     borderWidth: scale(1),
     borderRadius: scale(4),
-    marginBottom: scale(5),
+
     elevation: 5,
     backgroundColor: '#fff',
     marginBottom: scale(10),

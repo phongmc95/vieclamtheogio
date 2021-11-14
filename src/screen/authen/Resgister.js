@@ -9,12 +9,16 @@ import {
   ScrollView,
 } from 'react-native';
 import {s, scale} from 'react-native-size-matters';
-import {CameraIcon, Selecter, EyeIconPass} from '../../../../assets/icon';
+import {CameraIcon, Selecter, EyeIconPass} from '../../../assets/icon';
 import * as ImagePicker from 'react-native-image-picker';
-import TextInputStyle from '../../../components/TextInputStyle';
-import TextInputPassword from '../../../components/TextInputPassword';
-import ButtonStyle from '../../../components/ButtonStyle';
-const SignInNTD = ({navigation, route}) => {
+import TextInputStyle from '../../components/TextInputStyle';
+import TextInputPassword from '../../components/TextInputPassword';
+import ButtonStyle from '../../components/ButtonStyle';
+import {useSelector} from 'react-redux';
+import SelectModal from '../../components/SelectModal';
+import TextInputSelected from '../../components/TextInputSelected';
+const Resgister = ({navigation, route}) => {
+  const checkLogin = useSelector(state => state.LOGIN.check_type);
   const [phone, setPhone] = useState('');
   const [pass, setPass] = useState('');
   const [pass1, setPass1] = useState('');
@@ -22,9 +26,9 @@ const SignInNTD = ({navigation, route}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
+
   const [visible, setVisible] = React.useState(false);
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
+
   const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   const nametest = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
   const options = {
@@ -50,6 +54,9 @@ const SignInNTD = ({navigation, route}) => {
       setLogo(response);
     });
   };
+  const selectItem = item => {
+    console.log(item);
+  };
 
   return (
     <View>
@@ -64,7 +71,7 @@ const SignInNTD = ({navigation, route}) => {
               style={styles.avatar}
               source={
                 !logo
-                  ? require('../../../../assets/images/avatar_icon.png')
+                  ? require('../../../assets/images/avatar_icon.png')
                   : {uri: logo.assets[0].uri}
               }
             />
@@ -106,6 +113,12 @@ const SignInNTD = ({navigation, route}) => {
               value={address}
               onChangeText={text => setAddress(text)}
             />
+            {/*<TextInputSelected*/}
+            {/*  Label="Address"*/}
+            {/*  value={address}*/}
+            {/*  onChangeText={text => setAddress(text)}*/}
+            {/*  onPress={() => setVisible(true)}*/}
+            {/*/>*/}
           </View>
 
           <ButtonStyle Title="Đăng Kí" styleBtn={{width: scale(120)}} />
@@ -117,11 +130,17 @@ const SignInNTD = ({navigation, route}) => {
           </View>
         </View>
       </ScrollView>
+      <SelectModal
+        isVisible={visible}
+        onBackdropPress={() => setVisible(false)}
+        label={'Công việc mong muốn'}
+        onPress={selectItem}
+      />
     </View>
   );
 };
 
-export default SignInNTD;
+export default Resgister;
 
 const styles = StyleSheet.create({
   contener: {

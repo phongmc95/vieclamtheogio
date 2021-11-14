@@ -41,7 +41,7 @@ const OTP_Confirm = ({navigation, route}) => {
       <ScrollView>
         <View style={styles.container}>
           <Image
-            source={require('../../../../assets/images/logoBG.png')}
+            source={require('../../../assets/images/logoBG.png')}
             style={styles.logo}
           />
           <Text style={styles.title}>

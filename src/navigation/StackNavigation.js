@@ -19,17 +19,9 @@ import UpdateSkillPersonal from '../screen/freelancer/profile/UpdateSkillPersona
 import UpdateWorkSession from '../screen/freelancer/profile/UpdateWorkSession';
 import JobDetailScreen from '../screen/freelancer/JobDetailScreen';
 import ListJobScreen from '../screen/freelancer/ListJobScreen';
-import CityScreen from '../screen/freelancer/address/CityScreen';
-import DistrictScreen from '../screen/freelancer/address/DistrictScreen';
-import LoginScreen from '../screen/freelancer/login/LoginScreen';
-import RegisterScreen from '../screen/freelancer/login/RegisterScreen';
-import OTPScreen from '../screen/freelancer/login/OTPScreen';
-import TimeWorking from '../screen/freelancer/login/TimeWorking';
-import JobDesied from '../screen/freelancer/login/JobDesied';
-import LoadingScreen from '../screen/intro/LoadingScreen';
 
-import LoginNTD from '../screen/NTD/LOGIN/LoginNTD';
-import SignInNTD from '../screen/NTD/LOGIN/SignInNTD';
+import Login from '../screen/authen/Login';
+import Resgister from '../screen/authen/Resgister';
 import GiaiPhap from '../screen/NTD/TD/GiaiPhap';
 import DangTin from '../screen/NTD/TD/DangTin';
 import SuaTin from '../screen/NTD/TD/SuaTin';
@@ -39,15 +31,15 @@ import UpdateInfoNTD from '../screen/NTD/ProfileNTD/UpdateInfoNTD';
 import ChangePassNTD from '../screen/NTD/ProfileNTD/ChangePassNTD';
 import DetailUV from '../screen/NTD/ProfileUV/DetailUV';
 
-import OTP_Confirm from '../screen/NTD/LOGIN/OTP_Confirm';
-import SelectNTD from '../screen/NTD/LOGIN/SelectNTD';
-import InputEmail from '../screen/NTD/LOGIN/ChangePass/InputEmail';
-import InputOTP from '../screen/NTD/LOGIN/ChangePass/InputOTP';
+import OTP_Confirm from '../screen/authen/OTP_Confirm';
+import SelectLogIn from '../screen/authen/SelectLogIn';
+import InputEmail from '../screen/authen/ChangePass/InputEmail';
+import InputOTP from '../screen/authen/ChangePass/InputOTP';
 import Filter from '../.../../screen/NTD/UV/Filter';
 import ListFilter from '../.../../screen/NTD/UV/ListFilter';
 import Filter2 from '../.../../screen/NTD/UV/Filter2';
 import ListFilter2 from '../.../../screen/NTD/UV/ListFilter2';
-import NewPass from '../screen/NTD/LOGIN/ChangePass/NewPass';
+import NewPass from '../screen/authen/ChangePass/NewPass';
 import SplashScreen from '../screen/intro/SplashScreen';
 import {Provider} from 'react-redux';
 
@@ -63,13 +55,13 @@ const StackNavigation = () => {
             <Stack.Screen name="SplashScreen" component={SplashScreen} />
             <Stack.Screen name="Intro" component={OnbroadScreen} />
 
-            <Stack.Screen name="SelectNTD" component={SelectNTD} />
-            <Stack.Screen name="LoginNTD" component={LoginNTD} />
+            <Stack.Screen name="SelectLogIN" component={SelectLogIn} />
+            <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="InputEmail" component={InputEmail} />
             <Stack.Screen name="InputOTP" component={InputOTP} />
             <Stack.Screen name="NewPass" component={NewPass} />
             <Stack.Screen name="OTP_Confirm" component={OTP_Confirm} />
-            <Stack.Screen name="SignInNTD" component={SignInNTD} />
+            <Stack.Screen name="Resgister" component={Resgister} />
             <Stack.Screen name="tabNTD" component={BottomTapsNTD} />
             <Stack.Screen name="GiaiPhap" component={GiaiPhap} />
             <Stack.Screen name="DangTin" component={DangTin} />
@@ -110,14 +102,6 @@ const StackNavigation = () => {
             <Stack.Screen name="UpdateWork" component={UpdateWorkSession} />
             <Stack.Screen name="JobDetail" component={JobDetailScreen} />
             <Stack.Screen name="ListJob" component={ListJobScreen} />
-            <Stack.Screen name="CityFlc" component={CityScreen} />
-            <Stack.Screen name="DistrictFlc" component={DistrictScreen} />
-            <Stack.Screen name="LoginFlc" component={LoginScreen} />
-            <Stack.Screen name="RegisterFlc" component={RegisterScreen} />
-            <Stack.Screen name="OTPFlc" component={OTPScreen} />
-            <Stack.Screen name="TimeWorkingFlc" component={TimeWorking} />
-            <Stack.Screen name="JobDesiedFlc" component={JobDesied} />
-            <Stack.Screen name="LoadingFlc" component={LoadingScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

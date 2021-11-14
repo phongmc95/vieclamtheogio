@@ -1,5 +1,6 @@
 import axiosClient from '../../config/axios';
 import {
+  CHECK_TYPE_LOGIN,
   FETCH_POST_LOGIN_ERROR,
   FETCH_POST_LOGIN_REQUEST,
   FETCH_POST_LOGIN_SUCCESS,
@@ -25,4 +26,10 @@ export const loadPostsLogIn = (email, pass) => async dispatch => {
       message: error,
     });
   }
+};
+export const checkLogin = data => {
+  return {
+    type: CHECK_TYPE_LOGIN,
+    data: data,
+  };
 };
