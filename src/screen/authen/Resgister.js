@@ -26,7 +26,7 @@ const Resgister = ({navigation, route}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
-
+  console.log(checkLogin);
   const [visible, setVisible] = React.useState(false);
 
   const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;

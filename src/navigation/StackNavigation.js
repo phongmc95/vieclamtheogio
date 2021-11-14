@@ -54,7 +54,6 @@ const StackNavigation = () => {
           <Stack.Navigator headerMode="none">
             <Stack.Screen name="SplashScreen" component={SplashScreen} />
             <Stack.Screen name="Intro" component={OnbroadScreen} />
-
             <Stack.Screen name="SelectLogIN" component={SelectLogIn} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="InputEmail" component={InputEmail} />

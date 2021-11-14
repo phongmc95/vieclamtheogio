@@ -235,7 +235,6 @@ const styles = StyleSheet.create({
     height: scale(36),
     backgroundColor: '#307DF1',
     flexDirection: 'row',
-    backgroundColor: '#307DF1',
     borderRadius: scale(30),
     marginTop: scale(10),
     alignItems: 'center',
