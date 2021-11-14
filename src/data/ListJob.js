@@ -10,8 +10,8 @@ const listJob = [
     type: 'Toàn thời gian',
     salary: '7 - 10 Triệu',
     add: 'Hà Nội, Hồ Chí Minh',
-    deadline: '20-12-2020', 
-    view: '99'
+    deadline: '20-12-2020',
+    view: '99',
   },
   {
     id: 2,
@@ -21,8 +21,8 @@ const listJob = [
     type: 'Toàn thời gian',
     salary: '7 - 10 Triệu',
     add: 'Hà Nội, Hồ Chí Minh',
-    deadline: '20-12-2020', 
-    view: '99'
+    deadline: '20-12-2020',
+    view: '99',
   },
   {
     id: 3,
@@ -32,8 +32,8 @@ const listJob = [
     type: 'Toàn thời gian',
     salary: '7 - 10 Triệu',
     add: 'Hà Nội, Hồ Chí Minh',
-    deadline: '20-12-2020', 
-    view: '99'
+    deadline: '20-12-2020',
+    view: '99',
   },
 ];
 export default listJob;

@@ -55,7 +55,7 @@ const Resgister = ({navigation, route}) => {
     });
   };
   const selectItem = item => {
-    console.log(item);
+    console.log(item.title);
   };
 
   return (
@@ -113,12 +113,12 @@ const Resgister = ({navigation, route}) => {
               value={address}
               onChangeText={text => setAddress(text)}
             />
-            {/*<TextInputSelected*/}
-            {/*  Label="Address"*/}
-            {/*  value={address}*/}
-            {/*  onChangeText={text => setAddress(text)}*/}
-            {/*  onPress={() => setVisible(true)}*/}
-            {/*/>*/}
+            <TextInputSelected
+              Label="Address"
+              value={address}
+              onChangeText={text => setAddress(text)}
+              onPress={() => setVisible(true)}
+            />
           </View>
 
           <ButtonStyle Title="Đăng Kí" styleBtn={{width: scale(120)}} />
