@@ -1,8 +1,11 @@
+import fonts from '@constant/fonts';
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '../../components/title/TitleBasic';
 import icons from '../../constant/icons';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import colors from '../../constant/colors';
 
 export default function NotificationScreen() {
   const items = [
@@ -24,14 +27,10 @@ export default function NotificationScreen() {
   ];
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TitleBasic title="Thông báo" />
       {items.map(item => (
-        <View
-          style={{
-            paddingTop: scale(10),
-            paddingHorizontal: scale(20),
-          }}>
+        <View style={styles.content}>
           <View style={styles.viewItem}>
             <Image style={styles.icon} source={icons.logoHCI} />
             <View>
@@ -41,14 +40,14 @@ export default function NotificationScreen() {
           </View>
         </View>
       ))}
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.LIGHT_WHITE,
   },
   viewItem: {
     flexDirection: 'row',
@@ -66,7 +65,7 @@ const styles = StyleSheet.create({
     fontSize: scale(16),
     lineHeight: scale(20),
     color: '#404040',
-    fontWeight: '500',
+    fontFamily: fonts.NORMAL,
     flexWrap: 'wrap',
     width: '65%',
   },
@@ -74,7 +73,11 @@ const styles = StyleSheet.create({
     fontSize: scale(14),
     lineHeight: scale(20),
     color: '#404040',
-    fontWeight: '300',
+    fontFamily: fonts.NORMAL,
     marginBottom: scale(5),
+  },
+  content: {
+    paddingTop: scale(10),
+    paddingHorizontal: scale(20),
   },
 });

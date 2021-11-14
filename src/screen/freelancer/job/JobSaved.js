@@ -1,13 +1,22 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import TitleBasic from '../../../components/title/TitleBasic';
-import icons from '../../../constant/icons';
+import TitleBasic from '@components/title/TitleBasic';
+import icons from '@constant/icons';
+import fonts from '../../../constant/fonts';
+import colors from '../../../constant/colors';
 
 export default function JobSaved() {
   const [check, setCheck] = useState(false);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TitleBasic title="Việc làm  đã lưu" icon={icons.trash_white} />
       <View style={{marginLeft: scale(10), flexDirection: 'row'}}>
         <View style={styles.boxJob}>
@@ -42,18 +51,18 @@ export default function JobSaved() {
         <TouchableOpacity onPress={() => setCheck(!check)}>
           <Image
             style={{marginTop: scale(80), marginLeft: scale(10)}}
-            source={!check ? icons.check2: icons.checked2}
+            source={!check ? icons.check2 : icons.checked2}
           />
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.LIGHT_WHITE,
   },
   boxJob: {
     paddingHorizontal: scale(12),
@@ -62,6 +71,10 @@ const styles = StyleSheet.create({
     borderRadius: scale(20),
     width: scale(295),
     backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
     elevation: 5,
     marginVertical: scale(10),
   },
@@ -74,7 +87,7 @@ const styles = StyleSheet.create({
     fontSize: scale(15),
     lineHeight: scale(20),
     color: '#404040',
-    fontWeight: 'bold',
+    fontFamily: fonts.BOLD,
     flexWrap: 'wrap',
   },
   txtAddress: {
@@ -82,6 +95,7 @@ const styles = StyleSheet.create({
     lineHeight: scale(20),
     color: '#404040',
     marginTop: scale(5),
+    fontFamily: fonts.NORMAL,
   },
   iconHeart: {
     height: scale(18),
@@ -98,5 +112,6 @@ const styles = StyleSheet.create({
     fontSize: scale(12),
     lineHeight: scale(20),
     color: '#404040',
+    fontFamily: fonts.NORMAL,
   },
 });

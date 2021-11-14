@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     margin: scale(5),
     borderRadius: scale(5),
-    justifyContent: 'center',
     marginLeft: scale(15),
   },
   textInput: {

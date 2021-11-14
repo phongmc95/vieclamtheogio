@@ -13,7 +13,7 @@ const Manage_Screen = ({navigation}) => {
     <View style={styles.contener}>
       <View style={styles.StatusBar}>
         <Image
-          source={require('./../../../../assets/img/logoVin.png')}
+          source={require('../../../../assets/img/logoVin.png')}
           style={styles.avatar}
         />
         <Text style={styles.title}>Vingroup</Text>
@@ -42,7 +42,7 @@ const Manage_Screen = ({navigation}) => {
       </TouchableOpacity>
 
       <Image
-        source={require('./../../../../assets/img/imgbgJob.png')}
+        source={require('../../../../assets/img/imgbgJob.png')}
         style={{
           backgroundColor: 'white',
           height: scale(211),

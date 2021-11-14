@@ -1,25 +1,15 @@
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-  TextInput,
-} from 'react-native';
+import {StyleSheet, View, Image, ScrollView} from 'react-native';
 import {scale} from 'react-native-size-matters';
-
-import {getDeviceWidth} from '../../../Utils/CheckDevice';
 import TextInputPassword from '../../../components/TextInputPassword';
 import ButtonStyle from '../../../components/ButtonStyle';
+import {getDeviceWidth} from '../../../Utils/CheckDevice';
 const NewPass = ({navigation, route}) => {
   const [pass, setPass] = useState('');
   const [pass1, setPass1] = useState('');
-  const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  // const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
   const submit = () => {
-
     navigation.navigate('LoginNTD');
   };
 

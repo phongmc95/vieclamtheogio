@@ -176,10 +176,12 @@ const TD_Screen = ({navigation}) => {
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <TouchableOpacity
           style={{margin: scale(5)}}
-          onPress={() => navigation.navigate('GiaiPhap')}></TouchableOpacity>
+          onPress={() => navigation.navigate('GiaiPhap')}
+        />
         <TouchableOpacity
           style={{margin: scale(5)}}
-          onPress={() => navigation.navigate('SuaTin')}></TouchableOpacity>
+          onPress={() => navigation.navigate('SuaTin')}
+        />
       </View>
     </View>
   );

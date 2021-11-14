@@ -16,7 +16,7 @@ export default function TitleJob(props) {
             source={icons.back}
           />
         </TouchableOpacity>
-        <View style={{width: '82%'}}></View>
+        <View style={{width: '82%'}} />
         <Image
           style={{height: scale(23), width: scale(23), marginTop: scale(5)}}
           source={icons.heart_wb}

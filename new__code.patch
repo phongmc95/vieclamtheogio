@@ -1,0 +1,2506 @@
+Index: src/components/SelectModal.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/SelectModal.js b/src/components/SelectModal.js
+new file mode 100644
+--- /dev/null	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
++++ b/src/components/SelectModal.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -0,0 +1,68 @@
++import React from 'react';
++import {
++  ScrollView,
++  StyleSheet,
++  Text,
++  TouchableOpacity,
++  View,
++} from 'react-native';
++import Modal from 'react-native-modal';
++import {isIos} from '../Utils/CheckDevice';
++import {scale} from 'react-native-size-matters';
++import jobs from '../data/Jobs';
++const SelectModal = props => {
++  const {isVisible, onBackdropPress, label, onPress} = props;
++  return (
++    <Modal
++      animationIn="slideInUp"
++      animationOut="slideOutDown"
++      animationInTiming={600}
++      animationOutTiming={600}
++      isVisible={isVisible}
++      onBackdropPress={onBackdropPress}
++      style={{margin: 0, justifyContent: 'flex-end'}}>
++      <View style={styles.viewmodal}>
++        <Text style={styles.title}>{label}</Text>
++        <View style={styles.viewcontent}>
++          <ScrollView>
++            {jobs.map(item => {
++              return (
++                <TouchableOpacity key={item.id} onPress={onPress(item)}>
++                  <Text>{item.title}</Text>
++                </TouchableOpacity>
++              );
++            })}
++          </ScrollView>
++        </View>
++      </View>
++    </Modal>
++  );
++};
++
++export default SelectModal;
++
++const styles = StyleSheet.create({
++  viewmodal: {
++    maxHeight: '60%',
++    backgroundColor: '#F5F5FF',
++    borderTopLeftRadius: 20,
++    borderTopRightRadius: 20,
++    alignItems: 'center',
++  },
++  title: {
++    fontSize: 24,
++    color: '#307df1',
++    fontWeight: '700',
++    marginTop: isIos ? 50 : null,
++  },
++  viewcontent: {
++    padding: 20,
++  },
++  txtcontent: {
++    paddingHorizontal: scale(15),
++    textAlign: 'center',
++    fontSize: 16,
++    color: '#404040',
++    fontWeight: '700',
++  },
++});
+Index: src/components/TextInputSelected.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/TextInputSelected.js b/src/components/TextInputSelected.js
+new file mode 100644
+--- /dev/null	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
++++ b/src/components/TextInputSelected.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -0,0 +1,26 @@
++import React from 'react';
++import {StyleSheet, Text, View, Dimensions} from 'react-native';
++import {TextInput} from 'react-native-paper';
++import {Selecter} from '../../assets/icon';
++import {scale} from 'react-native-size-matters';
++const windowWidth = Dimensions.get('window').width;
++const TextInputSelected = ({Label, value, onChangeText, onPress}) => {
++  return (
++    <View>
++      <TextInput
++        label={Label}
++        value={value}
++        onChangeText={onChangeText}
++        mode="outlined"
++        style={{width: windowWidth - 30, marginBottom: scale(10)}}
++        selectionColor="#307df1"
++        underlineColor={'#307df1'}
++        right={<TextInput.Icon name={() => <Selecter />} onPress={onPress} />}
++      />
++    </View>
++  );
++};
++
++export default TextInputSelected;
++
++const styles = StyleSheet.create({});
+Index: src/navigation/StackNavigation.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/navigation/StackNavigation.js b/src/navigation/StackNavigation.js
+--- a/src/navigation/StackNavigation.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ b/src/navigation/StackNavigation.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -19,17 +19,9 @@
+ import UpdateWorkSession from '../screen/freelancer/profile/UpdateWorkSession';
+ import JobDetailScreen from '../screen/freelancer/JobDetailScreen';
+ import ListJobScreen from '../screen/freelancer/ListJobScreen';
+-import CityScreen from '../screen/freelancer/address/CityScreen';
+-import DistrictScreen from '../screen/freelancer/address/DistrictScreen';
+-import LoginScreen from '../screen/freelancer/login/LoginScreen';
+-import RegisterScreen from '../screen/freelancer/login/RegisterScreen';
+-import OTPScreen from '../screen/freelancer/login/OTPScreen';
+-import TimeWorking from '../screen/freelancer/login/TimeWorking';
+-import JobDesied from '../screen/freelancer/login/JobDesied';
+-import LoadingScreen from '../screen/intro/LoadingScreen';
+ 
+-import LoginNTD from '../screen/NTD/LOGIN/LoginNTD';
+-import SignInNTD from '../screen/NTD/LOGIN/SignInNTD';
++import Login from '../screen/authen/Login';
++import Resgister from '../screen/authen/Resgister';
+ import GiaiPhap from '../screen/NTD/TD/GiaiPhap';
+ import DangTin from '../screen/NTD/TD/DangTin';
+ import SuaTin from '../screen/NTD/TD/SuaTin';
+@@ -39,15 +31,15 @@
+ import ChangePassNTD from '../screen/NTD/ProfileNTD/ChangePassNTD';
+ import DetailUV from '../screen/NTD/ProfileUV/DetailUV';
+ 
+-import OTP_Confirm from '../screen/NTD/LOGIN/OTP_Confirm';
+-import SelectNTD from '../screen/NTD/LOGIN/SelectNTD';
+-import InputEmail from '../screen/NTD/LOGIN/ChangePass/InputEmail';
+-import InputOTP from '../screen/NTD/LOGIN/ChangePass/InputOTP';
++import OTP_Confirm from '../screen/authen/OTP_Confirm';
++import SelectLogIn from '../screen/authen/SelectLogIn';
++import InputEmail from '../screen/authen/ChangePass/InputEmail';
++import InputOTP from '../screen/authen/ChangePass/InputOTP';
+ import Filter from '../.../../screen/NTD/UV/Filter';
+ import ListFilter from '../.../../screen/NTD/UV/ListFilter';
+ import Filter2 from '../.../../screen/NTD/UV/Filter2';
+ import ListFilter2 from '../.../../screen/NTD/UV/ListFilter2';
+-import NewPass from '../screen/NTD/LOGIN/ChangePass/NewPass';
++import NewPass from '../screen/authen/ChangePass/NewPass';
+ import SplashScreen from '../screen/intro/SplashScreen';
+ import {Provider} from 'react-redux';
+ 
+@@ -63,13 +55,13 @@
+             <Stack.Screen name="SplashScreen" component={SplashScreen} />
+             <Stack.Screen name="Intro" component={OnbroadScreen} />
+ 
+-            <Stack.Screen name="SelectNTD" component={SelectNTD} />
+-            <Stack.Screen name="LoginNTD" component={LoginNTD} />
++            <Stack.Screen name="SelectLogIN" component={SelectLogIn} />
++            <Stack.Screen name="Login" component={Login} />
+             <Stack.Screen name="InputEmail" component={InputEmail} />
+             <Stack.Screen name="InputOTP" component={InputOTP} />
+             <Stack.Screen name="NewPass" component={NewPass} />
+             <Stack.Screen name="OTP_Confirm" component={OTP_Confirm} />
+-            <Stack.Screen name="SignInNTD" component={SignInNTD} />
++            <Stack.Screen name="Resgister" component={Resgister} />
+             <Stack.Screen name="tabNTD" component={BottomTapsNTD} />
+             <Stack.Screen name="GiaiPhap" component={GiaiPhap} />
+             <Stack.Screen name="DangTin" component={DangTin} />
+@@ -110,14 +102,6 @@
+             <Stack.Screen name="UpdateWork" component={UpdateWorkSession} />
+             <Stack.Screen name="JobDetail" component={JobDetailScreen} />
+             <Stack.Screen name="ListJob" component={ListJobScreen} />
+-            <Stack.Screen name="CityFlc" component={CityScreen} />
+-            <Stack.Screen name="DistrictFlc" component={DistrictScreen} />
+-            <Stack.Screen name="LoginFlc" component={LoginScreen} />
+-            <Stack.Screen name="RegisterFlc" component={RegisterScreen} />
+-            <Stack.Screen name="OTPFlc" component={OTPScreen} />
+-            <Stack.Screen name="TimeWorkingFlc" component={TimeWorking} />
+-            <Stack.Screen name="JobDesiedFlc" component={JobDesied} />
+-            <Stack.Screen name="LoadingFlc" component={LoadingScreen} />
+           </Stack.Navigator>
+         </NavigationContainer>
+       </PersistGate>
+Index: src/redux/actions/actions.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/redux/actions/actions.js b/src/redux/actions/actions.js
+--- a/src/redux/actions/actions.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ b/src/redux/actions/actions.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -1,5 +1,6 @@
+ import axiosClient from '../../config/axios';
+ import {
++  CHECK_TYPE_LOGIN,
+   FETCH_POST_LOGIN_ERROR,
+   FETCH_POST_LOGIN_REQUEST,
+   FETCH_POST_LOGIN_SUCCESS,
+@@ -26,3 +27,9 @@
+     });
+   }
+ };
++export const checkLogin = data => {
++  return {
++    type: CHECK_TYPE_LOGIN,
++    data: data,
++  };
++};
+Index: src/redux/actions/type/Type.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/redux/actions/type/Type.js b/src/redux/actions/type/Type.js
+--- a/src/redux/actions/type/Type.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ b/src/redux/actions/type/Type.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -4,3 +4,4 @@
+ export const FETCH_POST_SIGNUP_REQUEST = 'FETCH_POST_SIGNUP_REQUEST';
+ export const FETCH_POST_SIGNUP_SUCCESS = 'FETCH_POST_SIGNUP_SUCCESS';
+ export const FETCH_POST_SIGNUP_ERROR = 'FETCH_POST_SIGNUP_ERROR';
++export const CHECK_TYPE_LOGIN = 'CHECK_TYPE_LOGIN';
+Index: src/redux/reducer/NTD/LogIn.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/redux/reducer/NTD/LogIn.js b/src/redux/reducer/LogIn.js
+rename from src/redux/reducer/NTD/LogIn.js
+rename to src/redux/reducer/LogIn.js
+--- a/src/redux/reducer/NTD/LogIn.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ b/src/redux/reducer/LogIn.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -1,14 +1,16 @@
+ import {
++  CHECK_TYPE_LOGIN,
+   FETCH_POST_LOGIN_ERROR,
+   FETCH_POST_LOGIN_REQUEST,
+   FETCH_POST_LOGIN_SUCCESS,
+-} from '../../actions/type/Type';
++} from '../actions/type/Type';
+ 
+ const initialState = {
+   requesting: false,
+   success: false,
+   message: null,
+   data: null,
++  check_type: null,
+ };
+ const LogIn = (state = initialState, action) => {
+   switch (action.type) {
+@@ -30,6 +32,11 @@
+         requesting: false,
+         message: action.message,
+       };
++    case CHECK_TYPE_LOGIN:
++      return {
++        ...state,
++        check_type: action.data,
++      };
+ 
+     default:
+       return state;
+Index: src/redux/reducer/flc/token.js
+===================================================================
+diff --git a/src/redux/reducer/flc/token.js b/src/redux/reducer/flc/token.js
+deleted file mode 100644
+--- a/src/redux/reducer/flc/token.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ /dev/null	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
+@@ -1,15 +0,0 @@
+-const initialState = {
+-    data: '',
+-  };
+-  
+-  const Token = (state = initialState, action) => {
+-    switch (action.type) {
+-      case 'TOKEN':
+-        state.data = action.payload;
+-        return state;
+-  
+-      default:
+-        return state;
+-    }
+-  };
+-  export default Token;
+\ No newline at end of file
+Index: src/redux/reducer/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/redux/reducer/index.js b/src/redux/reducer/index.js
+--- a/src/redux/reducer/index.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ b/src/redux/reducer/index.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -1,9 +1,8 @@
+ import {combineReducers} from 'redux';
+-import LogIn from './NTD/LogIn';
+-import Token from './flc/token';
++import LogIn from './LogIn';
++
+ const rootReducer = combineReducers({
+   LOGIN: LogIn,
+-  Token: Token,
+ });
+ 
+ export default (state, action) => rootReducer(state, action);
+Index: src/redux/store/Store.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/redux/store/Store.js b/src/redux/store/Store.js
+--- a/src/redux/store/Store.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ b/src/redux/store/Store.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -2,7 +2,7 @@
+ import rootReducer from '../reducer';
+ import thunk from 'redux-thunk';
+ import {persistStore, persistReducer} from 'redux-persist';
+-import {composeWithDevTools} from 'redux-devtools-extension';
++
+ import storage from 'redux-persist/lib/storage';
+ 
+ const persistConfig = {
+@@ -13,7 +13,7 @@
+ const presistedReducer = persistReducer(persistConfig, rootReducer);
+ const store = createStore(
+   presistedReducer,
+-  composeWithDevTools(applyMiddleware(thunk)),
++ applyMiddleware(thunk),
+ );
+ const persistor = persistStore(store);
+ export {persistor, store};
+Index: src/screen/NTD/LOGIN/ChangePass/InputEmail.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screen/NTD/LOGIN/ChangePass/InputEmail.js b/src/screen/authen/ChangePass/InputEmail.js
+rename from src/screen/NTD/LOGIN/ChangePass/InputEmail.js
+rename to src/screen/authen/ChangePass/InputEmail.js
+--- a/src/screen/NTD/LOGIN/ChangePass/InputEmail.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ b/src/screen/authen/ChangePass/InputEmail.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -8,16 +8,16 @@
+   Image,
+ } from 'react-native';
+ import {scale} from 'react-native-size-matters';
+-import {getDeviceWidth} from '../../../../Utils/CheckDevice';
+-import TextInputStyle from '../../../../components/TextInputStyle';
+-import ButtonStyle from '../../../../components/ButtonStyle';
++import {getDeviceWidth} from '../../../Utils/CheckDevice';
++import TextInputStyle from '../../../components/TextInputStyle';
++import ButtonStyle from '../../../components/ButtonStyle';
+ const InputEmail = ({navigation}) => {
+   const [email, setEmail] = useState('');
+ 
+   return (
+     <View style={styles.container}>
+       <Image
+-        source={require('../../../../../assets/images/Bgheader.png')}
++        source={require('../../../../assets/images/Bgheader.png')}
+         style={styles.logo}
+       />
+       <Text
+@@ -40,7 +40,7 @@
+       </View>
+       <ButtonStyle Title="Xác nhận" styleBtn={{width: scale(120)}} />
+       <Image
+-        source={require('../../../../../assets/images/bro.png')}
++        source={require('../../../../assets/images/bro.png')}
+         style={styles.foodter}
+       />
+     </View>
+Index: src/screen/NTD/LOGIN/ChangePass/InputOTP.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screen/NTD/LOGIN/ChangePass/InputOTP.js b/src/screen/authen/ChangePass/InputOTP.js
+rename from src/screen/NTD/LOGIN/ChangePass/InputOTP.js
+rename to src/screen/authen/ChangePass/InputOTP.js
+--- a/src/screen/NTD/LOGIN/ChangePass/InputOTP.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ b/src/screen/authen/ChangePass/InputOTP.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -9,8 +9,8 @@
+ } from 'react-native';
+ import OTPInputView from '@twotalltotems/react-native-otp-input';
+ import {scale} from 'react-native-size-matters';
+-import {getDeviceWidth} from '../../../../Utils/CheckDevice';
+-import ButtonStyle from '../../../../components/ButtonStyle';
++import {getDeviceWidth} from '../../../Utils/CheckDevice';
++import ButtonStyle from '../../../components/ButtonStyle';
+ 
+ const InputOTP = ({navigation, route}) => {
+   const [timerCount, setTimer] = useState(300);
+@@ -35,11 +35,11 @@
+       <ScrollView>
+         <View style={styles.container}>
+           <Image
+-            source={require('../../../../../assets/images/Bgheader.png')}
++            source={require('../../../../assets/images/Bgheader.png')}
+             style={styles.logo}
+           />
+           <Image
+-            source={require('../../../../../assets/images/logoapp.png')}
++            source={require('../../../../assets/images/logoapp.png')}
+             style={styles.logoapp}
+           />
+           <Text style={styles.title}>
+Index: src/screen/NTD/LOGIN/ChangePass/NewPass.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screen/NTD/LOGIN/ChangePass/NewPass.js b/src/screen/authen/ChangePass/NewPass.js
+rename from src/screen/NTD/LOGIN/ChangePass/NewPass.js
+rename to src/screen/authen/ChangePass/NewPass.js
+--- a/src/screen/NTD/LOGIN/ChangePass/NewPass.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ b/src/screen/authen/ChangePass/NewPass.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -10,29 +10,16 @@
+ } from 'react-native';
+ import {scale} from 'react-native-size-matters';
+ 
+-import {getDeviceWidth} from '../../../../Utils/CheckDevice';
+-import TextInputPassword from '../../../../components/TextInputPassword';
+-import ButtonStyle from '../../../../components/ButtonStyle';
++import {getDeviceWidth} from '../../../Utils/CheckDevice';
++import TextInputPassword from '../../../components/TextInputPassword';
++import ButtonStyle from '../../../components/ButtonStyle';
+ const NewPass = ({navigation, route}) => {
+   const [pass, setPass] = useState('');
+   const [pass1, setPass1] = useState('');
+   const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+ 
+   const submit = () => {
+-    // if (!pass || !pass1) {
+-    //   setMessage('Các ô nhập là bắt buộc không được để trống');
+-    //   setVisible(true);
+-    // } else if (reg.test(pass) === false) {
+-    //   setMessage(
+-    //     'Mật khẩu cần có ít nhất 8 ký tự, ít nhất một chữ cái và một số và không có dấu cách',
+-    //   );
+-    //   setVisible(true);
+-    // } else if (pass1 != pass) {
+-    //   setMessage('Nhập lại mật khẩu không trùng khớp ');
+-    //   setVisible(true);
+-    // } else {
+-    //   callApi();
+-    // }
++
+     navigation.navigate('LoginNTD');
+   };
+ 
+@@ -41,11 +28,11 @@
+       <ScrollView>
+         <View style={styles.container}>
+           <Image
+-            source={require('../../../../../assets/images/Bgheader.png')}
++            source={require('../../../../assets/images/Bgheader.png')}
+             style={styles.logo}
+           />
+           <Image
+-            source={require('../../../../../assets/images/logoapp.png')}
++            source={require('../../../../assets/images/logoapp.png')}
+             style={styles.logoapp}
+           />
+           <View style={{marginBottom: '10%'}}>
+@@ -73,7 +60,7 @@
+               alignItems: 'flex-end',
+             }}>
+             <Image
+-              source={require('../../../../../assets/images/bro.png')}
++              source={require('../../../../assets/images/bro.png')}
+               style={styles.foodter}
+             />
+           </View>
+Index: src/screen/NTD/LOGIN/LoginNTD.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screen/NTD/LOGIN/LoginNTD.js b/src/screen/authen/Login.js
+rename from src/screen/NTD/LOGIN/LoginNTD.js
+rename to src/screen/authen/Login.js
+--- a/src/screen/NTD/LOGIN/LoginNTD.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ b/src/screen/authen/Login.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -8,19 +8,22 @@
+   Image,
+ } from 'react-native';
+ import {scale} from 'react-native-size-matters';
+-import TextInputStyle from '../../../components/TextInputStyle';
+-import TextInputPassword from '../../../components/TextInputPassword';
+-import {getDeviceWidth} from '../../../Utils/CheckDevice';
+-import ButtonStyle from '../../../components/ButtonStyle';
+-import {validateEmail} from '../../../base/Validate';
+-import ModalStyle from '../../../components/ModalStyle';
+-const LoginNTD = ({navigation}) => {
++import TextInputStyle from '../../components/TextInputStyle';
++import TextInputPassword from '../../components/TextInputPassword';
++import {getDeviceWidth} from '../../Utils/CheckDevice';
++import ButtonStyle from '../../components/ButtonStyle';
++import {validateEmail} from '../../base/Validate';
++import ModalStyle from '../../components/ModalStyle';
++import {useSelector} from 'react-redux';
++
++const Login = ({navigation}) => {
++  const checkLogin = useSelector(state => state.LOGIN.check_type);
+   const [email, setEmail] = useState('');
+   const [pass, setPass] = useState('');
+ 
+   const [modal, setModal] = useState(false);
+   const [error, setError] = useState('');
+-
++  console.log('>>>', checkLogin);
+   const submit = () => {
+     if (!email || !pass) {
+       setModal(true);
+@@ -33,7 +36,7 @@
+   return (
+     <View style={styles.contener}>
+       <Image
+-        source={require('../../../../assets/images/Bgheader.png')}
++        source={require('../../../assets/images/Bgheader.png')}
+         style={styles.logo}
+       />
+       <Text style={styles.TitleLogin}>Đăng nhập</Text>
+@@ -70,18 +73,13 @@
+           />
+           <View style={{flexDirection: 'row'}}>
+             <Text style={styles.text1}>Bạn chưa có tài khoản?</Text>
+-            <TouchableOpacity
+-              onPress={() =>
+-                navigation.navigate('SignInNTD', {
+-                  item: {cit_name: '', cit_id: ''},
+-                })
+-              }>
++            <TouchableOpacity onPress={() => navigation.navigate('Resgister')}>
+               <Text style={styles.text2}>Đăng ký ngay</Text>
+             </TouchableOpacity>
+           </View>
+         </View>
+         <Image
+-          source={require('../../../../assets/images/hunting_job.png')}
++          source={require('../../../assets/images/hunting_job.png')}
+           style={styles.fodter}
+         />
+       </ScrollView>
+@@ -94,7 +92,7 @@
+   );
+ };
+ 
+-export default LoginNTD;
++export default Login;
+ 
+ const styles = StyleSheet.create({
+   contener: {
+Index: src/screen/NTD/LOGIN/OTP_Confirm.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screen/NTD/LOGIN/OTP_Confirm.js b/src/screen/authen/OTP_Confirm.js
+rename from src/screen/NTD/LOGIN/OTP_Confirm.js
+rename to src/screen/authen/OTP_Confirm.js
+--- a/src/screen/NTD/LOGIN/OTP_Confirm.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ b/src/screen/authen/OTP_Confirm.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -41,7 +41,7 @@
+       <ScrollView>
+         <View style={styles.container}>
+           <Image
+-            source={require('../../../../assets/images/logoBG.png')}
++            source={require('../../../assets/images/logoBG.png')}
+             style={styles.logo}
+           />
+           <Text style={styles.title}>
+Index: src/screen/NTD/LOGIN/SignInNTD.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screen/NTD/LOGIN/SignInNTD.js b/src/screen/authen/Resgister.js
+rename from src/screen/NTD/LOGIN/SignInNTD.js
+rename to src/screen/authen/Resgister.js
+--- a/src/screen/NTD/LOGIN/SignInNTD.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ b/src/screen/authen/Resgister.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -9,12 +9,16 @@
+   ScrollView,
+ } from 'react-native';
+ import {s, scale} from 'react-native-size-matters';
+-import {CameraIcon, Selecter, EyeIconPass} from '../../../../assets/icon';
++import {CameraIcon, Selecter, EyeIconPass} from '../../../assets/icon';
+ import * as ImagePicker from 'react-native-image-picker';
+-import TextInputStyle from '../../../components/TextInputStyle';
+-import TextInputPassword from '../../../components/TextInputPassword';
+-import ButtonStyle from '../../../components/ButtonStyle';
+-const SignInNTD = ({navigation, route}) => {
++import TextInputStyle from '../../components/TextInputStyle';
++import TextInputPassword from '../../components/TextInputPassword';
++import ButtonStyle from '../../components/ButtonStyle';
++import {useSelector} from 'react-redux';
++import SelectModal from '../../components/SelectModal';
++import TextInputSelected from '../../components/TextInputSelected';
++const Resgister = ({navigation, route}) => {
++  const checkLogin = useSelector(state => state.LOGIN.check_type);
+   const [phone, setPhone] = useState('');
+   const [pass, setPass] = useState('');
+   const [pass1, setPass1] = useState('');
+@@ -22,9 +26,9 @@
+   const [name, setName] = useState('');
+   const [email, setEmail] = useState('');
+   const [address, setAddress] = useState('');
++
+   const [visible, setVisible] = React.useState(false);
+-  const showModal = () => setVisible(true);
+-  const hideModal = () => setVisible(false);
++
+   const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+   const nametest = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+   const options = {
+@@ -50,6 +54,9 @@
+       setLogo(response);
+     });
+   };
++  const selectItem = item => {
++    console.log(item);
++  };
+ 
+   return (
+     <View>
+@@ -64,7 +71,7 @@
+               style={styles.avatar}
+               source={
+                 !logo
+-                  ? require('../../../../assets/images/avatar_icon.png')
++                  ? require('../../../assets/images/avatar_icon.png')
+                   : {uri: logo.assets[0].uri}
+               }
+             />
+@@ -106,6 +113,12 @@
+               value={address}
+               onChangeText={text => setAddress(text)}
+             />
++            {/*<TextInputSelected*/}
++            {/*  Label="Address"*/}
++            {/*  value={address}*/}
++            {/*  onChangeText={text => setAddress(text)}*/}
++            {/*  onPress={() => setVisible(true)}*/}
++            {/*/>*/}
+           </View>
+ 
+           <ButtonStyle Title="Đăng Kí" styleBtn={{width: scale(120)}} />
+@@ -117,11 +130,17 @@
+           </View>
+         </View>
+       </ScrollView>
++      <SelectModal
++        isVisible={visible}
++        onBackdropPress={() => setVisible(false)}
++        label={'Công việc mong muốn'}
++        onPress={selectItem}
++      />
+     </View>
+   );
+ };
+ 
+-export default SignInNTD;
++export default Resgister;
+ 
+ const styles = StyleSheet.create({
+   contener: {
+Index: src/screen/NTD/LOGIN/SelectNTD.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screen/NTD/LOGIN/SelectNTD.js b/src/screen/authen/SelectLogIn.js
+rename from src/screen/NTD/LOGIN/SelectNTD.js
+rename to src/screen/authen/SelectLogIn.js
+--- a/src/screen/NTD/LOGIN/SelectNTD.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ b/src/screen/authen/SelectLogIn.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -10,49 +10,40 @@
+   Dimensions,
+ } from 'react-native';
+ import {scale} from 'react-native-size-matters';
+-const SelectNTD = ({navigation}) => {
++const Resgister = ({navigation}) => {
+   return (
+     <View style={styles.container}>
+       <StatusBar barStyle="dark-content" backgroundColor="#4C9BD4" />
+       <View style={{alignItems: 'center'}}>
+         <Image
+-          source={require('../../../../assets/images/Bgheader.png')}
++          source={require('../../../assets/images/Bgheader.png')}
+           style={styles.logo}
+         />
+         <Image
+-          source={require('../../../../assets/images/logoapp.png')}
++          source={require('../../../assets/images/logoapp.png')}
+           style={styles.logoapp}
+         />
+       </View>
+ 
+       <Image
+-        source={require('../../../../assets/images/selectNTD.png')}
++        source={require('../../../assets/images/selectNTD.png')}
+         style={styles.body}
+       />
+       <TouchableOpacity
+         style={styles.btn}
+-        onPress={() => navigation.navigate('LoginNTD')}>
++        onPress={() => navigation.navigate('Login')}>
+         <Text style={styles.text}>Đăng nhập</Text>
+       </TouchableOpacity>
+       <TouchableOpacity
+         style={styles.btn}
+-        onPress={() =>
+-          navigation.navigate('SignInNTD', {
+-            item: {cit_name: '', cit_id: ''},
+-          })
+-        }>
++        onPress={() => navigation.navigate('Resgister')}>
+         <Text style={styles.text}>Đăng ký</Text>
+       </TouchableOpacity>
+-      <TouchableOpacity style={{height: scale(40), width: scale(335)}}>
+-        {/* <Text style={[styles.text, {color: '#404040'}]}>
+-          Đăng nhập với tư cách khách
+-        </Text> */}
+-      </TouchableOpacity>
+     </View>
+   );
+ };
+ 
+-export default SelectNTD;
++export default Resgister;
+ 
+ const styles = StyleSheet.create({
+   container: {
+Index: src/screen/freelancer/address/CityScreen.js
+===================================================================
+diff --git a/src/screen/freelancer/address/CityScreen.js b/src/screen/freelancer/address/CityScreen.js
+deleted file mode 100644
+--- a/src/screen/freelancer/address/CityScreen.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ /dev/null	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
+@@ -1,117 +0,0 @@
+-import axios from 'axios';
+-import React, {useEffect, useState} from 'react';
+-import {
+-  StyleSheet,
+-  Text,
+-  View,
+-  TextInput,
+-  TouchableOpacity,
+-} from 'react-native';
+-import {ScrollView} from 'react-native-gesture-handler';
+-import {scale} from 'react-native-size-matters';
+-import jobs from '../../../data/Jobs';
+-
+-export default function CityScreen({route, navigation}) {
+-  const [city, setCity] = useState([]);
+-  const {screen} = route.params;
+-  const [filterData, setFilterData] = useState([]);
+-  const [search, setSearch] = useState('');
+-
+-  useEffect(() => {
+-    const fetchCity = async () => {
+-      var config = {
+-        method: 'get',
+-        url: 'https://vieclamtheogio.timviec365.vn/api_app/api_job/p_pro.php',
+-      };
+-
+-      axios(config)
+-        .then(function (response) {
+-          setCity(response.data.data.tinhthanh);
+-          setFilterData(response.data.data.tinhthanh);
+-        })
+-        .catch(function (error) {
+-          console.log(error);
+-        });
+-    };
+-    fetchCity();
+-    return () => {};
+-  }, []);
+-  const SearchText = text => {
+-    if (text) {
+-      const newData = filterData.filter(item => {
+-        const itemdata = item.cit_name
+-          ? item.cit_name.toUpperCase()
+-          : ''.toUpperCase();
+-        const textdata = text.toUpperCase();
+-        return itemdata.indexOf(textdata) > -1;
+-      });
+-      setCity(newData);
+-      setSearch(text);
+-    } else {
+-      setCity(filterData);
+-      setSearch(text);
+-    }
+-  };
+-
+-  return (
+-    <View style={styles.container}>
+-      <View style={{alignItems: 'center'}}>
+-        <Text style={styles.title}>Tỉnh/ thành phố</Text>
+-        <TextInput
+-          value={search}
+-          onChangeText={text => SearchText(text)}
+-          placeholder="Nhập để tìm kiếm"
+-          style={styles.search}
+-        />
+-      </View>
+-      <ScrollView>
+-        {city.map(item => (
+-          <View
+-            style={{
+-              borderBottomWidth: 1,
+-              paddingVertical: scale(10),
+-              paddingHorizontal: scale(10),
+-            }}>
+-            <TouchableOpacity
+-              onPress={() =>
+-                navigation.navigate(screen, {
+-                  item,
+-                })
+-              }>
+-              <Text style={{fontSize: scale(18), color: '#404040'}}>
+-                {item.cit_name}
+-              </Text>
+-            </TouchableOpacity>
+-          </View>
+-        ))}
+-      </ScrollView>
+-    </View>
+-  );
+-}
+-
+-const styles = StyleSheet.create({
+-  container: {
+-    flex: 1,
+-    padding: scale(20),
+-    backgroundColor: '#fff',
+-  },
+-  title: {
+-    fontSize: scale(20),
+-    fontWeight: 'bold',
+-    color: '#307df1',
+-    textTransform: 'uppercase',
+-    marginTop: scale(20),
+-  },
+-  search: {
+-    fontSize: scale(16),
+-    width: scale(315),
+-    height: scale(40),
+-    borderRadius: scale(20),
+-    borderWidth: 1,
+-    backgroundColor: '#fff',
+-    fontStyle: 'italic',
+-    borderColor: '#307DF1',
+-    paddingLeft: scale(20),
+-    marginVertical: scale(20),
+-  },
+-});
+Index: src/screen/freelancer/address/DistrictScreen.js
+===================================================================
+diff --git a/src/screen/freelancer/address/DistrictScreen.js b/src/screen/freelancer/address/DistrictScreen.js
+deleted file mode 100644
+--- a/src/screen/freelancer/address/DistrictScreen.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ /dev/null	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
+@@ -1,126 +0,0 @@
+-import axios from 'axios';
+-import { stringify } from 'query-string';
+-import React, {useEffect, useState} from 'react';
+-import {
+-  StyleSheet,
+-  Text,
+-  View,
+-  TextInput,
+-  Touchable,
+-  TouchableOpacity,
+-} from 'react-native';
+-import {FlatList} from 'react-native-gesture-handler';
+-import {scale} from 'react-native-size-matters';
+-import jobs from '../../../data/Jobs';
+-
+-export default function DistrictScreen({route, navigation}) {
+-  const {cityid, screen} = route.params;
+-  const [districtList, setDistrictList] = useState([]);
+-  const [filterData, setFilterData] = useState([]);
+-  const [search, setSearch] = useState('');
+-  console.log(districtList);
+-  useEffect(() => {
+-    const fetchDistrict = async () => {
+-      var data = new FormData();
+-      data.append('id_tt', cityid);
+-
+-      var config = {
+-        method: 'post',
+-        url: 'https://vieclamtheogio.timviec365.vn/api_app/api_job/p_district.php',
+-        data: data,
+-      };
+-
+-      axios(config)
+-        .then(function (response) {
+-          setDistrictList(response.data.data.quanhuyen);
+-          setFilterData(response.data.data.quanhuyen);
+-          // console.log(JSON.stringify(response.data))
+-        })
+-        .catch(function (error) {
+-          console.log(error);
+-        });
+-    };
+-    fetchDistrict();
+-    return () => {};
+-  }, []);
+-  const SearchText = text => {
+-    if (text) {
+-      const newData = filterData.filter(item => {
+-        const itemdata = item.cit_name
+-          ? item.cit_name.toUpperCase()
+-          : ''.toUpperCase();
+-        const textdata = text.toUpperCase();
+-        return itemdata.indexOf(textdata) > -1;
+-      });
+-      setDistrictList(newData);
+-      setSearch(text);
+-    } else {
+-      setDistrictList(filterData);
+-      setSearch(text);
+-    }
+-  };
+-  return (
+-    <View style={styles.container}>
+-      <View style={{alignItems: 'center'}}>
+-        <Text style={styles.title}>quận huyện</Text>
+-        <TextInput
+-          value={search}
+-          placeholder="Nhập để tìm kiếm"
+-          style={styles.search}
+-          onChangeText={text => SearchText(text)}
+-        />
+-      </View>
+-      <FlatList
+-        data={districtList}
+-        keyExtractor={item => item.id}
+-        renderItem={({item}) => (
+-          <View
+-            style={{
+-              borderBottomWidth: 1,
+-              paddingVertical: scale(10),
+-              paddingHorizontal: scale(10),
+-            }}>
+-            <TouchableOpacity
+-              onPress={() =>
+-                navigation.navigate(screen, {
+-                  nameDistrict: item.cit_name,
+-                  idDistrict: item.cit_id,
+-                })
+-              }>
+-              <Text style={{fontSize: scale(18), color: '#404040'}}>
+-                {item.cit_name}
+-              </Text>
+-            </TouchableOpacity>
+-          </View>
+-        )}
+-      />
+-    </View>
+-  );
+-}
+-
+-const styles = StyleSheet.create({
+-  container: {
+-    flex: 1,
+-    padding: scale(20),
+-    backgroundColor: '#fff',
+-  },
+-  title: {
+-    fontSize: scale(20),
+-    fontWeight: 'bold',
+-    color: '#307df1',
+-    textTransform: 'uppercase',
+-    marginTop: scale(20),
+-  },
+-  search: {
+-    fontSize: scale(16),
+-    width: scale(315),
+-    height: scale(40),
+-    borderRadius: scale(20),
+-    borderWidth: 1,
+-    backgroundColor: '#fff',
+-    fontStyle: 'italic',
+-    borderColor: '#307DF1',
+-    paddingLeft: scale(20),
+-    marginVertical: scale(20),
+-  },
+-});
+Index: src/screen/freelancer/login/JobDesied.js
+===================================================================
+diff --git a/src/screen/freelancer/login/JobDesied.js b/src/screen/freelancer/login/JobDesied.js
+deleted file mode 100644
+--- a/src/screen/freelancer/login/JobDesied.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ /dev/null	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
+@@ -1,113 +0,0 @@
+-import axios from 'axios';
+-import React, {useEffect, useState} from 'react';
+-import {
+-  StyleSheet,
+-  Text,
+-  View,
+-  TextInput,
+-  TouchableOpacity,
+-} from 'react-native';
+-import {scale} from 'react-native-size-matters';
+-
+-export default function JobDesied({route, navigation}) {
+-  const [job, setJob] = useState([]);
+-  const {screen} = route.params;
+-  const [filterData, setFilterData] = useState([]);
+-  const [search, setSearch] = useState('');
+-
+-  useEffect(() => {
+-    const fetchCity = async () => {
+-      var config = {
+-        method: 'get',
+-        url: 'https://vieclamtheogio.timviec365.vn/api_app/api_job/p_cate-tag.php',
+-      };
+-
+-      axios(config)
+-        .then(function (response) {
+-          setJob(response.data.data.cate);
+-          setFilterData(response.data.data.cate);
+-        })
+-        .catch(function (error) {
+-          console.log(error);
+-        });
+-    };
+-    fetchCity();
+-    return () => {};
+-  }, []);
+-  const SearchText = text => {
+-    if (text) {
+-      const newData = filterData.filter(item => {
+-        const itemdata = item.jc_name
+-          ? item.jc_name.toUpperCase()
+-          : ''.toUpperCase();
+-        const textdata = text.toUpperCase();
+-        return itemdata.indexOf(textdata) > -1;
+-      });
+-      setJob(newData);
+-      setSearch(text);
+-    } else {
+-      setJob(filterData);
+-      setSearch(text);
+-    }
+-  };
+-  return (
+-    <View style={styles.container}>
+-      <View style={{alignItems: 'center'}}>
+-        <Text style={styles.title}>ngành nghề mong muốn</Text>
+-        <TextInput
+-          value={search}
+-          placeholder="Nhập để tìm kiếm"
+-          style={styles.search}
+-          onChangeText={text => SearchText(text)}
+-        />
+-      </View>
+-      {job.map(item => (
+-        <View
+-          style={{
+-            borderBottomWidth: 1,
+-            paddingVertical: scale(10),
+-            paddingHorizontal: scale(10),
+-          }}>
+-          <TouchableOpacity
+-            onPress={() =>
+-              navigation.navigate(screen, {
+-                job_name: item.jc_name,
+-                job_id: item.jc_id,
+-              })
+-            }>
+-            <Text style={{fontSize: scale(18), color: '#404040'}}>
+-              {item.jc_name}
+-            </Text>
+-          </TouchableOpacity>
+-        </View>
+-      ))}
+-    </View>
+-  );
+-}
+-
+-const styles = StyleSheet.create({
+-  container: {
+-    flex: 1,
+-    padding: scale(20),
+-    backgroundColor: '#fff',
+-  },
+-  title: {
+-    fontSize: scale(20),
+-    fontWeight: 'bold',
+-    color: '#307df1',
+-    textTransform: 'uppercase',
+-    marginTop: scale(20),
+-  },
+-  search: {
+-    fontSize: scale(16),
+-    width: scale(315),
+-    height: scale(40),
+-    borderRadius: scale(20),
+-    borderWidth: 1,
+-    backgroundColor: '#fff',
+-    fontStyle: 'italic',
+-    borderColor: '#307DF1',
+-    paddingLeft: scale(20),
+-    marginVertical: scale(20),
+-  },
+-});
+Index: src/screen/freelancer/login/LoginScreen.js
+===================================================================
+diff --git a/src/screen/freelancer/login/LoginScreen.js b/src/screen/freelancer/login/LoginScreen.js
+deleted file mode 100644
+--- a/src/screen/freelancer/login/LoginScreen.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ /dev/null	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
+@@ -1,190 +0,0 @@
+-import axios from 'axios';
+-import React, {useRef, useState} from 'react';
+-
+-import {
+-  Image,
+-  StyleSheet,
+-  Text,
+-  TouchableOpacity,
+-  View,
+-  TextInput,
+-  Alert,
+-} from 'react-native';
+-import {scale} from 'react-native-size-matters';
+-import {useDispatch} from 'react-redux';
+-import images from '../../../constant/images';
+-import {TokenFlc} from '../../../redux/actions/freelancer';
+-
+-const LoginScreen = ({navigation}) => {
+-  const [email, setEmail] = useState('');
+-  const [password, setPassword] = useState('');
+-  const dispatch = useDispatch();
+-
+-  const _submit = () => {
+-    var data = new FormData();
+-    data.append('uv_email', email);
+-    data.append('uv_password', password);
+-    var config = {
+-      method: 'post',
+-      url: 'https://vieclamtheogio.timviec365.vn/api_app/api_job/uv_dangnhap.php',
+-      data: data,
+-    };
+-
+-    axios(config)
+-      .then(function (response) {
+-        console.log(JSON.stringify(response.data));
+-
+-        if (response.data.error == null) {
+-          const token = response.data.data.token;
+-          dispatch(TokenFlc(token));
+-          navigation.navigate('BottomTabFlc')
+-        } else if (response.data.data == null) {
+-          Alert.alert(response.data.error.message);
+-        }
+-      })
+-      .catch(function (error) {
+-        console.log(error);
+-      });
+-  };
+-  return (
+-    <View style={styles.Container}>
+-      <View style={{alignItems: 'center'}}>
+-        <View
+-          style={{
+-            alignItems: 'center',
+-            marginBottom: scale(20),
+-          }}>
+-          <Image
+-            style={{width: scale(375), height: scale(175)}}
+-            source={images.wave}
+-          />
+-
+-          <Text style={styles.txtTitle}>Đăng nhập</Text>
+-        </View>
+-        <View style={styles.boxTextInput}>
+-          <TextInput
+-            style={[styles.textInput]}
+-            placeholder="Email"
+-            placeholderTextColor="#404040"
+-            value={email}
+-            onChangeText={text => setEmail(text)}
+-          />
+-        </View>
+-        <View style={styles.boxTextInput}>
+-          <TextInput
+-            style={[styles.textInput]}
+-            placeholder="Mật khẩu"
+-            placeholderTextColor="#404040"
+-            value={password}
+-            onChangeText={text => setPassword(text)}
+-            secureTextEntry
+-          />
+-        </View>
+-        <Text
+-          style={{fontSize: scale(13), color: '#404040', marginLeft: '60%'}}>
+-          Quên mật khẩu
+-        </Text>
+-        <TouchableOpacity onPress={_submit}>
+-          <Text style={styles.btnLogin}>Đăng nhập</Text>
+-        </TouchableOpacity>
+-        <View style={{alignItems: 'center'}}>
+-          <Image
+-            style={{
+-              width: scale(375),
+-              height: scale(294),
+-            }}
+-            source={images.hunting_job}
+-          />
+-          <View
+-            style={{
+-              position: 'absolute',
+-              marginTop: scale(10),
+-              flexDirection: 'row',
+-            }}>
+-            <Text
+-              style={{
+-                fontSize: scale(15),
+-                color: '#000',
+-              }}>
+-              Bạn chưa có tài khoản?{' '}
+-            </Text>
+-            <TouchableOpacity
+-              onPress={() =>
+-                navigation.navigate('RegisterFlc', {
+-                  item: {cit_name: '', cit_id: ''},
+-                })
+-              }>
+-              <Text style={{fontSize: scale(15), color: '#307df1'}}>
+-                ĐĂNG KÝ NGAY
+-              </Text>
+-            </TouchableOpacity>
+-          </View>
+-        </View>
+-      </View>
+-    </View>
+-  );
+-};
+-export default LoginScreen;
+-
+-const styles = StyleSheet.create({
+-  Container: {
+-    flex: 1,
+-    alignItems: 'center',
+-    // backgroundColor: '#e5e5e5'
+-  },
+-  buttonText: {
+-    fontSize: scale(20),
+-    color: '#307DF1',
+-    fontWeight: 'bold',
+-  },
+-  button: {
+-    alignSelf: 'center',
+-    alignItems: 'center',
+-    justifyContent: 'center',
+-    width: scale(328),
+-    height: scale(36),
+-    borderColor: '#307DF1',
+-    borderWidth: scale(1),
+-    borderRadius: scale(4),
+-    marginBottom: scale(5),
+-    elevation: 5,
+-    backgroundColor: '#fff',
+-    marginBottom: scale(10),
+-  },
+-  textInput: {
+-    fontWeight: '300',
+-    fontSize: scale(16),
+-    fontStyle: 'italic',
+-    marginLeft: scale(15),
+-    color: '#404040',
+-  },
+-  boxTextInput: {
+-    width: scale(330),
+-    height: scale(40),
+-    backgroundColor: '#fff',
+-    borderRadius: 1,
+-    borderRadius: scale(5),
+-    marginBottom: scale(10),
+-    borderColor: '#307df1',
+-    borderWidth: 1,
+-  },
+-  btnLogin: {
+-    width: scale(100),
+-    height: scale(40),
+-    backgroundColor: '#307df1',
+-    borderRadius: scale(5),
+-    fontSize: scale(16),
+-    fontWeight: '500',
+-    color: '#fff',
+-    textAlign: 'center',
+-    paddingVertical: scale(10),
+-    marginVertical: scale(15),
+-  },
+-  txtTitle: {
+-    fontSize: scale(30),
+-    color: '#fff',
+-    fontWeight: 'bold',
+-    position: 'absolute',
+-    marginTop: scale(50),
+-  },
+-});
+Index: src/screen/freelancer/login/OTPScreen.js
+===================================================================
+diff --git a/src/screen/freelancer/login/OTPScreen.js b/src/screen/freelancer/login/OTPScreen.js
+deleted file mode 100644
+--- a/src/screen/freelancer/login/OTPScreen.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ /dev/null	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
+@@ -1,111 +0,0 @@
+-import React, {useState} from 'react';
+-import {
+-  StyleSheet,
+-  Text,
+-  View,
+-  Image,
+-  TouchableOpacity,
+-  Dimensions,
+-  Alert,
+-} from 'react-native';
+-import {scale} from 'react-native-size-matters';
+-import images from '../../../constant/images';
+-import OTPTextView from 'react-native-otp-textinput';
+-import Button from '../../../components/Button/Button';
+-import NotifiSuccess from '../../../components/NotifiSuccess';
+-import axios from 'axios';
+-
+-const width = Dimensions.get('window').width;
+-
+-export default function OTPScreen({route}) {
+-  const [modal, setModal] = useState(false);
+-  const [otp, setOtp] = useState('');
+-  const toggleModal = () => {
+-    setModal(!modal);
+-  };
+-  const {token, email} = route.params;
+-  console.log(token);
+-
+-  const _submit = () => {
+-    var data = new FormData();
+-    data.append('token', token);
+-    data.append('otp', otp);
+-    var config = {
+-      method: 'post',
+-      url: 'https://vieclamtheogio.timviec365.vn/api_app/api_job/uv_dky_xacthucOTP.php',
+-      data: data,
+-    };
+-
+-    axios(config)
+-      .then(function (response) {
+-        console.log(JSON.stringify(response.data));
+-        if (response.data.error == null) {
+-          setModal(!modal);
+-          setTimeout(() => {
+-            navigation.navigate('LoginFlc');
+-          }, 3000);
+-        } else if (response.data.data == null) {
+-          Alert.alert(response.data.error.message);
+-        }
+-      })
+-      .catch(function (error) {
+-        console.log(error);
+-      });
+-  };
+-  return (
+-    <View style={styles.container}>
+-      <Image
+-        style={{width: '100%', height: scale(173)}}
+-        source={images.tabBar}
+-      />
+-      <View style={{padding: scale(20), alignItems: 'center'}}>
+-        <Text style={{fontSize: scale(16), color: '#404040'}}>
+-          Nhập mã xác thực được gửi tới email :
+-        </Text>
+-        <Text style={{fontSize: scale(16), color: '#307df1'}}>{email}</Text>
+-        <OTPTextView
+-          inputCount={7}
+-          keyboardType="numeric"
+-          tintColor="#307df1"
+-          textInputStyle={{color: '#307df1'}}
+-          containerStyle={{marginTop: scale(40), marginBottom: scale(10)}}
+-          defaultValue={otp}
+-          handleTextChange={text => setOtp(text)}
+-        />
+-        <Text
+-          style={{
+-            fontSize: scale(16),
+-            color: '#404040',
+-            marginBottom: scale(30),
+-          }}>
+-          Mã khả dụng trong 60s
+-        </Text>
+-
+-        <TouchableOpacity onPress={_submit}>
+-          <Button title="Xác nhận" color="#fff" bg="#307df1" />
+-        </TouchableOpacity>
+-        <View style={{flexDirection: 'row', marginTop: scale(10)}}>
+-          <Text style={{fontSize: scale(16), color: '#404040'}}>
+-            Bạn chưa nhận được mã?{' '}
+-          </Text>
+-          <TouchableOpacity>
+-            <Text style={{fontSize: scale(16), color: '#307df1'}}>Gửi lại</Text>
+-          </TouchableOpacity>
+-        </View>
+-      </View>
+-      <NotifiSuccess
+-        on={modal}
+-        off={toggleModal}
+-        title="Đăng ký thành công"
+-        content="Chúc bạn có những trải nghiệm tốt nhất với dịch vụ của chúng tôi "
+-      />
+-    </View>
+-  );
+-}
+-
+-const styles = StyleSheet.create({
+-  container: {
+-    flex: 1,
+-    backgroundColor: '#fff',
+-  },
+-});
+Index: src/screen/freelancer/login/RegisterScreen.js
+===================================================================
+diff --git a/src/screen/freelancer/login/RegisterScreen.js b/src/screen/freelancer/login/RegisterScreen.js
+deleted file mode 100644
+--- a/src/screen/freelancer/login/RegisterScreen.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ /dev/null	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
+@@ -1,566 +0,0 @@
+-import React, {useEffect, useState} from 'react';
+-import {
+-  StyleSheet,
+-  Text,
+-  View,
+-  Image,
+-  TextInput,
+-  TouchableOpacity,
+-  ScrollView,
+-  Touchable,
+-  Alert,
+-} from 'react-native';
+-import {scale} from 'react-native-size-matters';
+-import icons from '../../../constant/icons';
+-import Button from '../../../components/Button/Button';
+-import {useDispatch} from 'react-redux';
+-import * as ImagePicker from 'react-native-image-picker';
+-import DatePicker from 'react-native-date-picker';
+-import axios from 'axios';
+-import {TokenFlc} from '../../../redux/actions/freelancer';
+-
+-export default function RegisterScreen({navigation, route}) {
+-  const {item, nameDistrict, idDistrict, job_id, job_name, time_working} =
+-    route.params;
+-  const cityid = item.cit_id;
+-  const dispatch = useDispatch();
+-  const [name, setName] = useState('');
+-  const [sex, setSex] = useState('Chọn giới tính');
+-  const [email, setEmail] = useState('');
+-  const [phone, setPhone] = useState('');
+-  const [birthday, setBirthday] = useState('Ngày sinh');
+-  const [gender, setGender] = useState('');
+-  const [password, setPassword] = useState('');
+-  const [password2, setPassword2] = useState('');
+-  const [address, setAddress] = useState('');
+-  const [city, setCity] = useState('Tỉnh thành');
+-  const [district, setDistrict] = useState('Quận huyện');
+-  const [job_des, setJob_des] = useState('');
+-  const [category, setCategory] = useState('Ngành nghề mong muốn');
+-  const [local_des, setLocal_des] = useState('');
+-  const [avatar, setAvatar] = useState(null);
+-  const [show, setShow] = useState(false);
+-  const [show2, setShow2] = useState(false);
+-  const [show3, setShow3] = useState(false);
+-  const [show4, setShow4] = useState(false);
+-  const [date, setDate] = useState(new Date());
+-  const [mode, setMode] = useState('date');
+-  const [local, setLocal] = useState([]);
+-
+-  const toggleBirthday = () => {
+-    setShow(!show);
+-  };
+-
+-  const toggleSex = () => {
+-    setShow2(!show2);
+-  };
+-
+-  const _submit = () => {
+-    var data = new FormData();
+-    data.append('uv_username', name);
+-    data.append('uv_email', email);
+-    data.append('uv_phone', phone);
+-    data.append('uv_password', password);
+-    data.append('uv_repassword', password);
+-    data.append('uv_address', address);
+-    data.append('uv_city', cityid);
+-    data.append('uv_district', idDistrict);
+-    data.append('uv_cv_mn', job_des);
+-    data.append('uv_noilv_mn', local_des);
+-    data.append('uv_nn_mn', job_id);
+-    data.append('uv_day', String(time_working));
+-    if (avatar) {
+-      const file = {
+-        uri: avatar.assets[0].uri,
+-        name: avatar.assets[0].fileName,
+-        type: avatar.assets[0].type,
+-      };
+-      data.append('uv_avatar', file);
+-    }
+-
+-    var config = {
+-      method: 'post',
+-      url: 'https://vieclamtheogio.timviec365.vn/api_app/api_job/uv_dky.php',
+-      data: data,
+-    };
+-
+-    axios(config)
+-      .then(function (response) {
+-        const data = response.data.data.user_info;
+-        const token = data.token;
+-        if (response.data.error == null) {
+-          navigation.navigate('OTPFlc', {token, email});
+-        } else if (response.data.data == null) {
+-          Alert.alert(response.data.error.message);
+-        }
+-        console.log(token);
+-      })
+-      .catch(function (error) {
+-        console.log(error);
+-      });
+-  };
+-
+-  useEffect(() => {
+-    item.cit_name && setCity(item.cit_name);
+-    nameDistrict && setDistrict(nameDistrict);
+-    job_name && setCategory(job_name);
+-  }, [item, nameDistrict, job_name]);
+-
+-  const AddressChecker = () => {
+-    if (city == 'Tỉnh thành') {
+-      Alert.alert('Chọn tỉnh/thành phố trước!!!');
+-    } else {
+-      navigation.navigate('DistrictFlc', {cityid, screen: 'RegisterFlc'});
+-    }
+-  };
+-
+-  const options = {
+-    mediaType: 'photo',
+-    maxWidth: 2048,
+-    maxHeight: 2048,
+-  };
+-  const openCamera = () => {
+-    ImagePicker.launchCamera(options, response => {
+-      if (response.didCancel || response.errorCode) {
+-        return;
+-      }
+-      setAvatar(response);
+-    });
+-  };
+-
+-  const openLibry = () => {
+-    ImagePicker.launchImageLibrary(options, response => {
+-      if (response.didCancel || response.errorCode) {
+-        return;
+-      }
+-
+-      setAvatar(response);
+-      console.log('Avatar' + JSON.stringify(response));
+-    });
+-  };
+-
+-  const timeConverter = time => {
+-    var a = new Date(time);
+-    var year = a.getFullYear();
+-    var month = a.getMonth() + 1;
+-    var date = a.getDate();
+-    var time =
+-      (date < 10 ? `0${date}` : date) +
+-      '/' +
+-      (month < 10 ? `0${month}` : month) +
+-      '/' +
+-      year;
+-    return time;
+-  };
+-
+-  return (
+-    <View style={styles.container}>
+-      <ScrollView>
+-        <View style={{padding: scale(20), alignItems: 'center'}}>
+-          <Text
+-            style={{
+-              fontSize: scale(30),
+-              fontWeight: 'bold',
+-              color: '#307df1',
+-              marginVertical: scale(10),
+-            }}>
+-            Đăng ký ứng viên
+-          </Text>
+-          <Text
+-            style={{
+-              fontSize: scale(14),
+-              color: '#307df1',
+-              lineHeight: scale(16),
+-              textAlign: 'center',
+-            }}>
+-            Nhập đầy đủ thông tin để hoàn thành đăng ký
+-          </Text>
+-          <View style={{alignItems: 'center'}}>
+-            <TouchableOpacity onPress={openCamera}>
+-              <View style={styles.avatar}>
+-                <Image
+-                  style={{
+-                    height: !avatar ? scale(24) : scale(100),
+-                    width: !avatar ? scale(24) : scale(100),
+-                    borderRadius: scale(50),
+-                  }}
+-                  source={!avatar ? icons.camera : {uri: avatar.assets[0].uri}}
+-                />
+-              </View>
+-            </TouchableOpacity>
+-            <TouchableOpacity onPress={openLibry}>
+-              <View style={styles.btnAvatar}>
+-                <Text style={styles.textAvatar}>Tải lên ảnh đại diện</Text>
+-              </View>
+-            </TouchableOpacity>
+-
+-            <View style={styles.boxTextInput}>
+-              <TextInput
+-                style={styles.textInput}
+-                placeholder="Họ và tên"
+-                placeholderTextColor="#404040"
+-                value={name}
+-                onChangeText={text => setName(text)}
+-              />
+-            </View>
+-
+-            {/* <TouchableOpacity onPress={toggleSex}>
+-              <View
+-                style={{
+-                  flexDirection: 'row',
+-                  width: scale(330),
+-                  height: scale(40),
+-                  backgroundColor: '#fff',
+-                  borderTopLeftRadius: 5,
+-                  borderTopRightRadius: 5,
+-                  borderBottomLeftRadius: show2 ? 0 : 5,
+-                  borderBottomRightRadius: show2 ? 0 : 5,
+-                  borderColor: '#307df1',
+-                  borderWidth: 1,
+-                  marginTop: scale(5),
+-                }}>
+-                <Text style={styles.textInput}>{sex}</Text>
+-
+-                <Image
+-                  style={{
+-                    height: scale(10),
+-                    width: scale(10),
+-                    marginLeft: scale(15),
+-                    marginTop: scale(15),
+-                  }}
+-                  source={icons.select}
+-                />
+-              </View>
+-            </TouchableOpacity>
+-            {show2 && (
+-              <View>
+-                <TouchableOpacity
+-                  onPress={() => {
+-                    setSex('Nam'), setGender(1), setShow2(!show2);
+-                  }}>
+-                  <View
+-                    style={{
+-                      width: scale(330),
+-                      height: scale(40),
+-                      backgroundColor: '#fff',
+-                      borderRadius: 1,
+-                      borderColor: '#307df1',
+-                      borderRightWidth: 1.5,
+-                      borderLeftWidth: 1.5,
+-                    }}>
+-                    <Text style={styles.textInput}>Nam</Text>
+-                  </View>
+-                </TouchableOpacity>
+-                <TouchableOpacity
+-                  onPress={() => {
+-                    setSex('Nữ'), setGender(0), setShow2(!show2);
+-                  }}>
+-                  <View
+-                    style={{
+-                      width: scale(330),
+-                      height: scale(40),
+-                      backgroundColor: '#fff',
+-                      borderBottomLeftRadius: show2 ? 5 : 0,
+-                      borderBottomRightRadius: show2 ? 5 : 0,
+-                      borderColor: '#307df1',
+-                      borderWidth: 1,
+-                    }}>
+-                    <Text style={styles.textInput}>Nữ</Text>
+-                  </View>
+-                </TouchableOpacity>
+-              </View>
+-            )} */}
+-
+-            <View style={[styles.boxTextInput, {marginTop: scale(10)}]}>
+-              <TextInput
+-                style={[styles.textInput]}
+-                placeholder="Email"
+-                placeholderTextColor="#404040"
+-                value={email}
+-                onChangeText={text => setEmail(text)}
+-                keyboardType="email-address"
+-                autoCorrect={false}
+-              />
+-            </View>
+-
+-            <View style={[styles.boxTextInput]}>
+-              <TextInput
+-                style={[styles.textInput]}
+-                placeholder="Số điện thoại"
+-                placeholderTextColor="#404040"
+-                value={phone}
+-                onChangeText={text => setPhone(text)}
+-                keyboardType="phone-pad"
+-                autoCorrect={false}
+-              />
+-            </View>
+-
+-            {/* <TouchableOpacity onPress={toggleBirthday}>
+-              <View
+-                style={{
+-                  flexDirection: 'row',
+-                  width: scale(330),
+-                  height: scale(40),
+-                  backgroundColor: '#fff',
+-                  borderTopLeftRadius: 5,
+-                  borderTopRightRadius: 5,
+-                  borderBottomLeftRadius: show ? 0 : 5,
+-                  borderBottomRightRadius: show ? 0 : 5,
+-                  borderColor: '#307df1',
+-                  borderWidth: 1,
+-                  marginTop: scale(5),
+-                }}>
+-                <Text style={styles.textInput}>{birthday}</Text>
+-
+-                <Image
+-                  style={{
+-                    marginTop: scale(10),
+-                    height: scale(20),
+-                    width: scale(20),
+-                    marginLeft: scale(10),
+-                  }}
+-                  source={icons.calendar_blue}
+-                />
+-              </View>
+-            </TouchableOpacity>
+-
+-            {show && (
+-              <View
+-                style={{
+-                  width: scale(330),
+-                  height: scale(150),
+-                  marginBottom: scale(10),
+-                  borderBottomWidth: 1,
+-                  borderBottomLeftRadius: scale(5),
+-                  borderBottomRightRadius: scale(5),
+-                  paddingVertical: scale(5),
+-                  alignItems: 'center',
+-                  borderColor: '#307df1',
+-                  borderRightWidth: 1.5,
+-                  borderLeftWidth: 1.5,
+-                }}>
+-                <DatePicker
+-                  date={date}
+-                  onDateChange={day => setBirthday(timeConverter(day))}
+-                  mode={mode}
+-                  androidVariant="nativeAndroid"
+-                />
+-              </View>
+-            )} */}
+-
+-            <View style={[styles.boxTextInput, {marginTop: scale(10)}]}>
+-              <TextInput
+-                style={styles.textInput}
+-                placeholder="Mật khẩu"
+-                placeholderTextColor="#404040"
+-                value={password}
+-                onChangeText={text => setPassword(text)}
+-                secureTextEntry={show4 ? true : false}
+-              />
+-              <TouchableOpacity onPress={() => setShow4(!show4)}>
+-                <Image
+-                  style={{
+-                    height: scale(20),
+-                    width: scale(20),
+-                    marginTop: scale(10),
+-                    marginLeft: scale(8),
+-                  }}
+-                  source={!show4 ? icons.eye_black : icons.eye_invisible}
+-                />
+-              </TouchableOpacity>
+-            </View>
+-
+-            <View style={styles.boxTextInput}>
+-              <TextInput
+-                style={styles.textInput}
+-                placeholder="Nhập lại mật khẩu"
+-                placeholderTextColor="#404040"
+-                value={password2}
+-                onChangeText={text => setPassword2(text)}
+-                secureTextEntry={show3 ? true : false}
+-              />
+-              <TouchableOpacity onPress={() => setShow3(!show3)}>
+-                <Image
+-                  style={{
+-                    height: scale(20),
+-                    width: scale(20),
+-                    marginTop: scale(10),
+-                    marginLeft: scale(8),
+-                  }}
+-                  source={!show3 ? icons.eye_black : icons.eye_invisible}
+-                />
+-              </TouchableOpacity>
+-            </View>
+-
+-            <View style={styles.boxTextInput}>
+-              <TextInput
+-                style={styles.textInput}
+-                placeholder="Địa chỉ"
+-                placeholderTextColor="#404040"
+-                value={address}
+-                onChangeText={text => setAddress(text)}
+-              />
+-            </View>
+-
+-            <TouchableOpacity
+-              onPress={() =>
+-                navigation.navigate('CityFlc', {screen: 'RegisterFlc'})
+-              }>
+-              <View style={styles.boxTextInput}>
+-                <Text style={styles.textInput}>{city}</Text>
+-
+-                <Image style={styles.select} source={icons.select2} />
+-              </View>
+-            </TouchableOpacity>
+-
+-            <TouchableOpacity onPress={AddressChecker}>
+-              <View style={styles.boxTextInput}>
+-                <Text style={styles.textInput}>{district}</Text>
+-
+-                <Image style={styles.select} source={icons.select2} />
+-              </View>
+-            </TouchableOpacity>
+-
+-            <View style={styles.boxTextInput}>
+-              <TextInput
+-                style={styles.textInput}
+-                placeholder="Công việc mong muốn"
+-                placeholderTextColor="#404040"
+-                value={job_des}
+-                onChangeText={text => setJob_des(text)}
+-              />
+-            </View>
+-
+-            <View style={styles.boxTextInput}>
+-              <TextInput
+-                style={styles.textInput}
+-                placeholder="Nơi làm việc mong muốn"
+-                placeholderTextColor="#404040"
+-                value={local_des}
+-                onChangeText={text => setLocal_des(text)}
+-              />
+-            </View>
+-
+-            <TouchableOpacity
+-              onPress={() =>
+-                navigation.navigate('JobDesiedFlc', {screen: 'RegisterFlc'})
+-              }>
+-              <View style={styles.boxTextInput}>
+-                <Text style={styles.textInput}>{category}</Text>
+-                <Image style={styles.select} source={icons.select2} />
+-              </View>
+-            </TouchableOpacity>
+-
+-            <View style={styles.boxTextInput}>
+-              <Text style={styles.textInput}>
+-                {time_working ? String(time_working) : 'Buổi có thể đi làm'}
+-              </Text>
+-              <TouchableOpacity
+-                onPress={() => navigation.navigate('TimeWorkingFlc')}>
+-                <Image style={styles.select} source={icons.select2} />
+-              </TouchableOpacity>
+-            </View>
+-
+-            <View style={{marginTop: scale(40)}}>
+-              <TouchableOpacity onPress={_submit}>
+-                <Button title="Xác nhận" color="#fff" bg="#307df1" />
+-              </TouchableOpacity>
+-            </View>
+-          </View>
+-
+-          <View style={{alignItems: 'center'}}>
+-            <View
+-              style={{
+-                marginTop: scale(20),
+-                flexDirection: 'row',
+-              }}>
+-              <Text
+-                style={{
+-                  fontSize: scale(15),
+-                  color: '#000',
+-                }}>
+-                Bạn đã có tài khoản?{' '}
+-              </Text>
+-              <TouchableOpacity onPress={() => navigation.navigate('LoginFlc')}>
+-                <Text style={{fontSize: scale(15), color: '#307df1'}}>
+-                  ĐĂNG NHẬP NGAY
+-                </Text>
+-              </TouchableOpacity>
+-            </View>
+-          </View>
+-        </View>
+-      </ScrollView>
+-    </View>
+-  );
+-}
+-
+-const styles = StyleSheet.create({
+-  container: {
+-    flex: 1,
+-    backgroundColor: '#fff',
+-  },
+-  avatar: {
+-    height: scale(100),
+-    width: scale(100),
+-    borderRadius: scale(100),
+-    marginVertical: scale(20),
+-    backgroundColor: '#c4c4c4',
+-    alignItems: 'center',
+-    justifyContent: 'center',
+-  },
+-  btnAvatar: {
+-    width: scale(184),
+-    height: scale(35),
+-    borderRadius: scale(30),
+-    borderColor: '#969696',
+-    borderWidth: 0.5,
+-    marginBottom: scale(20),
+-  },
+-  textAvatar: {
+-    textAlign: 'center',
+-    fontSize: scale(16),
+-    lineHeight: scale(26),
+-    color: '#757575',
+-    padding: scale(5),
+-  },
+-  txtAvatar: {
+-    fontSize: scale(16),
+-    marginTop: scale(10),
+-    color: '#404040',
+-    marginBottom: scale(30),
+-  },
+-  textInput: {
+-    fontWeight: '300',
+-    fontSize: scale(16),
+-    fontStyle: 'italic',
+-    marginLeft: scale(15),
+-    width: '83%',
+-    color: '#404040',
+-    paddingTop: scale(8),
+-  },
+-  text: {
+-    fontWeight: '300',
+-    fontSize: scale(16),
+-    fontStyle: 'italic',
+-    marginLeft: scale(15),
+-    width: '83%',
+-  },
+-  boxTextInput: {
+-    flexDirection: 'row',
+-    width: scale(330),
+-    height: scale(40),
+-    backgroundColor: '#fff',
+-    borderRadius: 1,
+-    borderColor: '#307df1',
+-    borderRadius: scale(5),
+-    marginVertical: scale(5),
+-    borderWidth: 1,
+-  },
+-  icon: {width: scale(30), height: scale(30), marginTop: scale(5)},
+-  select: {
+-    width: scale(9),
+-    height: scale(10),
+-    marginTop: scale(15),
+-    marginLeft: scale(10),
+-  },
+-});
+Index: src/screen/freelancer/login/TimeWorking.js
+===================================================================
+diff --git a/src/screen/freelancer/login/TimeWorking.js b/src/screen/freelancer/login/TimeWorking.js
+deleted file mode 100644
+--- a/src/screen/freelancer/login/TimeWorking.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ /dev/null	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
+@@ -1,347 +0,0 @@
+-import React, {useState} from 'react';
+-import {
+-  StyleSheet,
+-  Text,
+-  View,
+-  TouchableOpacity,
+-  ScrollView,
+-} from 'react-native';
+-import {FlatList} from 'react-native-gesture-handler';
+-import {scale} from 'react-native-size-matters';
+-import Button from '../../../components/Button/Button';
+-
+-export default function TimeWorking({navigation}) {
+-  const [time_id, setTime_id] = useState([]);
+-  const [id, setId] = useState('');
+-  const time_working = unique(time_id);
+-  console.log(time_working);
+-
+-  function unique(arr) {
+-    return Array.from(new Set(arr)); //
+-  }
+-
+-  function arrayRemove(arr, value) {
+-    return arr.filter(function (ele) {
+-      return ele != value;
+-    });
+-  }
+-
+-  // console.log(unique(arrayRemove(time_id, id)))
+-  const [t2, setT2] = useState([
+-    {id: 21, title: 'Sáng', isCkeck: false},
+-    {id: 22, title: 'Chiều', isCkeck: false},
+-    {id: 23, title: 'Tối', isCkeck: false},
+-  ]);
+-
+-  const [t3, setT3] = useState([
+-    {id: 31, title: 'Sáng', isCkeck: false},
+-    {id: 32, title: 'Chiều', isCkeck: false},
+-    {id: 33, title: 'Tối', isCkeck: false},
+-  ]);
+-
+-  const [t4, setT4] = useState([
+-    {id: 41, title: 'Sáng', isCkeck: false},
+-    {id: 42, title: 'Chiều', isCkeck: false},
+-    {id: 43, title: 'Tối', isCkeck: false},
+-  ]);
+-
+-  const [t5, setT5] = useState([
+-    {id: 51, title: 'Sáng', isCkeck: false},
+-    {id: 52, title: 'Chiều', isCkeck: false},
+-    {id: 53, title: 'Tối', isCkeck: false},
+-  ]);
+-
+-  const [t6, setT6] = useState([
+-    {id: 61, title: 'Sáng', isCkeck: false},
+-    {id: 62, title: 'Chiều', isCkeck: false},
+-    {id: 63, title: 'Tối', isCkeck: false},
+-  ]);
+-
+-  const [t7, setT7] = useState([
+-    {id: 71, title: 'Sáng', isCkeck: false},
+-    {id: 72, title: 'Chiều', isCkeck: false},
+-    {id: 73, title: 'Tối', isCkeck: false},
+-  ]);
+-
+-  const [cn, setCN] = useState([
+-    {id: 81, title: 'Sáng', isCkeck: false},
+-    {id: 82, title: 'Chiều', isCkeck: false},
+-    {id: 83, title: 'Tối', isCkeck: false},
+-  ]);
+-
+-  return (
+-    <ScrollView>
+-      <View style={styles.container}>
+-        <View style={{alignItems: 'center'}}>
+-          <Text style={styles.title}>ngành nghề mong muốn</Text>
+-        </View>
+-        <View style={{marginTop: scale(20)}}>
+-          <View style={{marginBottom: scale(20)}}>
+-            <Text style={styles.txtProgress}>Thứ 2</Text>
+-            <FlatList
+-              horizontal={true}
+-              scrollEnabled={false}
+-              data={t2}
+-              keyExtractor={(item, index) => item.id}
+-              renderItem={({item, index}) => (
+-                <TouchableOpacity
+-                  onPress={() => {
+-                    const _t2 = JSON.parse(JSON.stringify(t2));
+-                    _t2[index].isCkeck = !item.isCkeck;
+-                    setT2(_t2);
+-                    setId(item.id);
+-                    const value = item.id;
+-                    setTime_id([...time_id, item.id]);
+-                    // const a = time_id
+-                    //   .some(item => item === value)
+-                    //   .filter((item, value) => {
+-                    //     return !value.includes(item);
+-                    //   });
+-                    // console.log(a);
+-                  }}>
+-                  <Text
+-                    style={[
+-                      styles.button,
+-                      {
+-                        color: !item.isCkeck ? '#307DF1' : '#fff',
+-                        backgroundColor: !item.isCkeck ? '#ebebeb' : '#FFA800',
+-                      },
+-                    ]}>
+-                    {item.title}
+-                  </Text>
+-                </TouchableOpacity>
+-              )}
+-            />
+-          </View>
+-
+-          <View style={{marginBottom: scale(20)}}>
+-            <Text style={styles.txtProgress}>Thứ 3</Text>
+-            <FlatList
+-              horizontal={true}
+-              scrollEnabled={false}
+-              data={t3}
+-              keyExtractor={(item, index) => item.id}
+-              renderItem={({item, index}) => (
+-                <TouchableOpacity
+-                  onPress={() => {
+-                    const _t3 = JSON.parse(JSON.stringify(t3));
+-                    _t3[index].isCkeck = !item.isCkeck;
+-                    setT3(_t3);
+-                    setTime_id([...time_id, item.id]);
+-                    setId(item.id);
+-                  }}>
+-                  <Text
+-                    style={[
+-                      styles.button,
+-                      {
+-                        color: !item.isCkeck ? '#307DF1' : '#fff',
+-                        backgroundColor: !item.isCkeck ? '#ebebeb' : '#FFA800',
+-                      },
+-                    ]}>
+-                    {item.title}
+-                  </Text>
+-                </TouchableOpacity>
+-              )}
+-            />
+-          </View>
+-
+-          <View style={{marginBottom: scale(20)}}>
+-            <Text style={styles.txtProgress}>Thứ 4</Text>
+-            <FlatList
+-              horizontal={true}
+-              scrollEnabled={false}
+-              data={t4}
+-              keyExtractor={(item, index) => item.id}
+-              renderItem={({item, index}) => (
+-                <TouchableOpacity
+-                  onPress={() => {
+-                    const _t4 = JSON.parse(JSON.stringify(t4));
+-                    _t4[index].isCkeck = !item.isCkeck;
+-                    setT4(_t4);
+-                    setTime_id([...time_id, item.id]);
+-                    setId(item.id);
+-                  }}>
+-                  <Text
+-                    style={[
+-                      styles.button,
+-                      {
+-                        color: !item.isCkeck ? '#307DF1' : '#fff',
+-                        backgroundColor: !item.isCkeck ? '#ebebeb' : '#FFA800',
+-                      },
+-                    ]}>
+-                    {item.title}
+-                  </Text>
+-                </TouchableOpacity>
+-              )}
+-            />
+-          </View>
+-
+-          <View style={{marginBottom: scale(20)}}>
+-            <Text style={styles.txtProgress}>Thứ 5</Text>
+-            <FlatList
+-              horizontal={true}
+-              scrollEnabled={false}
+-              data={t5}
+-              keyExtractor={(item, index) => item.id}
+-              renderItem={({item, index}) => (
+-                <TouchableOpacity
+-                  onPress={() => {
+-                    const _t5 = JSON.parse(JSON.stringify(t5));
+-                    _t5[index].isCkeck = !item.isCkeck;
+-                    setT5(_t5);
+-                    setTime_id([...time_id, item.id]);
+-                    setId(item.id);
+-                  }}>
+-                  <Text
+-                    style={[
+-                      styles.button,
+-                      {
+-                        color: !item.isCkeck ? '#307DF1' : '#fff',
+-                        backgroundColor: !item.isCkeck ? '#ebebeb' : '#FFA800',
+-                      },
+-                    ]}>
+-                    {item.title}
+-                  </Text>
+-                </TouchableOpacity>
+-              )}
+-            />
+-          </View>
+-
+-          <View style={{marginBottom: scale(20)}}>
+-            <Text style={styles.txtProgress}>Thứ 6</Text>
+-            <FlatList
+-              horizontal={true}
+-              scrollEnabled={false}
+-              data={t6}
+-              keyExtractor={(item, index) => item.id}
+-              renderItem={({item, index}) => (
+-                <TouchableOpacity
+-                  onPress={() => {
+-                    const _t6 = JSON.parse(JSON.stringify(t6));
+-                    _t6[index].isCkeck = !item.isCkeck;
+-                    setT6(_t6);
+-                    setTime_id([...time_id, item.id]);
+-                    setId(item.id);
+-                  }}>
+-                  <Text
+-                    style={[
+-                      styles.button,
+-                      {
+-                        color: !item.isCkeck ? '#307DF1' : '#fff',
+-                        backgroundColor: !item.isCkeck ? '#ebebeb' : '#FFA800',
+-                      },
+-                    ]}>
+-                    {item.title}
+-                  </Text>
+-                </TouchableOpacity>
+-              )}
+-            />
+-          </View>
+-
+-          <View style={{marginBottom: scale(20)}}>
+-            <Text style={styles.txtProgress}>Thứ 7</Text>
+-            <FlatList
+-              horizontal={true}
+-              scrollEnabled={false}
+-              data={t7}
+-              keyExtractor={(item, index) => item.id}
+-              renderItem={({item, index}) => (
+-                <TouchableOpacity
+-                  onPress={() => {
+-                    const _t7 = JSON.parse(JSON.stringify(t7));
+-                    _t7[index].isCkeck = !item.isCkeck;
+-                    setT7(_t7);
+-                    setTime_id([...time_id, item.id]);
+-                    setId(item.id);
+-                  }}>
+-                  <Text
+-                    style={[
+-                      styles.button,
+-                      {
+-                        color: !item.isCkeck ? '#307DF1' : '#fff',
+-                        backgroundColor: !item.isCkeck ? '#ebebeb' : '#FFA800',
+-                      },
+-                    ]}>
+-                    {item.title}
+-                  </Text>
+-                </TouchableOpacity>
+-              )}
+-            />
+-          </View>
+-
+-          <View style={{marginBottom: scale(20)}}>
+-            <Text style={styles.txtProgress}>Chủ nhật</Text>
+-            <FlatList
+-              horizontal={true}
+-              scrollEnabled={false}
+-              data={cn}
+-              keyExtractor={(item, index) => item.id}
+-              renderItem={({item, index}) => (
+-                <TouchableOpacity
+-                  onPress={() => {
+-                    const _cn = JSON.parse(JSON.stringify(cn));
+-                    _cn[index].isCkeck = !item.isCkeck;
+-                    setCN(_cn);
+-                    setTime_id([...time_id, item.id]);
+-                    setId(item.id);
+-                  }}>
+-                  <Text
+-                    style={[
+-                      styles.button,
+-                      {
+-                        color: !item.isCkeck ? '#307DF1' : '#fff',
+-                        backgroundColor: !item.isCkeck ? '#ebebeb' : '#FFA800',
+-                      },
+-                    ]}>
+-                    {item.title}
+-                  </Text>
+-                </TouchableOpacity>
+-              )}
+-            />
+-          </View>
+-          <View style={{alignItems: 'center', marginTop: scale(20)}}>
+-            <TouchableOpacity
+-              onPress={() =>
+-                navigation.navigate('RegisterFlc', {time_working})
+-              }>
+-              <Button title="Hoàn tất" color="#fff" bg="#307df1" />
+-            </TouchableOpacity>
+-          </View>
+-        </View>
+-      </View>
+-    </ScrollView>
+-  );
+-}
+-
+-const styles = StyleSheet.create({
+-  container: {
+-    flex: 1,
+-    padding: scale(20),
+-    backgroundColor: '#fff',
+-  },
+-  title: {
+-    fontSize: scale(20),
+-    fontWeight: 'bold',
+-    color: '#307df1',
+-    textTransform: 'uppercase',
+-    marginTop: scale(20),
+-  },
+-  txtProgress: {
+-    fontSize: scale(14),
+-    color: '#404040',
+-    lineHeight: scale(19),
+-    marginBottom: scale(5),
+-    fontWeight: 'bold',
+-  },
+-  button: {
+-    fontSize: scale(16),
+-    color: '#307DF1',
+-    width: scale(90),
+-    paddingVertical: scale(10),
+-    textAlign: 'center',
+-    backgroundColor: '#ebebeb',
+-    paddingTop: scale(8),
+-    borderRadius: scale(5),
+-    marginRight: scale(20),
+-  },
+-});
+Index: src/screen/intro/LoadingScreen.js
+===================================================================
+diff --git a/src/screen/intro/LoadingScreen.js b/src/screen/intro/LoadingScreen.js
+deleted file mode 100644
+--- a/src/screen/intro/LoadingScreen.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ /dev/null	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
+@@ -1,76 +0,0 @@
+-import React, {useRef, useState} from 'react';
+-
+-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+-import {scale} from 'react-native-size-matters';
+-import {useNavigation} from '@react-navigation/native';
+-import images from '../../constant/images';
+-
+-const LoadingScreen = ({navigation}) => {
+-  return (
+-    <View style={styles.Container}>
+-      <View style={styles.swiper}>
+-        <Image
+-          style={{width: scale(375), height: scale(175)}}
+-          source={images.wave}
+-        />
+-        <Image
+-          style={{
+-            width: scale(300),
+-            height: scale(222),
+-            marginTop: scale(60),
+-            marginBottom: scale(20),
+-          }}
+-          source={images.loading}
+-        />
+-      </View>
+-      <View style={{marginTop: scale(30)}}>
+-        <TouchableOpacity
+-          style={styles.button}
+-          onPress={() => navigation.navigate('LoginFlc')}>
+-          <Text style={styles.buttonText}>{'Đăng nhập'}</Text>
+-        </TouchableOpacity>
+-        <TouchableOpacity
+-          style={styles.button}
+-          onPress={() =>
+-            navigation.navigate('RegisterFlc', {
+-              item: {cit_name: '', cit_id: ''},
+-            })
+-          }>
+-          <Text style={styles.buttonText}>{'Đăng ký'}</Text>
+-        </TouchableOpacity>
+-        <TouchableOpacity
+-          style={styles.button}
+-          onPress={() => navigation.navigate('BottomTabFlc')}>
+-          <Text style={styles.buttonText}>{'Đăng nhập với tư cách khách'}</Text>
+-        </TouchableOpacity>
+-      </View>
+-    </View>
+-  );
+-};
+-export default LoadingScreen;
+-
+-const styles = StyleSheet.create({
+-  Container: {
+-    flex: 1,
+-    alignItems: 'center',
+-  },
+-  buttonText: {
+-    fontSize: scale(20),
+-    color: '#307DF1',
+-    fontWeight: 'bold',
+-  },
+-  button: {
+-    alignSelf: 'center',
+-    alignItems: 'center',
+-    justifyContent: 'center',
+-    width: scale(328),
+-    height: scale(36),
+-    borderColor: '#307DF1',
+-    borderWidth: scale(1),
+-    borderRadius: scale(4),
+-    marginBottom: scale(5),
+-    elevation: 5,
+-    backgroundColor: '#fff',
+-    marginBottom: scale(10),
+-  },
+-});
+Index: src/screen/intro/OnbroadScreen.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screen/intro/OnbroadScreen.js b/src/screen/intro/OnbroadScreen.js
+--- a/src/screen/intro/OnbroadScreen.js	(revision 74d8304ba2b28c3f49c4a039079e9a869189f3f6)
++++ b/src/screen/intro/OnbroadScreen.js	(revision f5e2193392803e3e24edd6cc5c9d6cf11ed222a8)
+@@ -4,13 +4,22 @@
+ import {scale} from 'react-native-size-matters';
+ import Swiper from 'react-native-swiper';
+ 
+-import {useNavigation} from '@react-navigation/native';
+ import images from '../../constant/images';
++import {useDispatch} from 'react-redux';
++import {checkLogin} from '../../redux/actions/actions';
+ 
+ const OnbroadScreen = ({navigation}) => {
++  const dispatch = useDispatch();
+   const swiper = useRef(null);
+   const [page, setPage] = useState(0);
+-
++  const handleFreelancer = () => {
++    dispatch(checkLogin('flc'));
++    navigation.navigate('SelectLogIN');
++  };
++  const handleEmployer = () => {
++    dispatch(checkLogin('emp'));
++    navigation.navigate('SelectLogIN');
++  };
+   return (
+     <View style={styles.Container}>
+       <View style={styles.swiper}>
+@@ -53,14 +62,10 @@
+         </Swiper>
+       </View>
+       <View style={{marginTop: scale(30)}}>
+-        <TouchableOpacity
+-          style={styles.button}
+-          onPress={() => navigation.navigate('LoadingFlc')}>
++        <TouchableOpacity style={styles.button} onPress={handleFreelancer}>
+           <Text style={styles.buttonText}>{'Ứng viên'}</Text>
+         </TouchableOpacity>
+-        <TouchableOpacity
+-          style={styles.button}
+-          onPress={() => navigation.navigate('SelectNTD')}>
++        <TouchableOpacity style={styles.button} onPress={handleEmployer}>
+           <Text style={styles.buttonText}>{'Nhà tuyển dụng'}</Text>
+         </TouchableOpacity>
+       </View>
+@@ -137,7 +142,7 @@
+     borderColor: '#307DF1',
+     borderWidth: scale(1),
+     borderRadius: scale(4),
+-    marginBottom: scale(5),
++
+     elevation: 5,
+     backgroundColor: '#fff',
+     marginBottom: scale(10),

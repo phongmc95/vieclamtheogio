@@ -1,4 +1,3 @@
-import icons from '../constant/icons';
 import images from '../constant/images';
 
 const listJob = [

@@ -7,134 +7,90 @@ import {
   ScrollView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import Button from '../../../components/Button/Button';
-import TitleBasic from '../../../components/title/TitleBasic';
+import Button from '@components/Button/Button';
+import TitleBasic from '@components/title/TitleBasic';
+import fonts from '../../../constant/fonts';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import colors from '../../../constant/colors';
 
 const UpdateWorkSession = () => {
-  const [check, setCheck] = useState(false);
-
-  const toggleCheck = () => {
-    setCheck(!check);
-  };
   return (
-    <View>
+    <SafeAreaView style={styles.container}>
       <TitleBasic title="buổi có thể đi làm" />
-      <ScrollView>
-        <View style={{padding: scale(20)}}>
-          <View style={{marginBottom: scale(20)}}>
-            <Text style={styles.txtProgress}>Thứ 2</Text>
-            <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity onPress={toggleCheck}>
-                <Text
-                  style={[
-                    styles.button,
-                    {
-                      color: !check ? '#307DF1' : '#fff',
-                      backgroundColor: !check ? '#ebebeb' : '#FFA800',
-                    },
-                  ]}>
-                  Sáng
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={toggleCheck}>
-                <Text
-                  style={[
-                    styles.button,
-                    {
-                      color: !check ? '#307DF1' : '#fff',
-                      backgroundColor: !check ? '#ebebeb' : '#FFA800',
-                    },
-                  ]}>
-                  Chiều
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={toggleCheck}>
-                <Text
-                  style={[
-                    styles.button,
-                    {
-                      color: !check ? '#307DF1' : '#fff',
-                      backgroundColor: !check ? '#ebebeb' : '#FFA800',
-                    },
-                  ]}>
-                  Tối
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <View style={{marginBottom: scale(20)}}>
-            <Text style={styles.txtProgress}>Thứ 3</Text>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.button}>Sáng</Text>
-              <Text style={styles.button}>Chiều</Text>
-              <Text style={styles.button}>Tối</Text>
-            </View>
-          </View>
-
-          <View style={{marginBottom: scale(20)}}>
-            <Text style={styles.txtProgress}>Thứ 4</Text>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.button}>Sáng</Text>
-              <Text style={styles.button}>Chiều</Text>
-              <Text style={styles.button}>Tối</Text>
-            </View>
-          </View>
-
-          <View style={{marginBottom: scale(20)}}>
-            <Text style={styles.txtProgress}>Thứ 5</Text>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.button}>Sáng</Text>
-              <Text style={styles.button}>Chiều</Text>
-              <Text style={styles.button}>Tối</Text>
-            </View>
-          </View>
-
-          <View style={{marginBottom: scale(20)}}>
-            <Text style={styles.txtProgress}>Thứ 6</Text>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.button}>Sáng</Text>
-              <Text style={styles.button}>Chiều</Text>
-              <Text style={styles.button}>Tối</Text>
-            </View>
-          </View>
-
-          <View style={{marginBottom: scale(20)}}>
-            <Text style={styles.txtProgress}>Thứ 7</Text>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.button}>Sáng</Text>
-              <Text style={styles.button}>Chiều</Text>
-              <Text style={styles.button}>Tối</Text>
-            </View>
-          </View>
-
-          <View style={{marginBottom: scale(20)}}>
-            <Text style={styles.txtProgress}>Chủ nhật</Text>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.button}>Sáng</Text>
-              <Text style={styles.button}>Chiều</Text>
-              <Text style={styles.button}>Tối</Text>
-            </View>
+      <ScrollView style={{padding: scale(20)}}>
+        <View style={styles.bottom}>
+          <Text style={styles.txtProgress}>Thứ 2</Text>
+          <View style={styles.row}>
+            <Text style={styles.button}>Sáng</Text>
+            <Text style={styles.button}>Chiều</Text>
+            <Text style={styles.button}>Tối</Text>
           </View>
         </View>
-        <View
-          style={{
-            height: scale(110),
-            width: '100%',
-            backgroundColor: '#fff',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            paddingTop: scale(10),
-          }}>
-          <Button title="Lưu" color="#fff" bg="#307df1" right={scale(10)} />
+
+        <View style={styles.bottom}>
+          <Text style={styles.txtProgress}>Thứ 3</Text>
+          <View style={styles.row}>
+            <Text style={styles.button}>Sáng</Text>
+            <Text style={styles.button}>Chiều</Text>
+            <Text style={styles.button}>Tối</Text>
+          </View>
+        </View>
+
+        <View style={styles.bottom}>
+          <Text style={styles.txtProgress}>Thứ 4</Text>
+          <View style={styles.row}>
+            <Text style={styles.button}>Sáng</Text>
+            <Text style={styles.button}>Chiều</Text>
+            <Text style={styles.button}>Tối</Text>
+          </View>
+        </View>
+
+        <View style={styles.bottom}>
+          <Text style={styles.txtProgress}>Thứ 5</Text>
+          <View style={styles.row}>
+            <Text style={styles.button}>Sáng</Text>
+            <Text style={styles.button}>Chiều</Text>
+            <Text style={styles.button}>Tối</Text>
+          </View>
+        </View>
+
+        <View style={styles.bottom}>
+          <Text style={styles.txtProgress}>Thứ 6</Text>
+          <View style={styles.row}>
+            <Text style={styles.button}>Sáng</Text>
+            <Text style={styles.button}>Chiều</Text>
+            <Text style={styles.button}>Tối</Text>
+          </View>
+        </View>
+
+        <View style={styles.bottom}>
+          <Text style={styles.txtProgress}>Thứ 7</Text>
+          <View style={styles.row}>
+            <Text style={styles.button}>Sáng</Text>
+            <Text style={styles.button}>Chiều</Text>
+            <Text style={styles.button}>Tối</Text>
+          </View>
+        </View>
+
+        <View style={styles.bottom}>
+          <Text style={styles.txtProgress}>Chủ nhật</Text>
+          <View style={styles.row}>
+            <Text style={styles.button}>Sáng</Text>
+            <Text style={styles.button}>Chiều</Text>
+            <Text style={styles.button}>Tối</Text>
+          </View>
+        </View>
+        <View style={styles.buttonView}>
+          <Button title="Lưu" color="#fff" bg="#307df1" right={scale(20)} />
           <Button title="Không lưu" color="#307df1" bg="#fff" />
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {backgroundColor: colors.LIGHT_WHITE},
   pen: {
     height: scale(20),
     width: scale(20),
@@ -146,7 +102,7 @@ const styles = StyleSheet.create({
     color: '#404040',
     lineHeight: scale(19),
     marginBottom: scale(5),
-    fontWeight: 'bold',
+    fontFamily: fonts.BOLD,
   },
   button: {
     fontSize: scale(16),
@@ -158,6 +114,22 @@ const styles = StyleSheet.create({
     paddingTop: scale(8),
     borderRadius: scale(5),
     marginRight: scale(20),
+    fontFamily: fonts.NORMAL,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
+    elevation: 5,
+  },
+  row: {flexDirection: 'row'},
+  bottom: {marginBottom: scale(20)},
+  buttonView: {
+    height: scale(110),
+    width: '100%',
+    backgroundColor: colors.LIGHT_WHITE,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingTop: scale(10),
   },
 });
 
