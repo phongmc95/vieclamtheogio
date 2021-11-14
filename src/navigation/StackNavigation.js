@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, View, StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import BottomTapsNTD from './BottomTaps/BottomTapsNTD';
@@ -31,8 +30,6 @@ import LoadingScreen from '../screen/intro/LoadingScreen';
 
 import LoginNTD from '../screen/NTD/LOGIN/LoginNTD';
 import SignInNTD from '../screen/NTD/LOGIN/SignInNTD';
-import DistrictNTD from '../screen/NTD/LOGIN/DistrictNTD';
-import CityNTD from '../screen/NTD/LOGIN/CityNTD';
 import GiaiPhap from '../screen/NTD/TD/GiaiPhap';
 import DangTin from '../screen/NTD/TD/DangTin';
 import SuaTin from '../screen/NTD/TD/SuaTin';
@@ -53,12 +50,13 @@ import ListFilter2 from '../.../../screen/NTD/UV/ListFilter2';
 import NewPass from '../screen/NTD/LOGIN/ChangePass/NewPass';
 import SplashScreen from '../screen/intro/SplashScreen';
 import {Provider} from 'react-redux';
-import {persistor, Store} from '../redux/store/Store';
+
 import {PersistGate} from 'redux-persist/integration/react';
+import {persistor, store} from '../redux/store/Store';
 const Stack = createStackNavigator();
 const StackNavigation = () => {
   return (
-    <Provider store={Store}>
+    <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator headerMode="none">
@@ -72,8 +70,6 @@ const StackNavigation = () => {
             <Stack.Screen name="NewPass" component={NewPass} />
             <Stack.Screen name="OTP_Confirm" component={OTP_Confirm} />
             <Stack.Screen name="SignInNTD" component={SignInNTD} />
-            <Stack.Screen name="DistrictNTD" component={DistrictNTD} />
-            <Stack.Screen name="CityNTD" component={CityNTD} />
             <Stack.Screen name="tabNTD" component={BottomTapsNTD} />
             <Stack.Screen name="GiaiPhap" component={GiaiPhap} />
             <Stack.Screen name="DangTin" component={DangTin} />

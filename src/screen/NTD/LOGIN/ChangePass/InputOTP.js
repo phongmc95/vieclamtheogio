@@ -9,19 +9,13 @@ import {
 } from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {scale} from 'react-native-size-matters';
-import {Modal, Portal} from 'react-native-paper';
-import LogIn_NTD from '../../../../base/API/apiNTD/LogIn_NTD';
 import {getDeviceWidth} from '../../../../Utils/CheckDevice';
 import ButtonStyle from '../../../../components/ButtonStyle';
 
 const InputOTP = ({navigation, route}) => {
-  const {token_changePass, email_changePass} = route.params;
   const [timerCount, setTimer] = useState(300);
   const [otp, setOtp] = useState('');
-  const [visible, setVisible] = React.useState(false);
 
-  const [message, setMessage] = useState('');
-  const hideModal = () => setVisible(false);
   useEffect(() => {
     let interval = setInterval(() => {
       setTimer(lastTimerCount => {
@@ -35,24 +29,7 @@ const InputOTP = ({navigation, route}) => {
   const submit = () => {
     navigation.navigate('NewPass', {token_pass: ''});
   };
-  const callApi = async () => {
-    try {
-      var data = new FormData();
-      data.append('token', token_changePass);
-      data.append('otp', otp);
-      const response = await LogIn_NTD.OTP_API(data);
 
-      if (response.data == null) {
-        setMessage(response.error.message);
-        setVisible(true);
-      } else {
-        navigation.navigate('NewPass', {token_pass: response.data.token});
-      }
-      console.log(data);
-    } catch (error) {
-      console.log('lỗi rồi' + error);
-    }
-  };
   return (
     <View style={{backgroundColor: '#F5F5FF', flex: 1}}>
       <ScrollView>
@@ -69,7 +46,7 @@ const InputOTP = ({navigation, route}) => {
             Nhập mã xác thực được gửi tới email :
           </Text>
           <View style={{width: '100%'}}>
-            <Text style={styles.email}>{email_changePass}</Text>
+            <Text style={styles.email}>email_changePass</Text>
           </View>
           <OTPInputView
             style={{width: '80%', height: scale(100)}}

@@ -14,7 +14,6 @@ import {getDeviceWidth} from '../../../Utils/CheckDevice';
 import ButtonStyle from '../../../components/ButtonStyle';
 import {validateEmail} from '../../../base/Validate';
 import ModalStyle from '../../../components/ModalStyle';
-import {EMaskUnits} from 'react-native-svg';
 const LoginNTD = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -30,8 +29,6 @@ const LoginNTD = ({navigation}) => {
       setModal(true);
       setError('Bạn nhập email không đúng định dạng . Vui  lòng nhập lại ! ');
     }
-
-    //navigation.navigate('tabNTD');
   };
   return (
     <View style={styles.contener}>

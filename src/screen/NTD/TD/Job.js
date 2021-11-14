@@ -9,26 +9,12 @@ import {
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
-import TD_API from '../../../base/API/apiNTD/TD_API';
 
 const Job = ({navigation}) => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState([]);
   const [search, setSearch] = useState('');
-  useEffect(() => {
-    const callApi = async () => {
-      try {
-        const params = {};
-        const response = await TD_API.Job(params);
-        setData(response.data.cate);
-        setFilter(response.data.cate);
-        console.log(response);
-      } catch (error) {
-        console.log('Tuan oi loi roi' + error);
-      }
-    };
-    callApi();
-  }, []);
+  useEffect(() => {}, []);
   const SearchText = text => {
     if (text) {
       const newData = filter.filter(item => {
@@ -111,7 +97,6 @@ const styles = StyleSheet.create({
     height: scale(40),
     borderWidth: scale(1),
     borderColor: '#307DF1',
-    justifyContent: 'space-between',
     alignContent: 'center',
     margin: scale(5),
     borderRadius: scale(5),

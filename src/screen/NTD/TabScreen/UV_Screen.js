@@ -288,7 +288,6 @@ const styles = StyleSheet.create({
   },
   status: {
     height: scale(36),
-    backgroundColor: '#307DF1',
     flexDirection: 'row',
     backgroundColor: '#307DF1',
     borderRadius: scale(30),

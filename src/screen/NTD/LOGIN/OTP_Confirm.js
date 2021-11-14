@@ -10,7 +10,6 @@ import {
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {scale} from 'react-native-size-matters';
 import {Modal, Portal} from 'react-native-paper';
-import SignIn_NTD from '../../../base/API/apiNTD/SignIn_NTD';
 const OTP_Confirm = ({navigation, route}) => {
   const {token, email_otp} = route.params;
   const [timerCount, setTimer] = useState(300);
@@ -34,26 +33,9 @@ const OTP_Confirm = ({navigation, route}) => {
       setMessage('Bạn chưa nhập mã OTP ');
       setVisible(true);
     } else {
-      callApi();
     }
   };
-  const callApi = async () => {
-    try {
-      var data = new FormData();
-      data.append('token', token);
-      data.append('otp', otp);
-      const response = await SignIn_NTD.confirm(data);
-      if (response.data == null) {
-        setMessage(response.error.message);
-        setVisible(true);
-      } else {
-        setVisible_logIn(true);
-      }
-      console.log(response);
-    } catch (error) {
-      console.log('lỗi rồi' + error);
-    }
-  };
+
   return (
     <View>
       <ScrollView>
