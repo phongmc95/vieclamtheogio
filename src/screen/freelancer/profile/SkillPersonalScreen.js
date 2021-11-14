@@ -3,12 +3,13 @@ import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
+import fonts from '../../../constant/fonts';
 
 export default function SkillPersonalScreen() {
   const navigation = useNavigation();
   return (
     <View style={styles.box}>
-      <View style={{width: '85%', flexDirection: 'row', flexWrap: 'wrap'}}>
+      <View style={styles.contant}>
         <Text style={styles.txtProgress}>Ngủ nguyên ngày </Text>
         <Text style={styles.txtProgress}>Ngủ nguyên ngày </Text>
         <Text style={styles.txtProgress}>Ngủ nguyên ngày </Text>
@@ -33,18 +34,17 @@ const styles = StyleSheet.create({
   txtProgress: {
     fontSize: scale(14),
     color: '#000',
-    lineHeight: scale(20),
     marginBottom: scale(10),
+    fontFamily: fonts.NORMAL,
   },
   box: {
     width: scale(300),
-    height: scale(160),
+    padding: scale(15),
     borderRadius: scale(20),
     backgroundColor: '#fff',
     elevation: 3,
     marginTop: scale(20),
     marginLeft: scale(5),
-    padding: scale(10),
     flexDirection: 'row',
   },
   trash: {
@@ -59,4 +59,5 @@ const styles = StyleSheet.create({
     marginLeft: scale(10),
     marginVertical: scale(30),
   },
+  contant: {width: '85%', flexDirection: 'row', flexWrap: 'wrap'},
 });

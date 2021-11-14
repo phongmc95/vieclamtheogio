@@ -1,12 +1,19 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import images from '../../constant/images';
 import fonts from '@constant/fonts';
 
 const LoadingScreen = ({navigation}) => {
   return (
-    <View style={styles.Container}>
+    <SafeAreaView style={styles.Container}>
       <View style={styles.swiper}>
         <Image style={styles.imgWave} source={images.wave} />
         <Image style={styles.imgLoading} source={images.loading} />
@@ -28,7 +35,7 @@ const LoadingScreen = ({navigation}) => {
           <Text style={styles.buttonText}>{'Đăng nhập với tư cách khách'}</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 export default LoadingScreen;
@@ -53,6 +60,10 @@ const styles = StyleSheet.create({
     borderWidth: scale(1),
     borderRadius: scale(4),
     marginBottom: scale(5),
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
     elevation: 5,
     backgroundColor: '#fff',
   },

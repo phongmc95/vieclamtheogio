@@ -28,7 +28,7 @@ const LoginScreen = ({navigation}) => {
           />
         </View>
         <View style={styles.boxTextInput}>
-          <TextInput style={styles.textInput} placeholder="Mật khẩu" pla />
+          <TextInput style={styles.textInput} placeholder="Mật khẩu" />
         </View>
         <Text style={styles.txtPass}>Quên mật khẩu</Text>
         <TouchableOpacity onPress={() => navigation.navigate('BottomTabFlc')}>
@@ -70,6 +70,10 @@ const styles = StyleSheet.create({
     borderColor: '#307DF1',
     borderWidth: scale(1),
     borderRadius: scale(4),
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
     elevation: 5,
     backgroundColor: '#fff',
     marginBottom: scale(10),
@@ -79,6 +83,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     marginLeft: scale(15),
     fontFamily: fonts.NORMAL,
+    top: scale(10),
   },
   boxTextInput: {
     width: scale(330),

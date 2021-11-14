@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {scale} from 'react-native-size-matters';
 import TitleHome from '../../components/title/TitleHome';
 import icons from '../../constant/icons';
@@ -16,7 +17,7 @@ import jobs from '../../data/Jobs';
 
 export default function HomeScreen({navigation}) {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scroll}>
         <TitleHome />
         <View style={styles.viewCategory}>
@@ -101,7 +102,7 @@ export default function HomeScreen({navigation}) {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -133,6 +134,10 @@ const styles = StyleSheet.create({
     width: scale(90),
     backgroundColor: '#307df1',
     borderRadius: scale(20),
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
     elevation: 5,
     alignItems: 'center',
     marginRight: scale(20),
@@ -160,6 +165,10 @@ const styles = StyleSheet.create({
     borderRadius: scale(20),
     width: scale(310),
     backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
     elevation: 5,
     marginVertical: scale(10),
   },
@@ -185,6 +194,7 @@ const styles = StyleSheet.create({
     height: scale(18),
     width: scale(20),
     marginTop: scale(5),
+    left: scale(25),
   },
   iconJob: {
     height: scale(18),

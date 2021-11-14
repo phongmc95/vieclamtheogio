@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '@components/title/TitleBasic';
@@ -13,11 +14,12 @@ import icons from '@constant/icons';
 import jobs from '@data/Jobs';
 import search from '@data/Search';
 import fonts from '@constant/fonts';
+import colors from '../../constant/colors';
 
 export default function FilterScreen() {
   const [check, setCheck] = useState(false);
   return (
-    <View>
+    <SafeAreaView>
       <TitleBasic title="Tìm kiếm nâng cao" />
       <View style={styles.content}>
         {search.map(item => (
@@ -31,30 +33,18 @@ export default function FilterScreen() {
         <TextInput placeholder="Nhập để tìm kiếm" style={styles.inputSearch} />
 
         {jobs.map(item => (
-          <View
-            style={{
-              marginTop: scale(5),
-              flexDirection: 'row',
-              paddingHorizontal: scale(20),
-            }}>
+          <View style={styles.list}>
             <TouchableOpacity onPress={() => setCheck(!check)}>
               <Image
                 style={{marginTop: scale(4.5)}}
                 source={!check ? icons.check : icons.checked}
               />
             </TouchableOpacity>
-            <Text
-              style={{
-                fontSize: scale(18),
-                color: '#404040',
-                marginLeft: scale(10),
-              }}>
-              {item.title}
-            </Text>
+            <Text style={styles.title}>{item.title}</Text>
           </View>
         ))}
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -80,13 +70,14 @@ const styles = StyleSheet.create({
     marginTop: scale(5),
     fontSize: scale(16),
     color: '#404040',
+    fontFamily: fonts.NORMAL,
   },
   viewTextSearch: {
-    backgroundColor: '#fff',
     width: '100%',
     height: '100%',
     borderTopLeftRadius: scale(20),
     borderTopRightRadius: scale(20),
+    backgroundColor: colors.LIGHT_WHITE,
   },
   inputSearch: {
     fontSize: scale(16),
@@ -99,5 +90,16 @@ const styles = StyleSheet.create({
     borderRadius: scale(30),
     paddingVertical: scale(8),
     paddingLeft: scale(20),
+  },
+  list: {
+    marginTop: scale(5),
+    flexDirection: 'row',
+    paddingHorizontal: scale(20),
+  },
+  title: {
+    fontSize: scale(18),
+    color: '#404040',
+    marginLeft: scale(10),
+    fontFamily: fonts.NORMAL,
   },
 });

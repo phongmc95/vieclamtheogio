@@ -4,6 +4,8 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '../../components/title/TitleBasic';
 import icons from '../../constant/icons';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import colors from '../../constant/colors';
 
 export default function NotificationScreen() {
   const items = [
@@ -25,7 +27,7 @@ export default function NotificationScreen() {
   ];
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TitleBasic title="Thông báo" />
       {items.map(item => (
         <View style={styles.content}>
@@ -38,14 +40,14 @@ export default function NotificationScreen() {
           </View>
         </View>
       ))}
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.LIGHT_WHITE,
   },
   viewItem: {
     flexDirection: 'row',

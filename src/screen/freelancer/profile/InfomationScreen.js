@@ -3,6 +3,8 @@ import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
+import fonts from '../../../constant/fonts';
+import colors from '../../../constant/colors';
 
 export default function InfomationScreen() {
   const navigation = useNavigation();
@@ -11,48 +13,38 @@ export default function InfomationScreen() {
       <View style={{flexDirection: 'row'}}>
         <View>
           <Text style={styles.txtProgress}>
-            Họ và tên: <Text style={{color: '#307df1'}}>Ngô Văn Lộc</Text>
+            Họ và tên: <Text style={styles.blue}>Ngô Văn Lộc</Text>
           </Text>
           <Text style={styles.txtProgress}>
-            Ngày sinh: <Text style={{color: '#307df1'}}>02/01/2001</Text>
+            Ngày sinh: <Text style={styles.blue}>02/01/2001</Text>
           </Text>
           <Text style={styles.txtProgress}>
-            Giới tính: <Text style={{color: '#307df1'}}>Nam</Text>
+            Giới tính: <Text style={styles.blue}>Nam</Text>
           </Text>
           <Text style={styles.txtProgress}>
-            Hôn nhân: <Text style={{color: '#307df1'}}>Độc thân </Text>
+            Hôn nhân: <Text style={styles.blue}>Độc thân </Text>
           </Text>
           <Text style={styles.txtProgress}>
-            Số điện thoại: <Text style={{color: '#307df1'}}>0123456789</Text>
+            Số điện thoại: <Text style={styles.blue}>0123456789</Text>
           </Text>
           <Text style={styles.txtProgress}>
-            Email: <Text style={{color: '#307df1'}}>vanloc@gmail.com</Text>
+            Email: <Text style={styles.blue}>vanloc@gmail.com</Text>
           </Text>
           <Text style={styles.txtProgress}>
-            Tỉnh thành: <Text style={{color: '#307df1'}}>Hà Nội </Text>
+            Tỉnh thành: <Text style={styles.blue}>Hà Nội </Text>
           </Text>
           <Text style={styles.txtProgress}>
-            Quận huyện: <Text style={{color: '#307df1'}}>Hoàng Mai</Text>
+            Quận huyện: <Text style={styles.blue}>Hoàng Mai</Text>
           </Text>
           <Text style={styles.txtProgress}>
             Địa chỉ:{' '}
-            <Text style={{color: '#307df1'}}>
-              1 Định Công, Hoàng Mai, Hà Nội
-            </Text>
+            <Text style={styles.blue}>1 Định Công, Hoàng Mai, Hà Nội</Text>
           </Text>
         </View>
         <View>
           <TouchableOpacity
             onPress={() => navigation.navigate('UpdateInfomation')}>
-            <Image
-              style={{
-                width: scale(20),
-                height: scale(20),
-                marginRight: scale(5),
-                marginTop: scale(5),
-              }}
-              source={icons.pen}
-            />
+            <Image style={styles.icon} source={icons.pen} />
           </TouchableOpacity>
         </View>
       </View>
@@ -66,6 +58,7 @@ const styles = StyleSheet.create({
     color: '#000',
     lineHeight: scale(20),
     marginBottom: scale(10),
+    fontFamily: fonts.NORMAL,
   },
   box: {
     width: scale(300),
@@ -76,5 +69,13 @@ const styles = StyleSheet.create({
     marginTop: scale(20),
     marginLeft: scale(5),
     padding: scale(10),
+  },
+  blue: {color: colors.BLUE},
+  icon: {
+    width: scale(20),
+    height: scale(20),
+    marginRight: scale(5),
+    marginTop: scale(5),
+    right: scale(20),
   },
 });

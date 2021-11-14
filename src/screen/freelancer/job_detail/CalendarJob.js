@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Button from '@components/Button/Button';
@@ -17,7 +18,7 @@ const CalendarJob = () => {
     setCheck(!check);
   };
   return (
-    <View>
+    <SafeAreaView>
       <ScrollView>
         <View style={{padding: scale(20)}}>
           <Text
@@ -127,7 +128,7 @@ const CalendarJob = () => {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import {View} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import TitleBasic from '../../components/title/TitleBasic';
 
 export default function ChatScreen() {
   return (
-    <View>
+    <SafeAreaView>
       <TitleBasic title="trò chuyện" />
-    </View>
+    </SafeAreaView>
   );
 }

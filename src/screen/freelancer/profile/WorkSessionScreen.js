@@ -3,6 +3,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
+import fonts from '../../../constant/fonts';
 
 export default function WorkSessionScreen() {
   const navigation = useNavigation();
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     color: '#404040',
     lineHeight: scale(19),
     marginBottom: scale(5),
-    fontWeight: 'bold',
+    fontFamily: fonts.BOLD,
   },
   button: {
     fontSize: scale(16),
@@ -101,6 +102,11 @@ const styles = StyleSheet.create({
     paddingTop: scale(8),
     borderRadius: scale(5),
     marginRight: scale(20),
+    fontFamily: fonts.NORMAL,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
   },
   row: {flexDirection: 'row'},
   bottom: {marginBottom: scale(20)},

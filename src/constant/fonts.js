@@ -1,5 +1,5 @@
 export default {
-  NORMAL: 'nissan_regular',
-  BOLD: 'nissan_bold',
-  ITALIC: 'nissan_italic',
+  NORMAL: 'Montserrat-Regular',
+  BOLD: 'Montserrat-Bold',
+  ITALIC: 'Montserrat-Italic',
 };

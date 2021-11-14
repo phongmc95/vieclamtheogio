@@ -6,6 +6,7 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
@@ -13,7 +14,7 @@ import listJob from '@data/ListJob';
 
 export default function SimilarJob({navigation}) {
   return (
-    <View style={{padding: scale(20)}}>
+    <SafeAreaView style={{padding: scale(20)}}>
       <FlatList
         data={listJob}
         keyExtractor={item => item.id}
@@ -47,7 +48,7 @@ export default function SimilarJob({navigation}) {
           </TouchableOpacity>
         )}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 

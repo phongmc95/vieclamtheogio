@@ -3,6 +3,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
+import fonts from '../../../constant/fonts';
 
 export default function ExperienceScreen() {
   const navigation = useNavigation();
@@ -35,14 +36,14 @@ const styles = StyleSheet.create({
     color: '#404040',
     lineHeight: scale(19),
     marginBottom: scale(5),
-    fontWeight: 'bold',
+    fontFamily: fonts.BOLD,
   },
   txtDetail: {
     fontSize: scale(14),
     color: '#404040',
     lineHeight: scale(19),
     marginBottom: scale(5),
-    fontWeight: '300',
+    fontFamily: fonts.NORMAL,
   },
   box: {
     width: scale(300),
@@ -59,6 +60,7 @@ const styles = StyleSheet.create({
     width: scale(20),
     height: scale(20),
     marginLeft: scale(20),
+    top: scale(20),
   },
   pen: {
     width: scale(20),

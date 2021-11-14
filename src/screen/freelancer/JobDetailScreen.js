@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
@@ -74,7 +75,7 @@ export default function JobDetailScreen({navigation, route}) {
     </View>
   );
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TitleJob
         icon={icons.heart_wb}
         logo={item.logo}
@@ -103,7 +104,7 @@ export default function JobDetailScreen({navigation, route}) {
         </View>
       </View>
       <Notification on={modal} off={toggleModal} />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -123,12 +124,12 @@ const styles = StyleSheet.create({
   },
   title: color => ({color, fontSize: scale(16), lineHeight: scale(18)}),
   content: {
-    height: scale(60),
     width: '100%',
     backgroundColor: '#fff',
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingTop: scale(8),
+    paddingVertical: scale(8),
+    bottom: 20,
   },
   align: {alignItems: 'center'},
   widthTab: {width: scale(180)},

@@ -7,16 +7,19 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '@components/title/TitleBasic';
 import icons from '@constant/icons';
 import images from '@constant/images';
 import Button from '@components/Button/Button';
+import colors from '../../../constant/colors';
+import fonts from '../../../constant/fonts';
 
 export default function UpdateInfomation() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TitleBasic title="thông tin liên hệ" />
       <ScrollView>
         <View style={{padding: scale(10)}}>
@@ -76,27 +79,19 @@ export default function UpdateInfomation() {
             <TextInput style={styles.textInput} placeholder="Địa chỉ" />
           </View>
         </View>
+        <View style={styles.button}>
+          <Button title="Lưu" color="#fff" bg="#307df1" right={scale(10)} />
+          <Button title="Không lưu" color="#307df1" bg={colors.GRAY} />
+        </View>
       </ScrollView>
-      <View
-        style={{
-          height: scale(60),
-          width: '100%',
-          backgroundColor: '#fff',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          paddingTop: scale(10),
-        }}>
-        <Button title="Lưu" color="#fff" bg="#307df1" right={scale(10)} />
-        <Button title="Không lưu" color="#307df1" bg="#fff" />
-      </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#E5E5E5',
+    backgroundColor: colors.LIGHT_WHITE,
   },
   avatar: {
     height: scale(100),
@@ -109,11 +104,11 @@ const styles = StyleSheet.create({
     marginTop: scale(10),
     color: '#404040',
     marginBottom: scale(30),
+    fontFamily: fonts.NORMAL,
   },
   textInput: {
-    fontWeight: '300',
+    fontFamily: fonts.ITALIC,
     fontSize: scale(16),
-    fontStyle: 'italic',
     marginLeft: scale(15),
     width: '83%',
   },
@@ -123,6 +118,10 @@ const styles = StyleSheet.create({
     height: scale(40),
     backgroundColor: '#fff',
     borderColor: '#307df1',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
     elevation: 5,
     borderRadius: scale(5),
     marginVertical: scale(10),
@@ -133,5 +132,13 @@ const styles = StyleSheet.create({
     height: scale(10),
     marginTop: scale(15),
     marginLeft: scale(10),
+  },
+  button: {
+    height: scale(60),
+    width: '100%',
+    backgroundColor: colors.LIGHT_WHITE,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingTop: scale(10),
   },
 });

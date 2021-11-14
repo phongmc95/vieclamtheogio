@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, Text, View, StatusBar} from 'react-native';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import BottomTapsNTD from './BottomTaps/BottomTapsNTD';
@@ -13,7 +12,6 @@ import JobSaved from '../screen/freelancer/job/JobSaved';
 import JobPass from '../screen/freelancer/job/JobPass';
 import UpdatePassword from '../screen/freelancer/profile/UpdatePassword';
 import TabTopFlc from './TabTopFlc';
-import UpdateDesiredJob from '../screen/freelancer/profile/UpdateDesiredJob';
 import UpdateExperience from '../screen/freelancer/profile/UpdateExperience';
 import UpdateInfomation from '../screen/freelancer/profile/UpdateInfomation';
 import UpdateSkillPersonal from '../screen/freelancer/profile/UpdateSkillPersonal';
@@ -51,6 +49,7 @@ import NewPass from '../screen/NTD/LOGIN/ChangePass/NewPass';
 import SplashScreen from '../screen/intro/SplashScreen';
 import {Provider} from 'react-redux';
 import {Store} from '../redux/store/Store';
+import UpdateDesiredJob from '../screen/freelancer/profile/UpdateDesiredJob';
 
 const Stack = createStackNavigator();
 const StackNavigation = () => {

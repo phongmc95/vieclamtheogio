@@ -1,5 +1,12 @@
-import React, {useRef, useState} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useRef} from 'react';
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Swiper from 'react-native-swiper';
 import images from '../../constant/images';
@@ -7,14 +14,12 @@ import fonts from '@constant/fonts';
 
 const OnbroadScreen = ({navigation}) => {
   const swiper = useRef(null);
-  const [page, setPage] = useState(0);
 
   return (
-    <View style={styles.Container}>
+    <SafeAreaView style={styles.Container}>
       <View style={styles.swiper}>
         <Swiper
           autoplay={true}
-          onIndexChanged={index => setPage(index)}
           ref={swiper}
           activeDotStyle={styles.activeSwiperDot}
           dotStyle={styles.swiperdot}>
@@ -60,7 +65,7 @@ const OnbroadScreen = ({navigation}) => {
           <Text style={styles.buttonText}>{'Nhà tuyển dụng'}</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 export default OnbroadScreen;
@@ -134,6 +139,10 @@ const styles = StyleSheet.create({
     borderColor: '#307DF1',
     borderWidth: scale(1),
     borderRadius: scale(4),
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
     elevation: 5,
     backgroundColor: '#fff',
     marginBottom: scale(10),

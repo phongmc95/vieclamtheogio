@@ -3,10 +3,13 @@ import {StyleSheet, View, TextInput, ScrollView} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '@components/title/TitleBasic';
 import Button from '@components/Button/Button';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import fonts from '../../../constant/fonts';
+import colors from '../../../constant/colors';
 
 export default function UpdateDesiredJob() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TitleBasic title="kỹ năng cá nhân" />
       <ScrollView>
         <View style={{padding: scale(10)}}>
@@ -30,21 +33,22 @@ export default function UpdateDesiredJob() {
         <Button title="Lưu" color="#fff" bg="#307df1" right={scale(10)} />
         <Button title="Không lưu" color="#307df1" bg="#fff" />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.LIGHT_WHITE,
   },
   textInput: {
-    fontWeight: '300',
     fontSize: scale(16),
-    fontStyle: 'italic',
     marginLeft: scale(15),
     width: '90%',
     color: '#000',
+    fontFamily: fonts.ITALIC,
+    paddingTop: scale(10),
   },
   boxTextInput: {
     width: scale(330),
@@ -52,6 +56,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 1,
     borderColor: '#307df1',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
     elevation: 5,
     marginVertical: scale(10),
   },
@@ -65,7 +73,7 @@ const styles = StyleSheet.create({
   viewButton: {
     height: scale(60),
     width: '100%',
-    backgroundColor: '#fff',
+    backgroundColor: colors.LIGHT_WHITE,
     flexDirection: 'row',
     justifyContent: 'center',
     paddingTop: scale(10),

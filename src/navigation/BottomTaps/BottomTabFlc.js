@@ -2,12 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {scale} from 'react-native-size-matters';
-import {
-  HomeICON,
-  UVICON,
-  ChatICON,
-  ProfileICON,
-} from '@assets/icon';
+import {HomeICON, UVICON, ChatICON, ProfileICON} from '@assets/icon';
 import HomeScreen from '../../screen/freelancer/HomeScreen';
 import ProfileScreen from '../../screen/freelancer/ProfileScreen';
 import ChatScreen from '../../screen/freelancer/ChatScreen';
@@ -19,7 +14,7 @@ const BottomTabFlc = () => {
     <Tab.Navigator
       tabBarOptions={{
         showLabel: false,
-        tabStyle: {
+        tabBarStyle: {
           height: scale(60),
         },
         style: {
@@ -57,7 +52,7 @@ const BottomTabFlc = () => {
           ),
         }}
       />
-      
+
       <Tab.Screen
         name="ProfileFLC"
         component={ProfileScreen}
@@ -77,8 +72,8 @@ const BottomTabFlc = () => {
                   : styles.viewIconTab
               }>
               <UVICON
-                 width={focused ? scale(30) : scale(20)}
-                 height={focused ? scale(30) : scale(20)}
+                width={focused ? scale(30) : scale(20)}
+                height={focused ? scale(30) : scale(20)}
                 color={focused ? '#307DF1' : 'gray'}
               />
             </View>

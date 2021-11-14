@@ -1,11 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput} from 'react-native';
+import {StyleSheet, Text, View, TextInput, SafeAreaView} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import jobs from '@data/Jobs';
 
 export default function JobDesied() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={{alignItems: 'center'}}>
         <Text style={styles.title}>ngành nghề mong muốn</Text>
         <TextInput placeholder="Nhập để tìm kiếm" style={styles.search} />
@@ -22,7 +22,7 @@ export default function JobDesied() {
           </Text>
         </View>
       ))}
-    </View>
+    </SafeAreaView>
   );
 }
 

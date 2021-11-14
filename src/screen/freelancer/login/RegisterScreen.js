@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
@@ -15,7 +16,7 @@ import fonts from '@constant/fonts';
 
 export default function RegisterScreen({navigation}) {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.content}>
           <Text style={styles.text30}>Đăng ký ứng viên</Text>
@@ -104,7 +105,7 @@ export default function RegisterScreen({navigation}) {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 

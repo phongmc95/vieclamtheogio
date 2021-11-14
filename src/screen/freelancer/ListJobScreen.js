@@ -1,4 +1,3 @@
-import fonts from '@constant/fonts';
 import React from 'react';
 import {
   StyleSheet,
@@ -7,9 +6,12 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '../../components/title/TitleBasic';
+import colors from '../../constant/colors';
+import fonts from '../../constant/fonts';
 import icons from '../../constant/icons';
 import listJob from '../../data/ListJob';
 
@@ -40,7 +42,7 @@ export default function ListJobScreen({navigation}) {
     </TouchableOpacity>
   );
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TitleBasic title="danh sách việc" />
       <View style={styles.padding}>
         <FlatList
@@ -49,12 +51,12 @@ export default function ListJobScreen({navigation}) {
           renderItem={renderItem}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: '#fff'},
+  container: {flex: 1, backgroundColor: colors.LIGHT_WHITE},
   boxJob: {
     paddingHorizontal: scale(12),
     paddingVertical: scale(12),
@@ -62,6 +64,10 @@ const styles = StyleSheet.create({
     borderRadius: scale(5),
     width: scale(305),
     backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
     elevation: 5,
     marginBottom: scale(20),
     marginLeft: scale(3),
@@ -83,6 +89,7 @@ const styles = StyleSheet.create({
     fontSize: scale(12),
     lineHeight: scale(20),
     color: '#404040',
+    fontFamily: fonts.NORMAL,
   },
   iconHeart: {
     height: scale(18),
@@ -99,6 +106,7 @@ const styles = StyleSheet.create({
     fontSize: scale(12),
     lineHeight: scale(20),
     color: '#404040',
+    fontFamily: fonts.NORMAL,
   },
   padding: {padding: scale(20)},
   viewContent: {

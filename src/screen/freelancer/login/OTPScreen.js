@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import images from '@constant/images';
@@ -21,7 +22,7 @@ export default function OTPScreen() {
     setModal(!modal);
   };
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image
         style={{width: '100%', height: scale(173)}}
         source={images.tabBar}
@@ -67,7 +68,7 @@ export default function OTPScreen() {
         title="Đăng ký thành công"
         content="Chúc bạn có những trải nghiệm tốt nhất với dịch vụ của chúng tôi "
       />
-    </View>
+    </SafeAreaView>
   );
 }
 

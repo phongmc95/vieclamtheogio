@@ -11,8 +11,9 @@ import WorkSessionScreen from './profile/WorkSessionScreen';
 import {TabView, TabBar} from 'react-native-tab-view';
 import DesiredJobScreen from './profile/DesiredJobScreen';
 import {ScrollView} from 'react-native-gesture-handler';
-import colors from '@constant/colors';
 import fonts from '@constant/fonts';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import colors from '../../constant/colors';
 
 export default function ProfileScreen() {
   const [index, setIndex] = useState(0);
@@ -51,8 +52,8 @@ export default function ProfileScreen() {
       <TabBar
         {...props}
         scrollEnabled={true}
-        indicatorStyle={{backgroundColor: '#307df1'}}
-        style={{backgroundColor: '#FFFFFF'}}
+        indicatorStyle={styles.blue}
+        style={styles.white}
         tabStyle={styles.width210}
         inactiveColor={colors.GRAY}
         activeColor={colors.BLUE}
@@ -66,11 +67,11 @@ export default function ProfileScreen() {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TitleBasic title="hồ sơ" />
       <ScrollView>
         <View style={styles.content}>
-          <View style={{alignItems: 'center'}}>
+          <View style={styles.center}>
             <Image style={styles.avatar} source={images.avatar} />
             <Text style={styles.txtAvatar}>Hoàng Phong</Text>
           </View>
@@ -96,14 +97,14 @@ export default function ProfileScreen() {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.WHITE,
+    backgroundColor: colors.LIGHT_WHITE,
   },
   avatar: {
     height: scale(100),
@@ -121,11 +122,20 @@ const styles = StyleSheet.create({
     fontSize: scale(14),
     color: colors.BLACK,
     marginBottom: scale(20),
+    fontFamily: fonts.NORMAL,
   },
   tab: {height: scale(700)},
   percent: {color: colors.BLUE},
   content: {padding: scale(20)},
-  title: color => ({color, fontSize: scale(16), lineHeight: scale(18)}),
+  title: color => ({
+    color,
+    fontSize: scale(14),
+    lineHeight: scale(18),
+    fontFamily: fonts.BOLD,
+  }),
   align: {alignItems: 'center'},
   width210: {width: scale(210)},
+  blue: {backgroundColor: colors.BLUE},
+  white: {backgroundColor: colors.LIGHT_WHITE},
+  center: {alignItems: 'center'},
 });

@@ -1,5 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '@components/title/TitleBasic';
 import jobs from '@data/Jobs';
@@ -7,20 +14,24 @@ import fonts from '@constant/fonts';
 
 export default function JobHotScreen() {
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <TitleBasic title="việc làm nổi bật" />
-        {jobs.map(item => (
-          <View>
-            <View style={styles.content}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.count}>{item.count} Công việc sẵn sàng</Text>
-              <Image style={styles.image} source={item.img} />
+    <SafeAreaView>
+      <ScrollView>
+        <View style={styles.container}>
+          <TitleBasic title="việc làm nổi bật" />
+          {jobs.map(item => (
+            <View>
+              <View style={styles.content}>
+                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.count}>
+                  {item.count} Công việc sẵn sàng
+                </Text>
+                <Image style={styles.image} source={item.img} />
+              </View>
             </View>
-          </View>
-        ))}
-      </View>
-    </ScrollView>
+          ))}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -35,6 +46,9 @@ const styles = StyleSheet.create({
     width: '90%',
     borderRadius: scale(20),
     backgroundColor: '#307DF1',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
     elevation: 5,
     padding: scale(20),
     height: scale(150),

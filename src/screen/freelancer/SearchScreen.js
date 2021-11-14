@@ -5,10 +5,12 @@ import {scale} from 'react-native-size-matters';
 import TitleSearch from '../../components/title/TitleSearch';
 import icons from '../../constant/icons';
 import jobs from '../../data/Jobs';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import colors from '../../constant/colors';
 
 export default function SearchScreen() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TitleSearch title="Tìm kiếm" />
       <View style={styles.viewSearch}>
         <View style={styles.row}>
@@ -19,14 +21,14 @@ export default function SearchScreen() {
           <Text style={styles.title}>{item.title}</Text>
         ))}
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.LIGHT_WHITE,
   },
   row: {flexDirection: 'row'},
   title: {
