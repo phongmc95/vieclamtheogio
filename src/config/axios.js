@@ -1,7 +1,7 @@
 import axios from 'axios';
 import queryString from 'query-string';
 const axiosClient = axios.create({
-  baseURL: 'https://vieclamtheogio.timviec365.vn/api_app/api_job/',
+  baseURL: 'https://fpt-jobs-api.herokuapp.com/api/v1/',
   headers: {
     'content-type': 'application/json',
   },

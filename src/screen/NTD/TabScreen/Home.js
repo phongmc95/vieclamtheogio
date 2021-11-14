@@ -10,11 +10,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {useSelector} from 'react-redux';
-import {NotificationICON} from '../../../../assets/icon';
-import HomeAPi from '../../../base/API/apiNTD/HomeAPi';
 import HeaderStyle from '../../../components/HeaderStyle';
-import {isIos} from '../../../Utils/CheckDevice';
 const data = null;
 const Home = () => {
   const renderItem = ({item}) => (
@@ -45,13 +41,9 @@ const Home = () => {
     <View style={[styles.ViewFlatlist, {height: scale(179)}]}>
       <View style={{flexDirection: 'row'}}>
         <Image
-          source={
-            item.uv_avatar
-              ? {uri: item.uv_avatar}
-              : {
-                  uri: 'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-anh-avatar-hai.jpg',
-                }
-          }
+          source={{
+            uri: 'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-anh-avatar-hai.jpg',
+          }}
           style={styles.imgItem}
         />
         <Text style={styles.Name_hs}>{item.uv_username}</Text>

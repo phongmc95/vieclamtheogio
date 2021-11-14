@@ -11,6 +11,8 @@ import {
 import {scale} from 'react-native-size-matters';
 import images from '@constant/images';
 import fonts from '@constant/fonts';
+import TextInputStyle from '../../../components/TextInputStyle';
+import TextInputPassword from '../../../components/TextInputPassword';
 
 const LoginScreen = ({navigation}) => {
   return (
@@ -21,15 +23,17 @@ const LoginScreen = ({navigation}) => {
 
           <Text style={styles.txtTitle}>Đăng nhập</Text>
         </View>
-        <View style={styles.boxTextInput}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Nhập số điện thoại"
-          />
-        </View>
-        <View style={styles.boxTextInput}>
-          <TextInput style={styles.textInput} placeholder="Mật khẩu" />
-        </View>
+        <TextInputStyle
+          Label="Email"
+          // value={email}
+          // onChangeText={text => setEmail(text)}
+        />
+
+        <TextInputPassword
+          Label="Password"
+          // value={pass}
+          // onChangeText={text => setPass(text)}
+        />
         <Text style={styles.txtPass}>Quên mật khẩu</Text>
         <TouchableOpacity onPress={() => navigation.navigate('BottomTabFlc')}>
           <Text style={styles.btnLogin}>Đăng nhập</Text>

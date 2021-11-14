@@ -17,7 +17,7 @@ import {
   PhoneIcon,
   ClockIcon,
   SelectDowIcon,
-} from '@assets/icon';
+} from '../../../../assets/icon';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {Modal} from 'react-native-paper';
 import HeaderStyle from '../../../components/HeaderStyle';
@@ -288,7 +288,6 @@ const styles = StyleSheet.create({
   },
   status: {
     height: scale(36),
-    backgroundColor: '#307DF1',
     flexDirection: 'row',
     backgroundColor: '#307DF1',
     borderRadius: scale(30),
@@ -316,10 +315,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.5,
-    shadowRadius: 1,
     elevation: 5,
     width: scale(311),
     height: scale(403),

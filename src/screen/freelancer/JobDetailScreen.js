@@ -61,8 +61,8 @@ export default function JobDetailScreen({navigation, route}) {
       <TabBar
         {...props}
         scrollEnabled={true}
-        indicatorStyle={[{backgroundColor: '#307df1'}]}
-        style={[{backgroundColor: '#FFFFFF'}]}
+        indicatorStyle={{backgroundColor: '#307df1'}}
+        style={{backgroundColor: '#FFFFFF'}}
         tabStyle={styles.widthTab}
         inactiveColor={'#404040'}
         activeColor={'#307df1'}

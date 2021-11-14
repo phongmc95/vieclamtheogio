@@ -9,31 +9,20 @@ import {
   ScrollView,
 } from 'react-native';
 import {s, scale} from 'react-native-size-matters';
-import {CameraIcon, Selecter, EyeIconPass} from '@assets/icon';
+import {CameraIcon, Selecter, EyeIconPass} from '../../../../assets/icon';
 import * as ImagePicker from 'react-native-image-picker';
-import {Modal, Portal} from 'react-native-paper';
-import {isVietnamesePhoneNumber, validateEmail} from '../../../base/Validate';
-import SignIn_NTD from '../../../base/API/apiNTD/SignIn_NTD';
 import TextInputStyle from '../../../components/TextInputStyle';
 import TextInputPassword from '../../../components/TextInputPassword';
 import ButtonStyle from '../../../components/ButtonStyle';
 const SignInNTD = ({navigation, route}) => {
-  const {item} = route.params;
-  const cityid = item.cit_id;
-  const {nameDistrict, idDistrict} = route.params;
-  const districtID = idDistrict;
-  const [showP, setShowP] = useState(true);
   const [phone, setPhone] = useState('');
   const [pass, setPass] = useState('');
   const [pass1, setPass1] = useState('');
   const [logo, setLogo] = useState(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [city, setCity] = useState('Tỉnh thành');
-  const [district, setDistrict] = useState('Quận huyện');
   const [address, setAddress] = useState('');
   const [visible, setVisible] = React.useState(false);
-  const [message, setMessage] = useState('');
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -61,56 +50,6 @@ const SignInNTD = ({navigation, route}) => {
       setLogo(response);
     });
   };
-  const submit = () => {
-    if (
-      !phone ||
-      !pass ||
-      !pass1 ||
-      !name ||
-      !email ||
-      !address ||
-      city == 'Tỉnh thành' ||
-      district == 'Quận huyện'
-    ) {
-      setMessage('Các ô nhập là bắt buộc không được để trống');
-      setVisible(true);
-    } else if (!isVietnamesePhoneNumber(phone)) {
-      setMessage('Số điện thoại nhập không đúng định dạng');
-      setVisible(true);
-    } else if (reg.test(pass) === false) {
-      setMessage(
-        'Mật khẩu cần có ít nhất 8 ký tự, ít nhất một chữ cái và một số và không có dấu cách',
-      );
-      setVisible(true);
-    } else if (pass1 != pass) {
-      setMessage('Nhập lại mật khẩu không trùng khớp ');
-      setVisible(true);
-    } else if (nametest.test(name) === true) {
-      setMessage('Tên doanh nghiệp không được chứa ký tự đặc biệt');
-      setVisible(true);
-    } else if (!validateEmail(email)) {
-      setMessage('Email không đúng định dạng');
-      setVisible(true);
-    } else if (logo == null) {
-      setMessage('Bạn chưa chọn logo đại diện cho công ty');
-      setVisible(true);
-    } else {
-      PostSignUp();
-    }
-  };
-  const PostSignUp = async () => {};
-  const AddressChecker = () => {
-    if (city == 'Tỉnh thành') {
-      setMessage('Bạn phải chọn Tỉnh thành trước');
-      setVisible(true);
-    } else {
-      navigation.navigate('DistrictNTD', {cityid});
-    }
-  };
-  useEffect(() => {
-    item.cit_name && setCity(item.cit_name);
-    nameDistrict && setDistrict(nameDistrict);
-  }, [item, nameDistrict]);
 
   return (
     <View>
@@ -125,7 +64,7 @@ const SignInNTD = ({navigation, route}) => {
               style={styles.avatar}
               source={
                 !logo
-                  ? require('@assets/images/avatar_icon.png')
+                  ? require('../../../../assets/images/avatar_icon.png')
                   : {uri: logo.assets[0].uri}
               }
             />

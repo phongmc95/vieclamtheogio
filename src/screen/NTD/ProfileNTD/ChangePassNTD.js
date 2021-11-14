@@ -15,7 +15,7 @@ import {
   CameraIcon,
   EyeIcon,
   ChangePassIcon,
-} from '@assets/icon';
+} from '../../../../assets/icon';
 
 const ChangePassNTD = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);

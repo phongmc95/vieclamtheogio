@@ -17,7 +17,7 @@ import {
   ClockIcon,
   SelectDowIcon,
   BackIcon,
-} from '@assets/icon/index';
+} from '../../../../assets/icon/index';
 import {SwipeListView} from 'react-native-swipe-list-view';
 const ListFilter = ({navigation}) => {
   const DATA = [
@@ -235,7 +235,6 @@ const styles = StyleSheet.create({
     height: scale(36),
     backgroundColor: '#307DF1',
     flexDirection: 'row',
-    backgroundColor: '#307DF1',
     borderRadius: scale(30),
     marginTop: scale(10),
     alignItems: 'center',

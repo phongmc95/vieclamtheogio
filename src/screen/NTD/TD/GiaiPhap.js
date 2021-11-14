@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {BackIcon, PhanTich, Bongden} from '@assets/icon';
+import {BackIcon, PhanTich, Bongden} from '../../../../assets/icon';
 
 const GiaiPhap = ({navigation}) => {
   return (
@@ -123,7 +123,8 @@ const GiaiPhap = ({navigation}) => {
             marginTop: scale(35),
             borderBottomWidth: 1,
             borderColor: 'black',
-          }}></View>
+          }}
+        />
         <View
           style={{
             width: scale(310),

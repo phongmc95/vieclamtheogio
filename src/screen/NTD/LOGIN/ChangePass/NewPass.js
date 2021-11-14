@@ -9,23 +9,12 @@ import {
   TextInput,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {EyeIconPass} from '@assets/icon';
-import {Modal, Portal} from 'react-native-paper';
-import LogIn_NTD from '@base/API/apiNTD/LogIn_NTD';
-import {data} from 'browserslist';
 import {getDeviceWidth} from '../../../../Utils/CheckDevice';
 import TextInputPassword from '../../../../components/TextInputPassword';
 import ButtonStyle from '../../../../components/ButtonStyle';
 const NewPass = ({navigation, route}) => {
-  const {token_pass} = route.params;
   const [pass, setPass] = useState('');
   const [pass1, setPass1] = useState('');
-  const [show, setShow] = useState(true);
-  const [visible, setVisible] = React.useState(false);
-  const [visible_logIn, setVisible_logIn] = React.useState(false);
-  const [message, setMessage] = useState('');
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
   const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
   const submit = () => {
@@ -45,23 +34,7 @@ const NewPass = ({navigation, route}) => {
     // }
     navigation.navigate('LoginNTD');
   };
-  const callApi = async () => {
-    try {
-      var data = new FormData();
-      data.append('token', token_pass),
-        data.append('pass', pass),
-        data.append('re_pass', pass1);
-      const response = await LogIn_NTD.ChangePass(data);
-      if (response.data == null) {
-        setMessage(response.error.message);
-        setVisible(true);
-      } else {
-        setVisible_logIn(true);
-      }
-    } catch (error) {
-      console.log('Lỗi rồi tuấn ơi' + error);
-    }
-  };
+
   return (
     <View>
       <ScrollView>

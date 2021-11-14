@@ -26,7 +26,7 @@ const SelectNTD = ({navigation}) => {
       </View>
 
       <Image
-        source={require('@assets/images/selectNTD.png')}
+        source={require('../../../../assets/images/selectNTD.png')}
         style={styles.body}
       />
       <TouchableOpacity
