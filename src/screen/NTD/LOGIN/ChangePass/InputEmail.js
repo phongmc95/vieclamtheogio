@@ -40,7 +40,7 @@ const InputEmail = ({navigation}) => {
       </View>
       <ButtonStyle Title="Xác nhận" styleBtn={{width: scale(120)}} />
       <Image
-        source={require('../../../../assets/images/bro.png')}
+        source={require('../../../../../assets/images/bro.png')}
         style={styles.foodter}
       />
     </View>
