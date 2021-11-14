@@ -7,6 +7,7 @@ import HomeScreen from '../../screen/freelancer/HomeScreen';
 import ProfileScreen from '../../screen/freelancer/ProfileScreen';
 import ChatScreen from '../../screen/freelancer/ChatScreen';
 import ManageFlc from '../../screen/freelancer/ManageFlc';
+import {isIos} from '../../Utils/CheckDevice';
 
 const Tab = createBottomTabNavigator();
 const BottomTabFlc = () => {
@@ -14,13 +15,13 @@ const BottomTabFlc = () => {
     <Tab.Navigator
       tabBarOptions={{
         showLabel: false,
-        tabBarStyle: {
+        tabStyle: {
           height: scale(60),
         },
         style: {
           position: 'absolute',
           backgroundColor: '#ffffff',
-          height: scale(60),
+          height: isIos ? scale(80) : scale(60),
           borderTopLeftRadius: scale(20),
           borderTopRightRadius: scale(20),
         },
@@ -30,24 +31,30 @@ const BottomTabFlc = () => {
         component={HomeScreen}
         options={{
           tabBarIcon: ({focused}) => (
-            <View
-              style={
-                focused
-                  ? [
-                      styles.viewIconTab,
-                      {
-                        marginTop: scale(-50),
-                        width: scale(60),
-                        height: scale(60),
-                      },
-                    ]
-                  : styles.viewIconTab
-              }>
-              <HomeICON
-                width={focused ? scale(30) : scale(20)}
-                height={focused ? scale(30) : scale(20)}
-                color={focused ? '#307DF1' : 'gray'}
-              />
+            <View style={styles.viewIcon}>
+              <View
+                style={
+                  focused
+                    ? [
+                        styles.viewIconTab,
+                        {
+                          marginTop: scale(-50),
+                          width: scale(60),
+                          height: scale(60),
+                        },
+                      ]
+                    : styles.viewIconTab
+                }>
+                <HomeICON
+                  width={21}
+                  height={19}
+                  color={focused ? '#307DF1' : 'gray'}
+                />
+              </View>
+
+              <Text>
+                {focused ? <Text style={styles.blue}>Trang chủ</Text> : null}
+              </Text>
             </View>
           ),
         }}
@@ -58,24 +65,30 @@ const BottomTabFlc = () => {
         component={ProfileScreen}
         options={{
           tabBarIcon: ({focused}) => (
-            <View
-              style={
-                focused
-                  ? [
-                      styles.viewIconTab,
-                      {
-                        marginTop: scale(-50),
-                        width: scale(60),
-                        height: scale(60),
-                      },
-                    ]
-                  : styles.viewIconTab
-              }>
-              <UVICON
-                width={focused ? scale(30) : scale(20)}
-                height={focused ? scale(30) : scale(20)}
-                color={focused ? '#307DF1' : 'gray'}
-              />
+            <View style={styles.viewIcon}>
+              <View
+                style={
+                  focused
+                    ? [
+                        styles.viewIconTab,
+                        {
+                          marginTop: scale(-50),
+                          width: scale(60),
+                          height: scale(60),
+                        },
+                      ]
+                    : styles.viewIconTab
+                }>
+                <ProfileICON
+                  width={21}
+                  height={19}
+                  color={focused ? '#307DF1' : 'gray'}
+                />
+              </View>
+
+              <Text>
+                {focused ? <Text style={styles.blue}>Hồ sơ</Text> : null}
+              </Text>
             </View>
           ),
         }}
@@ -85,24 +98,30 @@ const BottomTabFlc = () => {
         component={ChatScreen}
         options={{
           tabBarIcon: ({focused}) => (
-            <View
-              style={
-                focused
-                  ? [
-                      styles.viewIconTab,
-                      {
-                        marginTop: scale(-50),
-                        width: scale(60),
-                        height: scale(60),
-                      },
-                    ]
-                  : styles.viewIconTab
-              }>
-              <ChatICON
-                width={focused ? scale(30) : scale(20)}
-                height={focused ? scale(30) : scale(20)}
-                color={focused ? '#307DF1' : 'gray'}
-              />
+            <View style={styles.viewIcon}>
+              <View
+                style={
+                  focused
+                    ? [
+                        styles.viewIconTab,
+                        {
+                          marginTop: scale(-50),
+                          width: scale(60),
+                          height: scale(60),
+                        },
+                      ]
+                    : styles.viewIconTab
+                }>
+                <ChatICON
+                  width={21}
+                  height={19}
+                  color={focused ? '#307DF1' : 'gray'}
+                />
+              </View>
+
+              <Text>
+                {focused ? <Text style={styles.blue}>Trò chuyện</Text> : null}
+              </Text>
             </View>
           ),
         }}
@@ -112,24 +131,30 @@ const BottomTabFlc = () => {
         component={ManageFlc}
         options={{
           tabBarIcon: ({focused}) => (
-            <View
-              style={
-                focused
-                  ? [
-                      styles.viewIconTab,
-                      {
-                        marginTop: scale(-50),
-                        width: scale(60),
-                        height: scale(60),
-                      },
-                    ]
-                  : styles.viewIconTab
-              }>
-              <ProfileICON
-                width={focused ? scale(30) : scale(20)}
-                height={focused ? scale(30) : scale(20)}
-                color={focused ? '#307DF1' : 'gray'}
-              />
+            <View style={styles.viewIcon}>
+              <View
+                style={
+                  focused
+                    ? [
+                        styles.viewIconTab,
+                        {
+                          marginTop: scale(-50),
+                          width: scale(60),
+                          height: scale(60),
+                        },
+                      ]
+                    : styles.viewIconTab
+                }>
+                <UVICON
+                  width={21}
+                  height={19}
+                  color={focused ? '#307DF1' : 'gray'}
+                />
+              </View>
+
+              <Text>
+                {focused ? <Text style={styles.blue}>Quản lý</Text> : null}
+              </Text>
             </View>
           ),
         }}
@@ -144,10 +169,16 @@ const styles = StyleSheet.create({
   viewIconTab: {
     width: scale(40),
     height: scale(40),
-    backgroundColor: '#C4C4C4',
+    backgroundColor: '#EBEBEB',
     borderRadius: scale(50),
     alignContent: 'center',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  viewIcon: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  blue: {color: '#307DF1'},
 });

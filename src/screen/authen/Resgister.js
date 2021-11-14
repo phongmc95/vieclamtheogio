@@ -1,15 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   TouchableOpacity,
   Image,
   ScrollView,
 } from 'react-native';
-import {s, scale} from 'react-native-size-matters';
-import {CameraIcon, Selecter, EyeIconPass} from '../../../assets/icon';
+import {scale} from 'react-native-size-matters';
+import {CameraIcon} from '../../../assets/icon';
 import * as ImagePicker from 'react-native-image-picker';
 import TextInputStyle from '../../components/TextInputStyle';
 import TextInputPassword from '../../components/TextInputPassword';
@@ -17,6 +16,7 @@ import ButtonStyle from '../../components/ButtonStyle';
 import {useSelector} from 'react-redux';
 import SelectModal from '../../components/SelectModal';
 import TextInputSelected from '../../components/TextInputSelected';
+import fonts from '../../constant/fonts';
 const Resgister = ({navigation, route}) => {
   const checkLogin = useSelector(state => state.LOGIN.check_type);
   const [phone, setPhone] = useState('');
@@ -26,11 +26,13 @@ const Resgister = ({navigation, route}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
-  console.log(checkLogin);
   const [visible, setVisible] = React.useState(false);
+  const [desiredProfession, setDesiredProfession] = useState('');
+  const [desiredWorkplace, setDesiredWorkplace] = useState('');
+  const [desiredJob, setDesiredJob] = useState('');
 
-  const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  const nametest = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+  // const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  // const nametest = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
   const options = {
     mediaType: 'photo',
     // includeBase64: true,
@@ -55,7 +57,12 @@ const Resgister = ({navigation, route}) => {
     });
   };
   const selectItem = item => {
-    console.log(item.title);
+    setDesiredProfession(item.title);
+    handleOpen();
+  };
+
+  const handleOpen = () => {
+    setVisible(!visible);
   };
 
   return (
@@ -82,59 +89,73 @@ const Resgister = ({navigation, route}) => {
           <TouchableOpacity onPress={openLibry}>
             <Text style={styles.openLibry}>Chọn ảnh</Text>
           </TouchableOpacity>
-          <View style={{marginTop: scale(20), marginBottom: '7%'}}>
+          <View style={styles.form}>
             <TextInputStyle
-              Label="Phone"
-              value={phone}
-              onChangeText={text => setPhone(text)}
-            />
-            <TextInputPassword
-              Label="Password"
-              value={pass}
-              onChangeText={text => setPass(text)}
-            />
-            <TextInputPassword
-              Label="Confirm Password"
-              value={pass1}
-              onChangeText={text => setPass1(text)}
-            />
-            <TextInputStyle
-              Label="Name"
+              Label="Họ và tên"
               value={name}
               onChangeText={text => setName(text)}
+            />
+            <TextInputStyle
+              Label="Số điện thoại"
+              value={phone}
+              onChangeText={text => setPhone(text)}
             />
             <TextInputStyle
               Label="Email"
               value={email}
               onChangeText={text => setEmail(text)}
             />
+            <TextInputPassword
+              Label="Mật khẩu"
+              value={pass}
+              onChangeText={text => setPass(text)}
+            />
+            <TextInputPassword
+              Label="Nhập lại mật khẩu"
+              value={pass1}
+              onChangeText={text => setPass1(text)}
+            />
             <TextInputStyle
-              Label="Address"
+              Label="Địa chỉ"
               value={address}
               onChangeText={text => setAddress(text)}
             />
-            <TextInputSelected
-              Label="Address"
-              value={address}
-              onChangeText={text => setAddress(text)}
-              onPress={() => setVisible(true)}
-            />
+            {checkLogin === 'flc' && (
+              <View>
+                <TextInputStyle
+                  Label="Công việc mong muốn"
+                  value={desiredJob}
+                  onChangeText={text => setDesiredJob(text)}
+                />
+                <TextInputStyle
+                  Label="Nơi làm việc mong muốn"
+                  value={desiredWorkplace}
+                  onChangeText={text => setDesiredWorkplace(text)}
+                />
+                <TextInputSelected
+                  Label="Ngành nghề mong muốn"
+                  value={desiredProfession}
+                  onChangeText={text => setDesiredProfession(text)}
+                  onPress={handleOpen}
+                />
+              </View>
+            )}
           </View>
 
-          <ButtonStyle Title="Đăng Kí" styleBtn={{width: scale(120)}} />
-          <View style={{flexDirection: 'row'}}>
-            <Text style={styles.txt_login}>Bạn đã có tài khoản ?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('LoginNTD')}>
-              <Text style={styles.btnlogin}>Đăng nhập ngay</Text>
+          <ButtonStyle Title="Xác nhận" styleBtn={{width: scale(120)}} />
+          <View style={styles.row}>
+            <Text style={styles.txt_login}>Bạn đã có tài khoản? </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.btnlogin}>ĐĂNG NHẬP NGAY</Text>
             </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
       <SelectModal
         isVisible={visible}
-        onBackdropPress={() => setVisible(false)}
+        onBackdropPress={handleOpen}
         label={'Công việc mong muốn'}
-        onPress={selectItem}
+        onPress={item => selectItem(item)}
       />
     </View>
   );
@@ -150,18 +171,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5FF',
   },
   title: {
-    fontWeight: '700',
-    fontSize: scale(30),
+    fontSize: scale(25),
     textAlign: 'center',
     color: '#4C5BD4',
     marginTop: '20%',
+    fontFamily: fonts.NORMAL,
   },
   title2: {
     fontWeight: '400',
-    fontSize: scale(14),
+    fontSize: scale(12),
     textAlign: 'center',
     color: '#4C5BD4',
     marginTop: scale(10),
+    fontFamily: fonts.NORMAL,
   },
   camera: {
     width: scale(80),
@@ -208,19 +230,23 @@ const styles = StyleSheet.create({
     paddingVertical: scale(5),
     borderRadius: scale(10),
     marginTop: scale(10),
+    fontFamily: fonts.NORMAL,
   },
   txt_login: {
-    fontSize: scale(16),
+    fontSize: scale(14),
     fontWeight: '400',
     color: '#404040',
     marginTop: scale(30),
     marginBottom: scale(30),
+    fontFamily: fonts.NORMAL,
   },
   btnlogin: {
     color: '#307df1',
-    fontSize: scale(18),
+    fontSize: scale(14),
     fontWeight: '400',
-    marginTop: scale(28),
+    marginTop: scale(30),
+    fontFamily: fonts.NORMAL,
   },
-  // modal
+  form: {marginTop: scale(20), marginBottom: '7%'},
+  row: {flexDirection: 'row'},
 });

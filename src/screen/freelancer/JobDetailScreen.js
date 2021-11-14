@@ -61,8 +61,8 @@ export default function JobDetailScreen({navigation, route}) {
       <TabBar
         {...props}
         scrollEnabled={true}
-        indicatorStyle={{backgroundColor: '#307df1'}}
-        style={{backgroundColor: '#FFFFFF'}}
+        indicatorStyle={styles.blue}
+        style={styles.white}
         tabStyle={styles.widthTab}
         inactiveColor={'#404040'}
         activeColor={'#307df1'}
@@ -133,4 +133,6 @@ const styles = StyleSheet.create({
   },
   align: {alignItems: 'center'},
   widthTab: {width: scale(180)},
+  blue: {backgroundColor: '#307df1'},
+  white: {backgroundColor: '#ffffff'},
 });

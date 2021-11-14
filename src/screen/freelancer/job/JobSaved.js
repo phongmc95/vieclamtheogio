@@ -18,15 +18,11 @@ export default function JobSaved() {
   return (
     <SafeAreaView style={styles.container}>
       <TitleBasic title="Việc làm  đã lưu" icon={icons.trash_white} />
-      <View style={{marginLeft: scale(10), flexDirection: 'row'}}>
+      <View style={styles.content}>
         <View style={styles.boxJob}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={styles.row}>
             <Image style={styles.logoJob} source={icons.logoHCI} />
-            <View
-              style={{
-                marginHorizontal: scale(8),
-                width: '85%',
-              }}>
+            <View style={styles.title}>
               <Text style={styles.txtTitleJob}>
                 Kỹ sư lập trình ứng dụng di động
               </Text>
@@ -34,15 +30,15 @@ export default function JobSaved() {
             </View>
           </View>
           <View style={{marginTop: scale(10)}}>
-            <View style={{flexDirection: 'row', marginTop: scale(5)}}>
+            <View style={styles.row}>
               <Image style={styles.iconJob} source={icons.bag} />
               <Text style={styles.txtStatus}>Toàn thời gian</Text>
             </View>
-            <View style={{flexDirection: 'row', marginTop: scale(5)}}>
+            <View style={styles.row}>
               <Image style={styles.iconJob} source={icons.money} />
               <Text style={styles.txtStatus}>7 - 10 Triệu</Text>
             </View>
-            <View style={{flexDirection: 'row', marginTop: scale(5)}}>
+            <View style={styles.row}>
               <Image style={styles.iconJob} source={icons.local} />
               <Text style={styles.txtStatus}>Hà Nội, Hồ Chí Minh</Text>
             </View>
@@ -113,5 +109,11 @@ const styles = StyleSheet.create({
     lineHeight: scale(20),
     color: '#404040',
     fontFamily: fonts.NORMAL,
+  },
+  content: {marginLeft: scale(10), flexDirection: 'row'},
+  row: {flexDirection: 'row', marginTop: scale(5)},
+  title: {
+    marginHorizontal: scale(8),
+    width: '85%',
   },
 });

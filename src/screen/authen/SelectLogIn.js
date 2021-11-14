@@ -5,16 +5,17 @@ import {
   View,
   Image,
   TouchableOpacity,
-  SafeAreaView,
   StatusBar,
   Dimensions,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
+import colors from '../../constant/colors';
+import fonts from '../../constant/fonts';
 const Resgister = ({navigation}) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#4C9BD4" />
-      <View style={{alignItems: 'center'}}>
+      <View style={styles.center}>
         <Image
           source={require('../../../assets/images/Bgheader.png')}
           style={styles.logo}
@@ -77,12 +78,12 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
-
+    backgroundColor: colors.WHITE,
     elevation: 7,
   },
   text: {
     fontSize: scale(20),
-    fontWeight: '700',
+    fontFamily: fonts.BOLD,
     color: '#307df1',
   },
   logoapp: {
@@ -91,4 +92,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: scale(50),
   },
+  center: {alignItems: 'center'},
 });

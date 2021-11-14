@@ -10,6 +10,7 @@ import Modal from 'react-native-modal';
 import {isIos} from '../Utils/CheckDevice';
 import {scale} from 'react-native-size-matters';
 import jobs from '../data/Jobs';
+import fonts from '../constant/fonts';
 const SelectModal = props => {
   const {isVisible, onBackdropPress, label, onPress} = props;
   return (
@@ -20,20 +21,20 @@ const SelectModal = props => {
       animationOutTiming={600}
       isVisible={isVisible}
       onBackdropPress={onBackdropPress}
-      style={{margin: 0, justifyContent: 'flex-end'}}>
-      <View style={styles.viewmodal}>
+      style={styles.modal}>
+      <View style={styles.viewModal}>
         <Text style={styles.title}>{label}</Text>
-        <View style={styles.viewcontent}>
-          <ScrollView>
-            {jobs.map(item => {
-              return (
-                <TouchableOpacity key={item.id} onPress={onPress(item)}>
-                  <Text>{item.title}</Text>
-                </TouchableOpacity>
-              );
-            })}
-          </ScrollView>
-        </View>
+        <ScrollView>
+          {jobs.map(item => {
+            return (
+              <TouchableOpacity key={item.id} onPress={() => onPress(item)}>
+                <View style={styles.viewContent}>
+                  <Text style={styles.txtContent}>{item.title}</Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
       </View>
     </Modal>
   );
@@ -42,27 +43,30 @@ const SelectModal = props => {
 export default SelectModal;
 
 const styles = StyleSheet.create({
-  viewmodal: {
+  viewModal: {
     maxHeight: '60%',
     backgroundColor: '#F5F5FF',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    alignItems: 'center',
+    padding: scale(20),
   },
   title: {
-    fontSize: 24,
+    fontSize: scale(24),
     color: '#307df1',
-    fontWeight: '700',
     marginTop: isIos ? 50 : null,
-  },
-  viewcontent: {
-    padding: 20,
-  },
-  txtcontent: {
-    paddingHorizontal: scale(15),
+    fontFamily: fonts.BOLD,
+    marginBottom: scale(20),
     textAlign: 'center',
-    fontSize: 16,
-    color: '#404040',
-    fontWeight: '700',
   },
+  viewContent: {
+    borderBottomWidth: 1,
+    paddingVertical: scale(15),
+    paddingHorizontal: scale(10),
+  },
+  txtContent: {
+    fontSize: scale(18),
+    color: '#404040',
+    fontFamily: fonts.NORMAL,
+  },
+  modal: {margin: 0, justifyContent: 'flex-end'},
 });

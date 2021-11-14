@@ -1,11 +1,5 @@
-import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import React from 'react';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Button from '@components/Button/Button';
 import TitleBasic from '@components/title/TitleBasic';

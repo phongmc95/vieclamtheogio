@@ -15,6 +15,7 @@ import ButtonStyle from '../../components/ButtonStyle';
 import {validateEmail} from '../../base/Validate';
 import ModalStyle from '../../components/ModalStyle';
 import {useSelector} from 'react-redux';
+import fonts from '../../constant/fonts';
 
 const Login = ({navigation}) => {
   const checkLogin = useSelector(state => state.LOGIN.check_type);
@@ -23,14 +24,18 @@ const Login = ({navigation}) => {
 
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
-  console.log('>>>', checkLogin);
   const submit = () => {
-    if (!email || !pass) {
-      setModal(true);
-      setError('Các ô nhập là bắt buộc không được để trống! ');
-    } else if (!validateEmail(email)) {
-      setModal(true);
-      setError('Bạn nhập email không đúng định dạng . Vui  lòng nhập lại ! ');
+    // if (!email || !pass) {
+    //   setModal(true);
+    //   setError('Các ô nhập là bắt buộc không được để trống! ');
+    // } else if (!validateEmail(email)) {
+    //   setModal(true);
+    //   setError('Bạn nhập email không đúng định dạng . Vui  lòng nhập lại ! ');
+    // }
+    if (checkLogin === 'flc') {
+      navigation.navigate('BottomTabFlc');
+    } else {
+      navigation.navigate('tabNTD');
     }
   };
   return (
@@ -41,7 +46,7 @@ const Login = ({navigation}) => {
       />
       <Text style={styles.TitleLogin}>Đăng nhập</Text>
       <ScrollView style={styles.img}>
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <View style={styles.form}>
           <TextInputStyle
             Label="Email"
             value={email}
@@ -56,25 +61,18 @@ const Login = ({navigation}) => {
         </View>
 
         <TouchableOpacity onPress={() => navigation.navigate('InputEmail')}>
-          <Text
-            style={{
-              marginLeft: scale(250),
-              fontSize: scale(13),
-              fontWeight: '400',
-            }}>
-            Quên mật khẩu?
-          </Text>
+          <Text style={styles.forgetPassword}>Quên mật khẩu?</Text>
         </TouchableOpacity>
-        <View style={{marginTop: '15%', alignItems: 'center'}}>
+        <View style={styles.button}>
           <ButtonStyle
             Title="Đăng nhập"
             onPress={submit}
             styleBtn={{width: scale(120)}}
           />
-          <View style={{flexDirection: 'row'}}>
-            <Text style={styles.text1}>Bạn chưa có tài khoản?</Text>
+          <View style={styles.row}>
+            <Text style={styles.text1}>Bạn chưa có tài khoản? </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Resgister')}>
-              <Text style={styles.text2}>Đăng ký ngay</Text>
+              <Text style={styles.text2}>ĐĂNG KÝ NGAY</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -101,32 +99,39 @@ const styles = StyleSheet.create({
   },
   TitleLogin: {
     fontSize: scale(24),
-    fontWeight: '700',
     color: 'white',
     position: 'absolute',
-    top: '10%',
-    textAlign: 'center',
     left: getDeviceWidth / 3,
+    fontFamily: fonts.BOLD,
+    top: scale(50),
   },
   logo: {
-    height: scale(173),
+    height: scale(165),
     width: getDeviceWidth,
     marginBottom: scale(20),
   },
 
   text1: {
     fontSize: scale(15),
-    fontWeight: '400',
+    fontFamily: fonts.NORMAL,
     marginTop: scale(15),
   },
   text2: {
     fontSize: scale(18),
-    fontWeight: '400',
     color: '#307DF1',
     marginTop: scale(12),
+    fontFamily: fonts.NORMAL,
   },
   fodter: {
     width: getDeviceWidth,
     height: scale(250),
   },
+  forgetPassword: {
+    marginLeft: '70%',
+    fontSize: scale(13),
+    fontFamily: fonts.NORMAL,
+  },
+  form: {justifyContent: 'center', alignItems: 'center'},
+  button: {marginTop: '15%', alignItems: 'center'},
+  row: {flexDirection: 'row'},
 });
