@@ -29,11 +29,6 @@ const LoadingScreen = ({navigation}) => {
           onPress={() => navigation.navigate('RegisterFlc')}>
           <Text style={styles.buttonText}>{'Đăng ký'}</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('BottomTabFlc')}>
-          <Text style={styles.buttonText}>{'Đăng nhập với tư cách khách'}</Text>
-        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
