@@ -19,7 +19,7 @@ import TextInputSelected from '../../components/TextInputSelected';
 import fonts from '../../constant/fonts';
 import {jobs} from '../../data/Jobs';
 const Resgister = ({navigation, route}) => {
-  const checkLogin = useSelector(state => state.LOGIN.check_type);
+  const checkLogin = useSelector(state => state.Authen.check_type);
   const [phone, setPhone] = useState('');
   const [pass, setPass] = useState('');
   const [pass1, setPass1] = useState('');

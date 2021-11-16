@@ -14,7 +14,7 @@ import listJob from '@data/ListJob';
 
 export default function SimilarJob({navigation}) {
   return (
-    <SafeAreaView style={{padding: scale(20)}}>
+    <View style={{padding: scale(20)}}>
       <FlatList
         data={listJob}
         keyExtractor={item => item.id}
@@ -48,7 +48,7 @@ export default function SimilarJob({navigation}) {
           </TouchableOpacity>
         )}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 

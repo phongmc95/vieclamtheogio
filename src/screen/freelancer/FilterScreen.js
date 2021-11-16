@@ -19,7 +19,7 @@ import colors from '../../constant/colors';
 export default function FilterScreen() {
   const [check, setCheck] = useState(false);
   return (
-    <SafeAreaView>
+    <View>
       <TitleBasic title="Tìm kiếm nâng cao" />
       <View style={styles.content}>
         {search.map(item => (
@@ -44,7 +44,7 @@ export default function FilterScreen() {
           </View>
         ))}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

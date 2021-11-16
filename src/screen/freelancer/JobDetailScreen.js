@@ -75,7 +75,7 @@ export default function JobDetailScreen({navigation, route}) {
     </View>
   );
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <TitleJob
         icon={icons.heart_wb}
         logo={item.logo}
@@ -104,7 +104,7 @@ export default function JobDetailScreen({navigation, route}) {
         </View>
       </View>
       <Notification on={modal} off={toggleModal} />
-    </SafeAreaView>
+    </View>
   );
 }
 

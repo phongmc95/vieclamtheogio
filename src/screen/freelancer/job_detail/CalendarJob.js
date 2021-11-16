@@ -18,7 +18,7 @@ const CalendarJob = () => {
     setCheck(!check);
   };
   return (
-    <SafeAreaView>
+    <View>
       <ScrollView>
         <View style={{padding: scale(20)}}>
           <Text
@@ -128,7 +128,7 @@ const CalendarJob = () => {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

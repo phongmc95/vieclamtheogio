@@ -4,6 +4,7 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import fonts from '../../constant/fonts';
 import icons from '../../constant/icons';
+import {isIos} from '../../Utils/CheckDevice';
 
 export default function TitleBasic(props) {
   const navigation = useNavigation();
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#307DF1',
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
+    paddingTop: scale(isIos ? 60 : 0),
   },
   title: {
     fontSize: scale(16),

@@ -42,7 +42,7 @@ export default function ListJobScreen({navigation}) {
     </TouchableOpacity>
   );
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <TitleBasic title="danh sách việc" />
       <View style={styles.padding}>
         <FlatList
@@ -51,7 +51,7 @@ export default function ListJobScreen({navigation}) {
           renderItem={renderItem}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

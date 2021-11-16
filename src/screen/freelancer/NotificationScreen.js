@@ -27,7 +27,7 @@ export default function NotificationScreen() {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <TitleBasic title="Thông báo" />
       {items.map(item => (
         <View style={styles.content}>
@@ -40,7 +40,7 @@ export default function NotificationScreen() {
           </View>
         </View>
       ))}
-    </SafeAreaView>
+    </View>
   );
 }
 

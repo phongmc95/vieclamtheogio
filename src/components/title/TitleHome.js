@@ -3,12 +3,14 @@ import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '../../constant/icons';
+import {isIos} from '../../Utils/CheckDevice';
 
 export default function TitleHome(props) {
   const navigation = useNavigation();
   return (
     <View
       style={{
+        paddingTop: scale(isIos ? 60 : 0),
         flexDirection: 'row',
         paddingHorizontal: scale(20),
         paddingVertical: scale(10),

@@ -16,7 +16,7 @@ import colors from '../../../constant/colors';
 export default function JobSaved() {
   const [check, setCheck] = useState(false);
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <TitleBasic title="Việc làm  đã lưu" icon={icons.trash_white} />
       <View style={styles.content}>
         <View style={styles.boxJob}>
@@ -51,7 +51,7 @@ export default function JobSaved() {
           />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

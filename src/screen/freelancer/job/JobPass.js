@@ -36,7 +36,7 @@ export default function JobPass() {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <TitleBasic title="việc làm đã ứng tuyển" />
       <SwipeListView
         data={listJob}
@@ -49,7 +49,7 @@ export default function JobPass() {
         )}
         rightOpenValue={-150}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 

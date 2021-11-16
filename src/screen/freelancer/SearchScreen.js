@@ -10,7 +10,7 @@ import colors from '../../constant/colors';
 
 export default function SearchScreen() {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <TitleSearch title="Tìm kiếm" />
       <View style={styles.viewSearch}>
         <View style={styles.row}>
@@ -21,7 +21,7 @@ export default function SearchScreen() {
           <Text style={styles.title}>{item.title}</Text>
         ))}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

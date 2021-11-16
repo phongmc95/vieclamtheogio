@@ -14,7 +14,7 @@ import fonts from '@constant/fonts';
 
 export default function JobHotScreen() {
   return (
-    <SafeAreaView>
+    <View>
       <ScrollView>
         <View style={styles.container}>
           <TitleBasic title="việc làm nổi bật" />
@@ -31,7 +31,7 @@ export default function JobHotScreen() {
           ))}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

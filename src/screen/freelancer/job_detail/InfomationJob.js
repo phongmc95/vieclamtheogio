@@ -14,7 +14,7 @@ import fonts from '../../../constant/fonts';
 
 export default function InfomationJob() {
   return (
-    <SafeAreaView>
+    <View>
       <ScrollView>
         <View style={{padding: scale(20), height: '100%'}}>
           <View style={{flexDirection: 'row', marginTop: scale(5)}}>
@@ -141,7 +141,7 @@ export default function InfomationJob() {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

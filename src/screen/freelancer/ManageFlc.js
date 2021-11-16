@@ -13,6 +13,7 @@ import images from '../../constant/images';
 import Logout from '@components/Logout';
 import fonts from '@constant/fonts';
 import colors from '../../constant/colors';
+import { isIos } from "../../Utils/CheckDevice";
 
 export default function ManageFlc({navigation}) {
   const [modal, setModal] = useState(false);
@@ -20,7 +21,7 @@ export default function ManageFlc({navigation}) {
     setModal(!modal);
   };
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.content}>
         <Image style={styles.imgBalloon} source={images.balloon} />
         <View style={styles.avatar}>
@@ -56,7 +57,7 @@ export default function ManageFlc({navigation}) {
       </View>
       <Image style={{marginTop: scale(10)}} source={images.jobhunt} />
       <Logout on={modal} off={toggleModal} />
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -64,6 +65,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.LIGHT_WHITE,
+    paddingTop: scale(isIos ? 60 : 0),
   },
   iconJob: {
     height: scale(18),
@@ -80,6 +82,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.NORMAL,
   },
   content: {
+
     width: '100%',
     height: scale(205),
     backgroundColor: '#307df1',

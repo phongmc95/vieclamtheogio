@@ -21,7 +21,6 @@ const Login = ({navigation}) => {
   const dispatch = useDispatch();
   const checkLogin = useSelector(state => state.Authen.check_type);
   const Error = useSelector(state => state.Authen.message);
-  const role = checkLogin === 'flc' ? 'candidate' : 'employer';
   const data = useSelector(state => state.Authen.data);
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -40,12 +39,18 @@ const Login = ({navigation}) => {
       setError('Các ô nhập là bắt buộc không được để trống! ');
     } else if (!validateEmail(email)) {
       setModal(true);
-      setError('Bạn nhập email không đúng định dạng . Vui  lòng nhập lại ! ');
+      setError('Bạn nhập email không đúng định dạng. Vui lòng nhập lại ! ');
     } else {
-      dispatch(loadPostsLogIn(email, pass, role));
+      dispatch(
+        loadPostsLogIn(
+          email,
+          pass,
+          checkLogin === 'flc' ? 'candidate' : 'employer',
+        ),
+      );
       data
         ? navigation.navigate(checkLogin !== 'flc' ? 'tabNTD' : 'BottomTabFlc')
-        : err();
+        : null;
     }
   };
   return (

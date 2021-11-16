@@ -67,7 +67,7 @@ export default function ProfileScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <TitleBasic title="hồ sơ" />
       <ScrollView>
         <View style={styles.content}>
@@ -97,7 +97,7 @@ export default function ProfileScreen() {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
