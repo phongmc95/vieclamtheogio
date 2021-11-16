@@ -3,6 +3,9 @@ import {
   FETCH_POST_LOGIN_ERROR,
   FETCH_POST_LOGIN_REQUEST,
   FETCH_POST_LOGIN_SUCCESS,
+  FETCH_POST_SIGNUP_ERROR,
+  FETCH_POST_SIGNUP_REQUEST,
+  FETCH_POST_SIGNUP_SUCCESS,
 } from '../actions/type/Type';
 
 const initialState = {
@@ -11,6 +14,7 @@ const initialState = {
   message: null,
   data: null,
   check_type: null,
+  register: null,
 };
 const LogIn = (state = initialState, action) => {
   switch (action.type) {
@@ -37,7 +41,24 @@ const LogIn = (state = initialState, action) => {
         ...state,
         check_type: action.data,
       };
-
+    case FETCH_POST_SIGNUP_REQUEST:
+      return {
+        ...state,
+        requesting: true,
+      };
+    case FETCH_POST_SIGNUP_SUCCESS:
+      return {
+        ...state,
+        requesting: false,
+        success: true,
+        register: action.data,
+      };
+    case FETCH_POST_SIGNUP_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        message: action.message,
+      };
     default:
       return state;
   }

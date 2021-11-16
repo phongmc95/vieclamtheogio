@@ -44,7 +44,8 @@ import SplashScreen from '../screen/intro/SplashScreen';
 import {Provider} from 'react-redux';
 
 import {PersistGate} from 'redux-persist/integration/react';
-import {persistor, store} from '../redux/store/Store';
+import { persistor, store } from "../redux/store/Store";
+
 const Stack = createStackNavigator();
 const StackNavigation = () => {
   return (

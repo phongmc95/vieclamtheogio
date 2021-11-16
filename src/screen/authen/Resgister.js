@@ -17,8 +17,9 @@ import ButtonStyle from '../../components/ButtonStyle';
 import {useSelector} from 'react-redux';
 import SelectModal from '../../components/SelectModal';
 import TextInputSelected from '../../components/TextInputSelected';
+import ModalStyle from '../../components/ModalStyle';
 const Resgister = ({navigation, route}) => {
-  const checkLogin = useSelector(state => state.LOGIN.check_type);
+  const checkLogin = useSelector(state => state.Authen.check_type);
   const [phone, setPhone] = useState('');
   const [pass, setPass] = useState('');
   const [pass1, setPass1] = useState('');
@@ -26,11 +27,13 @@ const Resgister = ({navigation, route}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
-
+  const [isVisibleErr, setIsVisibleErr] = useState(false);
   const [visible, setVisible] = React.useState(false);
+  const [error, setError] = useState('');
 
   const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   const nametest = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
   const options = {
     mediaType: 'photo',
     // includeBase64: true,
@@ -135,6 +138,11 @@ const Resgister = ({navigation, route}) => {
         onBackdropPress={() => setVisible(false)}
         label={'Công việc mong muốn'}
         onPress={selectItem}
+      />
+      <ModalStyle
+        isVisible={isVisibleErr}
+        onBackdropPress={() => setIsVisibleErr(false)}
+        content={error}
       />
     </View>
   );

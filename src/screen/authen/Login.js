@@ -14,16 +14,26 @@ import {getDeviceWidth} from '../../Utils/CheckDevice';
 import ButtonStyle from '../../components/ButtonStyle';
 import {validateEmail} from '../../base/Validate';
 import ModalStyle from '../../components/ModalStyle';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {loadPostsLogIn} from '../../redux/actions/actions';
 
 const Login = ({navigation}) => {
-  const checkLogin = useSelector(state => state.LOGIN.check_type);
+  const dispatch = useDispatch();
+  const checkLogin = useSelector(state => state.Authen.check_type);
+  const Error = useSelector(state => state.Authen.message);
+  const role = checkLogin === 'flc' ? 'candidate' : 'employer';
+  const data = useSelector(state => state.Authen.data);
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
 
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
-  console.log('>>>', checkLogin);
+  console.log('>>>', data);
+  console.log('<<<', Error);
+  const err = () => {
+    setModal(true);
+    setError(Error);
+  };
   const submit = () => {
     if (!email || !pass) {
       setModal(true);
@@ -31,6 +41,11 @@ const Login = ({navigation}) => {
     } else if (!validateEmail(email)) {
       setModal(true);
       setError('Bạn nhập email không đúng định dạng . Vui  lòng nhập lại ! ');
+    } else {
+      dispatch(loadPostsLogIn(email, pass, role));
+      data
+        ? navigation.navigate(checkLogin !== 'flc' ? 'tabNTD' : 'BottomTabFlc')
+        : err();
     }
   };
   return (

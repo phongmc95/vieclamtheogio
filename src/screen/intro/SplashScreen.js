@@ -1,13 +1,18 @@
 import React, {useRef, useEffect} from 'react';
 import {StyleSheet, Image, Animated} from 'react-native';
 import {scale} from 'react-native-size-matters';
+import {useSelector} from 'react-redux';
 
 const SplashScreen = ({navigation}) => {
+  const checkLogin = useSelector(state => state.Authen.check_type);
+  const data = useSelector(state => state.Authen.data);
   const fadeAnim = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     fadeIn();
     const time = setTimeout(() => {
-      navigation.navigate('Intro');
+      data && checkLogin
+        ? navigation.navigate(checkLogin !== 'flc' ? 'tabNTD' : 'BottomTabFlc')
+        : navigation.navigate('Intro');
     }, 7000);
     return () => {
       clearTimeout(time);

@@ -4,15 +4,20 @@ import {
   FETCH_POST_LOGIN_ERROR,
   FETCH_POST_LOGIN_REQUEST,
   FETCH_POST_LOGIN_SUCCESS,
+  FETCH_POST_SIGNUP_ERROR,
+  FETCH_POST_SIGNUP_REQUEST,
+  FETCH_POST_SIGNUP_SUCCESS,
 } from './type/Type';
 
-export const loadPostsLogIn = (email, pass) => async dispatch => {
+export const loadPostsLogIn = (email, pass, role) => async dispatch => {
   try {
     dispatch({type: FETCH_POST_LOGIN_REQUEST});
     const url = 'auth/login';
-    var data = new FormData();
-    data.append('email', email);
-    data.append('pass', pass);
+    const data = JSON.stringify({
+      email: email,
+      password: pass,
+      role: role,
+    });
     const response = await axiosClient.post(url, data);
 
     dispatch({
@@ -33,3 +38,31 @@ export const checkLogin = data => {
     data: data,
   };
 };
+export const loadRegister =
+  (email, pass, role, address, phone, name) => async dispatch => {
+    try {
+      dispatch({type: FETCH_POST_SIGNUP_REQUEST});
+      const url = 'auth/register';
+      const data = JSON.stringify({
+        email: email,
+        password: pass,
+        role: role,
+        name: name,
+        phone: phone,
+        address: address,
+      });
+
+      const response = await axiosClient.post(url, data);
+
+      dispatch({
+        type: FETCH_POST_SIGNUP_SUCCESS,
+        data: response,
+      });
+    } catch (error) {
+      console.error(error);
+      dispatch({
+        type: FETCH_POST_SIGNUP_ERROR,
+        message: error,
+      });
+    }
+  };
