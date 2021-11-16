@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
   container: {
     width: scale(295),
     height: scale(173),
+    overflow: 'hidden',
     borderRadius: scale(20),
     borderWidth: 1,
     borderColor: '#307df1',
@@ -50,5 +51,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: fonts.BOLD,
   },
-  button: {flexDirection: 'row', top: '20%'},
+  button: {flexDirection: 'row', top: '15%'},
 });

@@ -270,7 +270,7 @@ const DangTin = ({navigation}) => {
                   color: '#307DF1',
                   borderColor: '#307DF1',
                   borderWidth: scale(1),
-                  borderRadius: scale(30),
+                  overflow: 'hidden', borderRadius: scale(30),
                   margin: scale(5),
                 }}>
                 +Thêm ca
@@ -447,7 +447,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignContent: 'center',
     margin: scale(5),
-    borderRadius: scale(5),
+    overflow: 'hidden', borderRadius: scale(5),
   },
   textInput: {
     fontWeight: '300',
@@ -482,7 +482,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: scale(16),
     fontWeight: '500',
-    borderRadius: scale(30),
+    overflow: 'hidden', borderRadius: scale(30),
     margin: scale(5),
   },
   btnR: {
@@ -494,7 +494,7 @@ const styles = StyleSheet.create({
     borderColor: '#307DF1',
     fontSize: scale(16),
     fontWeight: '500',
-    borderRadius: scale(30),
+    overflow: 'hidden', borderRadius: scale(30),
     margin: scale(5),
   },
 });

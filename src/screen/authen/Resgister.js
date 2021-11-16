@@ -17,6 +17,7 @@ import {useSelector} from 'react-redux';
 import SelectModal from '../../components/SelectModal';
 import TextInputSelected from '../../components/TextInputSelected';
 import fonts from '../../constant/fonts';
+import {jobs} from '../../data/Jobs';
 const Resgister = ({navigation, route}) => {
   const checkLogin = useSelector(state => state.LOGIN.check_type);
   const [phone, setPhone] = useState('');
@@ -57,7 +58,7 @@ const Resgister = ({navigation, route}) => {
     });
   };
   const selectItem = item => {
-    setDesiredProfession(item.title);
+    setDesiredProfession(item);
     handleOpen();
   };
 
@@ -134,7 +135,7 @@ const Resgister = ({navigation, route}) => {
                 />
                 <TextInputSelected
                   Label="Ngành nghề mong muốn"
-                  value={desiredProfession}
+                  value={desiredProfession.title}
                   onChangeText={text => setDesiredProfession(text)}
                   onPress={handleOpen}
                 />
@@ -156,6 +157,7 @@ const Resgister = ({navigation, route}) => {
         onBackdropPress={handleOpen}
         label={'Công việc mong muốn'}
         onPress={item => selectItem(item)}
+        data={jobs}
       />
     </View>
   );
@@ -188,6 +190,7 @@ const styles = StyleSheet.create({
   camera: {
     width: scale(80),
     height: scale(80),
+    overflow: 'hidden',
     borderRadius: scale(50),
     backgroundColor: '#C4C4C4',
     alignContent: 'center',
@@ -203,6 +206,7 @@ const styles = StyleSheet.create({
 
     justifyContent: 'center',
     margin: scale(5),
+    overflow: 'hidden',
     borderRadius: scale(5),
   },
   textInput: {
@@ -215,10 +219,13 @@ const styles = StyleSheet.create({
   avatar: {
     height: scale(80),
     width: scale(80),
+    overflow: 'hidden',
     borderRadius: scale(40),
   },
   btncamera: {
     position: 'absolute',
+    bottom: 0,
+    right: 0,
   },
   openLibry: {
     fontSize: scale(16),
@@ -228,6 +235,7 @@ const styles = StyleSheet.create({
     borderColor: '#4C5BD4',
     paddingHorizontal: scale(15),
     paddingVertical: scale(5),
+    overflow: 'hidden',
     borderRadius: scale(10),
     marginTop: scale(10),
     fontFamily: fonts.NORMAL,

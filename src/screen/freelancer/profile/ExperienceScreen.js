@@ -48,8 +48,16 @@ const styles = StyleSheet.create({
   box: {
     width: scale(300),
     height: scale(160),
+    overflow: 'hidden',
     borderRadius: scale(20),
     backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     elevation: 3,
     marginTop: scale(20),
     marginLeft: scale(5),

@@ -15,8 +15,6 @@ const TextInputStyle = ({Label, value, onChangeText}) => {
           width: windowWidth - 30,
           marginBottom: scale(10),
         }}
-        selectionColor="#307df1"
-        underlineColor={'#307df1'}
       />
     </View>
   );

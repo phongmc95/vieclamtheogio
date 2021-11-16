@@ -10,8 +10,35 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
+import Button from '../../../components/Button/Button';
 import HeaderStyle from '../../../components/HeaderStyle';
-const data = null;
+import colors from '../../../constant/colors';
+import fonts from '../../../constant/fonts';
+import {
+  ButtonItemBoqua,
+  ButtonItemLuu,
+} from '../../../components/Button/ButtonItem';
+const jobs = [
+  {
+    id: 1,
+    vi_tri: 'Bán hàng',
+    fist_time: '20/11/2021',
+    last_time: '20/11/2021',
+    luot_ut: 10,
+  },
+];
+const emp = [
+  {
+    id: 1,
+    uv_username: 'Hà Anh Tuấn',
+    vi_tri: 'Bán hàng',
+    created_at: '20/11/2021',
+    last_time: '20/11/2021',
+    image:
+      'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-anh-avatar-hai.jpg',
+    luot_ut: 10,
+  },
+];
 const Home = () => {
   const renderItem = ({item}) => (
     <View style={styles.ViewFlatlist}>
@@ -38,11 +65,12 @@ const Home = () => {
     </View>
   );
   const renderItemHS = ({item}) => (
-    <View style={[styles.ViewFlatlist, {height: scale(179)}]}>
+    <View
+      style={[styles.ViewFlatlist, {height: scale(179), marginBottom: '25%'}]}>
       <View style={{flexDirection: 'row'}}>
         <Image
           source={{
-            uri: 'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-anh-avatar-hai.jpg',
+            uri: item.image,
           }}
           style={styles.imgItem}
         />
@@ -56,9 +84,16 @@ const Home = () => {
         <Text style={styles.TextL}>Ngày nộp</Text>
         <Text style={[styles.TextR, {color: 'black'}]}>{item.created_at}</Text>
       </View>
-      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <TouchableOpacity style={{margin: scale(5)}} />
-        <TouchableOpacity style={{margin: scale(5)}} />
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          marginTop: scale(10),
+        }}>
+        <View style={{marginRight: scale(20)}}>
+          <ButtonItemLuu nameBTN="Lưu" />
+        </View>
+        <ButtonItemBoqua nameBTN="Bỏ qua" />
       </View>
     </View>
   );
@@ -68,28 +103,22 @@ const Home = () => {
       {/* tusBar */}
       <HeaderStyle type="home" Title="HÀ Anh Tuấn" />
       {/* main */}
-      <ScrollView style={{marginBottom: scale(65)}}>
+      <ScrollView style={{padding: scale(10)}}>
         <View style={styles.main}>
           <Text style={styles.title}>Thống kê tin đăng</Text>
           {/* view1 */}
           <View style={styles.viewRow}>
             <View style={styles.itemThongKe}>
               <Text style={styles.textItem}>Ứng viên ứng tuyển</Text>
-              <Text style={styles.itemNumber}>
-                {data ? data.so_luot_ut : ''}
-              </Text>
+              <Text style={styles.itemNumber}>23</Text>
             </View>
             <View style={styles.itemThongKe}>
               <Text style={styles.textItem}>Ứng viên điểm lọc</Text>
-              <Text style={styles.itemNumber}>
-                {data ? data.so_hs_loc_diem : ''}
-              </Text>
+              <Text style={styles.itemNumber}>23</Text>
             </View>
             <View style={styles.itemThongKe}>
               <Text style={styles.textItem}>Ứng viên đã lưu</Text>
-              <Text style={styles.itemNumber}>
-                {data ? data.so_hs_luu : ''}
-              </Text>
+              <Text style={styles.itemNumber}>23</Text>
             </View>
           </View>
           {/* view2 */}
@@ -100,23 +129,23 @@ const Home = () => {
             </View>
             <View style={styles.viewRow}>
               <Text style={styles.TextL}>Việc sắp hết hạn</Text>
-              <Text style={styles.TextR}>
-                {data ? data.tin_sap_het_han : ''}
-              </Text>
+              <Text style={styles.TextR}>0</Text>
             </View>
             <View style={styles.viewRow}>
               <Text style={styles.TextL}>Việc làm hết hạn</Text>
-              <Text style={styles.TextR}>{data ? data.tin_het_han : ''}</Text>
+              <Text style={styles.TextR}>0</Text>
             </View>
             <View style={styles.viewRow}>
               <Text style={styles.TextL}>Việc làm còn hạn</Text>
-              <Text style={styles.TextR}>{data ? data.tin_con_han : ''}</Text>
+              <Text style={styles.TextR}>0</Text>
             </View>
             <View style={styles.viewRow}>
               <Text style={styles.TextL}>Số tin đăng trong ngày</Text>
-              <Text style={styles.TextR}>
-                {data ? data.so_tin_dang_perday : ''}
-              </Text>
+              <Text style={styles.TextR}>0</Text>
+            </View>
+            <View style={styles.viewRow}>
+              <Text style={styles.TextL}>Số việc làm mới tin trong ngày</Text>
+              <Text style={styles.TextR}>0</Text>
             </View>
           </View>
           {/* flatlist1 */}
@@ -129,7 +158,7 @@ const Home = () => {
             </TouchableOpacity>
           </View>
           <FlatList
-            data={data ? data.ds_tin : []}
+            data={jobs}
             keyExtractor={item => item.id}
             renderItem={renderItem}
             horizontal={true}
@@ -144,7 +173,7 @@ const Home = () => {
             </TouchableOpacity>
           </View>
           <FlatList
-            data={data ? data.ds_hs_ut : []}
+            data={emp}
             keyExtractor={item => item.id}
             renderItem={renderItemHS}
             horizontal={true}
@@ -160,6 +189,7 @@ export default Home;
 const styles = StyleSheet.create({
   contener: {
     flex: 1,
+    backgroundColor: colors.LIGHT_WHITE,
   },
 
   main: {
@@ -167,21 +197,23 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: '500',
-    fontSize: scale(18),
+    fontSize: scale(14),
     lineHeight: scale(20),
-    fontStyle: 'normal',
     marginTop: scale(15),
     marginLeft: scale(10),
+    fontFamily: fonts.BOLD,
   },
   itemThongKe: {
     width: scale(100),
     height: scale(100),
     marginTop: scale(10),
-
+    padding: scale(10),
+    overflow: 'hidden',
     borderRadius: scale(20),
     borderColor: '#307DF1',
     borderWidth: scale(1),
     alignItems: 'center',
+    backgroundColor: colors.WHITE,
   },
   textItem: {
     width: scale(60),
@@ -198,14 +230,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   detaillTK: {
-    width: scale(335),
-    height: scale(165),
+    width: '97%',
+    overflow: 'hidden',
     borderRadius: scale(20),
     borderWidth: scale(0.5),
-    marginLeft: scale(10),
+    marginLeft: scale(5),
     borderColor: '#307DF1',
     marginTop: scale(10),
     justifyContent: 'space-between',
+    backgroundColor: colors.WHITE,
+    padding: scale(10),
+    elevation: 5,
   },
   viewRow: {
     flexDirection: 'row',
@@ -224,21 +259,22 @@ const styles = StyleSheet.create({
     marginRight: scale(10),
   },
   ViewFlatlist: {
-    width: scale(302),
-    height: scale(162),
+    width: scale(320),
+    paddingVertical: scale(10),
 
+    overflow: 'hidden',
     borderRadius: scale(20),
 
     backgroundColor: 'white',
     margin: scale(5),
+
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: scale(2),
+      height: 2,
     },
-    shadowOpacity: scale(0.25),
-    shadowRadius: scale(3.84),
-
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     elevation: scale(5),
   },
   TextTitle: {
@@ -251,6 +287,7 @@ const styles = StyleSheet.create({
   imgItem: {
     width: scale(60),
     height: scale(60),
+    overflow: 'hidden',
     borderRadius: scale(20),
     marginTop: scale(14),
     marginLeft: scale(10),

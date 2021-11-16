@@ -64,22 +64,20 @@ const Login = ({navigation}) => {
           <Text style={styles.forgetPassword}>Quên mật khẩu?</Text>
         </TouchableOpacity>
         <View style={styles.button}>
-          <ButtonStyle
-            Title="Đăng nhập"
-            onPress={submit}
-            styleBtn={{width: scale(120)}}
-          />
+          <ButtonStyle Title="Đăng nhập" onPress={submit} />
+        </View>
+        <View>
           <View style={styles.row}>
             <Text style={styles.text1}>Bạn chưa có tài khoản? </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Resgister')}>
               <Text style={styles.text2}>ĐĂNG KÝ NGAY</Text>
             </TouchableOpacity>
           </View>
+          <Image
+            source={require('../../../assets/images/hunting_job.png')}
+            style={styles.fodter}
+          />
         </View>
-        <Image
-          source={require('../../../assets/images/hunting_job.png')}
-          style={styles.fodter}
-        />
       </ScrollView>
       <ModalStyle
         isVisible={modal}
@@ -103,12 +101,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: getDeviceWidth / 3,
     fontFamily: fonts.BOLD,
-    top: scale(50),
+    top: scale(40),
   },
   logo: {
     height: scale(165),
     width: getDeviceWidth,
-    marginBottom: scale(20),
+    marginBottom: scale(10),
   },
 
   text1: {
@@ -127,11 +125,11 @@ const styles = StyleSheet.create({
     height: scale(250),
   },
   forgetPassword: {
-    marginLeft: '70%',
+    marginLeft: '60%',
     fontSize: scale(13),
     fontFamily: fonts.NORMAL,
   },
   form: {justifyContent: 'center', alignItems: 'center'},
-  button: {marginTop: '15%', alignItems: 'center'},
-  row: {flexDirection: 'row'},
+  button: {marginTop: scale(20), alignItems: 'center'},
+  row: {flexDirection: 'row', justifyContent: 'center'},
 });

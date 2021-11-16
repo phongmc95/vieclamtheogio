@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '@components/title/TitleBasic';
-import jobs from '@data/Jobs';
+import {jobs} from '@data/Jobs';
 import fonts from '@constant/fonts';
 
 export default function JobHotScreen() {
@@ -44,11 +44,19 @@ const styles = StyleSheet.create({
     marginHorizontal: scale(20),
     marginTop: scale(20),
     width: '90%',
+    overflow: 'hidden',
     borderRadius: scale(20),
     backgroundColor: '#307DF1',
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.12,
+    shadowRadius: 60,
     elevation: 5,
     padding: scale(20),
     height: scale(150),

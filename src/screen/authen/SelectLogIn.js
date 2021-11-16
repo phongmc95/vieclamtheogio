@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     marginBottom: scale(10),
     borderColor: '#307df1',
     borderWidth: scale(1),
+    overflow: 'hidden',
     borderRadius: scale(5),
     alignItems: 'center',
     justifyContent: 'center',
@@ -79,6 +80,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
     backgroundColor: colors.WHITE,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     elevation: 7,
   },
   text: {

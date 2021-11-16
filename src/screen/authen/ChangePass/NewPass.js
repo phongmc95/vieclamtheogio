@@ -25,7 +25,7 @@ const NewPass = ({navigation, route}) => {
             source={require('../../../../assets/images/logoapp.png')}
             style={styles.logoapp}
           />
-          <View style={{marginBottom: '10%'}}>
+          <View style={styles.form}>
             <TextInputPassword
               Label="Password"
               value={pass}
@@ -41,14 +41,9 @@ const NewPass = ({navigation, route}) => {
           <ButtonStyle
             Title="Xác nhận"
             onPress={submit}
-            styleBtn={{width: scale(120), marginBottom: '30%'}}
+            styleBtn={styles.button}
           />
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'flex-end',
-              alignItems: 'flex-end',
-            }}>
+          <View style={styles.imgFooter}>
             <Image
               source={require('../../../../assets/images/bro.png')}
               style={styles.foodter}
@@ -84,7 +79,7 @@ const styles = StyleSheet.create({
     borderColor: '#307DF1',
 
     margin: scale(5),
-    borderRadius: scale(5),
+    overflow: 'hidden', borderRadius: scale(5),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -100,4 +95,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: scale(50),
   },
+  imgFooter: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+  button: {width: scale(120), marginBottom: '30%'},
+  form: {marginBottom: '10%'},
 });

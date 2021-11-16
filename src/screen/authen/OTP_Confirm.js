@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(17),
     paddingVertical: scale(11),
     backgroundColor: '#307df1',
+    overflow: 'hidden',
     borderRadius: scale(30),
     marginTop: scale(20),
   },
@@ -160,6 +161,7 @@ const styles = StyleSheet.create({
     width: scale(300),
 
     margin: scale(25),
+    overflow: 'hidden',
     borderRadius: scale(30),
     marginTop: scale(-50),
   },

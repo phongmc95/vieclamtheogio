@@ -13,7 +13,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {scale} from 'react-native-size-matters';
 import TitleHome from '../../components/title/TitleHome';
 import icons from '../../constant/icons';
-import jobs from '../../data/Jobs';
+import {jobs} from '../../data/Jobs';
 
 export default function HomeScreen({navigation}) {
   return (
@@ -133,11 +133,19 @@ const styles = StyleSheet.create({
     height: scale(100),
     width: scale(90),
     backgroundColor: '#307df1',
+    overflow: 'hidden',
     borderRadius: scale(20),
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.5,
     shadowRadius: 1,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.12,
+    shadowRadius: 60,
     elevation: 5,
     alignItems: 'center',
     marginRight: scale(20),
@@ -162,6 +170,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(12),
     paddingVertical: scale(12),
     borderWidth: 0.5,
+    overflow: 'hidden',
     borderRadius: scale(20),
     width: scale(310),
     backgroundColor: '#fff',
@@ -169,6 +178,13 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.5,
     shadowRadius: 1,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.12,
+    shadowRadius: 60,
     elevation: 5,
     marginVertical: scale(10),
   },

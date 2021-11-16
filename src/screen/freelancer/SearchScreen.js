@@ -4,7 +4,7 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleSearch from '../../components/title/TitleSearch';
 import icons from '../../constant/icons';
-import jobs from '../../data/Jobs';
+import {jobs} from '../../data/Jobs';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../constant/colors';
 

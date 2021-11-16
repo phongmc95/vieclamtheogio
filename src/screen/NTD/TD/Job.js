@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     borderColor: '#307DF1',
     alignContent: 'center',
     margin: scale(5),
+    overflow: 'hidden',
     borderRadius: scale(5),
     marginLeft: scale(15),
   },

@@ -11,7 +11,7 @@ import {
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '@components/title/TitleBasic';
 import icons from '@constant/icons';
-import jobs from '@data/Jobs';
+import {jobs} from '@data/Jobs';
 import search from '@data/Search';
 import fonts from '@constant/fonts';
 import colors from '../../constant/colors';
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     width: '90%',
     borderWidth: 1,
     borderColor: '#307df1',
+    overflow: 'hidden',
     borderRadius: scale(30),
     paddingVertical: scale(8),
     paddingLeft: scale(20),

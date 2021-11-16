@@ -21,6 +21,9 @@ import {
 } from '../../../../assets/icon';
 import {TabView, TabBar} from 'react-native-tab-view';
 import HeaderStyle from '../../../components/HeaderStyle';
+import colors from '../../../constant/colors';
+import {ButtonItemLuu} from '../../../components/Button/ButtonItem';
+import fonts from '../../../constant/fonts';
 const TD_Screen = ({navigation}) => {
   const DATA = [
     {
@@ -176,74 +179,72 @@ const TD_Screen = ({navigation}) => {
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <TouchableOpacity
           style={{margin: scale(5)}}
-          onPress={() => navigation.navigate('GiaiPhap')}
-        />
+          onPress={() => navigation.navigate('GiaiPhap')}>
+          <ButtonItemLuu nameBTN="Giải pháp" />
+        </TouchableOpacity>
         <TouchableOpacity
           style={{margin: scale(5)}}
-          onPress={() => navigation.navigate('SuaTin')}
-        />
+          onPress={() => navigation.navigate('SuaTin')}>
+          <ButtonItemLuu nameBTN="Sửa" />
+        </TouchableOpacity>
       </View>
     </View>
   );
   const renderItemUV = ({item}) => (
-    <View
-      style={[
-        styles.ViewFlatlist,
-        {
-          height: scale(144),
-        },
-      ]}>
-      <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
-        <TouchableOpacity
-          style={{flexDirection: 'row'}}
-          onPress={() => navigation.navigate('DetailUV', {item})}>
-          <Image source={{uri: item.avatar}} style={styles.avatar} />
-          <View>
-            <Text style={styles.TextTitle}>{item.nameUV}</Text>
-            <Text
-              style={[
-                styles.TextTitle,
-                {fontSize: scale(12), marginTop: scale(0)},
-              ]}>
-              {item.nameJob}
-            </Text>
+    <View style={[styles.ViewFlatlist]}>
+      <View style={{padding: scale(5)}}>
+        <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+          <TouchableOpacity
+            style={{flexDirection: 'row'}}
+            onPress={() => navigation.navigate('DetailUV', {item})}>
+            <Image source={{uri: item.avatar}} style={styles.avatar} />
+            <View>
+              <Text style={styles.TextTitle}>{item.nameUV}</Text>
+              <Text
+                style={[
+                  styles.TextTitle,
+                  {fontSize: scale(12), marginTop: scale(0)},
+                ]}>
+                {item.nameJob}
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.LikeIcon}>
+            <LikeIcon />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            marginTop: scale(13),
+          }}>
+          <View style={{flexDirection: 'row'}}>
+            <View style={{marginRight: scale(5), marginLeft: scale(5)}}>
+              <HsIcon color="#307DF1" />
+            </View>
+            <Text style={styles.textitem}>Mã hồ sơ:{item.maHs}</Text>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.LikeIcon}>
-          <LikeIcon />
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          marginTop: scale(13),
-        }}>
-        <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', marginRight: scale(15)}}>
+            <View style={{marginRight: scale(5)}}>
+              <ViewIcon />
+            </View>
+            <Text style={styles.textitem}>Lượt xem:{item.views}</Text>
+          </View>
+        </View>
+        <View style={{flexDirection: 'row', marginTop: scale(20)}}>
           <View style={{marginRight: scale(5), marginLeft: scale(5)}}>
-            <HsIcon color="#307DF1" />
+            <LocalIcon color="#307DF1" />
           </View>
-          <Text style={styles.textitem}>Mã hồ sơ:{item.maHs}</Text>
+          <Text style={styles.textitem}>{item.diaChi}</Text>
         </View>
-        <View style={{flexDirection: 'row', marginRight: scale(15)}}>
-          <View style={{marginRight: scale(5)}}>
-            <ViewIcon />
-          </View>
-          <Text style={styles.textitem}>Lượt xem:{item.views}</Text>
-        </View>
-      </View>
-      <View style={{flexDirection: 'row', marginTop: scale(20)}}>
-        <View style={{marginRight: scale(5), marginLeft: scale(5)}}>
-          <LocalIcon color="#307DF1" />
-        </View>
-        <Text style={styles.textitem}>{item.diaChi}</Text>
       </View>
     </View>
   );
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'first', title: 'TIN ĐÃ ĐĂNG', type: 0},
-    {key: 'second', title: 'TÌM KIẾM ỨNG VIÊN THEO GIỜ', type: 1},
+    {key: 'second', title: 'ỨNG VIÊN THEO GIỜ', type: 1},
   ]);
   const handleIndexChange = indexTab => {
     setIndex(indexTab);
@@ -255,7 +256,7 @@ const TD_Screen = ({navigation}) => {
         scrollEnabled={true}
         indicatorStyle={[{backgroundColor: '#307df1'}]}
         style={[{backgroundColor: '#FFFFFF'}]}
-        // tabStyle={{width: scale(240)}}
+        tabStyle={{width: scale(200)}}
         inactiveColor={'#404040'}
         activeColor={'#307df1'}
         renderLabel={({route, color}) => (
@@ -272,7 +273,6 @@ const TD_Screen = ({navigation}) => {
       />
     </View>
   );
-  const initialLayout = {width: Dimensions.get('window').width};
   return (
     <View style={styles.contener}>
       <View style={{backgroundColor: '#FFFFFF'}}>
@@ -295,6 +295,7 @@ export default TD_Screen;
 const styles = StyleSheet.create({
   contener: {
     flex: 1,
+    backgroundColor: colors.LIGHT_WHITE,
   },
   StatusBar: {
     backgroundColor: '#307DF1',
@@ -318,14 +319,16 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     backgroundColor: '#307DF1',
+    overflow: 'hidden',
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
   },
   ViewFlatlist: {
-    width: scale(302),
-    height: scale(199),
+    width: scale(320),
+    paddingVertical: scale(10),
     borderWidth: scale(0.4),
+    overflow: 'hidden',
     borderRadius: scale(20),
     borderColor: '#307DF1',
     backgroundColor: 'white',
@@ -337,6 +340,7 @@ const styles = StyleSheet.create({
     color: '#307DF1',
     marginLeft: scale(10),
     marginTop: scale(10),
+    fontFamily: fonts.NORMAL,
   },
   viewRow: {
     flexDirection: 'row',
@@ -347,12 +351,14 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: scale(13),
     marginLeft: scale(10),
+    fontFamily: fonts.NORMAL,
   },
   TextR: {
     fontWeight: '400',
     fontSize: scale(13),
     color: '#307DF1',
     marginRight: scale(10),
+    fontFamily: fonts.NORMAL,
   },
   main: {
     alignItems: 'center',
@@ -364,6 +370,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: scale(60),
     height: scale(60),
+    overflow: 'hidden',
     borderRadius: scale(50),
     marginLeft: scale(5),
   },
@@ -371,8 +378,9 @@ const styles = StyleSheet.create({
     margin: scale(18),
   },
   textitem: {
-    fontWeight: '400',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(12),
+    marginTop: scale(3),
   },
   indicator: {
     backgroundColor: '#1ABC9C',
@@ -386,7 +394,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontFamily: fonts.BOLD,
     margin: 8,
   },
 });

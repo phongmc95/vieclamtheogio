@@ -1,26 +1,22 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 import {
   StyleSheet,
   Text,
   View,
-  FlatList,
   TouchableOpacity,
   Image,
   TextInput,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-
-import {
-  FilterIcon,
-  LocalIcon,
-  PhoneIcon,
-  ClockIcon,
-  SelectDowIcon,
-} from '../../../../assets/icon';
+import {PhoneIcon, ClockIcon, SelectDowIcon} from '../../../../assets/icon';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {Modal} from 'react-native-paper';
 import HeaderStyle from '../../../components/HeaderStyle';
+import SelectModal from '../../../components/SelectModal';
+import Button from '../../../components/Button/Button';
+import colors from '../../../constant/colors';
+import fonts from '../../../constant/fonts';
 const UV_Screen = ({navigation}) => {
   const DATA = [
     {
@@ -77,22 +73,35 @@ const UV_Screen = ({navigation}) => {
       time: 'Thứ 2, Thứ 3,Thứ 4, Thứ 5',
     },
   ];
+
+  const states = [
+    {id: 2, title: 'Đến phỏng vấn'},
+    {id: 3, title: 'Đạt yêu cầu'},
+    {id: 4, title: 'Không đạt yêu cầu'},
+  ];
   const [styleHinder, setStyleHinder] = useState({backgroundColor: 'white'});
   const [Visible, setVisible] = useState(false);
   const [showStatus, setShowStastus] = useState(false);
+  const [state, setState] = useState({id: null, title: 'Trạng thái'});
   const toggleModal = () => {
     setVisible(!Visible);
   };
+
+  const toggleModalSelect = () => {
+    setShowStastus(!showStatus);
+  };
   const renderItem = ({item}) => (
     <View style={[styles.viewFL, styleHinder]}>
-      <TouchableOpacity style={{flexDirection: 'row'}}>
+      <TouchableOpacity
+        style={{flexDirection: 'row'}}
+        onPress={() => navigation.navigate('DetailUV', {item})}>
         <Image source={{uri: item.avatar}} style={styles.avatar} />
         <Text style={styles.nameUV}>{item.nameUV}</Text>
       </TouchableOpacity>
       <View style={styles.viewItemRow}>
         <View style={{flexDirection: 'row'}}>
           <View style={{marginRight: scale(5), marginLeft: scale(5)}}>
-            <LocalIcon />
+            <ClockIcon />
           </View>
           <Text style={styles.textitem}>{item.city}</Text>
         </View>
@@ -113,85 +122,49 @@ const UV_Screen = ({navigation}) => {
   );
   const renderHinderItem = ({item}) => (
     <View style={styles.hinder}>
-      <TouchableOpacity
-        style={styles.nghichu}
-        onPress={() => {
-          setVisible(true), console.log('abc');
-        }}>
-        <Text style={{fontSize: scale(12), fontWeight: '500', color: 'white'}}>
-          Nghi chú
+      <TouchableOpacity style={styles.nghichu} onPress={toggleModal}>
+        <Text
+          style={{
+            fontSize: scale(12),
+            fontWeight: '500',
+            color: 'white',
+            fontFamily: fonts.NORMAL,
+          }}>
+          Ghi chú
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.status}
         onPress={() => setShowStastus(!showStatus)}>
-        <Text style={{fontSize: scale(12), fontWeight: '400', color: 'white'}}>
-          không đạt yêu cầu
+        <Text
+          style={{
+            fontSize: scale(12),
+            fontWeight: '400',
+            color: 'white',
+            fontFamily: fonts.NORMAL,
+          }}>
+          {state.title}
         </Text>
-        <SelectDowIcon />
-      </TouchableOpacity>
-      {showStatus && (
-        <View style={styles.showStatus}>
-          <TouchableOpacity>
-            <Text
-              style={{fontSize: scale(12), fontWeight: '400', color: 'white'}}>
-              Trạng thái
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text
-              style={{fontSize: scale(12), fontWeight: '400', color: 'white'}}>
-              Đến phỏng vấn
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text
-              style={{fontSize: scale(12), fontWeight: '400', color: 'white'}}>
-              Đạt yêu cầu
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text
-              style={{fontSize: scale(12), fontWeight: '400', color: 'white'}}>
-              Không đạt yêu cầu
-            </Text>
-          </TouchableOpacity>
+        <View style={{position: 'absolute', right: 0, marginRight: scale(15)}}>
+          <SelectDowIcon />
         </View>
-      )}
+      </TouchableOpacity>
     </View>
   );
-  const onRowDidOpen = () => {
-    setStyleHinder({
-      backgroundColor: '#307DF1',
-    });
-  };
   const ModalNode = () => {
     return (
-      <View>
-        <Modal isVisible={Visible}>
-          <View style={styles.centeredViewMD}>
-            <View style={styles.modalView}>
-              {/* <Text
-                style={{
-                  fontSize: scale(20),
-                  fontWeight: '700',
-                  color: '#307DF1',
-                  textAlign: 'center',
-                }}>
-                Ghi chú nhà tuyển dụng
-              </Text>
-              <View>
-                <View style={[styles.boxInput, {height: scale(105)}]}>
-                  <TextInput
-                    placeholder="Nhập tối thiểu 50 từ"
-                    style={styles.textInput}
-                  />
-                </View>
-              </View> */}
-            </View>
+      <Modal visible={Visible} onDismiss={toggleModal} dismissible={false}>
+        <View style={styles.modalView}>
+          <Text style={styles.titleNote}>Ghi chú nhà tuyển dụng</Text>
+          <View style={[styles.boxInput]}>
+            <TextInput
+              placeholder="Nhập tối thiểu 50 từ"
+              style={styles.textInput}
+            />
           </View>
-        </Modal>
-      </View>
+          <Button title="Lưu" color={colors.WHITE} bg={colors.BLUE} />
+        </View>
+      </Modal>
     );
   };
   return (
@@ -208,6 +181,16 @@ const UV_Screen = ({navigation}) => {
         />
       </View>
       <ModalNode />
+      <SelectModal
+        isVisible={showStatus}
+        onBackdropPress={toggleModalSelect}
+        label={'Trạng thái'}
+        onPress={item => {
+          setState(item);
+          toggleModalSelect();
+        }}
+        data={states}
+      />
     </View>
   );
 };
@@ -231,7 +214,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: scale(18),
-    fontWeight: '700',
+    fontFamily: fonts.NORMAL,
     lineHeight: scale(20),
     marginLeft: scale(20),
   },
@@ -242,14 +225,16 @@ const styles = StyleSheet.create({
   },
   viewFL: {
     width: scale(335),
+    overflow: 'hidden',
     borderRadius: scale(20),
     backgroundColor: 'white',
     margin: scale(5),
-    height: scale(144),
+    padding: scale(10),
   },
   avatar: {
     width: scale(60),
     height: scale(60),
+    overflow: 'hidden',
     borderRadius: scale(50),
     marginLeft: scale(5),
   },
@@ -257,11 +242,12 @@ const styles = StyleSheet.create({
     margin: scale(18),
   },
   textitem: {
-    fontWeight: '400',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(12),
+    marginTop: scale(5),
   },
   nameUV: {
-    fontWeight: '500',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     color: '#307DF1',
     marginLeft: scale(10),
@@ -281,6 +267,7 @@ const styles = StyleSheet.create({
   },
   nghichu: {
     height: scale(98),
+    overflow: 'hidden',
     borderRadius: scale(20),
     alignItems: 'center',
     justifyContent: 'center',
@@ -290,6 +277,7 @@ const styles = StyleSheet.create({
     height: scale(36),
     flexDirection: 'row',
     backgroundColor: '#307DF1',
+    overflow: 'hidden',
     borderRadius: scale(30),
     marginTop: scale(10),
     alignItems: 'center',
@@ -305,40 +293,38 @@ const styles = StyleSheet.create({
   modalView: {
     margin: scale(20),
     backgroundColor: 'white',
+    overflow: 'hidden',
     borderRadius: scale(30),
-    padding: scale(35),
+    padding: scale(20),
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
     width: scale(311),
-    height: scale(403),
   },
   boxInput: {
-    width: scale(325),
-    height: scale(40),
+    width: scale(280),
+    height: scale(205),
     borderWidth: scale(1),
     borderColor: '#307DF1',
     justifyContent: 'space-between',
     alignContent: 'center',
-    margin: scale(5),
-    borderRadius: scale(5),
+    overflow: 'hidden',
+    marginVertical: scale(20),
   },
   textInput: {
     fontWeight: '300',
     fontSize: scale(16),
-    marginLeft: scale(5),
+    padding: scale(10),
+    fontFamily: fonts.NORMAL,
   },
   showStatus: {
     width: scale(142),
-
-    position: 'absolute',
     backgroundColor: '#307DF1',
     marginTop: scale(130),
+    alignItems: 'center',
+  },
+  titleNote: {
+    fontSize: scale(20),
+    fontFamily: fonts.NORMAL,
+    color: '#307DF1',
+    textAlign: 'center',
   },
 });

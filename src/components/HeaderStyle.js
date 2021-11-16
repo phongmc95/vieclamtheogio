@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     width: scale(40),
     margin: scale(10),
     marginLeft: scale(10),
-    borderRadius: scale(20),
+    overflow: 'hidden', borderRadius: scale(20),
   },
   NameNTD: {
     color: 'white',
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
 
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: scale(50),
+    overflow: 'hidden', borderRadius: scale(50),
     margin: scale(10),
   },
 });

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
-import jobs from '@data/Jobs';
+import {jobs} from '@data/Jobs';
 import fonts from '../../../constant/fonts';
 import {useNavigation} from '@react-navigation/native';
 
@@ -58,8 +58,16 @@ const styles = StyleSheet.create({
   },
   box: {
     width: scale(300),
+    overflow: 'hidden',
     borderRadius: scale(20),
     backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     elevation: 3,
     marginTop: scale(20),
     marginLeft: scale(5),
@@ -76,6 +84,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#e4e4e4',
     paddingHorizontal: scale(10),
     paddingVertical: scale(3),
+    overflow: 'hidden',
     borderRadius: scale(10),
     height: scale(20),
     marginBottom: scale(5),

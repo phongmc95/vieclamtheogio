@@ -9,10 +9,10 @@ import {
 import Modal from 'react-native-modal';
 import {isIos} from '../Utils/CheckDevice';
 import {scale} from 'react-native-size-matters';
-import jobs from '../data/Jobs';
+import {jobs} from '../data/Jobs';
 import fonts from '../constant/fonts';
 const SelectModal = props => {
-  const {isVisible, onBackdropPress, label, onPress} = props;
+  const {isVisible, onBackdropPress, label, onPress, data} = props;
   return (
     <Modal
       animationIn="slideInUp"
@@ -25,7 +25,7 @@ const SelectModal = props => {
       <View style={styles.viewModal}>
         <Text style={styles.title}>{label}</Text>
         <ScrollView>
-          {jobs.map(item => {
+          {data.map(item => {
             return (
               <TouchableOpacity key={item.id} onPress={() => onPress(item)}>
                 <View style={styles.viewContent}>

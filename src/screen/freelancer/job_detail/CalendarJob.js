@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: '#ebebeb',
     paddingTop: scale(8),
+    overflow: 'hidden',
     borderRadius: scale(5),
     marginRight: scale(20),
   },

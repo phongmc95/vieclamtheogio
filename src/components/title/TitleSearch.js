@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     fontSize: scale(16),
     width: scale(240),
     height: scale(40),
-    borderRadius: scale(20),
+    overflow: 'hidden', borderRadius: scale(20),
     borderWidth: 1,
     backgroundColor: '#fff',
     marginLeft: scale(15),
