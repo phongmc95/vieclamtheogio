@@ -3,6 +3,8 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {FoderICon, FocusIcon, LogoutIcon} from '../../../../assets/icon';
 import {Modal} from 'react-native-paper';
+import fonts from '../../../constant/fonts';
+import colors from '../../../constant/colors';
 const Manage_Screen = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(true);
@@ -13,41 +15,43 @@ const Manage_Screen = ({navigation}) => {
     <View style={styles.contener}>
       <View style={styles.StatusBar}>
         <Image
-          source={require('./../../../../assets/img/logoVin.png')}
+          source={require('../../../../assets/img/logoVin.png')}
           style={styles.avatar}
         />
         <Text style={styles.title}>Vingroup</Text>
       </View>
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={() => navigation.navigate('UpdateInfoNTD')}>
-        <View>
-          <FoderICon />
-        </View>
-        <Text styles={styles.Textbtn}>Cập nhật thông tin</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={() => navigation.navigate('ChangePassNTD')}>
-        <View>
-          <FocusIcon />
-        </View>
-        <Text styles={styles.Textbtn}>Đổi mật khẩu</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.btn} onPress={showModal}>
-        <View>
-          <LogoutIcon />
-        </View>
-        <Text styles={styles.Textbtn}>Đăng xuất</Text>
-      </TouchableOpacity>
+      <View>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => navigation.navigate('UpdateInfoNTD')}>
+          <View style={styles.icon}>
+            <FoderICon />
+          </View>
+          <Text style={styles.Textbtn}>Cập nhật thông tin</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => navigation.navigate('ChangePassNTD')}>
+          <View style={styles.icon}>
+            <FocusIcon />
+          </View>
+          <Text style={styles.Textbtn}>Đổi mật khẩu</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btn} onPress={showModal}>
+          <View style={styles.icon}>
+            <LogoutIcon />
+          </View>
+          <Text style={styles.Textbtn}>Đăng xuất</Text>
+        </TouchableOpacity>
+      </View>
 
       <Image
-        source={require('./../../../../assets/img/imgbgJob.png')}
+        source={require('../../../../assets/img/imgbgJob.png')}
         style={{
           backgroundColor: 'white',
           height: scale(211),
           width: scale(375),
-          marginTop: scale(10),
+          marginTop: '20%',
         }}
       />
       <Modal visible={visible} onDismiss={hideModal}>
@@ -84,6 +88,7 @@ export default Manage_Screen;
 const styles = StyleSheet.create({
   contener: {
     flex: 1,
+    backgroundColor: colors.LIGHT_WHITE,
   },
   StatusBar: {
     backgroundColor: '#307DF1',
@@ -103,7 +108,7 @@ const styles = StyleSheet.create({
     width: scale(100),
   },
   Textbtn: {
-    fontWeight: '400',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(18),
     marginLeft: scale(20),
     color: '#404040',
@@ -116,6 +121,7 @@ const styles = StyleSheet.create({
   modal: {
     width: scale(335),
     height: scale(176),
+    overflow: 'hidden',
     borderRadius: scale(20),
     backgroundColor: 'white',
     justifyContent: 'center',
@@ -131,6 +137,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: scale(16),
     backgroundColor: '#307FD1',
+    overflow: 'hidden',
     borderRadius: scale(30),
     paddingHorizontal: scale(28),
     paddingVertical: scale(10),
@@ -141,6 +148,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: scale(16),
     backgroundColor: 'white',
+    overflow: 'hidden',
     borderRadius: scale(30),
     paddingHorizontal: scale(50),
     paddingVertical: scale(10),
@@ -149,4 +157,5 @@ const styles = StyleSheet.create({
     borderWidth: scale(1),
     borderColor: '#307FD1',
   },
+  icon: {marginTop: scale(3)},
 });

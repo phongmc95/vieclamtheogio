@@ -1,17 +1,23 @@
-import React, {useRef, useState} from 'react';
-
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useRef} from 'react';
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Swiper from 'react-native-swiper';
 
 import images from '../../constant/images';
 import {useDispatch} from 'react-redux';
 import {checkLogin} from '../../redux/actions/actions';
+import fonts from '@constant/fonts';
 
 const OnbroadScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const swiper = useRef(null);
-  const [page, setPage] = useState(0);
   const handleFreelancer = () => {
     dispatch(checkLogin('flc'));
     navigation.navigate('SelectLogIN');
@@ -21,42 +27,39 @@ const OnbroadScreen = ({navigation}) => {
     navigation.navigate('SelectLogIN');
   };
   return (
-    <View style={styles.Container}>
+    <SafeAreaView style={styles.Container}>
       <View style={styles.swiper}>
         <Swiper
           autoplay={true}
-          onIndexChanged={index => setPage(index)}
           ref={swiper}
           activeDotStyle={styles.activeSwiperDot}
           dotStyle={styles.swiperdot}>
           <View>
-            <View style={styles.imagecontainer}>
+            <View style={styles.imgContainer}>
               <Image style={styles.image} source={images.rafiki} />
             </View>
             <View style={styles.textcontainer}>
-              <Text style={[styles.title, {textTransform: 'uppercase'}]}>
+              <Text style={styles.title}>
                 Đáp ứng nhu cầu tìm việc ngay lập tức
               </Text>
             </View>
           </View>
           <View>
-            <View style={styles.imagecontainer}>
+            <View style={styles.imgContainer}>
               <Image style={styles.image} source={images.bro} />
             </View>
             <View style={styles.textcontainer}>
-              <Text style={[styles.title, {textTransform: 'uppercase'}]}>
+              <Text style={styles.title}>
                 Tìm kiếm sàng lọc ứng viên chất lượng
               </Text>
             </View>
           </View>
           <View>
-            <View style={styles.imagecontainer}>
+            <View style={styles.imgContainer}>
               <Image style={styles.image} source={images.cuate} />
             </View>
             <View style={styles.textcontainer}>
-              <Text style={[styles.title, {textTransform: 'uppercase'}]}>
-                Hỗ trợ 24/7
-              </Text>
+              <Text style={styles.title}>Hỗ trợ 24/7</Text>
             </View>
           </View>
         </Swiper>
@@ -69,7 +72,7 @@ const OnbroadScreen = ({navigation}) => {
           <Text style={styles.buttonText}>{'Nhà tuyển dụng'}</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 export default OnbroadScreen;
@@ -87,6 +90,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,.2)',
     width: scale(10),
     height: scale(10),
+    overflow: 'hidden',
     borderRadius: scale(5),
     marginLeft: scale(8),
     marginRight: scale(8),
@@ -105,19 +109,20 @@ const styles = StyleSheet.create({
     paddingRight: scale(20),
   },
   title: {
-    fontWeight: '700',
     lineHeight: scale(25),
     fontSize: scale(20),
     marginBottom: scale(24),
     color: '#307DF1',
     textAlign: 'center',
+    fontFamily: fonts.BOLD,
+    textTransform: 'uppercase',
   },
   textBegin: {
     alignSelf: 'center',
     lineHeight: scale(19),
     fontSize: scale(14),
   },
-  imagecontainer: {
+  imgContainer: {
     overflow: 'hidden',
     height: scale(350),
     width: '100%',
@@ -131,7 +136,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: scale(20),
     color: '#307DF1',
-    fontWeight: 'bold',
+    fontFamily: fonts.BOLD,
   },
   button: {
     alignSelf: 'center',
@@ -141,8 +146,19 @@ const styles = StyleSheet.create({
     height: scale(36),
     borderColor: '#307DF1',
     borderWidth: scale(1),
+    overflow: 'hidden',
     borderRadius: scale(4),
-
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     elevation: 5,
     backgroundColor: '#fff',
     marginBottom: scale(10),
@@ -160,8 +176,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#307DF1',
     width: scale(10),
     height: scale(10),
+    overflow: 'hidden',
     borderRadius: scale(5),
     marginLeft: scale(8),
     marginRight: scale(8),
   },
+  viewButton: {marginTop: scale(30)},
 });

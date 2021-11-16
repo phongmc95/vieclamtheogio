@@ -79,6 +79,7 @@ const DesiredJobUV = () => {
                   styles.title,
                   {
                     color: '#307DF1',
+                    overflow: 'hidden',
                     borderRadius: scale(30),
                     paddingHorizontal: scale(10),
                     backgroundColor: '#E4E4E4',
@@ -91,6 +92,7 @@ const DesiredJobUV = () => {
                   styles.title,
                   {
                     color: '#307DF1',
+                    overflow: 'hidden',
                     borderRadius: scale(30),
                     paddingHorizontal: scale(10),
                     backgroundColor: '#E4E4E4',
@@ -103,6 +105,7 @@ const DesiredJobUV = () => {
                   styles.title,
                   {
                     color: '#307DF1',
+                    overflow: 'hidden',
                     borderRadius: scale(30),
                     paddingHorizontal: scale(10),
                     backgroundColor: '#E4E4E4',
@@ -162,6 +165,7 @@ const styles = StyleSheet.create({
     width: scale(335),
 
     backgroundColor: 'white',
+    overflow: 'hidden',
     borderRadius: scale(20),
     marginTop: scale(20),
     margin: scale(7),
@@ -182,12 +186,14 @@ const styles = StyleSheet.create({
     width: scale(335),
     height: scale(112),
     backgroundColor: 'white',
+    overflow: 'hidden',
     borderRadius: scale(5),
     margin: scale(7),
   },
   avatar: {
     width: scale(60),
     height: scale(60),
+    overflow: 'hidden',
     borderRadius: scale(50),
     margin: scale(5),
   },

@@ -8,11 +8,12 @@ import {
   Image,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import Buttonn from '../../../components/Button/Button';
-import TitleBasic from '../../../components/title/TitleBasic';
-import icons from '../../../constant/icons';
+import Buttonn from '@components/Button/Button';
+import TitleBasic from '@components/title/TitleBasic';
+import icons from '@constant/icons';
 import Modal from 'react-native-modal';
-import images from '../../../constant/images';
+import images from '@constant/images';
+import Button from '@components/Button/Button';
 
 export default function UpdatePassword() {
   const [modal, setModal] = useState(false);
@@ -83,6 +84,7 @@ export default function UpdatePassword() {
           style={{
             width: scale(295),
             height: scale(173),
+            overflow: 'hidden',
             borderRadius: scale(20),
             borderWidth: 1,
             borderColor: '#307df1',
@@ -115,10 +117,21 @@ const styles = StyleSheet.create({
     width: scale(330),
     height: scale(40),
     backgroundColor: '#fff',
-    borderRadius: 1,
     borderColor: '#307df1',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     elevation: 5,
     marginLeft: scale(10),
+    overflow: 'hidden',
     borderRadius: scale(5),
     marginVertical: scale(10),
   },

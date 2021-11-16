@@ -3,20 +3,20 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   TouchableOpacity,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import icons from '../../constant/icons';
-import TitleJob from '../../components/title/TitleJob';
+import icons from '@constant/icons';
+import TitleJob from '@components/title/TitleJob';
 import {TabView, TabBar} from 'react-native-tab-view';
 import InfomationJob from './job_detail/InfomationJob';
 import SimilarJob from './job_detail/SimilarJob';
 import JobWithEmp from './job_detail/JobWithEmp';
 import CalendarJob from './job_detail/CalendarJob';
-import Button from '../../components/Button/Button';
-import Notification from '../../components/Notification';
+import Button from '@components/Button/Button';
+import Notification from '@components/Notification';
 
 const height = Dimensions.get('window').height;
 
@@ -61,23 +61,21 @@ export default function JobDetailScreen({navigation, route}) {
       <TabBar
         {...props}
         scrollEnabled={true}
-        indicatorStyle={[{backgroundColor: '#307df1'}]}
-        style={[{backgroundColor: '#FFFFFF'}]}
-        tabStyle={{width: scale(180)}}
+        indicatorStyle={styles.blue}
+        style={styles.white}
+        tabStyle={styles.widthTab}
         inactiveColor={'#404040'}
         activeColor={'#307df1'}
         renderLabel={({route, color}) => (
-          <View style={{alignItems: 'center'}}>
-            <Text style={{color, fontSize: scale(16), lineHeight: scale(18)}}>
-              {route.title}
-            </Text>
+          <View style={styles.align}>
+            <Text style={styles.title(color)}>{route.title}</Text>
           </View>
         )}
       />
     </View>
   );
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TitleJob
         icon={icons.heart_wb}
         logo={item.logo}
@@ -93,15 +91,7 @@ export default function JobDetailScreen({navigation, route}) {
           renderTabBar={renderTabBar}
           onIndexChange={handleIndexChange}
         />
-        <View
-          style={{
-            height: scale(60),
-            width: '100%',
-            backgroundColor: '#fff',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            paddingTop: scale(8),
-          }}>
+        <View style={styles.content}>
           <TouchableOpacity onPress={toggleModal}>
             <Button
               title="Ứng tuyển"
@@ -114,7 +104,7 @@ export default function JobDetailScreen({navigation, route}) {
         </View>
       </View>
       <Notification on={modal} off={toggleModal} />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -132,4 +122,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(20),
     paddingVertical: scale(10),
   },
+  title: color => ({color, fontSize: scale(16), lineHeight: scale(18)}),
+  content: {
+    width: '100%',
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingVertical: scale(8),
+    bottom: 20,
+  },
+  align: {alignItems: 'center'},
+  widthTab: {width: scale(180)},
+  blue: {backgroundColor: '#307df1'},
+  white: {backgroundColor: '#ffffff'},
 });

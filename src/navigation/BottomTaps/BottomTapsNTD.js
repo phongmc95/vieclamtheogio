@@ -38,12 +38,7 @@ const BottomTapsNTD = () => {
         component={Home}
         options={{
           tabBarIcon: ({focused}) => (
-            <View
-              style={{
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignItems: 'center',
-              }}>
+            <View style={styles.viewIcon}>
               <View
                 style={
                   focused
@@ -65,11 +60,7 @@ const BottomTapsNTD = () => {
               </View>
 
               <Text>
-                {focused ? (
-                  <Text style={{color: '#307DF1'}}>Trang chủ</Text>
-                ) : (
-                  <></>
-                )}
+                {focused ? <Text style={styles.blue}>Trang chủ</Text> : <></>}
               </Text>
             </View>
           ),
@@ -80,12 +71,7 @@ const BottomTapsNTD = () => {
         component={TD_Screen}
         options={{
           tabBarIcon: ({focused}) => (
-            <View
-              style={{
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignItems: 'center',
-              }}>
+            <View style={styles.viewIcon}>
               <View
                 style={
                   focused
@@ -106,11 +92,7 @@ const BottomTapsNTD = () => {
                 />
               </View>
               <Text>
-                {focused ? (
-                  <Text style={{color: '#307DF1'}}>Tuyển dụng</Text>
-                ) : (
-                  <></>
-                )}
+                {focused ? <Text style={styles.blue}>Tuyển dụng</Text> : <></>}
               </Text>
             </View>
           ),
@@ -121,12 +103,7 @@ const BottomTapsNTD = () => {
         component={UV_Screen}
         options={{
           tabBarIcon: ({focused}) => (
-            <View
-              style={{
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignItems: 'center',
-              }}>
+            <View style={styles.viewIcon}>
               <View
                 style={
                   focused
@@ -147,11 +124,7 @@ const BottomTapsNTD = () => {
                 />
               </View>
               <Text>
-                {focused ? (
-                  <Text style={{color: '#307DF1'}}>Ứng viên</Text>
-                ) : (
-                  <></>
-                )}
+                {focused ? <Text style={styles.blue}>Ứng viên</Text> : <></>}
               </Text>
             </View>
           ),
@@ -162,12 +135,7 @@ const BottomTapsNTD = () => {
         component={Chat_Screen}
         options={{
           tabBarIcon: ({focused}) => (
-            <View
-              style={{
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignItems: 'center',
-              }}>
+            <View style={styles.viewIcon}>
               <View
                 style={
                   focused
@@ -188,11 +156,7 @@ const BottomTapsNTD = () => {
                 />
               </View>
               <Text>
-                {focused ? (
-                  <Text style={{color: '#307DF1'}}>Trò chuyện</Text>
-                ) : (
-                  <></>
-                )}
+                {focused ? <Text style={styles.blue}>Trò chuyện</Text> : <></>}
               </Text>
             </View>
           ),
@@ -203,12 +167,7 @@ const BottomTapsNTD = () => {
         component={Manage_Screen}
         options={{
           tabBarIcon: ({focused}) => (
-            <View
-              style={{
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignItems: 'center',
-              }}>
+            <View style={styles.viewIcon}>
               <View
                 style={
                   focused
@@ -229,11 +188,7 @@ const BottomTapsNTD = () => {
                 />
               </View>
               <Text>
-                {focused ? (
-                  <Text style={{color: '#307DF1'}}>Quản lý</Text>
-                ) : (
-                  <></>
-                )}
+                {focused ? <Text style={styles.blue}>Quản lý</Text> : <></>}
               </Text>
             </View>
           ),
@@ -250,10 +205,16 @@ const styles = StyleSheet.create({
     width: scale(40),
     height: scale(40),
     backgroundColor: '#EBEBEB',
-    borderRadius: scale(50),
+    overflow: 'hidden', borderRadius: scale(50),
     alignContent: 'center',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: scale(10),
   },
+  viewIcon: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  blue: {color: '#307DF1'},
 });

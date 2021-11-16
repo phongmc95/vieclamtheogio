@@ -123,7 +123,8 @@ const GiaiPhap = ({navigation}) => {
             marginTop: scale(35),
             borderBottomWidth: 1,
             borderColor: 'black',
-          }}></View>
+          }}
+        />
         <View
           style={{
             width: scale(310),
@@ -180,6 +181,7 @@ const styles = StyleSheet.create({
     width: scale(335),
     height: scale(155),
     borderWidth: scale(0.5),
+    overflow: 'hidden',
     borderRadius: scale(20),
     borderColor: '#307DF1',
     backgroundColor: 'white',

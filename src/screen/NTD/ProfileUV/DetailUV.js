@@ -24,6 +24,7 @@ import SkillUV from './SkillUV';
 import ExperienceUV from './ExperienceUV';
 import WorkSessionUV from './WorkSessionUV';
 import ButtonStyle from '../../../components/ButtonStyle';
+import fonts from '../../../constant/fonts';
 const DetailUV = ({navigation, route}) => {
   const {item} = route.params;
   const [index, setIndex] = useState(0);
@@ -69,7 +70,13 @@ const DetailUV = ({navigation, route}) => {
         activeColor={'#307df1'}
         renderLabel={({route, color}) => (
           <View style={{alignItems: 'center'}}>
-            <Text style={{color, fontSize: scale(16), lineHeight: scale(18)}}>
+            <Text
+              style={{
+                color,
+                fontSize: scale(16),
+                lineHeight: scale(18),
+                fontFamily: fonts.NORMAL,
+              }}>
               {route.title}
             </Text>
           </View>
@@ -83,7 +90,7 @@ const DetailUV = ({navigation, route}) => {
       <ScrollView style={{marginBottom: scale(0)}}>
         <View style={styles.StatusBar}>
           <View style={styles.viewRowBw}>
-            <View style={{flexDirection: 'row', marginTop: scale(20)}}>
+            <View style={{flexDirection: 'row', marginBottom: scale(20)}}>
               <TouchableOpacity
                 style={styles.goback}
                 onPress={() => navigation.goBack()}>
@@ -110,20 +117,20 @@ const DetailUV = ({navigation, route}) => {
               <View style={{marginRight: scale(5), marginLeft: scale(10)}}>
                 <HsIcon color="white" />
               </View>
-              <Text style={styles.textitem}>Mã hồ sơ:{item.maHs}</Text>
+              <Text style={styles.textitem}>Mã hồ sơ: 99</Text>
             </View>
             <View style={{flexDirection: 'row', marginRight: scale(15)}}>
               <View style={{marginRight: scale(5)}}>
                 <EyeIcon color="white" />
               </View>
-              <Text style={styles.textitem}>Lượt xem:{item.views}</Text>
+              <Text style={styles.textitem}>Lượt xem: 1000</Text>
             </View>
           </View>
           <View style={{flexDirection: 'row', marginTop: scale(20)}}>
             <View style={{marginRight: scale(5), marginLeft: scale(10)}}>
               <LocalIcon color="white" />
             </View>
-            <Text style={styles.textitem}>{item.diaChi}</Text>
+            <Text style={styles.textitem}>Hà Nội, Việt Nam</Text>
           </View>
         </View>
 
@@ -148,24 +155,26 @@ const styles = StyleSheet.create({
   },
   StatusBar: {
     backgroundColor: '#307DF1',
-    height: scale(260),
+    paddingVertical: scale(20),
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
   },
   title: {
     color: 'white',
     fontSize: scale(18),
-    fontWeight: '700',
+    fontFamily: fonts.BOLD,
     lineHeight: scale(20),
     marginLeft: scale(20),
+    marginTop: scale(3),
   },
   goback: {
     marginLeft: scale(10),
   },
-  btnlike: {margin: scale(20)},
+  btnlike: {marginHorizontal: scale(20)},
   avatar: {
     width: scale(100),
     height: scale(100),
+    overflow: 'hidden',
     borderRadius: scale(50),
   },
   viewAvatar: {
@@ -176,7 +185,7 @@ const styles = StyleSheet.create({
     fontSize: scale(20),
     fontWeight: '500',
     textAlign: 'center',
-
+    fontFamily: fonts.NORMAL,
     color: 'white',
   },
   viewRowBw: {
@@ -185,9 +194,10 @@ const styles = StyleSheet.create({
     marginTop: scale(30),
   },
   textitem: {
-    fontWeight: '400',
-    fontSize: scale(12),
+    fontSize: scale(14),
     color: 'white',
+    fontFamily: fonts.NORMAL,
+    marginTop: scale(2),
   },
   Foodter: {
     backgroundColor: 'white',

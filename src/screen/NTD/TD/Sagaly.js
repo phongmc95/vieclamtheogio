@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignContent: 'center',
     margin: scale(5),
-    borderRadius: scale(5),
+    overflow: 'hidden', borderRadius: scale(5),
   },
   textInput: {
     fontWeight: '300',

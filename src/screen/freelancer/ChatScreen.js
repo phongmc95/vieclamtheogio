@@ -1,13 +1,11 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import TitleBasic from '../../components/title/TitleBasic'
+import React from 'react';
+import {SafeAreaView} from 'react-native';
+import TitleBasic from '../../components/title/TitleBasic';
 
 export default function ChatScreen() {
-    return (
-        <View>
-            <TitleBasic title='trò chuyện' />
-        </View>
-    )
+  return (
+    <SafeAreaView>
+      <TitleBasic title="trò chuyện" />
+    </SafeAreaView>
+  );
 }
-
-const styles = StyleSheet.create({})

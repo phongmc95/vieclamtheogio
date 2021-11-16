@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
   },
   viewFL: {
     width: scale(335),
+    overflow: 'hidden',
     borderRadius: scale(20),
     backgroundColor: 'white',
     margin: scale(5),
@@ -193,6 +194,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: scale(60),
     height: scale(60),
+    overflow: 'hidden',
     borderRadius: scale(50),
     marginLeft: scale(5),
   },
@@ -226,6 +228,7 @@ const styles = StyleSheet.create({
   },
   nghichu: {
     height: scale(98),
+    overflow: 'hidden',
     borderRadius: scale(20),
     alignItems: 'center',
     justifyContent: 'center',
@@ -235,7 +238,7 @@ const styles = StyleSheet.create({
     height: scale(36),
     backgroundColor: '#307DF1',
     flexDirection: 'row',
-    backgroundColor: '#307DF1',
+    overflow: 'hidden',
     borderRadius: scale(30),
     marginTop: scale(10),
     alignItems: 'center',

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import BottomTapsNTD from './BottomTaps/BottomTapsNTD';
@@ -12,14 +12,12 @@ import JobSaved from '../screen/freelancer/job/JobSaved';
 import JobPass from '../screen/freelancer/job/JobPass';
 import UpdatePassword from '../screen/freelancer/profile/UpdatePassword';
 import TabTopFlc from './TabTopFlc';
-import UpdateDesiredJob from '../screen/freelancer/profile/UpdateDesiredJob';
 import UpdateExperience from '../screen/freelancer/profile/UpdateExperience';
 import UpdateInfomation from '../screen/freelancer/profile/UpdateInfomation';
 import UpdateSkillPersonal from '../screen/freelancer/profile/UpdateSkillPersonal';
 import UpdateWorkSession from '../screen/freelancer/profile/UpdateWorkSession';
 import JobDetailScreen from '../screen/freelancer/JobDetailScreen';
 import ListJobScreen from '../screen/freelancer/ListJobScreen';
-
 import Login from '../screen/authen/Login';
 import Resgister from '../screen/authen/Resgister';
 import GiaiPhap from '../screen/NTD/TD/GiaiPhap';
@@ -30,7 +28,6 @@ import Sagaly from '../screen/NTD/TD/Sagaly';
 import UpdateInfoNTD from '../screen/NTD/ProfileNTD/UpdateInfoNTD';
 import ChangePassNTD from '../screen/NTD/ProfileNTD/ChangePassNTD';
 import DetailUV from '../screen/NTD/ProfileUV/DetailUV';
-
 import OTP_Confirm from '../screen/authen/OTP_Confirm';
 import SelectLogIn from '../screen/authen/SelectLogIn';
 import InputEmail from '../screen/authen/ChangePass/InputEmail';
@@ -42,7 +39,7 @@ import ListFilter2 from '../.../../screen/NTD/UV/ListFilter2';
 import NewPass from '../screen/authen/ChangePass/NewPass';
 import SplashScreen from '../screen/intro/SplashScreen';
 import {Provider} from 'react-redux';
-
+import UpdateDesiredJob from '../screen/freelancer/profile/UpdateDesiredJob';
 import {PersistGate} from 'redux-persist/integration/react';
 import { persistor, store } from "../redux/store/Store";
 
@@ -55,7 +52,6 @@ const StackNavigation = () => {
           <Stack.Navigator headerMode="none">
             <Stack.Screen name="SplashScreen" component={SplashScreen} />
             <Stack.Screen name="Intro" component={OnbroadScreen} />
-
             <Stack.Screen name="SelectLogIN" component={SelectLogIn} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="InputEmail" component={InputEmail} />

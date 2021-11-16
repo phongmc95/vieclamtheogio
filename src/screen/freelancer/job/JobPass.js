@@ -1,40 +1,34 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, SafeAreaView} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import TitleBasic from '../../../components/title/TitleBasic';
-import icons from '../../../constant/icons';
+import TitleBasic from '@components/title/TitleBasic';
+import icons from '@constant/icons';
 import {SwipeListView} from 'react-native-swipe-list-view';
-import listJob from '../../../data/ListJob';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useNavigation} from '@react-navigation/native';
+import listJob from '@data/ListJob';
+import fonts from '../../../constant/fonts';
+import colors from '../../../constant/colors';
 
 export default function JobPass() {
-  const navigation = useNavigation();
-
   const renderItem = ({item}) => (
     <View style={styles.boxJob}>
-      <View style={{flexDirection: 'row'}}>
+      <View style={styles.row}>
         <Image style={styles.logoJob} source={icons.logoHCI} />
-        <View
-          style={{
-            marginHorizontal: scale(8),
-            width: '90%',
-          }}>
+        <View style={styles.viewCompany}>
           <Text style={styles.txtTitleJob}>{item.title}</Text>
           <Text style={styles.txtAddress}>{item.company}</Text>
         </View>
       </View>
-      <View style={{flexDirection: 'row', marginTop: scale(10)}}>
-        <View style={{flexDirection: 'row', marginTop: scale(5), width: '60%'}}>
+      <View style={styles.info}>
+        <View style={styles.type}>
           <Image style={styles.iconJob} source={icons.bag} />
           <Text style={styles.txtStatus}>{item.type}</Text>
         </View>
-        <View style={{flexDirection: 'row', marginTop: scale(5)}}>
+        <View style={styles.salary}>
           <Image style={styles.iconJob} source={icons.money} />
           <Text style={styles.txtStatus}>{item.salary}</Text>
         </View>
       </View>
-      <View style={{flexDirection: 'row', marginTop: scale(5)}}>
+      <View style={styles.salary}>
         <Image style={styles.iconJob} source={icons.local} />
         <Text style={styles.txtStatus}>{item.add}</Text>
       </View>
@@ -42,45 +36,50 @@ export default function JobPass() {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TitleBasic title="việc làm đã ứng tuyển" />
       <SwipeListView
         data={listJob}
         keyExtractor={item => item.id}
         renderItem={renderItem}
-        renderHiddenItem={(data, rowMap) => (
-          <View
-            style={{
-              width: scale(115),
-              height: scale(135),
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginLeft: '65%',
-              backgroundColor: '#307df1',
-              marginTop: scale(10),
-              borderRadius: scale(20),
-            }}>
-            <Text style={{color: '#fff'}}>Liên hệ</Text>
+        renderHiddenItem={() => (
+          <View style={styles.swiper}>
+            <Text style={styles.contact}>Liên hệ</Text>
           </View>
         )}
         rightOpenValue={-150}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.LIGHT_WHITE,
   },
+  info: {flexDirection: 'row', marginTop: scale(10)},
+  type: {flexDirection: 'row', marginTop: scale(5), width: '60%'},
+  salary: {flexDirection: 'row', marginTop: scale(5)},
   boxJob: {
     paddingHorizontal: scale(12),
     paddingVertical: scale(12),
     borderWidth: 0.5,
+    overflow: 'hidden',
     borderRadius: scale(20),
     width: scale(335),
     backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.12,
+    shadowRadius: 60,
     elevation: 5,
     marginVertical: scale(10),
     marginLeft: scale(8),
@@ -94,7 +93,7 @@ const styles = StyleSheet.create({
     fontSize: scale(15),
     lineHeight: scale(20),
     color: '#404040',
-    fontWeight: 'bold',
+    fontFamily: fonts.BOLD,
     flexWrap: 'wrap',
   },
   txtAddress: {
@@ -102,6 +101,7 @@ const styles = StyleSheet.create({
     lineHeight: scale(20),
     color: '#404040',
     marginTop: scale(5),
+    fontFamily: fonts.NORMAL,
   },
   iconHeart: {
     height: scale(18),
@@ -118,5 +118,23 @@ const styles = StyleSheet.create({
     fontSize: scale(12),
     lineHeight: scale(20),
     color: '#404040',
+    fontFamily: fonts.NORMAL,
   },
+  row: {flexDirection: 'row'},
+  viewCompany: {
+    marginHorizontal: scale(8),
+    width: '90%',
+  },
+  swiper: {
+    width: scale(115),
+    height: scale(135),
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: '65%',
+    backgroundColor: '#307df1',
+    marginTop: scale(10),
+    overflow: 'hidden',
+    borderRadius: scale(20),
+  },
+  contact: {color: '#fff', fontFamily: fonts.NORMAL, fontSize: scale(16)},
 });

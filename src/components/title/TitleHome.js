@@ -16,10 +16,7 @@ export default function TitleHome(props) {
         borderBottomLeftRadius: scale(20),
         borderBottomRightRadius: scale(20),
       }}>
-      <Image
-        style={{height: scale(40), width: scale(40)}}
-        source={props.img}
-      />
+      <Image style={{height: scale(40), width: scale(40)}} source={props.img} />
       <View style={{marginLeft: scale(10), width: '55%'}}>
         <Text
           style={{fontSize: scale(13), lineHeight: scale(20), color: '#fff'}}>

@@ -25,7 +25,7 @@ const UpdateInfoNTD = ({navigation}) => {
       <ScrollView style={{marginBottom: scale(30)}}>
         <View style={styles.viewAvtar}>
           <Image
-            source={require('./../../../../assets/img/logoVin.png')}
+            source={require('../../../../assets/img/logoVin.png')}
             style={styles.avatar}
           />
           <TouchableOpacity style={styles.btnCamera}>
@@ -209,6 +209,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignContent: 'center',
     margin: scale(5),
+    overflow: 'hidden',
     borderRadius: scale(5),
   },
   textInput: {
@@ -240,6 +241,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(33),
     paddingVertical: scale(11),
     backgroundColor: '#307DF1',
+    overflow: 'hidden',
     borderRadius: scale(30),
     color: 'white',
   },

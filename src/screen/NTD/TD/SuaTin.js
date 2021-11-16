@@ -215,6 +215,7 @@ const SuaTin = ({navigation}) => {
                   color: '#307DF1',
                   borderColor: '#307DF1',
                   borderWidth: scale(1),
+                  overflow: 'hidden',
                   borderRadius: scale(30),
                   margin: scale(5),
                 }}>
@@ -392,6 +393,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignContent: 'center',
     margin: scale(5),
+    overflow: 'hidden',
     borderRadius: scale(5),
   },
   textInput: {
@@ -427,6 +429,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: scale(16),
     fontWeight: '500',
+    overflow: 'hidden',
     borderRadius: scale(30),
     margin: scale(5),
   },
@@ -439,6 +442,7 @@ const styles = StyleSheet.create({
     borderColor: '#307DF1',
     fontSize: scale(16),
     fontWeight: '500',
+    overflow: 'hidden',
     borderRadius: scale(30),
     margin: scale(5),
   },

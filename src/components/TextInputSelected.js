@@ -16,6 +16,7 @@ const TextInputSelected = ({Label, value, onChangeText, onPress}) => {
         selectionColor="#307df1"
         underlineColor={'#307df1'}
         right={<TextInput.Icon name={() => <Selecter />} onPress={onPress} />}
+        disabled={true}
       />
     </View>
   );
