@@ -61,8 +61,8 @@ const Manage_Screen = ({navigation}) => {
               color: '#307Df1',
               fontSize: scale(20),
               fontWeight: '400',
-              width: scale(255),
               textAlign: 'center',
+              marginBottom: scale(40),
             }}>
             Bạn có chắc chắn muốn đăng xuất?
           </Text>
@@ -121,23 +121,19 @@ const styles = StyleSheet.create({
   modal: {
     width: scale(335),
     height: scale(176),
-    overflow: 'hidden',
     borderRadius: scale(20),
     backgroundColor: 'white',
-    justifyContent: 'center',
     alignItems: 'center',
     margin: scale(7),
+    padding: scale(20),
   },
   Viewbtn: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: scale(10),
   },
   btnL: {
     fontWeight: '500',
     fontSize: scale(16),
     backgroundColor: '#307FD1',
-    overflow: 'hidden',
     borderRadius: scale(30),
     paddingHorizontal: scale(28),
     paddingVertical: scale(10),
@@ -148,7 +144,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: scale(16),
     backgroundColor: 'white',
-    overflow: 'hidden',
     borderRadius: scale(30),
     paddingHorizontal: scale(50),
     paddingVertical: scale(10),

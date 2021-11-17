@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
+import colors from '../../../constant/colors';
+import fonts from '../../../constant/fonts';
 
 const Job = ({navigation}) => {
   const [data, setData] = useState([]);
@@ -72,6 +74,7 @@ export default Job;
 const styles = StyleSheet.create({
   contener: {
     flex: 1,
+    backgroundColor: colors.LIGHT_WHITE,
   },
   StatusBar: {
     backgroundColor: '#307DF1',
@@ -84,10 +87,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: scale(18),
-    fontWeight: '700',
-    lineHeight: scale(20),
+    fontSize: scale(20),
+    fontFamily: fonts.BOLD,
     marginLeft: scale(20),
+    textTransform: 'uppercase',
   },
   goback: {
     marginLeft: scale(10),
@@ -99,14 +102,15 @@ const styles = StyleSheet.create({
     borderColor: '#307DF1',
     alignContent: 'center',
     margin: scale(5),
-    overflow: 'hidden',
     borderRadius: scale(5),
     marginLeft: scale(15),
+    backgroundColor: colors.WHITE,
   },
   textInput: {
     fontWeight: '300',
     fontSize: scale(16),
     marginLeft: scale(5),
+    fontFamily: fonts.ITALIC,
   },
   text2: {
     fontSize: scale(16),

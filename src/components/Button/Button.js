@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     color: props.color,
     paddingTop: scale(10),
     backgroundColor: props.bg,
-    overflow: 'hidden',
     borderRadius: scale(30),
     width: scale(130),
     height: scale(40),

@@ -123,7 +123,9 @@ const TD_Screen = ({navigation}) => {
       <FAB
         style={styles.fab}
         small
-        icon={() => <Text style={{fontSize: 24, color: 'white'}}>+</Text>}
+        icon={() => (
+          <Text style={{fontSize: scale(24), color: 'white'}}>+</Text>
+        )}
         onPress={() => navigation.navigate('DangTin')}
         color="white"
       />
@@ -313,22 +315,19 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: 'absolute',
-    margin: 16,
+    marginHorizontal: 16,
     right: 0,
     bottom: 90,
     width: 64,
     height: 64,
     backgroundColor: '#307DF1',
-    overflow: 'hidden',
     borderRadius: 50,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   ViewFlatlist: {
     width: scale(320),
     paddingVertical: scale(10),
     borderWidth: scale(0.4),
-    overflow: 'hidden',
     borderRadius: scale(20),
     borderColor: '#307DF1',
     backgroundColor: 'white',
@@ -370,7 +369,6 @@ const styles = StyleSheet.create({
   avatar: {
     width: scale(60),
     height: scale(60),
-    overflow: 'hidden',
     borderRadius: scale(50),
     marginLeft: scale(5),
   },

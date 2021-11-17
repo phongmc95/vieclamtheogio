@@ -1,14 +1,13 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {View} from 'react-native';
+import Header from '../../../components/title/Header';
 
 const Chat_Screen = () => {
   return (
     <View>
-      <Text>chat</Text>
+      <Header title="Trò chuyện" />
     </View>
   );
 };
 
 export default Chat_Screen;
-
-const styles = StyleSheet.create({});

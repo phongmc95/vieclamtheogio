@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     marginLeft: scale(10),
-    overflow: 'hidden',
     borderRadius: scale(5),
     marginVertical: scale(10),
   },

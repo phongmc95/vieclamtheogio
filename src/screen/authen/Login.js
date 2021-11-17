@@ -34,24 +34,25 @@ const Login = ({navigation}) => {
     setError(Error);
   };
   const submit = () => {
-    if (!email || !pass) {
-      setModal(true);
-      setError('Các ô nhập là bắt buộc không được để trống! ');
-    } else if (!validateEmail(email)) {
-      setModal(true);
-      setError('Bạn nhập email không đúng định dạng. Vui lòng nhập lại ! ');
-    } else {
-      dispatch(
-        loadPostsLogIn(
-          email,
-          pass,
-          checkLogin === 'flc' ? 'candidate' : 'employer',
-        ),
-      );
-      data
-        ? navigation.navigate(checkLogin !== 'flc' ? 'tabNTD' : 'BottomTabFlc')
-        : null;
-    }
+    // if (!email || !pass) {
+    //   setModal(true);
+    //   setError('Các ô nhập là bắt buộc không được để trống! ');
+    // } else if (!validateEmail(email)) {
+    //   setModal(true);
+    //   setError('Bạn nhập email không đúng định dạng. Vui lòng nhập lại ! ');
+    // } else {
+    //   dispatch(
+    //     loadPostsLogIn(
+    //       email,
+    //       pass,
+    //       checkLogin === 'flc' ? 'candidate' : 'employer',
+    //     ),
+    //   );
+    //   data
+    //     ? navigation.navigate(checkLogin !== 'flc' ? 'tabNTD' : 'BottomTabFlc')
+    //     : null;
+    // }
+    navigation.navigate(checkLogin !== 'flc' ? 'tabNTD' : 'BottomTabFlc');
   };
   return (
     <View style={styles.contener}>
@@ -86,11 +87,7 @@ const Login = ({navigation}) => {
           </Text>
         </TouchableOpacity>
         <View style={{marginTop: '15%', alignItems: 'center'}}>
-          <ButtonStyle
-            Title="Đăng nhập"
-            onPress={submit}
-            styleBtn={{width: scale(120)}}
-          />
+          <ButtonStyle Title="Đăng nhập" onPress={submit} />
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.text1}>Bạn chưa có tài khoản?</Text>
             <TouchableOpacity onPress={() => navigation.navigate('Resgister')}>

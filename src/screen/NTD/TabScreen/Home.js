@@ -66,7 +66,7 @@ const Home = () => {
   );
   const renderItemHS = ({item}) => (
     <View
-      style={[styles.ViewFlatlist, {height: scale(179), marginBottom: '25%'}]}>
+      style={[styles.ViewFlatlist, {padding: scale(10), marginBottom: '25%'}]}>
       <View style={{flexDirection: 'row'}}>
         <Image
           source={{
@@ -208,7 +208,6 @@ const styles = StyleSheet.create({
     height: scale(100),
     marginTop: scale(10),
     padding: scale(10),
-    overflow: 'hidden',
     borderRadius: scale(20),
     borderColor: '#307DF1',
     borderWidth: scale(1),
@@ -231,7 +230,6 @@ const styles = StyleSheet.create({
   },
   detaillTK: {
     width: '97%',
-    overflow: 'hidden',
     borderRadius: scale(20),
     borderWidth: scale(0.5),
     marginLeft: scale(5),
@@ -262,7 +260,6 @@ const styles = StyleSheet.create({
     width: scale(320),
     paddingVertical: scale(10),
 
-    overflow: 'hidden',
     borderRadius: scale(20),
 
     backgroundColor: 'white',
@@ -287,7 +284,6 @@ const styles = StyleSheet.create({
   imgItem: {
     width: scale(60),
     height: scale(60),
-    overflow: 'hidden',
     borderRadius: scale(20),
     marginTop: scale(14),
     marginLeft: scale(10),

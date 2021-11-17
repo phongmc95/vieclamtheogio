@@ -134,7 +134,7 @@ const DetailUV = ({navigation, route}) => {
           </View>
         </View>
 
-        <View style={{height: scale(700)}}>
+        <View style={{height: scale(900)}}>
           <TabView
             navigationState={{index, routes}}
             renderScene={renderScene}
@@ -174,7 +174,6 @@ const styles = StyleSheet.create({
   avatar: {
     width: scale(100),
     height: scale(100),
-    overflow: 'hidden',
     borderRadius: scale(50),
   },
   viewAvatar: {

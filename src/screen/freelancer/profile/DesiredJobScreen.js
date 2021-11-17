@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
   },
   box: {
     width: scale(300),
-    overflow: 'hidden',
     borderRadius: scale(20),
     backgroundColor: '#fff',
     shadowColor: '#000',
@@ -84,7 +83,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#e4e4e4',
     paddingHorizontal: scale(10),
     paddingVertical: scale(3),
-    overflow: 'hidden',
     borderRadius: scale(10),
     height: scale(20),
     marginBottom: scale(5),

@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
   container: {
     width: scale(295),
     height: scale(173),
-    overflow: 'hidden',
     borderRadius: scale(20),
     borderWidth: 1,
     borderColor: '#307df1',

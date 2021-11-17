@@ -200,6 +200,7 @@ export default UV_Screen;
 const styles = StyleSheet.create({
   contener: {
     flex: 1,
+    backgroundColor: colors.LIGHT_WHITE,
   },
   StatusBar: {
     backgroundColor: '#307DF1',
@@ -222,19 +223,21 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: '35%',
   },
   viewFL: {
     width: scale(335),
-    overflow: 'hidden',
     borderRadius: scale(20),
     backgroundColor: 'white',
     margin: scale(5),
     padding: scale(10),
+    borderWidth: 0.5,
+    borderColor: colors.BLUE,
+    elevation: 5,
   },
   avatar: {
     width: scale(60),
     height: scale(60),
-    overflow: 'hidden',
     borderRadius: scale(50),
     marginLeft: scale(5),
   },
@@ -267,7 +270,6 @@ const styles = StyleSheet.create({
   },
   nghichu: {
     height: scale(98),
-    overflow: 'hidden',
     borderRadius: scale(20),
     alignItems: 'center',
     justifyContent: 'center',
@@ -277,7 +279,6 @@ const styles = StyleSheet.create({
     height: scale(36),
     flexDirection: 'row',
     backgroundColor: '#307DF1',
-    overflow: 'hidden',
     borderRadius: scale(30),
     marginTop: scale(10),
     alignItems: 'center',
@@ -293,7 +294,6 @@ const styles = StyleSheet.create({
   modalView: {
     margin: scale(20),
     backgroundColor: 'white',
-    overflow: 'hidden',
     borderRadius: scale(30),
     padding: scale(20),
     alignItems: 'center',
@@ -306,7 +306,6 @@ const styles = StyleSheet.create({
     borderColor: '#307DF1',
     justifyContent: 'space-between',
     alignContent: 'center',
-    overflow: 'hidden',
     marginVertical: scale(20),
   },
   textInput: {

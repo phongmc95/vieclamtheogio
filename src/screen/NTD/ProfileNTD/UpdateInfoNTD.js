@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {BackIcon, CameraIcon, Selecter} from '../../../../assets/icon';
+import colors from '../../../constant/colors';
+import fonts from '../../../constant/fonts';
 
 const UpdateInfoNTD = ({navigation}) => {
   return (
@@ -22,7 +24,7 @@ const UpdateInfoNTD = ({navigation}) => {
         </TouchableOpacity>
         <Text style={styles.title}>Cập nhập thông tin</Text>
       </View>
-      <ScrollView style={{marginBottom: scale(30)}}>
+      <ScrollView>
         <View style={styles.viewAvtar}>
           <Image
             source={require('../../../../assets/img/logoVin.png')}
@@ -35,7 +37,7 @@ const UpdateInfoNTD = ({navigation}) => {
         </View>
 
         <View style={styles.main}>
-          <Text style={{fontSize: scale(16), fontWeight: '700'}}>
+          <Text style={{fontSize: scale(16), fontFamily: fonts.BOLD}}>
             THÔNG TIN CÔNG TY
           </Text>
           <View>
@@ -104,7 +106,7 @@ const UpdateInfoNTD = ({navigation}) => {
               <TextInput placeholder="Công ty....." style={styles.textInput} />
             </View>
           </View>
-          <Text style={{fontSize: scale(16), fontWeight: '500'}}>
+          <Text style={{fontSize: scale(16), fontFamily: fonts.BOLD}}>
             THÔNG TIN LIÊN HỆ
           </Text>
           <View>
@@ -144,12 +146,12 @@ const UpdateInfoNTD = ({navigation}) => {
             </View>
           </View>
         </View>
+        <View style={styles.foodter}>
+          <TouchableOpacity>
+            <Text style={styles.btnupdate}>Cập nhập</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
-      <View style={styles.foodter}>
-        <TouchableOpacity>
-          <Text style={styles.btnupdate}>Cập nhập</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
@@ -159,6 +161,7 @@ export default UpdateInfoNTD;
 const styles = StyleSheet.create({
   contener: {
     flex: 1,
+    backgroundColor: colors.LIGHT_WHITE,
   },
   StatusBar: {
     backgroundColor: '#307DF1',
@@ -171,10 +174,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: scale(18),
-    fontWeight: '700',
-    lineHeight: scale(20),
+    fontSize: scale(20),
+    fontFamily: fonts.BOLD,
     marginLeft: scale(20),
+    textTransform: 'uppercase',
   },
   goback: {
     marginLeft: scale(10),
@@ -187,13 +190,14 @@ const styles = StyleSheet.create({
   viewAvtar: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: scale(20),
   },
   btnCamera: {
     position: 'absolute',
     alignItems: 'center',
   },
   titleAvatar: {
-    fontWeight: '400',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(16),
   },
   main: {
@@ -209,16 +213,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignContent: 'center',
     margin: scale(5),
-    overflow: 'hidden',
     borderRadius: scale(5),
+    backgroundColor: colors.WHITE,
   },
   textInput: {
-    fontWeight: '300',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     marginLeft: scale(5),
   },
   TextTitle: {
-    fontWeight: '500',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     marginLeft: scale(5),
     marginTop: scale(10),
@@ -230,18 +234,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   foodter: {
-    height: scale(60),
-    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: scale(20),
   },
   btnupdate: {
-    fontWeight: '500',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     paddingHorizontal: scale(33),
     paddingVertical: scale(11),
     backgroundColor: '#307DF1',
-    overflow: 'hidden',
     borderRadius: scale(30),
     color: 'white',
   },

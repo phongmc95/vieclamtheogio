@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
   box: {
     width: scale(300),
     height: scale(300),
-    overflow: 'hidden',
     borderRadius: scale(20),
     backgroundColor: '#fff',
     shadowColor: '#000',

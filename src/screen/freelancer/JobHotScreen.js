@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     marginHorizontal: scale(20),
     marginTop: scale(20),
     width: '90%',
-    overflow: 'hidden',
     borderRadius: scale(20),
     backgroundColor: '#307DF1',
     shadowColor: '#000',

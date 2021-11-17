@@ -1,16 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
   View,
-  FlatList,
   TouchableOpacity,
-  ScrollView,
   TextInput,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
+import {BackIcon} from '../../../../assets/icon';
 import CircleCheckBox, {LABEL_POSITION} from 'react-native-circle-checkbox';
+import colors from '../../../constant/colors';
+import fonts from '../../../constant/fonts';
 
 const Sagaly = ({navigation}) => {
   return (
@@ -23,37 +23,51 @@ const Sagaly = ({navigation}) => {
         </TouchableOpacity>
         <Text style={styles.title}>Mức lương</Text>
       </View>
-      <View>
-        <CircleCheckBox
-          checked={true}
-          onToggle={checked => console.log('My state is: ', checked)}
-          labelPosition={LABEL_POSITION.RIGHT}
-          label="Cố định"
-          outerColor="#307DF1"
-          innerColor="#307DF1"
-        />
+      <View style={{padding: scale(10)}}>
+        <View style={{marginVertical: scale(10)}}>
+          <CircleCheckBox
+            checked={true}
+            onToggle={checked => console.log('My state is: ', checked)}
+            labelPosition={LABEL_POSITION.RIGHT}
+            label="Cố định"
+            outerColor="#307DF1"
+            innerColor="#307DF1"
+            styleLabel={{
+              fontFamily: fonts.NORMAL,
+              fontSize: scale(18),
+              marginLeft: scale(10),
+            }}
+          />
+        </View>
         <View style={{flexDirection: 'row'}}>
-          <View style={[styles.boxInput, {width: scale(230)}]}>
+          <View style={[styles.boxInput, {width: scale(220)}]}>
             <TextInput placeholder="VD:25000" style={styles.textInput} />
           </View>
           <View style={[styles.boxInput, {width: scale(90)}]}>
             <TextInput placeholder="Giờ" style={styles.textInput} />
           </View>
         </View>
-        <CircleCheckBox
-          checked={false}
-          onToggle={checked => console.log('My state is: ', checked)}
-          labelPosition={LABEL_POSITION.RIGHT}
-          label="Ước lượng"
-          outerColor="#307DF1"
-          innerColor="#307DF1"
-        />
+        <View style={{marginVertical: scale(10)}}>
+          <CircleCheckBox
+            checked={false}
+            onToggle={checked => console.log('My state is: ', checked)}
+            labelPosition={LABEL_POSITION.RIGHT}
+            label="Ước lượng"
+            outerColor="#307DF1"
+            innerColor="#307DF1"
+            styleLabel={{
+              fontFamily: fonts.NORMAL,
+              fontSize: scale(18),
+              marginLeft: scale(10),
+            }}
+          />
+        </View>
         <View style={{flexDirection: 'row'}}>
-          <View style={[styles.boxInput, {width: scale(103)}]}>
+          <View style={[styles.boxInput, {width: scale(98)}]}>
             <TextInput placeholder="VD:25000" style={styles.textInput} />
           </View>
           <Text style={{marginTop: scale(15)}}>___</Text>
-          <View style={[styles.boxInput, {width: scale(103)}]}>
+          <View style={[styles.boxInput, {width: scale(98)}]}>
             <TextInput placeholder="VD:25000" style={styles.textInput} />
           </View>
           <View style={[styles.boxInput, {width: scale(90)}]}>
@@ -70,6 +84,7 @@ export default Sagaly;
 const styles = StyleSheet.create({
   contener: {
     flex: 1,
+    backgroundColor: colors.LIGHT_WHITE,
   },
   StatusBar: {
     backgroundColor: '#307DF1',
@@ -82,10 +97,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: scale(18),
-    fontWeight: '700',
-    lineHeight: scale(20),
+    fontSize: scale(20),
+    fontFamily: fonts.BOLD,
     marginLeft: scale(20),
+    textTransform: 'uppercase',
   },
   goback: {
     marginLeft: scale(10),
@@ -98,10 +113,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignContent: 'center',
     margin: scale(5),
-    overflow: 'hidden', borderRadius: scale(5),
+    borderRadius: scale(5),
+    backgroundColor: colors.WHITE,
   },
   textInput: {
-    fontWeight: '300',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     marginLeft: scale(5),
   },

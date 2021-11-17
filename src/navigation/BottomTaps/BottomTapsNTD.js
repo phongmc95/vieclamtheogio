@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     width: scale(40),
     height: scale(40),
     backgroundColor: '#EBEBEB',
-    overflow: 'hidden', borderRadius: scale(50),
+    borderRadius: scale(50),
     alignContent: 'center',
     alignItems: 'center',
     justifyContent: 'center',

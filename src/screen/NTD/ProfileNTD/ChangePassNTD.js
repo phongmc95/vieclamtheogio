@@ -16,6 +16,8 @@ import {
   EyeIcon,
   ChangePassIcon,
 } from '../../../../assets/icon';
+import colors from '../../../constant/colors';
+import fonts from '../../../constant/fonts';
 
 const ChangePassNTD = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
@@ -41,13 +43,13 @@ const ChangePassNTD = ({navigation}) => {
         <View style={[styles.boxInput, {flexDirection: 'row'}]}>
           <TextInput placeholder="Mật khẩu mới" style={styles.textInput} />
           <TouchableOpacity style={styles.Selecter}>
-            <EyeIcon />
+            <EyeIcon color="black" />
           </TouchableOpacity>
         </View>
         <View style={[styles.boxInput, {flexDirection: 'row'}]}>
           <TextInput placeholder="Xác nhận mật khẩu" style={styles.textInput} />
           <TouchableOpacity style={styles.Selecter}>
-            <EyeIcon />
+            <EyeIcon color="black" />
           </TouchableOpacity>
         </View>
         <View style={styles.Viewbtn}>
@@ -65,9 +67,9 @@ const ChangePassNTD = ({navigation}) => {
             style={{
               color: '#307Df1',
               fontSize: scale(20),
-              fontWeight: '400',
-              width: scale(255),
+              fontFamily: fonts.NORMAL,
               textAlign: 'center',
+              marginBottom: scale(20),
             }}>
             Đổi mật khẩu thành công
           </Text>
@@ -83,6 +85,7 @@ export default ChangePassNTD;
 const styles = StyleSheet.create({
   contener: {
     flex: 1,
+    backgroundColor: colors.LIGHT_WHITE,
   },
   StatusBar: {
     backgroundColor: '#307DF1',
@@ -96,8 +99,8 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: scale(18),
-    fontWeight: '700',
-    lineHeight: scale(20),
+    fontFamily: fonts.BOLD,
+    textTransform: 'uppercase',
     marginLeft: scale(20),
   },
   goback: {
@@ -116,12 +119,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignContent: 'center',
     margin: scale(5),
-    overflow: 'hidden', borderRadius: scale(5),
+    backgroundColor: colors.WHITE,
+    borderRadius: scale(5),
+    elevation: 5,
   },
   textInput: {
-    fontWeight: '300',
     fontSize: scale(16),
     marginLeft: scale(5),
+    fontFamily: fonts.NORMAL,
+    width: '90%',
   },
   TextTitle: {
     fontWeight: '500',
@@ -131,9 +137,8 @@ const styles = StyleSheet.create({
   },
   Selecter: {
     width: scale(25),
-
-    alignItems: 'center',
     justifyContent: 'center',
+    right: scale(15),
   },
   Viewbtn: {
     flexDirection: 'row',
@@ -141,34 +146,36 @@ const styles = StyleSheet.create({
     marginTop: scale(10),
   },
   btnL: {
-    fontWeight: '500',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     backgroundColor: '#307FD1',
-    overflow: 'hidden', borderRadius: scale(30),
+    borderRadius: scale(30),
     paddingHorizontal: scale(17),
     paddingVertical: scale(10),
     color: 'white',
     margin: scale(5),
+    elevation: 5,
   },
   btnR: {
-    fontWeight: '500',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     backgroundColor: 'white',
-    overflow: 'hidden', borderRadius: scale(30),
+    borderRadius: scale(30),
     paddingHorizontal: scale(50),
     paddingVertical: scale(10),
     color: '#307FD1',
     margin: scale(5),
     borderWidth: scale(1),
     borderColor: '#307FD1',
+    elevation: 5,
   },
   modal: {
     width: scale(295),
     height: scale(173),
-    overflow: 'hidden', borderRadius: scale(20),
+    borderRadius: scale(20),
     backgroundColor: 'white',
-    justifyContent: 'center',
     alignItems: 'center',
     margin: scale(25),
+    padding: scale(10),
   },
 });

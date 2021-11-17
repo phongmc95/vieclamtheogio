@@ -2,13 +2,12 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {scale} from 'react-native-size-matters';
-
+import {HomeICON, UVICON, ChatICON, ProfileICON} from '@assets/icon';
 import HomeScreen from '../../screen/freelancer/HomeScreen';
 import ProfileScreen from '../../screen/freelancer/ProfileScreen';
 import ChatScreen from '../../screen/freelancer/ChatScreen';
 import ManageFlc from '../../screen/freelancer/ManageFlc';
 import {isIos} from '../../Utils/CheckDevice';
-import {ChatICON, HomeICON, ProfileICON, UVICON} from '../../../assets/icon';
 
 const Tab = createBottomTabNavigator();
 const BottomTabFlc = () => {
@@ -170,9 +169,7 @@ const styles = StyleSheet.create({
   viewIconTab: {
     width: scale(40),
     height: scale(40),
-    backgroundColor: '#EBEBEB',
-    overflow: 'hidden',
-    borderRadius: scale(50),
+    backgroundColor: '#EBEBEB', borderRadius: scale(50),
     alignContent: 'center',
     alignItems: 'center',
     justifyContent: 'center',

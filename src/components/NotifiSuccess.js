@@ -12,7 +12,8 @@ export default function NotifiSuccess(props) {
         style={{
           width: scale(295),
           height: scale(173),
-          overflow: 'hidden', borderRadius: scale(20),
+          overflow: 'hidden',
+          borderRadius: scale(20),
           borderWidth: 1,
           borderColor: '#307df1',
           backgroundColor: '#fff',

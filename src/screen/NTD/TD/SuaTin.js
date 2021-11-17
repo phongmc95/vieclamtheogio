@@ -11,6 +11,14 @@ import {
 import {scale} from 'react-native-size-matters';
 import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
 import CircleCheckBox, {LABEL_POSITION} from 'react-native-circle-checkbox';
+import fonts from '../../../constant/fonts';
+import colors from '../../../constant/colors';
+
+const gender = [
+  {id: 1, title: 'Nam'},
+  {id: 2, title: 'Nữ'},
+  {id: 3, title: 'Không yêu cầu'},
+];
 
 const SuaTin = ({navigation}) => {
   const [check, setCheck] = useState(false);
@@ -25,7 +33,14 @@ const SuaTin = ({navigation}) => {
     <View style={styles.ViewFL}>
       <Text style={styles.TextTitle}>Thời gian</Text>
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <Text style={{marginTop: scale(15)}}>Từ</Text>
+        <Text
+          style={{
+            marginTop: scale(15),
+            fontFamily: fonts.NORMAL,
+            fontSize: scale(16),
+          }}>
+          Từ
+        </Text>
         <View
           style={[styles.boxInput, {flexDirection: 'row', width: scale(125)}]}>
           <TextInput placeholder="dd/mm/yy" style={styles.textInput} />
@@ -33,7 +48,14 @@ const SuaTin = ({navigation}) => {
             <DateIcon />
           </TouchableOpacity>
         </View>
-        <Text style={{marginTop: scale(15)}}>Đến</Text>
+        <Text
+          style={{
+            marginTop: scale(15),
+            fontFamily: fonts.NORMAL,
+            fontSize: scale(16),
+          }}>
+          Đến
+        </Text>
         <View
           style={[styles.boxInput, {flexDirection: 'row', width: scale(125)}]}>
           <TextInput placeholder="dd/mm/yy" style={styles.textInput} />
@@ -45,12 +67,26 @@ const SuaTin = ({navigation}) => {
       {/* view */}
       <Text style={styles.TextTitle}>Ca 1</Text>
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <Text style={{marginTop: scale(15)}}>Từ</Text>
+        <Text
+          style={{
+            marginTop: scale(15),
+            fontFamily: fonts.NORMAL,
+            fontSize: scale(16),
+          }}>
+          Từ
+        </Text>
         <View
           style={[styles.boxInput, {flexDirection: 'row', width: scale(125)}]}>
           <TextInput placeholder="VD: 6.00" style={styles.textInput} />
         </View>
-        <Text style={{marginTop: scale(15)}}>Đến</Text>
+        <Text
+          style={{
+            marginTop: scale(15),
+            fontFamily: fonts.NORMAL,
+            fontSize: scale(16),
+          }}>
+          Đến
+        </Text>
         <View
           style={[styles.boxInput, {flexDirection: 'row', width: scale(125)}]}>
           <TextInput placeholder="VD: 10.00" style={styles.textInput} />
@@ -71,7 +107,7 @@ const SuaTin = ({navigation}) => {
         <Text style={styles.title}>Sửa tin</Text>
       </View>
       {/* main */}
-      <ScrollView style={{marginBottom: scale(50)}}>
+      <ScrollView>
         <View style={styles.main}>
           <View>
             <Text style={styles.TextTitle}>Vị trí đăng tuyển *</Text>
@@ -84,7 +120,9 @@ const SuaTin = ({navigation}) => {
             <Text style={styles.TextTitle}>Ngành nghề *</Text>
             <View style={[styles.boxInput, {flexDirection: 'row'}]}>
               <TextInput placeholder="VD: Đầu bếp" style={styles.textInput} />
-              <TouchableOpacity style={styles.Selecter}>
+              <TouchableOpacity
+                style={styles.Selecter}
+                onPress={() => navigation.navigate('Job')}>
                 <Selecter />
               </TouchableOpacity>
             </View>
@@ -154,7 +192,9 @@ const SuaTin = ({navigation}) => {
                 placeholder="Chọn mức lương"
                 style={styles.textInput}
               />
-              <TouchableOpacity style={styles.Selecter}>
+              <TouchableOpacity
+                style={styles.Selecter}
+                onPress={() => navigation.navigate('Sagaly')}>
                 <Selecter />
               </TouchableOpacity>
             </View>
@@ -189,9 +229,7 @@ const SuaTin = ({navigation}) => {
               />
             </View>
           </View>
-          <Text style={{fontSize: scale(16), fontWeight: '500'}}>
-            LỊCH LÀM VIỆC
-          </Text>
+          <Text style={styles.titleTotal}>LỊCH LÀM VIỆC</Text>
           <FlatList
             data={DATA}
             keyExtractor={item => item.id}
@@ -215,18 +253,19 @@ const SuaTin = ({navigation}) => {
                   color: '#307DF1',
                   borderColor: '#307DF1',
                   borderWidth: scale(1),
-                  overflow: 'hidden',
                   borderRadius: scale(30),
                   margin: scale(5),
+                  backgroundColor: colors.WHITE,
+                  elevation: 5,
+                  fontFamily: fonts.NORMAL,
+                  fontSize: scale(16),
                 }}>
-                +Thêm ca
+                + Thêm ca
               </Text>
             </TouchableOpacity>
           </View>
 
-          <Text style={{fontSize: scale(16), fontWeight: '500'}}>
-            MÔ TẢ CÔNG VIỆC
-          </Text>
+          <Text style={styles.titleTotal}>MÔ TẢ CÔNG VIỆC</Text>
           <View>
             <Text style={styles.TextTitle}>Vị trí đăng tuyển *</Text>
             <View style={[styles.boxInput, {height: scale(105)}]}>
@@ -236,35 +275,21 @@ const SuaTin = ({navigation}) => {
               />
             </View>
           </View>
-          <Text style={{fontSize: scale(16), fontWeight: '500'}}>
-            YÊU CẦU CÔNG VIỆC
-          </Text>
-          <View style={{marginRight: scale(150)}}>
+          <Text style={styles.titleTotal}>YÊU CẦU CÔNG VIỆC</Text>
+          <View style={{marginRight: '65%'}}>
             <Text style={styles.TextTitle}>Giới tính *</Text>
-            <CircleCheckBox
-              checked={check}
-              onToggle={checked => setCheck(!check)}
-              labelPosition={LABEL_POSITION.RIGHT}
-              label="Nam"
-              outerColor="#307DF1"
-              innerColor="#307DF1"
-            />
-            <CircleCheckBox
-              checked={false}
-              onToggle={checked => console.log('My state is: ', checked)}
-              labelPosition={LABEL_POSITION.RIGHT}
-              label="Nữ"
-              outerColor="#307DF1"
-              innerColor="#307DF1"
-            />
-            <CircleCheckBox
-              checked={false}
-              onToggle={checked => console.log('My state is: ', checked)}
-              labelPosition={LABEL_POSITION.RIGHT}
-              label="Không yêu cầu"
-              outerColor="#307DF1"
-              innerColor="#307DF1"
-            />
+            {gender.map(item => (
+              <View style={{marginBottom: scale(5)}}>
+                <CircleCheckBox
+                  checked={check}
+                  onToggle={checked => setCheck(!check)}
+                  labelPosition={LABEL_POSITION.RIGHT}
+                  label={item.title}
+                  outerColor="#307DF1"
+                  innerColor="#307DF1"
+                />
+              </View>
+            ))}
           </View>
           <View>
             <Text style={styles.TextTitle}>Yêu cầu công việc *</Text>
@@ -275,9 +300,7 @@ const SuaTin = ({navigation}) => {
               />
             </View>
           </View>
-          <Text style={{fontSize: scale(16), fontWeight: '500'}}>
-            QUYỀN LỢI ĐƯỢC HƯỞNG
-          </Text>
+          <Text style={styles.titleTotal}>QUYỀN LỢI ĐƯỢC HƯỞNG</Text>
           <View>
             <Text style={styles.TextTitle}>Quyền lợi được hưởng *</Text>
             <View style={[styles.boxInput, {height: scale(105)}]}>
@@ -287,9 +310,7 @@ const SuaTin = ({navigation}) => {
               />
             </View>
           </View>
-          <Text style={{fontSize: scale(16), fontWeight: '500'}}>
-            HỒ SƠ BAO GỒM
-          </Text>
+          <Text style={styles.titleTotal}>HỒ SƠ BAO GỒM</Text>
           <View>
             <Text style={styles.TextTitle}>Hồ sơ bao gồm *</Text>
             <View style={[styles.boxInput, {height: scale(105)}]}>
@@ -299,9 +320,7 @@ const SuaTin = ({navigation}) => {
               />
             </View>
           </View>
-          <Text style={{fontSize: scale(16), fontWeight: '500'}}>
-            THÔNG TIN LIÊN HỆ
-          </Text>
+          <Text style={styles.titleTotal}>THÔNG TIN LIÊN HỆ</Text>
           <View>
             <Text style={styles.TextTitle}>Tên người liên hệ *</Text>
             <View style={styles.boxInput}>
@@ -342,13 +361,13 @@ const SuaTin = ({navigation}) => {
             style={{
               flexDirection: 'row',
               justifyContent: 'center',
-              marginTop: scale(40),
+              marginVertical: scale(20),
             }}>
             <TouchableOpacity>
               <Text style={styles.btnL}>Đăng tin</Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Text style={styles.btnR}>hủy</Text>
+              <Text style={styles.btnR}>Hủy</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -362,6 +381,7 @@ export default SuaTin;
 const styles = StyleSheet.create({
   contener: {
     flex: 1,
+    backgroundColor: colors.LIGHT_WHITE,
   },
   StatusBar: {
     backgroundColor: '#307DF1',
@@ -375,9 +395,9 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: scale(18),
-    fontWeight: '700',
-    lineHeight: scale(20),
+    fontFamily: fonts.BOLD,
     marginLeft: scale(20),
+    textTransform: 'uppercase',
   },
   goback: {
     marginLeft: scale(10),
@@ -393,23 +413,24 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignContent: 'center',
     margin: scale(5),
-    overflow: 'hidden',
     borderRadius: scale(5),
+    backgroundColor: colors.WHITE,
   },
   textInput: {
-    fontWeight: '300',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     marginLeft: scale(5),
+    width: '100%',
   },
   TextTitle: {
-    fontWeight: '500',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     marginLeft: scale(5),
-    marginTop: scale(10),
+    marginVertical: scale(10),
   },
   Selecter: {
     width: scale(25),
-
+    right: scale(30),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -427,11 +448,10 @@ const styles = StyleSheet.create({
     paddingVertical: scale(11),
     backgroundColor: '#307DF1',
     color: 'white',
-    fontSize: scale(16),
-    fontWeight: '500',
-    overflow: 'hidden',
+    fontSize: scale(18),
     borderRadius: scale(30),
     margin: scale(5),
+    fontFamily: fonts.NORMAL,
   },
   btnR: {
     paddingHorizontal: scale(51),
@@ -440,10 +460,10 @@ const styles = StyleSheet.create({
     color: '#307DF1',
     borderWidth: scale(1),
     borderColor: '#307DF1',
-    fontSize: scale(16),
-    fontWeight: '500',
-    overflow: 'hidden',
+    fontSize: scale(18),
     borderRadius: scale(30),
     margin: scale(5),
+    fontFamily: fonts.NORMAL,
   },
+  titleTotal: {fontSize: scale(16), fontFamily: fonts.BOLD},
 });

@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
   avatar: {
     height: scale(100),
     width: scale(100),
-    overflow: 'hidden',
     borderRadius: scale(200),
     marginVertical: scale(10),
   },
@@ -131,7 +130,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    overflow: 'hidden',
     borderRadius: scale(5),
     marginVertical: scale(10),
   },

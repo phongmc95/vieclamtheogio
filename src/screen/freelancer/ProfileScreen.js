@@ -14,6 +14,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import fonts from '@constant/fonts';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../constant/colors';
+import Header from '../../components/title/Header';
 
 export default function ProfileScreen() {
   const [index, setIndex] = useState(0);
@@ -68,7 +69,7 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.container}>
-      <TitleBasic title="hồ sơ" />
+      <Header title="hồ sơ" />
       <ScrollView>
         <View style={styles.content}>
           <View style={styles.center}>
@@ -109,7 +110,6 @@ const styles = StyleSheet.create({
   avatar: {
     height: scale(100),
     width: scale(100),
-    overflow: 'hidden',
     borderRadius: scale(200),
   },
   txtAvatar: {

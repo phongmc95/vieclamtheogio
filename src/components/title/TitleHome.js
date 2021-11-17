@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
+import fonts from '../../constant/fonts';
 import icons from '../../constant/icons';
 import {isIos} from '../../Utils/CheckDevice';
 
@@ -21,15 +22,18 @@ export default function TitleHome(props) {
       <Image style={{height: scale(40), width: scale(40)}} source={props.img} />
       <View style={{marginLeft: scale(10), width: '55%'}}>
         <Text
-          style={{fontSize: scale(13), lineHeight: scale(20), color: '#fff'}}>
+          style={{
+            fontSize: scale(13),
+            fontFamily: fonts.NORMAL,
+            color: '#fff',
+          }}>
           Xin chào,
         </Text>
         <Text
           style={{
             fontSize: scale(16),
-            lineHeight: scale(19),
             color: '#fff',
-            fontWeight: 'bold',
+            fontFamily: fonts.BOLD,
           }}>
           {props.name}
         </Text>

@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {BackIcon, PhanTich, Bongden} from '../../../../assets/icon';
+import colors from '../../../constant/colors';
+import fonts from '../../../constant/fonts';
 
 const GiaiPhap = ({navigation}) => {
   return (
@@ -47,7 +49,7 @@ const GiaiPhap = ({navigation}) => {
           </View>
         </View>
         {/* view2 */}
-        <View style={[styles.ViewFlatlist, {height: scale(237)}]}>
+        <View style={[styles.ViewFlatlist]}>
           <View style={{flexDirection: 'row', marginLeft: scale(15)}}>
             <View style={{marginTop: scale(10)}}>
               <PhanTich />
@@ -75,9 +77,7 @@ const GiaiPhap = ({navigation}) => {
         </View>
         {/* view3 */}
         <View style={{flexDirection: 'row', marginLeft: scale(15)}}>
-          <View style={{marginTop: scale(10)}}>
-            <Bongden />
-          </View>
+          <Bongden />
           <Text style={styles.TextTitle}>Đề xuất giải pháp</Text>
         </View>
         <View style={styles.viewRow}>
@@ -136,7 +136,7 @@ const GiaiPhap = ({navigation}) => {
             dụng dịch vụ giúp tuyển dụng nhanh chóng hiệu quả hãy gọi chuyên
             viên hỗ trợ :
           </Text>
-          <Text style={styles.TextR}>Mai Hương(0904646975)</Text>
+          <Text style={styles.TextR}>Mai Hương (0904646975)</Text>
           <Text style={styles.content}>hotline</Text>
           <Text style={styles.TextR}> 0329 39.88.58 | 024 36.36.66.99</Text>
           <Text style={styles.content}>
@@ -153,6 +153,7 @@ export default GiaiPhap;
 const styles = StyleSheet.create({
   contener: {
     flex: 1,
+    backgroundColor: colors.LIGHT_WHITE,
   },
   StatusBar: {
     backgroundColor: '#307DF1',
@@ -165,10 +166,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: scale(18),
-    fontWeight: '700',
-    lineHeight: scale(20),
+    fontSize: scale(20),
+    fontFamily: fonts.BOLD,
     marginLeft: scale(20),
+    textTransform: 'uppercase',
   },
   goback: {
     marginLeft: scale(10),
@@ -179,9 +180,8 @@ const styles = StyleSheet.create({
   },
   ViewFlatlist: {
     width: scale(335),
-    height: scale(155),
+    paddingVertical: scale(10),
     borderWidth: scale(0.5),
-    overflow: 'hidden',
     borderRadius: scale(20),
     borderColor: '#307DF1',
     backgroundColor: 'white',
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     marginTop: scale(15),
   },
   TextTitle: {
-    fontWeight: '500',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     color: '#307DF1',
     marginLeft: scale(15),
@@ -201,18 +201,18 @@ const styles = StyleSheet.create({
     margin: scale(5),
   },
   TextL: {
-    fontWeight: '500',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     marginLeft: scale(10),
   },
   TextR: {
-    fontWeight: '500',
     fontSize: scale(16),
     color: '#307DF1',
     marginRight: scale(10),
+    fontFamily: fonts.NORMAL,
   },
   content: {
-    fontWeight: '400',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     color: '#404040',
   },
