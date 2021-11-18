@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -16,44 +16,51 @@ import {validateEmail} from '../../base/Validate';
 import ModalStyle from '../../components/ModalStyle';
 import {useDispatch, useSelector} from 'react-redux';
 import {loadPostsLogIn} from '../../redux/actions/actions';
+import Loader1 from '../../components/Loading';
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
   const checkLogin = useSelector(state => state.Authen.check_type);
   const Error = useSelector(state => state.Authen.message);
-  const data = useSelector(state => state.Authen.data);
+  const check = useSelector(state => state.Authen.success);
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
 
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
-  console.log('>>>', data);
-  console.log('<<<', Error);
+  const [load, setLoad] = useState(false);
+
   const err = () => {
     setModal(true);
     setError(Error);
   };
   const submit = () => {
-    // if (!email || !pass) {
-    //   setModal(true);
-    //   setError('Các ô nhập là bắt buộc không được để trống! ');
-    // } else if (!validateEmail(email)) {
-    //   setModal(true);
-    //   setError('Bạn nhập email không đúng định dạng. Vui lòng nhập lại ! ');
-    // } else {
-    //   dispatch(
-    //     loadPostsLogIn(
-    //       email,
-    //       pass,
-    //       checkLogin === 'flc' ? 'candidate' : 'employer',
-    //     ),
-    //   );
-    //   data
-    //     ? navigation.navigate(checkLogin !== 'flc' ? 'tabNTD' : 'BottomTabFlc')
-    //     : null;
-    // }
-    navigation.navigate(checkLogin !== 'flc' ? 'tabNTD' : 'BottomTabFlc');
+    if (!email || !pass) {
+      setModal(true);
+      setError('Các ô nhập là bắt buộc không được để trống! ');
+    } else if (!validateEmail(email)) {
+      setModal(true);
+      setError('Bạn nhập email không đúng định dạng. Vui lòng nhập lại ! ');
+    } else {
+      dispatch(
+        loadPostsLogIn(
+          email,
+          pass,
+          checkLogin === 'flc' ? 'candidate' : 'employer',
+        ),
+      );
+      setLoad(true);
+    }
   };
+  const navi = () => {
+    if (check === true) {
+      navigation.navigate(checkLogin !== 'flc' ? 'tabNTD' : 'BottomTabFlc');
+      setLoad(false);
+    }
+  };
+  useEffect(() => {
+    navi();
+  }, [check]);
   return (
     <View style={styles.contener}>
       <Image

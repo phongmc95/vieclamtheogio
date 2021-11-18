@@ -23,7 +23,12 @@ const styles = StyleSheet.create({
     fontFamily: fonts.NORMAL,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#4C5BD4', borderRadius: scale(5),
+    backgroundColor: '#4C5BD4',
   },
-  container: {justifyContent: 'center', flex: 1, alignItems: 'center'},
+  container: {
+    justifyContent: 'center',
+    flex: 1,
+    alignItems: 'center',
+    
+  },
 });
