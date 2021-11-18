@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
     width: '90%',
     borderWidth: 1,
     borderColor: '#307df1',
-    overflow: 'hidden',
     borderRadius: scale(30),
     paddingVertical: scale(8),
     paddingLeft: scale(20),
