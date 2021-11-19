@@ -7,6 +7,7 @@ import {
   FETCH_POST_SIGNUP_ERROR,
   FETCH_POST_SIGNUP_REQUEST,
   FETCH_POST_SIGNUP_SUCCESS,
+  LOG_OUT,
 } from './type/Type';
 
 export const loadPostsLogIn = (email, pass, role) => async dispatch => {
@@ -38,6 +39,11 @@ export const checkLogin = data => {
     data: data,
   };
 };
+export const log_out = () => {
+  return {
+    type: LOG_OUT,
+  };
+};
 export const loadRegister =
   (email, pass, role, address, phone, name) => async dispatch => {
     try {
@@ -50,6 +56,7 @@ export const loadRegister =
         name: name,
         phone: phone,
         address: address,
+
       });
 
       const response = await axiosClient.post(url, data);

@@ -5,16 +5,23 @@ import Modal from 'react-native-modal';
 import {scale} from 'react-native-size-matters';
 import fonts from '../constant/fonts';
 import Button from './Button/Button';
+import {useDispatch} from 'react-redux';
+import {log_out} from '../redux/actions/actions';
 
 export default function Logout(props) {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
+  const logout = () => {
+    dispatch(log_out());
+    navigation.navigate('Intro');
+  };
   return (
     <Modal isVisible={props.on} onBackdropPress={props.off}>
       <View style={styles.container}>
         <Text style={styles.content}>Bạn có chắc chắn muốn đăng xuất?</Text>
 
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => navigation.navigate('Intro')}>
+          <TouchableOpacity onPress={logout}>
             <Button
               title="Đăng xuất"
               color="#fff"

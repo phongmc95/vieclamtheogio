@@ -6,6 +6,7 @@ import {
   FETCH_POST_SIGNUP_ERROR,
   FETCH_POST_SIGNUP_REQUEST,
   FETCH_POST_SIGNUP_SUCCESS,
+  LOG_OUT,
 } from '../actions/type/Type';
 
 const initialState = {
@@ -59,6 +60,8 @@ const LogIn = (state = initialState, action) => {
         requesting: false,
         message: action.message,
       };
+    case LOG_OUT:
+      return initialState;
     default:
       return state;
   }

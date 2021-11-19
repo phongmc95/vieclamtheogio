@@ -32,8 +32,8 @@ const Resgister = ({navigation, route}) => {
   const [desiredWorkplace, setDesiredWorkplace] = useState('');
   const [desiredJob, setDesiredJob] = useState('');
 
-  // const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  // const nametest = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+  const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  const nametest = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
   const options = {
     mediaType: 'photo',
     // includeBase64: true,

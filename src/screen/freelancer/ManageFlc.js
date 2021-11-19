@@ -13,7 +13,7 @@ import images from '../../constant/images';
 import Logout from '@components/Logout';
 import fonts from '@constant/fonts';
 import colors from '../../constant/colors';
-import { isIos } from "../../Utils/CheckDevice";
+import {isIos} from '../../Utils/CheckDevice';
 
 export default function ManageFlc({navigation}) {
   const [modal, setModal] = useState(false);
@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
     fontFamily: fonts.NORMAL,
   },
   content: {
-
     width: '100%',
     height: scale(205),
     backgroundColor: '#307df1',
