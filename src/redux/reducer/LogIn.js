@@ -1,8 +1,12 @@
 import {
   CHECK_TYPE_LOGIN,
+  CHECK_VERIFY,
   FETCH_POST_LOGIN_ERROR,
   FETCH_POST_LOGIN_REQUEST,
   FETCH_POST_LOGIN_SUCCESS,
+  FETCH_POST_OTP_ERROR,
+  FETCH_POST_OTP_REQUEST,
+  FETCH_POST_OTP_SUCCESS,
   FETCH_POST_SIGNUP_ERROR,
   FETCH_POST_SIGNUP_REQUEST,
   FETCH_POST_SIGNUP_SUCCESS,
@@ -16,6 +20,8 @@ const initialState = {
   data: null,
   check_type: null,
   register: null,
+  verify_email: false,
+  is_register: false,
 };
 const LogIn = (state = initialState, action) => {
   switch (action.type) {
@@ -51,7 +57,7 @@ const LogIn = (state = initialState, action) => {
       return {
         ...state,
         requesting: false,
-        success: true,
+        is_register: true,
         register: action.data,
       };
     case FETCH_POST_SIGNUP_ERROR:
@@ -60,8 +66,31 @@ const LogIn = (state = initialState, action) => {
         requesting: false,
         message: action.message,
       };
+    case FETCH_POST_OTP_REQUEST:
+      return {
+        ...state,
+        requesting: true,
+      };
+    case FETCH_POST_OTP_SUCCESS:
+      return {
+        ...state,
+        requesting: false,
+        verify_email: true,
+      };
+    case FETCH_POST_OTP_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        verify_email: false,
+        message: action.message,
+      };
     case LOG_OUT:
       return initialState;
+    case CHECK_VERIFY:
+      return {
+        ...state,
+        isVerify: true,
+      };
     default:
       return state;
   }

@@ -29,7 +29,9 @@ const SelectModal = props => {
             return (
               <TouchableOpacity key={item.id} onPress={() => onPress(item)}>
                 <View style={styles.viewContent}>
-                  <Text style={styles.txtContent}>{item.title}</Text>
+                  <Text style={styles.txtContent}>
+                    {item.id}. {item.title}
+                  </Text>
                 </View>
               </TouchableOpacity>
             );
@@ -53,7 +55,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: scale(24),
     color: '#307df1',
-    marginTop: isIos ? 50 : null,
     fontFamily: fonts.BOLD,
     marginBottom: scale(20),
     textAlign: 'center',
