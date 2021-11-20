@@ -45,7 +45,7 @@ export const log_out = () => {
   };
 };
 export const loadRegister =
-  (email, pass, role, address, phone, name) => async dispatch => {
+  (email, pass, role, address, phone, name,) => async dispatch => {
     try {
       dispatch({type: FETCH_POST_SIGNUP_REQUEST});
       const url = 'auth/register';

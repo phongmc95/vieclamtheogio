@@ -18,6 +18,8 @@ import SelectModal from '../../components/SelectModal';
 import TextInputSelected from '../../components/TextInputSelected';
 import fonts from '../../constant/fonts';
 import {jobs} from '../../data/Jobs';
+import ModalStyle from '../../components/ModalStyle';
+import { validateEmail } from "../../base/Validate";
 const Resgister = ({navigation, route}) => {
   const checkLogin = useSelector(state => state.Authen.check_type);
   const [phone, setPhone] = useState('');
@@ -30,7 +32,8 @@ const Resgister = ({navigation, route}) => {
   const [visible, setVisible] = React.useState(false);
   const [desiredProfession, setDesiredProfession] = useState('');
   const [desiredWorkplace, setDesiredWorkplace] = useState('');
-  const [desiredJob, setDesiredJob] = useState('');
+  const [modal, setModal] = useState(false);
+  const [error, setError] = useState('');
 
   const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   const nametest = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
@@ -64,6 +67,12 @@ const Resgister = ({navigation, route}) => {
 
   const handleOpen = () => {
     setVisible(!visible);
+  };
+  const validateForm = () => {
+    if (!phone || !name || !email || !address || !pass || !pass1) {
+      setModal(true);
+      setError('Các ô nhập là bắt buộc không được để trống! ');
+    }else if(!validateEmail(email)){}
   };
 
   return (
@@ -124,11 +133,6 @@ const Resgister = ({navigation, route}) => {
             {checkLogin === 'flc' && (
               <View>
                 <TextInputStyle
-                  Label="Công việc mong muốn"
-                  value={desiredJob}
-                  onChangeText={text => setDesiredJob(text)}
-                />
-                <TextInputStyle
                   Label="Nơi làm việc mong muốn"
                   value={desiredWorkplace}
                   onChangeText={text => setDesiredWorkplace(text)}
@@ -143,7 +147,11 @@ const Resgister = ({navigation, route}) => {
             )}
           </View>
 
-          <ButtonStyle Title="Xác nhận" styleBtn={{width: scale(120)}} />
+          <ButtonStyle
+            Title="Xác nhận"
+            styleBtn={{width: scale(120)}}
+            onPress={validateForm}
+          />
           <View style={styles.row}>
             <Text style={styles.txt_login}>Bạn đã có tài khoản? </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
@@ -158,6 +166,11 @@ const Resgister = ({navigation, route}) => {
         label={'Công việc mong muốn'}
         onPress={item => selectItem(item)}
         data={jobs}
+      />
+      <ModalStyle
+        isVisible={modal}
+        onBackdropPress={() => setModal(false)}
+        content={error}
       />
     </View>
   );
