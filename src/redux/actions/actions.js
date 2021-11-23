@@ -1,5 +1,8 @@
 import axiosClient from '../../config/axios';
 import {
+  CHANGE_PASSWORD_ERROR,
+  CHANGE_PASSWORD_REQUEST,
+  CHANGE_PASSWORD_SUCCESS,
   CHECK_TYPE_LOGIN,
   FETCH_POST_LOGIN_ERROR,
   FETCH_POST_LOGIN_REQUEST,
@@ -81,36 +84,36 @@ export const loadRegisterEmployer =
 
 export const loadRegisterFreelancer =
   (emailFLC, passFLC, nameFLC, phoneFLC, addressFLC, industry, job_address) =>
-  async dispatch => {
-    try {
-      dispatch({type: FETCH_POST_SIGNUP_REQUEST});
-      const url = 'auth/register';
-      const data = JSON.stringify({
-        email: emailFLC,
-        password: passFLC,
-        role: 'candidate',
-        name: nameFLC,
-        phone: phoneFLC,
-        address: addressFLC,
-        industry: industry,
-        job_address: job_address,
-      });
-      console.log('data: ', data);
+    async dispatch => {
+      try {
+        dispatch({type: FETCH_POST_SIGNUP_REQUEST});
+        const url = 'auth/register';
+        const data = JSON.stringify({
+          email: emailFLC,
+          password: passFLC,
+          role: 'candidate',
+          name: nameFLC,
+          phone: phoneFLC,
+          address: addressFLC,
+          industry: industry,
+          job_address: job_address,
+        });
+        console.log('data: ', data);
 
-      const response = await axiosClient.post(url, data);
+        const response = await axiosClient.post(url, data);
 
-      dispatch({
-        type: FETCH_POST_SIGNUP_SUCCESS,
-        data: response,
-      });
-    } catch (error) {
-      console.error(error);
-      dispatch({
-        type: FETCH_POST_SIGNUP_ERROR,
-        message: error,
-      });
-    }
-  };
+        dispatch({
+          type: FETCH_POST_SIGNUP_SUCCESS,
+          data: response,
+        });
+      } catch (error) {
+        console.error(error);
+        dispatch({
+          type: FETCH_POST_SIGNUP_ERROR,
+          message: error,
+        });
+      }
+    };
 
 export const loadOTP = (email, otp) => async dispatch => {
   try {
@@ -163,7 +166,7 @@ export const loadForgetPass = email => async dispatch => {
 
 export const changePass = (email, password) => async dispatch => {
   try {
-    dispatch({type: FORGET_PASSWORD_REQUEST});
+    dispatch({type: CHANGE_PASSWORD_REQUEST});
     const url = 'auth/reset-password';
     const data = JSON.stringify({
       email: email,
@@ -174,13 +177,13 @@ export const changePass = (email, password) => async dispatch => {
     const response = await axiosClient.post(url, data);
 
     dispatch({
-      type: FORGET_PASSWORD_SUCCESS,
+      type: CHANGE_PASSWORD_SUCCESS,
       data: response,
     });
   } catch (error) {
     console.error(error);
     dispatch({
-      type: FORGET_PASSWORD_ERROR,
+      type: CHANGE_PASSWORD_ERROR,
       message: error,
     });
   }

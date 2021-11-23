@@ -26,7 +26,6 @@ const ForgotPassword = (state = initialState, action) => {
         ...state,
         requesting: false,
         success: true,
-        isChange: true,
       };
     case FORGET_PASSWORD_ERROR:
       return {
