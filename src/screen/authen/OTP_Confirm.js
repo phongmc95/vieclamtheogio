@@ -11,22 +11,23 @@ import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {scale} from 'react-native-size-matters';
 import ModalStyle from '../../components/ModalStyle';
 import {useDispatch, useSelector} from 'react-redux';
-import {loadOTP} from '../../redux/actions/actions';
+import {loadOTP, loadForgotOTP} from '../../redux/actions/actions';
 import fonts from '../../constant/fonts';
 
 const OTP_Confirm = ({navigation, route}) => {
   const dispatch = useDispatch();
   const {email_otp, type} = route.params;
-  const verify = useSelector(state => state.Authen.verify_email);
+  const verify_register = useSelector(state => state.Authen.verify_email);
+  const verify_forgot = useSelector(state => state.Authen.verify_forgot);
   const [timerCount, setTimer] = useState(300);
   const [otp, setOtp] = useState('');
   const [visible, setVisible] = React.useState(false);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    if (verify === true && type === 'forgot') {
+    if (verify_forgot === true && type === 'forgot') {
       navigation.navigate('NewPass', {email_otp});
-    } else if (verify === true && type === 'register') {
+    } else if (verify_register === true && type === 'register') {
       navigation.navigate('Login');
     }
     let interval = setInterval(() => {
@@ -37,13 +38,17 @@ const OTP_Confirm = ({navigation, route}) => {
     }, 1000);
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [verify]);
+  }, [verify_register, verify_forgot]);
   const submit = () => {
     if (!otp) {
       setMessage('Bạn chưa nhập mã OTP ');
       handleModal();
     } else {
-      dispatch(loadOTP(email_otp, otp));
+      dispatch(
+        type === 'register'
+          ? loadOTP(email_otp, otp)
+          : loadForgotOTP(email_otp, otp),
+      );
     }
   };
 

@@ -1,6 +1,7 @@
 import {
   CHECK_TYPE_LOGIN,
   CHECK_VERIFY,
+  FETCH_FORGOT_OTP_SUCCESS,
   FETCH_POST_LOGIN_ERROR,
   FETCH_POST_LOGIN_REQUEST,
   FETCH_POST_LOGIN_SUCCESS,
@@ -24,6 +25,7 @@ const initialState = {
   check_type: null,
   register: null,
   verify_email: false,
+  verify_forgot: false,
   is_register: false,
   is_forget: false,
 };
@@ -81,6 +83,14 @@ const LogIn = (state = initialState, action) => {
         requesting: false,
         verify_email: true,
       };
+
+    case FETCH_FORGOT_OTP_SUCCESS:
+      return {
+        ...state,
+        requesting: false,
+        verify_forgot: true,
+      };
+
     case FETCH_POST_OTP_ERROR:
       return {
         ...state,
