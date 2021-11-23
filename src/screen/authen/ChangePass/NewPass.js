@@ -1,16 +1,40 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Image, ScrollView} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TextInputPassword from '../../../components/TextInputPassword';
 import ButtonStyle from '../../../components/ButtonStyle';
 import {getDeviceWidth} from '../../../Utils/CheckDevice';
+import {useDispatch, useSelector} from 'react-redux';
+import ModalStyle from '../../../components/ModalStyle';
+import {changePass} from '../../../redux/actions/actions';
 const NewPass = ({navigation, route}) => {
+  const isChange = useSelector(state => state.Forgot.isChange);
+  const dispatch = useDispatch();
+  const {email_otp} = route.params;
   const [pass, setPass] = useState('');
   const [pass1, setPass1] = useState('');
-  // const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  const [modal, setModal] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    console.log('isChange: ', isChange);
+    if (isChange === true) {
+      navigation.navigate('Login');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isChange]);
 
   const submit = () => {
-    navigation.navigate('LoginNTD');
+    if (pass1 !== pass) {
+      setModal(true);
+      setError('Mật khẩu không đúng. Vui lòng nhập lại ! ');
+    } else if (!pass1 || !pass) {
+      setModal(true);
+      setError('Các ô nhập là bắt buộc không được để trống! ');
+    } else {
+      dispatch(changePass(email_otp, pass));
+    }
+    return () => {};
   };
 
   return (
@@ -51,6 +75,11 @@ const NewPass = ({navigation, route}) => {
           </View>
         </View>
       </ScrollView>
+      <ModalStyle
+        isVisible={modal}
+        onBackdropPress={() => setModal(false)}
+        content={error}
+      />
     </View>
   );
 };
@@ -78,7 +107,8 @@ const styles = StyleSheet.create({
     borderWidth: scale(1),
     borderColor: '#307DF1',
 
-    margin: scale(5), borderRadius: scale(5),
+    margin: scale(5),
+    borderRadius: scale(5),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -99,6 +129,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
-  button: {width: scale(120), marginBottom: '30%'},
+  button: {marginBottom: '30%'},
   form: {marginBottom: '10%'},
 });

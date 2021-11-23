@@ -19,8 +19,8 @@ import {jobs} from '../../data/Jobs';
 export default function HomeScreen({navigation}) {
   return (
     <View style={styles.container}>
+      <TitleHome />
       <ScrollView style={styles.scroll}>
-        <TitleHome />
         <View style={styles.viewCategory}>
           <View style={styles.row}>
             <Text style={styles.txtTitle}>Việc làm nổi bật trong ngày</Text>

@@ -16,7 +16,7 @@ import fonts from '../../constant/fonts';
 
 const OTP_Confirm = ({navigation, route}) => {
   const dispatch = useDispatch();
-  const {email_otp} = route.params;
+  const {email_otp, type} = route.params;
   const verify = useSelector(state => state.Authen.verify_email);
   const [timerCount, setTimer] = useState(300);
   const [otp, setOtp] = useState('');
@@ -24,7 +24,11 @@ const OTP_Confirm = ({navigation, route}) => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    console.log('verify: ', verify);
+    if (verify === true && type === 'forgot') {
+      navigation.navigate('NewPass', {email_otp});
+    } else if (verify === true && type === 'register') {
+      navigation.navigate('Login');
+    }
     let interval = setInterval(() => {
       setTimer(lastTimerCount => {
         lastTimerCount <= 1 && clearInterval(interval);
@@ -33,17 +37,13 @@ const OTP_Confirm = ({navigation, route}) => {
     }, 1000);
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [verify]);
   const submit = () => {
     if (!otp) {
       setMessage('Bạn chưa nhập mã OTP ');
       handleModal();
     } else {
       dispatch(loadOTP(email_otp, otp));
-
-      if (verify === true) {
-        navigation.navigate('Login');
-      }
     }
   };
 

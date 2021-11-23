@@ -46,7 +46,7 @@ const Resgister = ({navigation, route}) => {
   useEffect(() => {
     console.log('success: ', success);
     if (success === true) {
-      navigation.navigate('OTP_Confirm', {email_otp: email});
+      navigation.navigate('OTP_Confirm', {email_otp: email, type: 'register'});
     }
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps

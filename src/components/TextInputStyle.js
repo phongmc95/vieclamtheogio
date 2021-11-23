@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Dimensions} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {scale} from 'react-native-size-matters';
+import fonts from '../constant/fonts';
 const windowWidth = Dimensions.get('window').width;
 const TextInputStyle = ({Label, value, onChangeText}) => {
   return (

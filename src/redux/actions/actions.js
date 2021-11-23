@@ -10,6 +10,9 @@ import {
   FETCH_POST_SIGNUP_ERROR,
   FETCH_POST_SIGNUP_REQUEST,
   FETCH_POST_SIGNUP_SUCCESS,
+  FORGET_PASSWORD_ERROR,
+  FORGET_PASSWORD_REQUEST,
+  FORGET_PASSWORD_SUCCESS,
   LOG_OUT,
 } from './type/Type';
 
@@ -129,6 +132,55 @@ export const loadOTP = (email, otp) => async dispatch => {
     console.error(error);
     dispatch({
       type: FETCH_POST_OTP_ERROR,
+      message: error,
+    });
+  }
+};
+
+export const loadForgetPass = email => async dispatch => {
+  try {
+    dispatch({type: FORGET_PASSWORD_REQUEST});
+    const url = 'auth/forgot-password';
+    const data = JSON.stringify({
+      email: email,
+    });
+    console.log('data: ', data);
+
+    const response = await axiosClient.post(url, data);
+
+    dispatch({
+      type: FORGET_PASSWORD_SUCCESS,
+      data: response,
+    });
+  } catch (error) {
+    console.error(error);
+    dispatch({
+      type: FORGET_PASSWORD_ERROR,
+      message: error,
+    });
+  }
+};
+
+export const changePass = (email, password) => async dispatch => {
+  try {
+    dispatch({type: FORGET_PASSWORD_REQUEST});
+    const url = 'auth/reset-password';
+    const data = JSON.stringify({
+      email: email,
+      password: password,
+    });
+    console.log('data: ', data);
+
+    const response = await axiosClient.post(url, data);
+
+    dispatch({
+      type: FORGET_PASSWORD_SUCCESS,
+      data: response,
+    });
+  } catch (error) {
+    console.error(error);
+    dispatch({
+      type: FORGET_PASSWORD_ERROR,
       message: error,
     });
   }
