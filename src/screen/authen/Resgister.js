@@ -24,10 +24,13 @@ import {
   loadRegisterEmployer,
   loadRegisterFreelancer,
 } from '../../redux/actions/actions';
+import LoadSreen from '../../components/loadScreen';
 
 const Resgister = ({navigation, route}) => {
   const checkLogin = useSelector(state => state.Authen.check_type);
   const success = useSelector(state => state.Authen.is_register);
+  const load = useSelector(state => state.Authen.requesting);
+
   const dispatch = useDispatch();
   const [phone, setPhone] = useState('');
   const [pass, setPass] = useState('');
@@ -44,13 +47,12 @@ const Resgister = ({navigation, route}) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    console.log('success: ', success);
     if (success === true) {
       navigation.navigate('OTP_Confirm', {email_otp: email, type: 'register'});
     }
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [success]);
+  }, [success, load]);
 
   const submit = () => {
     if (!email || !pass || !phone || !name || !address) {
@@ -229,6 +231,7 @@ const Resgister = ({navigation, route}) => {
         onBackdropPress={() => setIsValidate(false)}
         content={error}
       />
+      <LoadSreen load={load} />
     </View>
   );
 };

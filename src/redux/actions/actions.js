@@ -97,9 +97,8 @@ export const loadRegisterFreelancer =
         phone: phoneFLC,
         address: addressFLC,
         industry: industry,
-        job_address: job_address,
+        job_adress: job_address,
       });
-      console.log('data: ', data);
 
       const response = await axiosClient.post(url, data);
 

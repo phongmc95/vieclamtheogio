@@ -15,15 +15,17 @@ import ButtonStyle from '../../components/ButtonStyle';
 import {validateEmail} from '../../base/Validate';
 import ModalStyle from '../../components/ModalStyle';
 import {useDispatch, useSelector} from 'react-redux';
-import {loadPostsLogIn} from '../../redux/actions/actions';
+import {loadPostsLogIn, log_out} from '../../redux/actions/actions';
 import Loader1 from '../../components/Loading';
 import fonts from '../../constant/fonts';
+import LoadSreen from '../../components/loadScreen';
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
   const checkLogin = useSelector(state => state.Authen.check_type);
   const Error = useSelector(state => state.Authen.message);
   const check = useSelector(state => state.Authen.success);
+
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
 
@@ -96,10 +98,18 @@ const Login = ({navigation}) => {
           </Text>
         </TouchableOpacity>
         <View style={{marginTop: '10%', alignItems: 'center'}}>
-          <ButtonStyle Title="Đăng nhập" onPress={submit} />
+          <ButtonStyle
+            Title="Đăng nhập"
+            onPress={submit}
+            styleBtn={{width: 150}}
+          />
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.text1}>Bạn chưa có tài khoản? </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Resgister')}>
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(log_out());
+                navigation.navigate('Resgister');
+              }}>
               <Text style={styles.text2}>ĐĂNG KÝ NGAY</Text>
             </TouchableOpacity>
           </View>
@@ -114,6 +124,7 @@ const Login = ({navigation}) => {
         onBackdropPress={() => setModal(false)}
         content={error}
       />
+      <LoadSreen load={load} />
     </View>
   );
 };
