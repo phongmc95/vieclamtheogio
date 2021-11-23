@@ -25,6 +25,7 @@ const NewPass = ({navigation, route}) => {
   }, [isChange]);
 
   const submit = () => {
+    console.log('aaa', isChange);
     if (pass1 !== pass) {
       setModal(true);
       setError('Mật khẩu không đúng. Vui lòng nhập lại ! ');

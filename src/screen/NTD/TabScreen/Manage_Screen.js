@@ -5,11 +5,15 @@ import {FoderICon, FocusIcon, LogoutIcon} from '../../../../assets/icon';
 import {Modal} from 'react-native-paper';
 import fonts from '../../../constant/fonts';
 import colors from '../../../constant/colors';
+import {log_out} from '../../../redux/actions/actions';
+import {useDispatch} from 'react-redux';
 const Manage_Screen = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
+  const dispatch = useDispatch();
   const submit = () => {
+    dispatch(log_out());
     navigation.navigate('Intro');
   };
   return (
