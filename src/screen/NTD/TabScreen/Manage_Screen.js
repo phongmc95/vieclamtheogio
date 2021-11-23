@@ -9,8 +9,9 @@ const Manage_Screen = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const containerStyle = {backgroundColor: 'white', padding: 20};
-  const submit = () => {};
+  const submit = () => {
+    navigation.navigate('Intro');
+  };
   return (
     <View style={styles.contener}>
       <View style={styles.StatusBar}>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,15 +13,22 @@ import * as ImagePicker from 'react-native-image-picker';
 import TextInputStyle from '../../components/TextInputStyle';
 import TextInputPassword from '../../components/TextInputPassword';
 import ButtonStyle from '../../components/ButtonStyle';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import SelectModal from '../../components/SelectModal';
 import TextInputSelected from '../../components/TextInputSelected';
 import fonts from '../../constant/fonts';
-import {jobs} from '../../data/Jobs';
+import {jobs, provinces} from '../../data/Jobs';
 import ModalStyle from '../../components/ModalStyle';
-import { validateEmail } from "../../base/Validate";
+import {validateEmail, isVietnamesePhoneNumber} from '../../base/Validate';
+import {
+  loadRegisterEmployer,
+  loadRegisterFreelancer,
+} from '../../redux/actions/actions';
+
 const Resgister = ({navigation, route}) => {
   const checkLogin = useSelector(state => state.Authen.check_type);
+  const success = useSelector(state => state.Authen.is_register);
+  const dispatch = useDispatch();
   const [phone, setPhone] = useState('');
   const [pass, setPass] = useState('');
   const [pass1, setPass1] = useState('');
@@ -31,12 +38,54 @@ const Resgister = ({navigation, route}) => {
   const [address, setAddress] = useState('');
   const [visible, setVisible] = React.useState(false);
   const [desiredProfession, setDesiredProfession] = useState('');
-  const [desiredWorkplace, setDesiredWorkplace] = useState('');
-  const [modal, setModal] = useState(false);
+  const [province, setProvince] = useState('');
+  const [isProvince, setIsProvince] = useState(false);
+  const [isValidate, setIsValidate] = useState(false);
   const [error, setError] = useState('');
 
-  const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  const nametest = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+  useEffect(() => {
+    console.log('success: ', success);
+    if (success === true) {
+      navigation.navigate('OTP_Confirm', {email_otp: email, type: 'register'});
+    }
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success]);
+
+  const submit = () => {
+    if (!email || !pass || !phone || !name || !address) {
+      onValidate();
+      setError('Các ô nhập là bắt buộc không được để trống! ');
+    } else if (!validateEmail(email)) {
+      onValidate();
+      setError('Email không đúng định dạng. Vui lòng nhập lại ! ');
+    } else if (!isVietnamesePhoneNumber(phone)) {
+      onValidate();
+      setError('Số điện thoại không đúng định dạng. Vui lòng nhập lại ! ');
+    } else if (pass1 !== pass) {
+      onValidate();
+      setError('Mật khẩu không đúng. Vui lòng nhập lại ! ');
+    } else {
+      checkLogin === 'flc'
+        ? dispatch(
+            loadRegisterFreelancer(
+              email,
+              pass,
+              name,
+              phone,
+              address,
+              desiredProfession.title,
+              province.title,
+            ),
+          )
+        : dispatch(loadRegisterEmployer(email, pass, name, phone, address));
+    }
+  };
+
+  const onValidate = () => {
+    setIsValidate(!isValidate);
+  };
+
   const options = {
     mediaType: 'photo',
     // includeBase64: true,
@@ -68,11 +117,14 @@ const Resgister = ({navigation, route}) => {
   const handleOpen = () => {
     setVisible(!visible);
   };
-  const validateForm = () => {
-    if (!phone || !name || !email || !address || !pass || !pass1) {
-      setModal(true);
-      setError('Các ô nhập là bắt buộc không được để trống! ');
-    }else if(!validateEmail(email)){}
+
+  const selectProvince = item => {
+    setProvince(item);
+    handleSelectProvince();
+  };
+
+  const handleSelectProvince = () => {
+    setIsProvince(!isProvince);
   };
 
   return (
@@ -132,10 +184,11 @@ const Resgister = ({navigation, route}) => {
             />
             {checkLogin === 'flc' && (
               <View>
-                <TextInputStyle
+                <TextInputSelected
                   Label="Nơi làm việc mong muốn"
-                  value={desiredWorkplace}
-                  onChangeText={text => setDesiredWorkplace(text)}
+                  value={province.title}
+                  onChangeText={text => setProvince(text)}
+                  onPress={handleSelectProvince}
                 />
                 <TextInputSelected
                   Label="Ngành nghề mong muốn"
@@ -147,11 +200,7 @@ const Resgister = ({navigation, route}) => {
             )}
           </View>
 
-          <ButtonStyle
-            Title="Xác nhận"
-            styleBtn={{width: scale(120)}}
-            onPress={validateForm}
-          />
+          <ButtonStyle Title="Xác nhận" onPress={submit} />
           <View style={styles.row}>
             <Text style={styles.txt_login}>Bạn đã có tài khoản? </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
@@ -163,13 +212,21 @@ const Resgister = ({navigation, route}) => {
       <SelectModal
         isVisible={visible}
         onBackdropPress={handleOpen}
-        label={'Công việc mong muốn'}
+        label={'Ngành nghề mong muốn'}
         onPress={item => selectItem(item)}
         data={jobs}
       />
+
+      <SelectModal
+        isVisible={isProvince}
+        onBackdropPress={handleSelectProvince}
+        label={'Nơi làm việc mong muốn'}
+        onPress={item => selectProvince(item)}
+        data={provinces}
+      />
       <ModalStyle
-        isVisible={modal}
-        onBackdropPress={() => setModal(false)}
+        isVisible={isValidate}
+        onBackdropPress={() => setIsValidate(false)}
         content={error}
       />
     </View>

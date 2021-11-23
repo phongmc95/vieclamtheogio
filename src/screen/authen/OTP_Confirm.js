@@ -9,17 +9,26 @@ import {
 } from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {scale} from 'react-native-size-matters';
-import {Modal, Portal} from 'react-native-paper';
+import ModalStyle from '../../components/ModalStyle';
+import {useDispatch, useSelector} from 'react-redux';
+import {loadOTP} from '../../redux/actions/actions';
+import fonts from '../../constant/fonts';
+
 const OTP_Confirm = ({navigation, route}) => {
-  const {token, email_otp} = route.params;
+  const dispatch = useDispatch();
+  const {email_otp, type} = route.params;
+  const verify = useSelector(state => state.Authen.verify_email);
   const [timerCount, setTimer] = useState(300);
   const [otp, setOtp] = useState('');
   const [visible, setVisible] = React.useState(false);
-  const [visible_logIn, setVisible_logIn] = React.useState(false);
   const [message, setMessage] = useState('');
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
+
   useEffect(() => {
+    if (verify === true && type === 'forgot') {
+      navigation.navigate('NewPass', {email_otp});
+    } else if (verify === true && type === 'register') {
+      navigation.navigate('Login');
+    }
     let interval = setInterval(() => {
       setTimer(lastTimerCount => {
         lastTimerCount <= 1 && clearInterval(interval);
@@ -27,27 +36,32 @@ const OTP_Confirm = ({navigation, route}) => {
       });
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [verify]);
   const submit = () => {
     if (!otp) {
       setMessage('Bạn chưa nhập mã OTP ');
-      setVisible(true);
+      handleModal();
     } else {
+      dispatch(loadOTP(email_otp, otp));
     }
   };
 
+  const handleModal = () => {
+    setVisible(!visible);
+  };
   return (
     <View>
       <ScrollView>
         <View style={styles.container}>
           <Image
-            source={require('../../../assets/images/logoBG.png')}
+            source={require('../../../assets/images/Bgheader.png')}
             style={styles.logo}
           />
           <Text style={styles.title}>
             Nhập mã xác thực được gửi tới email :
           </Text>
-          <View style={{width: '100%'}}>
+          <View>
             <Text style={styles.email}>{email_otp}</Text>
           </View>
           <OTPInputView
@@ -61,12 +75,14 @@ const OTP_Confirm = ({navigation, route}) => {
             }}
           />
           <Text style={styles.title}>Mã khả dụng trong {timerCount}s </Text>
-          <View style={{width: '100%'}}>
+          <View style={{flexDirection: 'row'}}>
             <Text style={[styles.title, {marginLeft: scale(20)}]}>
-              Bạn chưa nhận được mã:
+              Bạn chưa nhận được mã?
             </Text>
             <TouchableOpacity>
-              <Text style={styles.email}>Gửi lại</Text>
+              <Text style={[styles.email, {textTransform: 'uppercase'}]}>
+                Gửi lại
+              </Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity onPress={submit}>
@@ -74,34 +90,11 @@ const OTP_Confirm = ({navigation, route}) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-      <Modal visible={visible} onDismiss={hideModal}>
-        <View style={styles.viewModal}>
-          <View style={styles.viewContent}>
-            <Text style={styles.tbmd}>Thông báo</Text>
-            <Text style={styles.content}>{message}.</Text>
-          </View>
-          <TouchableOpacity
-            style={styles.btntb}
-            onPress={() => setVisible(false)}>
-            <Text style={styles.confirm}>OK</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
-      <Modal visible={visible_logIn}>
-        <View style={styles.viewModal}>
-          <View style={styles.viewContent}>
-            <Text style={styles.tbmd}>Đăng ký thành công</Text>
-            <Text style={styles.content}>
-              Chúc bạn có những trải nghiệm tốt nhất với dịch vụ của chúng tôi.
-            </Text>
-          </View>
-          <TouchableOpacity
-            style={styles.btntb}
-            onPress={() => navigation.navigate('LoginNTD')}>
-            <Text style={styles.confirm}>Đăng nhập</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
+      <ModalStyle
+        isVisible={visible}
+        onBackdropPress={handleModal}
+        content={message}
+      />
     </View>
   );
 };
@@ -114,7 +107,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    height: scale(144),
+    height: scale(204),
     width: '100%',
   },
   underlineStyleBase: {
@@ -133,20 +126,20 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: scale(18),
-    fontWeight: '400',
     color: '#404040',
     marginTop: scale(10),
+    fontFamily: fonts.NORMAL,
   },
   email: {
     fontSize: scale(20),
-    fontWeight: '400',
     color: '#307df1',
     marginTop: scale(10),
     marginLeft: scale(20),
+    fontFamily: fonts.NORMAL,
   },
   btn: {
     fontSize: scale(16),
-    fontWeight: '500',
+    fontFamily: fonts.NORMAL,
     color: 'white',
     paddingHorizontal: scale(17),
     paddingVertical: scale(11),
@@ -158,10 +151,8 @@ const styles = StyleSheet.create({
     height: scale(200),
     backgroundColor: 'white',
     width: scale(300),
-
     margin: scale(25),
     borderRadius: scale(30),
-    marginTop: scale(-50),
   },
   tbmd: {
     fontSize: scale(24),
@@ -171,7 +162,7 @@ const styles = StyleSheet.create({
   },
   content: {
     fontSize: scale(18),
-    fontWeight: '600',
+    fontFamily: fonts.NORMAL,
     color: '#404040',
     margin: scale(15),
     textAlign: 'center',

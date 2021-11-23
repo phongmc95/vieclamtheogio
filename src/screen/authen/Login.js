@@ -10,13 +10,14 @@ import {
 import {scale} from 'react-native-size-matters';
 import TextInputStyle from '../../components/TextInputStyle';
 import TextInputPassword from '../../components/TextInputPassword';
-import {getDeviceWidth} from '../../Utils/CheckDevice';
+import {getDeviceWidth, isIos} from '../../Utils/CheckDevice';
 import ButtonStyle from '../../components/ButtonStyle';
 import {validateEmail} from '../../base/Validate';
 import ModalStyle from '../../components/ModalStyle';
 import {useDispatch, useSelector} from 'react-redux';
 import {loadPostsLogIn} from '../../redux/actions/actions';
 import Loader1 from '../../components/Loading';
+import fonts from '../../constant/fonts';
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ const Login = ({navigation}) => {
   };
   useEffect(() => {
     navi();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [check]);
   return (
     <View style={styles.contener}>
@@ -86,19 +88,19 @@ const Login = ({navigation}) => {
         <TouchableOpacity onPress={() => navigation.navigate('InputEmail')}>
           <Text
             style={{
-              marginLeft: scale(250),
+              marginLeft: isIos ? '60%' : '70%',
               fontSize: scale(13),
-              fontWeight: '400',
+              fontFamily: fonts.NORMAL,
             }}>
             Quên mật khẩu?
           </Text>
         </TouchableOpacity>
-        <View style={{marginTop: '15%', alignItems: 'center'}}>
+        <View style={{marginTop: '10%', alignItems: 'center'}}>
           <ButtonStyle Title="Đăng nhập" onPress={submit} />
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.text1}>Bạn chưa có tài khoản?</Text>
+            <Text style={styles.text1}>Bạn chưa có tài khoản? </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Resgister')}>
-              <Text style={styles.text2}>Đăng ký ngay</Text>
+              <Text style={styles.text2}>ĐĂNG KÝ NGAY</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -122,15 +124,16 @@ const styles = StyleSheet.create({
   contener: {
     flex: 1,
     backgroundColor: '#F5F5FF',
+    alignItems: 'center',
   },
   TitleLogin: {
     fontSize: scale(24),
-    fontWeight: '700',
+    fontFamily: fonts.BOLD,
     color: 'white',
     position: 'absolute',
-    top: '10%',
+    top: '7%',
     textAlign: 'center',
-    left: getDeviceWidth / 3,
+    textTransform: 'uppercase',
   },
   logo: {
     height: scale(173),
@@ -140,12 +143,12 @@ const styles = StyleSheet.create({
 
   text1: {
     fontSize: scale(15),
-    fontWeight: '400',
+    fontFamily: fonts.NORMAL,
     marginTop: scale(15),
   },
   text2: {
     fontSize: scale(18),
-    fontWeight: '400',
+    fontFamily: fonts.NORMAL,
     color: '#307DF1',
     marginTop: scale(12),
   },
