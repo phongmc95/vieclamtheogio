@@ -28,6 +28,7 @@ const initialState = {
   verify_forgot: false,
   is_register: false,
   is_forget: false,
+
 };
 const LogIn = (state = initialState, action) => {
   switch (action.type) {
@@ -40,8 +41,10 @@ const LogIn = (state = initialState, action) => {
       return {
         ...state,
         requesting: false,
+
         success: true,
         data: action.data,
+        message: null,
       };
     case FETCH_POST_LOGIN_ERROR:
       return {
