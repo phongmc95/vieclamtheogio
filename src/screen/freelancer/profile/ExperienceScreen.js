@@ -5,27 +5,46 @@ import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 import fonts from '../../../constant/fonts';
 
-export default function ExperienceScreen() {
+const exp = [
+  {
+    id: 1,
+    company: 'SUZUKIVIVU',
+    possition: 'Thực tập bán hàng',
+    time: '20/01/2021 - 20/10/2021',
+    achievements: 'Xuất sắc',
+  },
+  {
+    id: 2,
+    company: 'SUZUKIVIVU',
+    possition: 'Thực tập bán hàng',
+    time: '20/01/2021 - 20/10/2021',
+    achievements: 'Xuất sắc',
+  },
+];
+
+export default function ExperienceScreen({item}) {
   const navigation = useNavigation();
   return (
-    <View style={styles.box}>
-      <View style={{width: '85%'}}>
-        <Text style={styles.txtProgress}>SUZUKIVIVU</Text>
-        <Text style={styles.txtDetail}>Thực tập bán hàng</Text>
-        <Text style={[styles.txtDetail, {marginBottom: scale(15)}]}>
-          20/01/2021 - 20/10/2021
-        </Text>
-        <Text style={styles.txtProgress}>
-          Bán nhiều hàng nhất tháng 1 đạt giải nhân viên trẻ của tháng
-        </Text>
-      </View>
-      <View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('UpdateExperience')}>
-          <Image style={styles.pen} source={icons.pen} />
-        </TouchableOpacity>
-        <Image style={styles.trash} source={icons.trash_black} />
-      </View>
+    <View>
+      {exp.map(it => (
+        <View style={styles.box}>
+          <View style={{width: '85%'}}>
+            <Text style={styles.txtProgress}>{it.company}</Text>
+            <Text style={styles.txtDetail}>{it.possition}</Text>
+            <Text style={[styles.txtDetail, {marginBottom: scale(15)}]}>
+              {it.time}
+            </Text>
+            <Text style={styles.txtProgress}>{it.achievements}</Text>
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('UpdateExperience')}>
+              <Image style={styles.pen} source={icons.pen} />
+            </TouchableOpacity>
+            <Image style={styles.trash} source={icons.trash_black} />
+          </View>
+        </View>
+      ))}
     </View>
   );
 }
@@ -47,7 +66,6 @@ const styles = StyleSheet.create({
   },
   box: {
     width: scale(300),
-    height: scale(160),
     borderRadius: scale(20),
     backgroundColor: '#fff',
     shadowColor: '#000',

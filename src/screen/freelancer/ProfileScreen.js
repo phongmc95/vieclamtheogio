@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import TitleBasic from '../../components/title/TitleBasic';
 import images from '../../constant/images';
 import * as Progress from 'react-native-progress';
 import ExperienceScreen from './profile/ExperienceScreen';
@@ -12,12 +11,34 @@ import {TabView, TabBar} from 'react-native-tab-view';
 import DesiredJobScreen from './profile/DesiredJobScreen';
 import {ScrollView} from 'react-native-gesture-handler';
 import fonts from '@constant/fonts';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../constant/colors';
 import Header from '../../components/title/Header';
+import {useSelector} from 'react-redux';
+import axios from 'axios';
+import {useFocusEffect} from '@react-navigation/core';
 
 export default function ProfileScreen() {
   const [index, setIndex] = useState(0);
+  const userId = useSelector(state => state.Authen);
+  const [user, setUser] = useState({name: null});
+
+  useFocusEffect(
+    useCallback(() => {
+      var config = {
+        method: 'get',
+        url: `https://fpt-jobs-api.herokuapp.com/api/v1/users/${userId.data.user.userId}`,
+      };
+
+      axios(config)
+        .then(function (response) {
+          setUser(response.data.user);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user]),
+  );
 
   const handleIndexChange = indexTab => {
     setIndex(indexTab);
@@ -34,15 +55,15 @@ export default function ProfileScreen() {
   const renderScene = ({route}) => {
     switch (route.key) {
       case 'info':
-        return <InfomationScreen />;
+        return <InfomationScreen item={user} />;
       case 'job':
-        return <DesiredJobScreen />;
+        return <DesiredJobScreen item={user} />;
       case 'skill':
-        return <SkillPersonalScreen />;
+        return <SkillPersonalScreen item={user} />;
       case 'exp':
-        return <ExperienceScreen />;
+        return <ExperienceScreen item={user} />;
       case 'work':
-        return <WorkSessionScreen />;
+        return <WorkSessionScreen item={user} />;
       default:
         return null;
     }
@@ -74,7 +95,7 @@ export default function ProfileScreen() {
         <View style={styles.content}>
           <View style={styles.center}>
             <Image style={styles.avatar} source={images.avatar} />
-            <Text style={styles.txtAvatar}>Hoàng Phong</Text>
+            <Text style={styles.txtAvatar}>{user.name}</Text>
           </View>
           <View>
             <Text style={styles.txtProgress}>
@@ -116,7 +137,7 @@ const styles = StyleSheet.create({
     fontSize: scale(20),
     fontFamily: fonts.BOLD,
     marginTop: scale(10),
-    color: colors.GRAY,
+    color: colors.BLACK,
     marginBottom: scale(30),
   },
   txtProgress: {

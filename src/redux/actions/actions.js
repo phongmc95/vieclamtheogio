@@ -84,7 +84,7 @@ export const loadRegisterEmployer =
   };
 
 export const loadRegisterFreelancer =
-  (emailFLC, passFLC, nameFLC, phoneFLC, addressFLC, industry, job_address) =>
+  (emailFLC, passFLC, nameFLC, phoneFLC, addressFLC, industry, job_adress) =>
   async dispatch => {
     try {
       dispatch({type: FETCH_POST_SIGNUP_REQUEST});
@@ -97,7 +97,7 @@ export const loadRegisterFreelancer =
         phone: phoneFLC,
         address: addressFLC,
         industry: industry,
-        job_address: job_address,
+        job_adress: job_adress,
       });
       console.log('data: ', data);
 

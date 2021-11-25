@@ -5,7 +5,7 @@ import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 import fonts from '../../../constant/fonts';
 
-export default function SkillPersonalScreen() {
+export default function SkillPersonalScreen({item}) {
   const navigation = useNavigation();
   return (
     <View style={styles.box}>
