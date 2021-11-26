@@ -15,25 +15,27 @@ import ButtonStyle from '../../components/ButtonStyle';
 import {validateEmail} from '../../base/Validate';
 import ModalStyle from '../../components/ModalStyle';
 import {useDispatch, useSelector} from 'react-redux';
-import {loadPostsLogIn} from '../../redux/actions/actions';
-import Loader1 from '../../components/Loading';
+import {loadPostsLogIn, log_out} from '../../redux/actions/actions';
+
 import fonts from '../../constant/fonts';
+import LoadSreen from '../../components/loadScreen';
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
   const checkLogin = useSelector(state => state.Authen.check_type);
   const Error = useSelector(state => state.Authen.message);
   const check = useSelector(state => state.Authen.success);
+  const loading = useSelector(state => state.Authen.requesting);
+
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
 
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
-  const [load, setLoad] = useState(false);
 
   const err = () => {
     setModal(true);
-    setError(Error);
+    setError('Sai địa chỉ email hoặc mật khẩu');
   };
   const submit = () => {
     if (!email || !pass) {
@@ -50,19 +52,19 @@ const Login = ({navigation}) => {
           checkLogin === 'flc' ? 'candidate' : 'employer',
         ),
       );
-      setLoad(true);
+
     }
   };
   const navi = () => {
     if (check === true) {
       navigation.navigate(checkLogin !== 'flc' ? 'tabNTD' : 'BottomTabFlc');
-      setLoad(false);
+      return;
     }
   };
   useEffect(() => {
     navi();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [check]);
+
+  }, [loading]);
   return (
     <View style={styles.contener}>
       <Image
@@ -96,10 +98,18 @@ const Login = ({navigation}) => {
           </Text>
         </TouchableOpacity>
         <View style={{marginTop: '10%', alignItems: 'center'}}>
-          <ButtonStyle Title="Đăng nhập" onPress={submit} />
+          <ButtonStyle
+            Title="Đăng nhập"
+            onPress={submit}
+            styleBtn={{width: 150}}
+          />
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.text1}>Bạn chưa có tài khoản? </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Resgister')}>
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(log_out());
+                navigation.navigate('Resgister');
+              }}>
               <Text style={styles.text2}>ĐĂNG KÝ NGAY</Text>
             </TouchableOpacity>
           </View>
@@ -114,6 +124,7 @@ const Login = ({navigation}) => {
         onBackdropPress={() => setModal(false)}
         content={error}
       />
+      <LoadSreen load={loading} />
     </View>
   );
 };

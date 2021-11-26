@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {Animated, Easing, StyleSheet, View} from 'react-native';
 
 const random = () => parseInt(Math.random() * 255);
-const randomColor = () =>
-  'rgb(' + random() + ',' + random() + ',' + random() + ')';
+const randomColor = () => 'rgb(48, 125, 241)';
 const size = 30;
 const dim = 90;
 

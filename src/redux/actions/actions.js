@@ -99,7 +99,6 @@ export const loadRegisterFreelancer =
         industry: industry,
         job_adress: job_adress,
       });
-      console.log('data: ', data);
 
       const response = await axiosClient.post(url, data);
 

@@ -165,12 +165,12 @@ const styles = StyleSheet.create({
   },
   StatusBar: {
     backgroundColor: '#307DF1',
-    height: scale(60),
+    height: scale(80),
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
 
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   title: {
     color: 'white',
@@ -178,9 +178,11 @@ const styles = StyleSheet.create({
     fontFamily: fonts.BOLD,
     marginLeft: scale(20),
     textTransform: 'uppercase',
+    marginBottom: scale(12),
   },
   goback: {
     marginLeft: scale(10),
+    marginBottom: scale(12),
   },
   avatar: {
     width: scale(100),
