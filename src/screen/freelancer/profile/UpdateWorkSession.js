@@ -1,5 +1,11 @@
 import React, {useReducer} from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Button from '@components/Button/Button';
 import TitleBasic from '@components/title/TitleBasic';
@@ -7,6 +13,7 @@ import fonts from '../../../constant/fonts';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../../constant/colors';
 import WorkDay from '../../../components/WorkDay';
+import axios from 'axios';
 const reducer = (state, action) => {
   switch (action.type) {
     case 'morning':
@@ -154,7 +161,7 @@ const reducer6 = (state, action) => {
       return state;
   }
 };
-const UpdateWorkSession = () => {
+const UpdateWorkSession = ({navigation}) => {
   const initialState = {morning: false, afternoon: false, evening: false};
   const initialState1 = {morning: false, afternoon: false, evening: false};
   const initialState2 = {morning: false, afternoon: false, evening: false};
@@ -169,6 +176,43 @@ const UpdateWorkSession = () => {
   const [day4, dispatch4] = useReducer(reducer4, initialState4);
   const [day5, dispatch5] = useReducer(reducer5, initialState5);
   const [day6, dispatch6] = useReducer(reducer6, initialState6);
+
+  const working_day = [
+    {day: 'Thứ 2', seasons: day},
+    {day: 'Thứ 3', seasons: day1},
+    {day: 'Thứ 4', seasons: day2},
+    {day: 'Thứ 5', seasons: day3},
+    {day: 'Thứ 6', seasons: day4},
+    {day: 'Thứ 7', seasons: day5},
+    {day: 'Chủ nhật', seasons: day6},
+  ];
+
+  const submit = () => {
+    var data = {
+      working_day: working_day,
+    };
+
+    var config = {
+      method: 'patch',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/users/updateUser',
+      data: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    console.log('data: ', data);
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        if (navigation.canGoBack) {
+          navigation.goBack();
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -224,8 +268,12 @@ const UpdateWorkSession = () => {
           day={day6}
         />
         <View style={styles.buttonView}>
-          <Button title="Lưu" color="#fff" bg="#307df1" right={scale(20)} />
-          <Button title="Không lưu" color="#307df1" bg="#fff" />
+          <TouchableOpacity onPress={submit}>
+            <Button title="Lưu" color="#fff" bg="#307df1" right={scale(10)} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Button title="Không lưu" color="#307df1" bg="#fff" />
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -277,7 +325,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     paddingTop: scale(10),
-    paddingBottom: scale(60)
+    paddingBottom: scale(60),
   },
 });
 

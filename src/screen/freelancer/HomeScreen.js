@@ -1,6 +1,7 @@
 import colors from '@constant/colors';
 import fonts from '@constant/fonts';
-import React from 'react';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,15 +9,61 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  StatusBar,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {FlatList} from 'react-native-gesture-handler';
 import {scale} from 'react-native-size-matters';
 import TitleHome from '../../components/title/TitleHome';
 import icons from '../../constant/icons';
 import {jobs} from '../../data/Jobs';
 
 export default function HomeScreen({navigation}) {
+  const [listJobs, setListJobs] = useState([]);
+  console.log('listJobs: ', listJobs);
+  useEffect(() => {
+    var config = {
+      method: 'get',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/jobs',
+    };
+
+    axios(config)
+      .then(function (response) {
+        setListJobs(response.data.jobs);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    return () => {};
+  }, []);
+
+  const renderJob = ({item}) => {
+    return (
+      <View style={styles.boxJob}>
+        <View style={styles.row}>
+          <Image
+            style={styles.logoJob}
+            source={item.user.avatar ? {uri: item.user.avatar} : icons.logoHCI}
+          />
+          <View style={styles.viewTitle}>
+            <Text style={styles.txtTitleJob}>{item.job_posting_position}</Text>
+            <Text style={styles.txtAddress}>{item.user.name}</Text>
+          </View>
+          <Image style={styles.iconHeart} source={icons.heart} />
+        </View>
+        <View style={styles.row}>
+          <Image style={styles.iconJob} source={icons.bag} />
+          <Text style={styles.txtStatus}>{item.working_form}</Text>
+        </View>
+        <View style={styles.row}>
+          <Image style={styles.iconJob} source={icons.money} />
+          <Text style={styles.txtStatus}>{item.salary}</Text>
+        </View>
+        <View style={styles.row}>
+          <Image style={styles.iconJob} source={icons.local} />
+          <Text style={styles.txtStatus}>{item.work_location}</Text>
+        </View>
+      </View>
+    );
+  };
   return (
     <View style={styles.container}>
       <TitleHome />
@@ -39,67 +86,19 @@ export default function HomeScreen({navigation}) {
           </View>
           <View>
             <View style={styles.row}>
-              <Text style={styles.txtTitle}>Việc làm dành cho bạn</Text>
-              <TouchableOpacity onPress={() => navigation.navigate('ListJob')}>
-                <Text style={styles.txtSeeMore}>Xem thêm</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.boxJob}>
-              <View style={styles.row}>
-                <Image style={styles.logoJob} source={icons.logoHCI} />
-                <View style={styles.titleJob}>
-                  <Text style={styles.txtTitleJob}>
-                    Kỹ sư lập trình ứng dụng di động
-                  </Text>
-                  <Text style={styles.txtAddress}>Công ty cổ phần H.C.I</Text>
-                </View>
-                <Image style={styles.iconHeart} source={icons.heart} />
-              </View>
-              <View style={styles.row}>
-                <Image style={styles.iconJob} source={icons.bag} />
-                <Text style={styles.txtStatus}>Toàn thời gian</Text>
-              </View>
-              <View style={styles.row}>
-                <Image style={styles.iconJob} source={icons.money} />
-                <Text style={styles.txtStatus}>7 - 10 Triệu</Text>
-              </View>
-              <View style={styles.row}>
-                <Image style={styles.iconJob} source={icons.local} />
-                <Text style={styles.txtStatus}>Hà Nội, Hồ Chí Minh</Text>
-              </View>
-            </View>
-          </View>
-          <View>
-            <View style={styles.row}>
               <Text style={styles.txtTitle}>Việc làm theo giờ mới nhất</Text>
-              <TouchableOpacity onPress={() => navigation.navigate('ListJob')}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('ListJob', {list: listJobs})
+                }>
                 <Text style={styles.txtSeeMore}>Xem thêm</Text>
               </TouchableOpacity>
             </View>
-            <View style={styles.boxJob}>
-              <View style={styles.row}>
-                <Image style={styles.logoJob} source={icons.logoHCI} />
-                <View style={styles.viewTitle}>
-                  <Text style={styles.txtTitleJob}>
-                    Kỹ sư lập trình ứng dụng di động
-                  </Text>
-                  <Text style={styles.txtAddress}>Công ty cổ phần H.C.I</Text>
-                </View>
-                <Image style={styles.iconHeart} source={icons.heart} />
-              </View>
-              <View style={styles.row}>
-                <Image style={styles.iconJob} source={icons.bag} />
-                <Text style={styles.txtStatus}>Toàn thời gian</Text>
-              </View>
-              <View style={styles.row}>
-                <Image style={styles.iconJob} source={icons.money} />
-                <Text style={styles.txtStatus}>7 - 10 Triệu</Text>
-              </View>
-              <View style={styles.row}>
-                <Image style={styles.iconJob} source={icons.local} />
-                <Text style={styles.txtStatus}>Hà Nội, Hồ Chí Minh</Text>
-              </View>
-            </View>
+            <FlatList
+              data={listJobs.slice(0, 5)}
+              keyExtractor={item => item._id}
+              renderItem={renderJob}
+            />
           </View>
         </View>
       </ScrollView>

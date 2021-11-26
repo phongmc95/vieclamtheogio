@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -17,17 +17,47 @@ import JobWithEmp from './job_detail/JobWithEmp';
 import CalendarJob from './job_detail/CalendarJob';
 import Button from '@components/Button/Button';
 import Notification from '@components/Notification';
+import axios from 'axios';
+import moment from 'moment';
+import {useFocusEffect} from '@react-navigation/core';
+import {useSelector} from 'react-redux';
+import fonts from '../../constant/fonts';
+import images from '../../constant/images';
 
 const height = Dimensions.get('window').height;
 
 export default function JobDetailScreen({navigation, route}) {
-  const {item} = route.params;
-
+  const {id} = route.params;
   const [index, setIndex] = useState(0);
   const [modal, setModal] = useState(false);
+  const [data, setData] = useState({_id: null});
+  const loading = useSelector(state => state.Authen.requesting);
+  const [contact, setContact] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      var config = {
+        method: 'get',
+        url: `https://fpt-jobs-api.herokuapp.com/api/v1/jobs/${id}`,
+      };
+
+      axios(config)
+        .then(function (response) {
+          setData(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id, loading]),
+  );
 
   const toggleModal = () => {
     setModal(!modal);
+  };
+
+  const toggleContact = () => {
+    setContact(!contact);
   };
 
   const handleIndexChange = indexTab => {
@@ -37,20 +67,20 @@ export default function JobDetailScreen({navigation, route}) {
   const [routes] = React.useState([
     {key: 'info', title: 'THÔNG TIN', type: 0},
     {key: 'job', title: 'LỊCH LÀM VIỆC', type: 1},
-    {key: 'skill', title: 'VIỆC LÀM CÙNG NTD', type: 2},
-    {key: 'exp', title: 'VIỆC LÀM TƯƠNG TỰ', type: 3},
+    // {key: 'skill', title: 'VIỆC LÀM CÙNG NTD', type: 2},
+    // {key: 'exp', title: 'VIỆC LÀM TƯƠNG TỰ', type: 3},
   ]);
 
   const renderScene = ({route}) => {
     switch (route.key) {
       case 'info':
-        return <InfomationJob />;
+        return <InfomationJob data={data} />;
       case 'job':
-        return <CalendarJob />;
-      case 'skill':
-        return <JobWithEmp />;
-      case 'exp':
-        return <SimilarJob />;
+        return <CalendarJob item={data} />;
+      // case 'skill':
+      //   return <JobWithEmp list={data.job} />;
+      // case 'exp':
+      //   return <SimilarJob list={data.job} />;
       default:
         return null;
     }
@@ -78,11 +108,11 @@ export default function JobDetailScreen({navigation, route}) {
     <View style={styles.container}>
       <TitleJob
         icon={icons.heart_wb}
-        logo={item.logo}
-        title={item.title}
-        company={item.company}
-        deadline={item.deadline}
-        view={item.view}
+        logo={data?.job?.user?.avatar}
+        title={data?.job?.job_posting_position}
+        company={data?.job?.user?.name}
+        deadline={moment(data?.job?.last_date).format('DD/MM/YYYY')}
+        view={data?.job?.quantity_recruited}
       />
       <View style={{height: height / 1.4}}>
         <TabView
@@ -100,10 +130,38 @@ export default function JobDetailScreen({navigation, route}) {
               right={scale(10)}
             />
           </TouchableOpacity>
-          <Button title="Liên hệ" color="#307df1" bg="#fff" />
+          <TouchableOpacity onPress={toggleContact}>
+            <Button title="Liên hệ" color="#307df1" bg="#fff" />
+          </TouchableOpacity>
         </View>
       </View>
-      <Notification on={modal} off={toggleModal} />
+      <Notification
+        on={modal}
+        off={toggleModal}
+        content1="Yêu cầu nhận việc của bạn đã được gửi tới Nhà tuyển dụng"
+        title="THÔNG BÁO"
+      />
+      <Notification
+        title="LIÊN HỆ"
+        on={contact}
+        off={toggleContact}
+        content={
+          <View style={{bottom: scale(20)}}>
+            <Text style={styles.txtContact}>
+              Người liên hệ: {data?.job?.contact_info?.contact_person}
+            </Text>
+            <Text style={styles.txtContact}>
+              Địa chỉ: {data?.job?.contact_info?.contact_address}
+            </Text>
+            <Text style={styles.txtContact}>
+              Số điện thoại: {data?.job?.contact_info?.contact_phone}
+            </Text>
+            <Text style={styles.txtContact}>
+              Email: {data?.job?.contact_info?.contact_email}
+            </Text>
+          </View>
+        }
+      />
     </View>
   );
 }
@@ -122,7 +180,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(20),
     paddingVertical: scale(10),
   },
-  title: color => ({color, fontSize: scale(16), lineHeight: scale(18)}),
+  title: color => ({color, fontSize: scale(16), fontFamily: fonts.NORMAL}),
   content: {
     width: '100%',
     backgroundColor: '#fff',
@@ -135,4 +193,9 @@ const styles = StyleSheet.create({
   widthTab: {width: scale(180)},
   blue: {backgroundColor: '#307df1'},
   white: {backgroundColor: '#ffffff'},
+  txtContact: {
+    fontSize: scale(12),
+    fontFamily: fonts.NORMAL,
+    marginVertical: scale(2),
+  },
 });
