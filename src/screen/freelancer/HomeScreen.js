@@ -10,7 +10,6 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {scale} from 'react-native-size-matters';
 import TitleHome from '../../components/title/TitleHome';
 import icons from '../../constant/icons';
