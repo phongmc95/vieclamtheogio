@@ -18,6 +18,9 @@ import {
   FORGET_PASSWORD_REQUEST,
   FORGET_PASSWORD_SUCCESS,
   LOG_OUT,
+  PROFILE_EPL_ERROR,
+  PROFILE_EPL_REQUEST,
+  PROFILE_EPL_SUCCESS,
 } from './type/Type';
 
 export const loadPostsLogIn = (email, pass, role) => async dispatch => {
@@ -210,6 +213,20 @@ export const changePass = (email, password) => async dispatch => {
     dispatch({
       type: CHANGE_PASSWORD_ERROR,
       message: error,
+    });
+  }
+};
+export const ProfileEPl = params => async dispatch => {
+  try {
+    dispatch({type: PROFILE_EPL_REQUEST});
+    const url = `users/${params}`;
+
+    const response = await axiosClient.get(url);
+    dispatch({type: PROFILE_EPL_SUCCESS, data: response});
+  } catch (err) {
+    dispatch({
+      type: PROFILE_EPL_ERROR,
+      message: err,
     });
   }
 };

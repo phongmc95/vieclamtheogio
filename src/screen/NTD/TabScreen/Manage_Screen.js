@@ -6,8 +6,10 @@ import {Modal} from 'react-native-paper';
 import fonts from '../../../constant/fonts';
 import colors from '../../../constant/colors';
 import {log_out} from '../../../redux/actions/actions';
-import {useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
+import  logo from '../../../../assets/img/logoVin.png'
 const Manage_Screen = ({navigation}) => {
+  const data=useSelector(state => state.ProfileEPl.data);
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -20,10 +22,10 @@ const Manage_Screen = ({navigation}) => {
     <View style={styles.contener}>
       <View style={styles.StatusBar}>
         <Image
-          source={require('../../../../assets/img/logoVin.png')}
+          source={ !data.user?.avatar?logo:{uri:data?.user?.avatar}}
           style={styles.avatar}
         />
-        <Text style={styles.title}>Vingroup</Text>
+        <Text style={styles.title}>{data?.user?.name}</Text>
       </View>
       <View>
         <TouchableOpacity
@@ -100,17 +102,21 @@ const styles = StyleSheet.create({
     height: scale(180),
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
-    justifyContent: 'center',
+
     alignItems: 'center',
+    paddingTop:scale(50)
   },
   title: {
     color: 'white',
     fontSize: scale(18),
     fontWeight: '700',
+    paddingTop:scale(10)
   },
   avatar: {
-    height: scale(100),
-    width: scale(100),
+    height: scale(80),
+    width: scale(80),
+    borderRadius:scale(40),
+
   },
   Textbtn: {
     fontFamily: fonts.NORMAL,

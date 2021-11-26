@@ -18,6 +18,8 @@ import {
   ButtonItemBoqua,
   ButtonItemLuu,
 } from '../../../components/Button/ButtonItem';
+import { useDispatch, useSelector } from "react-redux";
+import { ProfileEPl } from "../../../redux/actions/actions";
 const jobs = [
   {
     id: 1,
@@ -40,6 +42,13 @@ const emp = [
   },
 ];
 const Home = () => {
+  const  dispatch= useDispatch();
+  const _id=useSelector(state => state.Authen.data);
+  const data=useSelector(state => state.ProfileEPl.data);
+  useEffect(()=>{
+    dispatch(ProfileEPl(_id.user?.userId))
+  },[])
+  console.log(data);
   const renderItem = ({item}) => (
     <View style={styles.ViewFlatlist}>
       <Text style={styles.TextTitle}>{item.vi_tri}</Text>
@@ -101,7 +110,7 @@ const Home = () => {
   return (
     <View style={styles.contener}>
       {/* tusBar */}
-      <HeaderStyle type="home" Title="HÀ Anh Tuấn" />
+      <HeaderStyle type="home" Title={data?.user?.name} uri={data?.user?.avatar?data?.user?.avatar:data} />
       {/* main */}
       <ScrollView style={{padding: scale(10)}}>
         <View style={styles.main}>
