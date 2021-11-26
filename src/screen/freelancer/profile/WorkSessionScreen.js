@@ -5,7 +5,7 @@ import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 import fonts from '../../../constant/fonts';
 
-export default function WorkSessionScreen() {
+export default function WorkSessionScreen({item}) {
   const navigation = useNavigation();
   return (
     <View>

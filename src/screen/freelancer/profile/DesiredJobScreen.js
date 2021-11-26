@@ -6,35 +6,36 @@ import {jobs} from '@data/Jobs';
 import fonts from '../../../constant/fonts';
 import {useNavigation} from '@react-navigation/native';
 
-export default function DesiredJobScreen() {
+export default function DesiredJobScreen({item}) {
   const navigation = useNavigation();
   return (
     <View style={styles.box}>
       <View style={{flexDirection: 'row'}}>
-        <View>
+        <View style={{width: '90%'}}>
           <Text style={styles.txtProgress}>
-            Công việc: <Text style={{color: '#307df1'}}>Thiết kế</Text>
+            Ngành nghề: <Text style={{color: '#307df1'}}>{item.industry}</Text>
           </Text>
-          <View style={styles.content}>
+          {/* <View style={styles.content}>
             <Text style={styles.txtProgress}>Ngành nghề: </Text>
             {jobs.map(item => (
               <Text style={styles.title}>{item.title} </Text>
             ))}
-          </View>
+          </View> */}
           <Text style={styles.txtProgress}>
-            Cấp bậc mong muốn: <Text style={{color: '#307df1'}}>Nhân viên</Text>
+            Cấp bậc mong muốn:{' '}
+            <Text style={{color: '#307df1'}}>{item.rank}</Text>
           </Text>
           <Text style={styles.txtProgress}>
-            Hình thức: <Text style={{color: '#307df1'}}>Bán thời gian</Text>
+            Hình thức: <Text style={{color: '#307df1'}}>{item.job_type}</Text>
           </Text>
           <Text style={styles.txtProgress}>
-            Mức lương: <Text style={{color: '#307df1'}}>10.000.000</Text>
-          </Text>
-          <Text style={styles.txtProgress}>
-            Địa điểm:{' '}
+            Mức lương:{' '}
             <Text style={{color: '#307df1'}}>
-              1 Định Công, Hoàng Mai, Hà Nội
+              {item.salary ? item.salary : 0} VNĐ
             </Text>
+          </Text>
+          <Text style={styles.txtProgress}>
+            Địa điểm: <Text style={{color: '#307df1'}}>{item.job_adress}</Text>
           </Text>
         </View>
         <View>
@@ -92,8 +93,6 @@ const styles = StyleSheet.create({
   icon: {
     width: scale(20),
     height: scale(20),
-    marginRight: scale(5),
     marginTop: scale(5),
-    right: scale(20),
   },
 });
