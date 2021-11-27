@@ -52,7 +52,6 @@ const Login = ({navigation}) => {
           checkLogin === 'flc' ? 'candidate' : 'employer',
         ),
       );
-
     }
   };
   const navi = () => {
@@ -63,7 +62,6 @@ const Login = ({navigation}) => {
   };
   useEffect(() => {
     navi();
-
   }, [loading]);
   return (
     <View style={styles.contener}>

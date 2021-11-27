@@ -21,6 +21,15 @@ import {
   PROFILE_EPL_ERROR,
   PROFILE_EPL_REQUEST,
   PROFILE_EPL_SUCCESS,
+  PROFILE_UPDATE_EPL_REQUEST,
+  PROFILE_UPDATE_EPL_SUCCESS,
+  PROFILE_UPDATE_EPL__ERROR,
+  LOGO_REQUEST,
+  LOGO_SUCCESS,
+  LOGO_ERROR,
+  FETCH_POST_ADD_JOB_REQUEST,
+  FETCH_POST_ADD_JOB_SUCCESS,
+  FETCH_POST_ADD_JOB_ERROR,
 } from './type/Type';
 
 export const loadPostsLogIn = (email, pass, role) => async dispatch => {
@@ -231,3 +240,127 @@ export const ProfileEPl = params => async dispatch => {
     });
   }
 };
+export const UpdateProfileEPl =
+  (
+    idEmp,
+    name,
+    company_size,
+    tax_code,
+    address,
+    city,
+    // district,
+    phone,
+    website,
+    description_company,
+  ) =>
+  async dispatch => {
+    try {
+      dispatch({type: PROFILE_UPDATE_EPL_REQUEST});
+      const url = `users/updateUser/?${idEmp}`;
+      const data = JSON.stringify({
+        idEmp,
+        name,
+        company_size,
+        tax_code,
+        address,
+        city,
+        phone,
+        website,
+        description_company,
+      });
+      const response = await axiosClient.patch(url, data);
+      dispatch({type: PROFILE_UPDATE_EPL_SUCCESS, data: response});
+    } catch (err) {
+      dispatch({
+        type: PROFILE_UPDATE_EPL__ERROR,
+        message: err,
+      });
+    }
+  };
+
+export const PostLogo = (logo, email) => async dispatch => {
+  try {
+    dispatch({type: LOGO_REQUEST});
+    const url = '/users/picture-upload';
+    const data = JSON.stringify({
+      logo: logo,
+      email: email,
+    });
+    console.log('data: ', data);
+    const response = await axiosClient.post(url, data);
+
+    dispatch({
+      type: LOGO_SUCCESS,
+      data: response,
+    });
+  } catch (error) {
+    console.error(error);
+    dispatch({
+      type: LOGO_ERROR,
+      message: error,
+    });
+  }
+};
+
+export const AddPostJob =
+  (
+    job_posting_position,
+    career,
+    quantity_recruited,
+    work_location,
+    working_form,
+    salary,
+    min_education,
+    probation,
+    rose,
+    experience,
+    posting_date,
+    last_date,
+    work_schedule,
+    job_description,
+    job_requirements,
+    benefits_enjoyed,
+    records_include,
+    contact_info,
+    createdBy,
+  ) =>
+  async dispatch => {
+    try {
+      dispatch({type: FETCH_POST_ADD_JOB_REQUEST});
+      const url = '/jobs';
+      const data = JSON.stringify({
+        job_posting_position,
+        career,
+        quantity_recruited,
+        work_location,
+        working_form,
+        salary,
+        min_education,
+        probation,
+        rose,
+        experience,
+        posting_date,
+        last_date,
+        work_schedule,
+        job_description,
+        job_requirements,
+        benefits_enjoyed,
+        records_include,
+        contact_info,
+        createdBy,
+      });
+      console.log('data: ', data);
+      const response = await axiosClient.post(url, data);
+
+      dispatch({
+        type: FETCH_POST_ADD_JOB_SUCCESS,
+        data: response,
+      });
+    } catch (error) {
+      console.error(error);
+      dispatch({
+        type: FETCH_POST_ADD_JOB_ERROR,
+        message: error,
+      });
+    }
+  };
