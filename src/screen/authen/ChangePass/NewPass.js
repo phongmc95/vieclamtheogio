@@ -17,7 +17,6 @@ const NewPass = ({navigation, route}) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    console.log('isChange: ', isChange);
     if (isChange === true) {
       navigation.navigate('Login');
     }
@@ -25,7 +24,6 @@ const NewPass = ({navigation, route}) => {
   }, [isChange]);
 
   const submit = () => {
-    console.log('aaa', isChange);
     if (pass1 !== pass) {
       setModal(true);
       setError('Mật khẩu không đúng. Vui lòng nhập lại ! ');

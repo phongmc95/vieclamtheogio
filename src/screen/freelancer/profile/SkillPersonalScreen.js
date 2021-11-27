@@ -1,30 +1,55 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 import fonts from '../../../constant/fonts';
 
-export default function SkillPersonalScreen() {
+export default function SkillPersonalScreen({data}) {
   const navigation = useNavigation();
+
+  const renderItem = ({item}) => {
+    return (
+      <View>
+        <View style={{width: '85%'}}>
+          <Text style={styles.txtProgress}>{item}</Text>
+        </View>
+      </View>
+    );
+  };
+
+  const renderEmptyItem = () => {
+    return (
+      <View style={{width: '85%'}}>
+        <Text style={styles.txtProgress}>Chưa cập nhật</Text>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.box}>
       <View style={styles.contant}>
-        <Text style={styles.txtProgress}>Ngủ nguyên ngày </Text>
-        <Text style={styles.txtProgress}>Ngủ nguyên ngày </Text>
-        <Text style={styles.txtProgress}>Ngủ nguyên ngày </Text>
-        <Text style={styles.txtProgress}>Ngủ nguyên ngày </Text>
-        <Text style={styles.txtProgress}>Ngủ nguyên ngày </Text>
-        <Text style={styles.txtProgress}>Ngủ nguyên ngày </Text>
-        <Text style={styles.txtProgress}>Ngủ nguyên ngày </Text>
-        <Text style={styles.txtProgress}>Ngủ nguyên ngày </Text>
-        <Text style={styles.txtProgress}>Ngủ nguyên ngày </Text>
+        <FlatList
+          data={data.personal_skills}
+          keyExtractor={item => item.id}
+          renderItem={renderItem}
+          ListEmptyComponent={renderEmptyItem}
+        />
       </View>
       <View>
         <TouchableOpacity onPress={() => navigation.navigate('UpdateSkill')}>
-          <Image style={styles.pen} source={icons.pen} />
+          <Image style={styles.pen(data)} source={icons.pen} />
         </TouchableOpacity>
-        <Image style={styles.trash} source={icons.trash_black} />
+        {/* {data.personal_skills.length > 0 && (
+          <Image style={styles.trash} source={icons.trash_black} />
+        )} */}
       </View>
     </View>
   );
@@ -60,11 +85,11 @@ const styles = StyleSheet.create({
     height: scale(20),
     marginLeft: scale(10),
   },
-  pen: {
+  pen: data => ({
     width: scale(20),
     height: scale(20),
     marginLeft: scale(10),
-    marginVertical: scale(30),
-  },
+    marginVertical: 0,
+  }),
   contant: {width: '85%', flexDirection: 'row', flexWrap: 'wrap'},
 });

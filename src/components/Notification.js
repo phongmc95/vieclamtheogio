@@ -10,7 +10,8 @@ export default function Notification(props) {
         style={{
           width: scale(295),
           height: scale(173),
-          overflow: 'hidden', borderRadius: scale(20),
+          overflow: 'hidden',
+          borderRadius: scale(20),
           borderWidth: 1,
           borderColor: '#307df1',
           backgroundColor: '#fff',
@@ -24,7 +25,7 @@ export default function Notification(props) {
             color: '#307df1',
             marginBottom: scale(10),
           }}>
-          THÔNG BÁO
+          {props.title}
         </Text>
         <Text
           style={{
@@ -32,8 +33,9 @@ export default function Notification(props) {
             color: '#404040',
             textAlign: 'center',
           }}>
-          Yêu cầu nhận việc của bạn đã được gửi tới Nhà tuyển dụng
+          {props.content1}
         </Text>
+        {props.content}
       </View>
     </Modal>
   );

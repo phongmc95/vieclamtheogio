@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.LIGHT_WHITE,
-    paddingTop: scale(isIos ? 60 : 0),
+    // paddingTop: scale(isIos ? 60 : 0),
   },
   iconJob: {
     height: scale(18),
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   imgBalloon: {
     marginLeft: scale(50),
   },
-  avatar: {position: 'absolute', left: scale(120), top: scale(30)},
+  avatar: {position: 'absolute', left: scale(120), top: scale(50)},
   imgAvatar: {
     height: scale(100),
     width: scale(100),

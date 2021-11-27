@@ -14,6 +14,7 @@ export default function Logout(props) {
   const logout = () => {
     dispatch(log_out());
     navigation.navigate('Intro');
+
   };
   return (
     <Modal isVisible={props.on} onBackdropPress={props.off}>

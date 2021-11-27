@@ -6,7 +6,8 @@ import {scale} from 'react-native-size-matters';
 import {useNavigation} from '@react-navigation/native';
 import {FilterIcon} from '../../assets/icon/index';
 import fonts from '../constant/fonts';
-const HeaderStyle = ({Logo, Title, type}) => {
+import logobase from '../../assets/img/logoVin.png'
+const HeaderStyle = ({Logo, Title, type,uri}) => {
   const navigation = useNavigation();
   return (
     <View>
@@ -14,7 +15,7 @@ const HeaderStyle = ({Logo, Title, type}) => {
         <View style={styles.StatusBar}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image
-              source={require('../../assets/img/logoVin.png')}
+              source={!uri?logobase:{uri:uri}}
               style={styles.logo}
             />
 
@@ -74,13 +75,15 @@ const styles = StyleSheet.create({
     margin: scale(10),
     marginLeft: scale(10),
     borderRadius: scale(20),
+    borderColor:'white',
+    borderWidth:1
   },
   NameNTD: {
     color: 'white',
     fontSize: scale(16),
     textTransform: 'uppercase',
     fontFamily: fonts.BOLD,
-    marginLeft: scale(20),
+    marginLeft: scale(5),
   },
   Notification: {
     backgroundColor: 'white',

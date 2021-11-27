@@ -11,8 +11,9 @@ import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 import Button from '@components/Button/Button';
 import fonts from '../../../constant/fonts';
+import moment from 'moment';
 
-export default function InfomationJob() {
+export default function InfomationJob({data}) {
   return (
     <View>
       <ScrollView>
@@ -20,14 +21,17 @@ export default function InfomationJob() {
           <View style={{flexDirection: 'row', marginTop: scale(5)}}>
             <Image style={styles.iconJob} source={icons.bigmoney} />
             <Text style={styles.txtStatus}>
-              Mức lương: <Text style={{fontWeight: 'normal'}}>30.000đ/giờ</Text>
+              Mức lương:{' '}
+              <Text style={{fontWeight: 'normal'}}>{data?.job?.salary}</Text>
             </Text>
           </View>
           <View style={{flexDirection: 'row', marginTop: scale(5)}}>
             <Image style={styles.iconJob} source={icons.group} />
             <Text style={styles.txtStatus}>
               Số lượng tuyển dụng:{' '}
-              <Text style={{fontWeight: 'normal'}}>20</Text>
+              <Text style={{fontWeight: 'normal'}}>
+                {data?.job?.quantity_recruited}
+              </Text>
             </Text>
           </View>
           <View
@@ -36,34 +40,33 @@ export default function InfomationJob() {
             <Text style={[styles.txtStatus, {flexWrap: 'wrap'}]}>
               Nơi làm việc:{' '}
               <Text style={{fontWeight: 'normal'}}>
-                122 Định Công, P. Định Công, Q Hoàng Mai, TP. Hà Nội
+                {data?.job?.work_location}
               </Text>
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row', marginTop: scale(5)}}>
-            <Image style={styles.iconJob} source={icons.sex} />
-            <Text style={styles.txtStatus}>
-              Giới tính: <Text style={{fontWeight: 'normal'}}>Nữ</Text>
             </Text>
           </View>
           <View style={{flexDirection: 'row', marginTop: scale(5)}}>
             <Image style={styles.iconJob} source={icons.globe} />
             <Text style={styles.txtStatus}>
-              Ngành nghề: <Text style={{fontWeight: 'normal'}}>Tự do</Text>
+              Ngành nghề:{' '}
+              <Text style={{fontWeight: 'normal'}}>{data?.job?.career}</Text>
             </Text>
           </View>
           <View style={{flexDirection: 'row', marginTop: scale(5)}}>
             <Image style={styles.iconJob} source={icons.graduate_blue} />
             <Text style={styles.txtStatus}>
               Học vấn tối thiểu:{' '}
-              <Text style={{fontWeight: 'normal'}}>Trung cấp</Text>
+              <Text style={{fontWeight: 'normal'}}>
+                {data?.job?.min_education[0]}
+              </Text>
             </Text>
           </View>
           <View style={{flexDirection: 'row', marginTop: scale(5)}}>
             <Image style={styles.iconJob} source={icons.bag_w} />
             <Text style={styles.txtStatus}>
               Loại công việc:{' '}
-              <Text style={{fontWeight: 'normal'}}>Bán thời gian</Text>
+              <Text style={{fontWeight: 'normal'}}>
+                {data?.job?.working_form}
+              </Text>
             </Text>
           </View>
           <View
@@ -75,7 +78,7 @@ export default function InfomationJob() {
             <Image style={styles.iconJob} source={icons.hand} />
             <Text style={styles.txtStatus}>
               Hình thức trả lương:{' '}
-              <Text style={{fontWeight: 'normal'}}>Theo giờ</Text>
+              <Text style={{fontWeight: 'normal'}}>{data?.job?.rose}</Text>
             </Text>
           </View>
           <View style={{marginBottom: scale(20)}}>
@@ -84,11 +87,8 @@ export default function InfomationJob() {
               <Text style={styles.txtTitle}>MÔ TẢ CÔNG VIỆC</Text>
             </View>
             <View>
-              <Text>
-                - Xử lý lên/xuống hàng hoá từ xe tải ( hàng được đóng bao tải
-                sẵn ) không giống bốc vác, chỉ xuống hàng nhẹ. - Xử lý phân loại
-                các hàng hoá theo khu vực. - Bàn giao hàng hoá cho các nhân viên
-                giao hàng.{' '}
+              <Text style={styles.txtStatus1}>
+                {data?.job?.job_description}
               </Text>
             </View>
           </View>
@@ -98,9 +98,8 @@ export default function InfomationJob() {
               <Text style={styles.txtTitle}> YÊU CẦU CÔNG VIỆC</Text>
             </View>
             <View>
-              <Text>
-                - Tuổi : 18t - 35t - Giới tính : chỉ tuyển nữ - Điều kiện sức
-                khoẻ tốt
+              <Text style={styles.txtStatus1}>
+                {data?.job?.job_requirements[0]}
               </Text>
             </View>
           </View>
@@ -111,7 +110,9 @@ export default function InfomationJob() {
               <Text style={styles.txtTitle}>QUYỀN LỢI ĐƯỢC HƯỞNG</Text>
             </View>
             <View>
-              <Text>- Chính sách thưởng theo chuyên cần</Text>
+              <Text style={styles.txtStatus1}>
+                {data?.job?.benefits_enjoyed}
+              </Text>
             </View>
           </View>
 
@@ -121,24 +122,30 @@ export default function InfomationJob() {
               <Text style={styles.txtTitle}>HỒ SƠ BAO GỒM</Text>
             </View>
             <View>
-              <Text>
-                - Sơ yêu lý lịch - Đơn xin việc - Các giấy tờ liên quan
+              <Text style={styles.txtStatus1}>
+                {data?.job?.records_include}
               </Text>
             </View>
           </View>
 
-          <View style={{marginBottom: scale(20)}}>
+          {/* <View style={{marginBottom: scale(20)}}>
             <View style={{flexDirection: 'row'}}>
               <Image style={styles.dot} source={icons.dot} />
               <Text style={styles.txtTitle}>THÔNG TIN LIÊN HỆ</Text>
             </View>
             <View>
-              <Text>
-                - Người liên hệ: Nguyễn Quỳnh Trang - Địa chỉ: 122 Định Công, P.
-                Định Công, Q. Hoàng Mai, TP. Hà Nội- Hạn nộp: 12/9/2020
+              <Text style={styles.txtStatus1}>
+                - Người liên hệ: {data?.job?.contact_info.contact_person}
+              </Text>
+              <Text style={styles.txtStatus1}>
+                - Địa chỉ: {data?.job?.contact_info.contact_address}
+              </Text>
+              <Text style={styles.txtStatus1}>
+                - Hạn nộp:{' '}
+                {moment(data?.job?.contact_info.last_date).format('DD/MM/YYYY')}
               </Text>
             </View>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
     </View>
@@ -157,6 +164,13 @@ const styles = StyleSheet.create({
     lineHeight: scale(20),
     color: '#404040',
     fontFamily: fonts.BOLD,
+  },
+
+  txtStatus1: {
+    fontSize: scale(12),
+    lineHeight: scale(20),
+    color: '#404040',
+    fontFamily: fonts.NORMAL,
   },
   txtTitle: {
     fontSize: scale(18),

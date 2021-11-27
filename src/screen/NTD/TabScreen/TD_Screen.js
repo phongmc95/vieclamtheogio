@@ -24,6 +24,7 @@ import HeaderStyle from '../../../components/HeaderStyle';
 import colors from '../../../constant/colors';
 import {ButtonItemLuu} from '../../../components/Button/ButtonItem';
 import fonts from '../../../constant/fonts';
+import FloatActionButton from "../../../components/FloatActionButton";
 const TD_Screen = ({navigation}) => {
   const DATA = [
     {
@@ -120,15 +121,16 @@ const TD_Screen = ({navigation}) => {
         renderItem={renderItem}
         ListFooterComponent={() => <View style={{marginBottom: scale(170)}} />}
       />
-      <FAB
-        style={styles.fab}
-        small
-        icon={() => (
-          <Text style={{fontSize: scale(24), color: 'white'}}>+</Text>
-        )}
-        onPress={() => navigation.navigate('DangTin')}
-        color="white"
-      />
+      {/*<FAB*/}
+      {/*  style={styles.fab}*/}
+      {/*  small*/}
+      {/*  icon={() => (*/}
+      {/*    <Image source={require('../../../../assets/images/Fab.png')}/>*/}
+      {/*  )}*/}
+      {/*  onPress={() => navigation.navigate('DangTin')}*/}
+      {/*  color="white"*/}
+      {/*/>*/}
+
     </View>
   );
 
@@ -288,6 +290,7 @@ const TD_Screen = ({navigation}) => {
         renderTabBar={renderTabBar}
         onIndexChange={handleIndexChange}
       />
+      <FloatActionButton onPress={() => navigation.navigate('DangTin')}/>
     </View>
   );
 };

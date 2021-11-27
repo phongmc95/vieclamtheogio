@@ -27,6 +27,65 @@ export const profession = [
   {id: '10', title: 'kho bãi', parent: '0'},
 ];
 
+export const working_day = [
+  {
+    day: 'Thứ 2',
+    sessions: {
+      morning: false,
+      afternoon: false,
+      evening: false,
+    },
+  },
+  {
+    day: 'Thứ 3',
+    sessions: {
+      morning: false,
+      afternoon: false,
+      evening: false,
+    },
+  },
+  {
+    day: 'Thứ 4',
+    session: {
+      morning: false,
+      afternoon: false,
+      evening: false,
+    },
+  },
+  {
+    day: 'Thứ 5',
+    sessions: {
+      morning: false,
+      afternoon: false,
+      evening: false,
+    },
+  },
+  {
+    day: 'Thứ 6',
+    sessions: {
+      morning: false,
+      afternoon: false,
+      evening: false,
+    },
+  },
+  {
+    day: 'Thứ 7',
+    session: {
+      morning: false,
+      afternoon: false,
+      evening: false,
+    },
+  },
+  {
+    day: 'Chủ Nhật',
+    session: {
+      morning: false,
+      afternoon: false,
+      evening: false,
+    },
+  },
+];
+
 export const provinces = [
   {
     id: '1',

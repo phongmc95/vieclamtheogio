@@ -1,79 +1,64 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 import fonts from '../../../constant/fonts';
+import colors from '../../../constant/colors';
+import {working_day} from '../../../data/Jobs';
 
-export default function WorkSessionScreen() {
+export default function WorkSessionScreen({item}) {
   const navigation = useNavigation();
+
+  const renderItem = ({item}) => {
+    return (
+      <View style={styles.bottom}>
+        <Text style={styles.txtProgress}>{item.day}</Text>
+        <View style={styles.row}>
+          <Text style={styles.buttonM(item)}>Sáng</Text>
+          <Text style={styles.buttonA(item)}>Chiều</Text>
+          <Text style={styles.buttonE(item)}>Tối</Text>
+        </View>
+      </View>
+    );
+  };
+
+  const renderEmpty = () => {
+    return (
+      <View>
+        {working_day.map(item => (
+          <View style={styles.bottom}>
+            <Text style={styles.txtProgress}>{item.day}</Text>
+            <View style={styles.row}>
+              <Text style={styles.buttonM(item)}>Sáng</Text>
+              <Text style={styles.buttonA(item)}>Chiều</Text>
+              <Text style={styles.buttonE(item)}>Tối</Text>
+            </View>
+          </View>
+        ))}
+      </View>
+    );
+  };
+
   return (
-    <View>
+    <View style={{height: scale(350)}}>
       <TouchableOpacity onPress={() => navigation.navigate('UpdateWork')}>
         <Image style={styles.pen} source={icons.pen} />
       </TouchableOpacity>
-      <View style={styles.bottom}>
-        <Text style={styles.txtProgress}>Thứ 2</Text>
-        <View style={styles.row}>
-          <Text style={styles.button}>Sáng</Text>
-          <Text style={styles.button}>Chiều</Text>
-          <Text style={styles.button}>Tối</Text>
-        </View>
-      </View>
-
-      <View style={styles.bottom}>
-        <Text style={styles.txtProgress}>Thứ 3</Text>
-        <View style={styles.row}>
-          <Text style={styles.button}>Sáng</Text>
-          <Text style={styles.button}>Chiều</Text>
-          <Text style={styles.button}>Tối</Text>
-        </View>
-      </View>
-
-      <View style={styles.bottom}>
-        <Text style={styles.txtProgress}>Thứ 4</Text>
-        <View style={styles.row}>
-          <Text style={styles.button}>Sáng</Text>
-          <Text style={styles.button}>Chiều</Text>
-          <Text style={styles.button}>Tối</Text>
-        </View>
-      </View>
-
-      <View style={styles.bottom}>
-        <Text style={styles.txtProgress}>Thứ 5</Text>
-        <View style={styles.row}>
-          <Text style={styles.button}>Sáng</Text>
-          <Text style={styles.button}>Chiều</Text>
-          <Text style={styles.button}>Tối</Text>
-        </View>
-      </View>
-
-      <View style={styles.bottom}>
-        <Text style={styles.txtProgress}>Thứ 6</Text>
-        <View style={styles.row}>
-          <Text style={styles.button}>Sáng</Text>
-          <Text style={styles.button}>Chiều</Text>
-          <Text style={styles.button}>Tối</Text>
-        </View>
-      </View>
-
-      <View style={styles.bottom}>
-        <Text style={styles.txtProgress}>Thứ 7</Text>
-        <View style={styles.row}>
-          <Text style={styles.button}>Sáng</Text>
-          <Text style={styles.button}>Chiều</Text>
-          <Text style={styles.button}>Tối</Text>
-        </View>
-      </View>
-
-      <View style={styles.bottom}>
-        <Text style={styles.txtProgress}>Chủ nhật</Text>
-        <View style={styles.row}>
-          <Text style={styles.button}>Sáng</Text>
-          <Text style={styles.button}>Chiều</Text>
-          <Text style={styles.button}>Tối</Text>
-        </View>
-      </View>
+      <FlatList
+        data={item.working_day}
+        keyExtractor={item => item.day}
+        renderItem={renderItem}
+        ListEmptyComponent={renderEmpty}
+        scrollEnabled={true}
+      />
     </View>
   );
 }
@@ -92,13 +77,14 @@ const styles = StyleSheet.create({
     marginBottom: scale(5),
     fontFamily: fonts.BOLD,
   },
-  button: {
+  buttonM: item => ({
     fontSize: scale(16),
-    color: '#307DF1',
+    color: item?.seasons?.morning === true ? colors.WHITE : '#307DF1',
     width: scale(90),
     paddingVertical: scale(10),
     textAlign: 'center',
-    backgroundColor: '#ebebeb',
+    backgroundColor:
+      item?.seasons?.morning === true ? colors.YELLOW : '#ebebeb',
     paddingTop: scale(8),
     borderRadius: scale(5),
     marginRight: scale(20),
@@ -107,7 +93,41 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.5,
     shadowRadius: 1,
-  },
+  }),
+  buttonA: item => ({
+    fontSize: scale(16),
+    color: item?.seasons?.afternoon === true ? colors.WHITE : '#307DF1',
+    width: scale(90),
+    paddingVertical: scale(10),
+    textAlign: 'center',
+    backgroundColor:
+      item?.seasons?.afternoon === true ? colors.YELLOW : '#ebebeb',
+    paddingTop: scale(8),
+    borderRadius: scale(5),
+    marginRight: scale(20),
+    fontFamily: fonts.NORMAL,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
+  }),
+  buttonE: item => ({
+    fontSize: scale(16),
+    color: item?.seasons?.evening === true ? colors.WHITE : '#307DF1',
+    width: scale(90),
+    paddingVertical: scale(10),
+    textAlign: 'center',
+    backgroundColor:
+      item?.seasons?.evening === true ? colors.YELLOW : '#ebebeb',
+    paddingTop: scale(8),
+    borderRadius: scale(5),
+    marginRight: scale(20),
+    fontFamily: fonts.NORMAL,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
+  }),
   row: {flexDirection: 'row'},
   bottom: {marginBottom: scale(20)},
 });

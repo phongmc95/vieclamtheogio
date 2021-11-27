@@ -1,31 +1,64 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 import fonts from '../../../constant/fonts';
 
-export default function ExperienceScreen() {
+export default function ExperienceScreen({data}) {
   const navigation = useNavigation();
+  const renderItem = ({item}) => {
+    return (
+      <View style={styles.box}>
+        <View style={{width: '85%'}}>
+          <Text style={styles.txtProgress}>{item.company}</Text>
+          <Text style={styles.txtDetail}>{item.possition}</Text>
+          <Text style={[styles.txtDetail, {marginBottom: scale(15)}]}>
+            {item.time}
+          </Text>
+          <Text style={styles.txtProgress}>{item.achievements}</Text>
+        </View>
+        <View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('UpdateExperience')}>
+            <Image style={styles.pen} source={icons.pen} />
+          </TouchableOpacity>
+          <Image style={styles.trash} source={icons.trash_black} />
+        </View>
+      </View>
+    );
+  };
+
+  const renderEmptyItem = () => {
+    return (
+      <View style={styles.box}>
+        <View style={{width: '85%'}}>
+          <Text style={styles.txtProgress}>Chưa cập nhật</Text>
+        </View>
+        <View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('UpdateExperience')}>
+            <Image style={styles.pen} source={icons.pen} />
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
   return (
-    <View style={styles.box}>
-      <View style={{width: '85%'}}>
-        <Text style={styles.txtProgress}>SUZUKIVIVU</Text>
-        <Text style={styles.txtDetail}>Thực tập bán hàng</Text>
-        <Text style={[styles.txtDetail, {marginBottom: scale(15)}]}>
-          20/01/2021 - 20/10/2021
-        </Text>
-        <Text style={styles.txtProgress}>
-          Bán nhiều hàng nhất tháng 1 đạt giải nhân viên trẻ của tháng
-        </Text>
-      </View>
-      <View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('UpdateExperience')}>
-          <Image style={styles.pen} source={icons.pen} />
-        </TouchableOpacity>
-        <Image style={styles.trash} source={icons.trash_black} />
-      </View>
+    <View>
+      <FlatList
+        data={data.experience}
+        keyExtractor={item => item.id}
+        renderItem={renderItem}
+        ListEmptyComponent={renderEmptyItem}
+      />
     </View>
   );
 }
@@ -41,13 +74,11 @@ const styles = StyleSheet.create({
   txtDetail: {
     fontSize: scale(14),
     color: '#404040',
-    lineHeight: scale(19),
     marginBottom: scale(5),
     fontFamily: fonts.NORMAL,
   },
   box: {
     width: scale(300),
-    height: scale(160),
     borderRadius: scale(20),
     backgroundColor: '#fff',
     shadowColor: '#000',
@@ -58,7 +89,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 3,
-    marginTop: scale(20),
+    marginVertical: scale(20),
     marginLeft: scale(5),
     padding: scale(10),
     flexDirection: 'row',

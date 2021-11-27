@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,8 +12,50 @@ import {scale} from 'react-native-size-matters';
 import {BackIcon, CameraIcon, Selecter} from '../../../../assets/icon';
 import colors from '../../../constant/colors';
 import fonts from '../../../constant/fonts';
-
+import TextInputStyle from "../../../components/TextInputStyle";
+import TextInputSelected from "../../../components/TextInputSelected";
+import { provinces } from "../../../data/Jobs";
+import SelectModal from "../../../components/SelectModal";
+import ButtonStyle from "../../../components/ButtonStyle";
+import * as ImagePicker from 'react-native-image-picker';
 const UpdateInfoNTD = ({navigation}) => {
+  const [name,setName]=useState('');
+  const [quyMo,setquyMo]=useState('');
+  const [mst,setMst]=useState('');
+  const [diaChi,setdiachi]=useState('');
+  const [province, setProvince] = useState('');
+  const [isProvince, setIsProvince] = useState(false);
+  const [phone,setPhone]=useState('');
+  const [web,setWeb]=useState('');
+  const [intro,setIntro]=useState('');
+const [nameContact,setNameContact]=useState('');
+const [addressContact,setAddressContact]=useState('');
+  const [phoneContact,setPhoneContact]=useState('');
+  const [emailContact,setEmailContact]=useState('');
+  const [logo, setLogo] = useState(null);
+  const options = {
+    mediaType: 'photo',
+    // includeBase64: true,
+    maxWidth: 2048,
+    maxHeight: 2048,
+  };
+  const openLibry = () => {
+    ImagePicker.launchImageLibrary(options, response => {
+      if (response.didCancel || response.errorCode) {
+        return;
+      }
+
+      setLogo(response);
+    });
+  };
+  const selectProvince = item => {
+    setProvince(item);
+    handleSelectProvince();
+  };
+
+  const handleSelectProvince = () => {
+    setIsProvince(!isProvince);
+  };
   return (
     <View style={styles.contener}>
       <View style={styles.StatusBar}>
@@ -27,131 +69,105 @@ const UpdateInfoNTD = ({navigation}) => {
       <ScrollView>
         <View style={styles.viewAvtar}>
           <Image
-            source={require('../../../../assets/img/logoVin.png')}
-            style={styles.avatar}
+
+            source={
+              !logo
+                ? require('../../../../assets/img/logoVin.png')
+                : {uri: logo.assets[0].uri}
+            }
+            style={[styles.avatar,{opacity:  !logo?0.5:1}]}
           />
-          <TouchableOpacity style={styles.btnCamera}>
+          <TouchableOpacity style={styles.btnCamera} onPress={openLibry}>
             <CameraIcon />
           </TouchableOpacity>
           <Text style={styles.titleAvatar}>Cập nhật ảnh đại diện</Text>
         </View>
 
         <View style={styles.main}>
-          <Text style={{fontSize: scale(16), fontFamily: fonts.BOLD}}>
+          <Text style={{fontSize: scale(16), fontFamily: fonts.BOLD,marginBottom:scale(15)}}>
             THÔNG TIN CÔNG TY
           </Text>
-          <View>
-            <Text style={styles.TextTitle}>Tên công ty *</Text>
-            <View style={styles.boxInput}>
-              <TextInput placeholder="Tên công ty" style={styles.textInput} />
-            </View>
-          </View>
-          <View>
-            <Text style={styles.TextTitle}>Quy mô công ty *</Text>
-            <View style={styles.boxInput}>
-              <TextInput
-                placeholder="Quy mô công ty"
-                style={styles.textInput}
-              />
-            </View>
-          </View>
-          <View>
-            <Text style={styles.TextTitle}>Mã số thuế *</Text>
-            <View style={styles.boxInput}>
-              <TextInput placeholder="Mã số thuế" style={styles.textInput} />
-            </View>
-          </View>
-          <View>
-            <Text style={styles.TextTitle}>Địa chỉ công ty *</Text>
-            <View style={styles.boxInput}>
-              <TextInput
-                placeholder="Địa chỉ công ty"
-                style={styles.textInput}
-              />
-            </View>
-          </View>
-          <View>
-            <Text style={styles.TextTitle}>Tỉnh/ thành phố *</Text>
-            <View style={[styles.boxInput, {flexDirection: 'row'}]}>
-              <TextInput
-                placeholder="Chọn địa tỉnh thành phố"
-                style={styles.textInput}
-              />
-              <TouchableOpacity style={styles.Selecter}>
-                <Selecter />
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View>
-            <Text style={styles.TextTitle}>Điện thoại cố định *</Text>
-            <View style={styles.boxInput}>
-              <TextInput
-                placeholder="Điện thoại cố định"
-                style={styles.textInput}
-              />
-            </View>
-          </View>
-          <View>
-            <Text style={styles.TextTitle}>Website *</Text>
-            <View style={styles.boxInput}>
-              <TextInput
-                placeholder="https://tuandeptraivcl.net"
-                style={styles.textInput}
-              />
-            </View>
-          </View>
-          <View>
-            <Text style={styles.TextTitle}>Giới thiệu về công ty *</Text>
-            <View style={[styles.boxInput, {height: scale(105)}]}>
-              <TextInput placeholder="Công ty....." style={styles.textInput} />
-            </View>
-          </View>
-          <Text style={{fontSize: scale(16), fontFamily: fonts.BOLD}}>
+          <TextInputStyle
+            Label="Tên công ty"
+            value={name}
+            onChangeText={text => setName(text)}
+          />
+          <TextInputStyle
+            Label="Quy mô công ty"
+            value={quyMo}
+            onChangeText={text => setquyMo(text)}
+          />
+          <TextInputStyle
+            Label="Mã số thuế"
+            value={mst}
+            onChangeText={text => setMst(text)}
+          />
+          <TextInputStyle
+            Label="Địa chỉ công ty"
+            value={diaChi}
+            onChangeText={text => setdiachi(text)}
+          />
+          <TextInputSelected
+            Label="Tỉnh/ Thành phố"
+            value={province.title}
+            onChangeText={text => setProvince(text)}
+            onPress={handleSelectProvince}
+          />
+
+          <TextInputStyle
+            Label="Điện thoại"
+            value={phone}
+            onChangeText={text => setPhone(text)}
+          />
+          <TextInputStyle
+            Label="Website"
+            value={web}
+            onChangeText={text => setWeb(text)}
+          />
+
+          <TextInputStyle
+            Label="Giới thiệu công ty"
+            value={intro}
+            onChangeText={text => setIntro(text)}
+          />
+          <Text style={{fontSize: scale(16), fontFamily: fonts.BOLD,paddingBottom:scale(20)}}>
             THÔNG TIN LIÊN HỆ
           </Text>
-          <View>
-            <Text style={styles.TextTitle}>Tên người liên hệ *</Text>
-            <View style={styles.boxInput}>
-              <TextInput
-                placeholder="VD: Hà Anh Tuấn"
-                style={styles.textInput}
-              />
-            </View>
-          </View>
-          <View>
-            <Text style={styles.TextTitle}>Địa chỉ liên hệ *</Text>
-            <View style={styles.boxInput}>
-              <TextInput
-                placeholder="VD: 05 Cẩm Khê"
-                style={styles.textInput}
-              />
-            </View>
-          </View>
-          <View>
-            <Text style={styles.TextTitle}>Số điện thoại liên hệ *</Text>
-            <View style={styles.boxInput}>
-              <TextInput
-                placeholder="VD: Từ 0367289911"
-                style={styles.textInput}
-              />
-            </View>
-          </View>
-          <View>
-            <Text style={styles.TextTitle}>Email liên hệ *</Text>
-            <View style={styles.boxInput}>
-              <TextInput
-                placeholder="VD: tuanhaph09959@gmail.com"
-                style={styles.textInput}
-              />
-            </View>
-          </View>
+          <TextInputStyle
+            Label="Tên người liên hệ"
+            value={nameContact}
+            onChangeText={text => setNameContact(text)}
+          />
+          <TextInputStyle
+            Label="Địa chỉ liên hệ"
+            value={addressContact}
+            onChangeText={text => setAddressContact(text)}
+          />
+          <TextInputStyle
+            Label="Điện thoại liên hệ"
+            value={phoneContact}
+            onChangeText={text => setNameContact(text)}
+          />
+          <TextInputStyle
+            Label="Email liên hệ"
+            value={emailContact}
+            onChangeText={text => setEmailContact(text)}
+          />
+
+
+
         </View>
         <View style={styles.foodter}>
-          <TouchableOpacity>
-            <Text style={styles.btnupdate}>Cập nhập</Text>
-          </TouchableOpacity>
+          <ButtonStyle styleBtn={{width:150}} Title={'Cập nhập'} />
         </View>
       </ScrollView>
+      <SelectModal
+        isVisible={isProvince}
+        onBackdropPress={handleSelectProvince}
+        label={'Tỉnh/ Thành phố'}
+        onPress={item => selectProvince(item)}
+        data={provinces}
+      />
     </View>
   );
 };
@@ -165,7 +181,7 @@ const styles = StyleSheet.create({
   },
   StatusBar: {
     backgroundColor: '#307DF1',
-    height: scale(80),
+    height: scale(100),
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
 
@@ -182,12 +198,14 @@ const styles = StyleSheet.create({
   },
   goback: {
     marginLeft: scale(10),
-    marginBottom: scale(12),
+    marginBottom: scale(15),
   },
   avatar: {
     width: scale(100),
     height: scale(100),
-    opacity: 0.5,
+
+
+    borderRadius:scale(50)
   },
   viewAvtar: {
     justifyContent: 'center',

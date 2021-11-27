@@ -4,7 +4,7 @@ import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 import listJob from '@data/ListJob';
 
-export default function JobWithEmp() {
+export default function JobWithEmp({list}) {
   const renderItem = ({item}) => (
     <View
       style={{

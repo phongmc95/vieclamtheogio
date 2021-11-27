@@ -1,6 +1,6 @@
 import images from '../constant/images';
 
-const listJob = [
+export const listJob = [
   {
     id: 1,
     title: 'Kỹ sư lập trình ứng dụng di động',
@@ -35,4 +35,16 @@ const listJob = [
     view: '99',
   },
 ];
-export default listJob;
+
+export const listRank = [
+  {id: 1, title: 'Không yêu cầu'},
+  {id: 2, title: 'Nhân viên'},
+  {id: 3, title: 'Trưởng phòng'},
+  {id: 4, title: 'Giám Đốc'},
+];
+
+export const listType = [
+  {id: 1, title: 'Fulltime'},
+  {id: 2, title: 'Parttime'},
+  {id: 3, title: 'Theo ca'},
+];

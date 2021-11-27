@@ -8,6 +8,7 @@ const TextInputStyle = ({Label, value, onChangeText}) => {
   return (
     <View>
       <TextInput
+
         label={Label}
         value={value}
         onChangeText={onChangeText}

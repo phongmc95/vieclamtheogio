@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     marginLeft: scale(10),
   },
   content: {
+    paddingTop:scale(60),
     flexDirection: 'row',
     paddingHorizontal: scale(10),
     paddingVertical: scale(10),
