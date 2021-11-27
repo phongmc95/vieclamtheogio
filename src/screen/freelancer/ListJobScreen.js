@@ -23,13 +23,13 @@ export default function ListJobScreen({navigation, route}) {
         <View style={styles.row}>
           <Image
             style={styles.logoJob}
-            source={item.user.avatar ? {uri: item.user.avatar} : images.logo}
+            source={item?.user?.avatar ? {uri: item.user.avatar} : images.logo}
           />
           <View style={styles.viewContent}>
             <Text style={[styles.txtTitleJob]}>
               {item.job_posting_position}
             </Text>
-            <Text style={styles.txtAddress}>{item.user.name}</Text>
+            <Text style={styles.txtAddress}>{item?.user?.name}</Text>
             <View style={styles.row}>
               <Image style={styles.iconJob} source={icons.bag} />
               <Text style={styles.txtStatus}>{item.working_form}</Text>

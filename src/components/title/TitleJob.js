@@ -81,6 +81,7 @@ export default function TitleJob(props) {
 
 const styles = StyleSheet.create({
   titleBox: {
+    paddingTop:scale(40),
     paddingHorizontal: scale(20),
     paddingVertical: scale(10),
     backgroundColor: '#307DF1',

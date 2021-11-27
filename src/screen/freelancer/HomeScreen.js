@@ -15,10 +15,18 @@ import {scale} from 'react-native-size-matters';
 import TitleHome from '../../components/title/TitleHome';
 import icons from '../../constant/icons';
 import {jobs} from '../../data/Jobs';
+import { useDispatch, useSelector } from "react-redux";
+import { ProfileEPl } from "../../redux/actions/actions";
 
 export default function HomeScreen({navigation}) {
+  const _id=useSelector(state => state.Authen.data);
+  const  dispatch= useDispatch();
+  const data=useSelector(state => state.ProfileEPl.data);
+  useEffect(()=>{
+    dispatch(ProfileEPl(_id.user?.userId))
+  },[])
   const [listJobs, setListJobs] = useState([]);
-  console.log('listJobs: ', listJobs);
+  console.log('listJobs: ', data);
   useEffect(() => {
     var config = {
       method: 'get',
@@ -66,7 +74,7 @@ export default function HomeScreen({navigation}) {
   };
   return (
     <View style={styles.container}>
-      <TitleHome />
+      <TitleHome name={data?.user?.name} />
       <ScrollView style={styles.scroll}>
         <View style={styles.viewCategory}>
           <View style={styles.row}>

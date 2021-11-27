@@ -18,7 +18,7 @@ import colors from '../../../constant/colors';
 import fonts from '../../../constant/fonts';
 import axios from 'axios';
 import moment from 'moment';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+
 import SelectModal from '../../../components/SelectModal';
 
 const listGender = [

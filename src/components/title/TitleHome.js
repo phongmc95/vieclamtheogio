@@ -5,9 +5,14 @@ import {scale} from 'react-native-size-matters';
 import fonts from '../../constant/fonts';
 import icons from '../../constant/icons';
 import {isIos} from '../../Utils/CheckDevice';
+import { useSelector } from "react-redux";
+import images from "../../constant/images";
 
-export default function TitleHome(props) {
+export default function TitleHome({ name }) {
+  const data=useSelector(state => state.Authen.data);
+  const dataq=useSelector(state => state.ProfileEPl.data)
   const navigation = useNavigation();
+  console.log(">>>>q",dataq);
   return (
     <View
       style={{
@@ -19,7 +24,7 @@ export default function TitleHome(props) {
         borderBottomLeftRadius: scale(20),
         borderBottomRightRadius: scale(20),
       }}>
-      <Image style={{height: scale(40), width: scale(40)}} source={props.img} />
+      <Image style={{height: scale(40), width: scale(40),borderRadius:scale(20),borderWidth:1,borderColor:'white'}} source={dataq.user?.avatar?{uri:dataq.user?.avatar}:images.avatar} />
       <View style={{marginLeft: scale(10), width: '55%'}}>
         <Text
           style={{
@@ -35,7 +40,7 @@ export default function TitleHome(props) {
             color: '#fff',
             fontFamily: fonts.BOLD,
           }}>
-          {props.name}
+          {name}
         </Text>
       </View>
       <View style={{flexDirection: 'row'}}>

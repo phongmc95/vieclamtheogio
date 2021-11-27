@@ -26,7 +26,7 @@ const CalendarJob = ({item}) => {
               lineHeight: scale(14),
               marginBottom: scale(20),
             }}>
-            Công việc này có 2 ca làm, bạn sẽ được sắp xếp cụ thể khi trao đổi
+            Công việc này có thể thời gian làm thay đổi  phù hợp, bạn sẽ được sắp xếp cụ thể khi trao đổi
             trực tiếp.
           </Text>
 
