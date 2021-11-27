@@ -131,32 +131,7 @@ const Home = () => {
             </View>
           </View>
           {/* view2 */}
-          <View style={styles.detaillTK}>
-            <View style={styles.viewRow}>
-              <Text style={styles.TextL}>Tin VIP</Text>
-              <Text style={styles.TextR}>0</Text>
-            </View>
-            <View style={styles.viewRow}>
-              <Text style={styles.TextL}>Việc sắp hết hạn</Text>
-              <Text style={styles.TextR}>0</Text>
-            </View>
-            <View style={styles.viewRow}>
-              <Text style={styles.TextL}>Việc làm hết hạn</Text>
-              <Text style={styles.TextR}>0</Text>
-            </View>
-            <View style={styles.viewRow}>
-              <Text style={styles.TextL}>Việc làm còn hạn</Text>
-              <Text style={styles.TextR}>0</Text>
-            </View>
-            <View style={styles.viewRow}>
-              <Text style={styles.TextL}>Số tin đăng trong ngày</Text>
-              <Text style={styles.TextR}>0</Text>
-            </View>
-            <View style={styles.viewRow}>
-              <Text style={styles.TextL}>Số việc làm mới tin trong ngày</Text>
-              <Text style={styles.TextR}>0</Text>
-            </View>
-          </View>
+
           {/* flatlist1 */}
           <View style={styles.viewRow}>
             <Text style={styles.title}>DS tin tuyển dụng mới nhất</Text>

@@ -17,7 +17,7 @@ import TextInputSelected from "../../../components/TextInputSelected";
 import { provinces } from "../../../data/Jobs";
 import SelectModal from "../../../components/SelectModal";
 import ButtonStyle from "../../../components/ButtonStyle";
-
+import * as ImagePicker from 'react-native-image-picker';
 const UpdateInfoNTD = ({navigation}) => {
   const [name,setName]=useState('');
   const [quyMo,setquyMo]=useState('');
@@ -32,7 +32,22 @@ const [nameContact,setNameContact]=useState('');
 const [addressContact,setAddressContact]=useState('');
   const [phoneContact,setPhoneContact]=useState('');
   const [emailContact,setEmailContact]=useState('');
+  const [logo, setLogo] = useState(null);
+  const options = {
+    mediaType: 'photo',
+    // includeBase64: true,
+    maxWidth: 2048,
+    maxHeight: 2048,
+  };
+  const openLibry = () => {
+    ImagePicker.launchImageLibrary(options, response => {
+      if (response.didCancel || response.errorCode) {
+        return;
+      }
 
+      setLogo(response);
+    });
+  };
   const selectProvince = item => {
     setProvince(item);
     handleSelectProvince();
@@ -54,10 +69,15 @@ const [addressContact,setAddressContact]=useState('');
       <ScrollView>
         <View style={styles.viewAvtar}>
           <Image
-            source={require('../../../../assets/img/logoVin.png')}
-            style={styles.avatar}
+
+            source={
+              !logo
+                ? require('../../../../assets/img/logoVin.png')
+                : {uri: logo.assets[0].uri}
+            }
+            style={[styles.avatar,{opacity:  !logo?0.5:1}]}
           />
-          <TouchableOpacity style={styles.btnCamera}>
+          <TouchableOpacity style={styles.btnCamera} onPress={openLibry}>
             <CameraIcon />
           </TouchableOpacity>
           <Text style={styles.titleAvatar}>Cập nhật ảnh đại diện</Text>
@@ -183,7 +203,9 @@ const styles = StyleSheet.create({
   avatar: {
     width: scale(100),
     height: scale(100),
-    opacity: 0.5,
+
+
+    borderRadius:scale(50)
   },
   viewAvtar: {
     justifyContent: 'center',
