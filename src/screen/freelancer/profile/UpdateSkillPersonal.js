@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, TextInput, ScrollView} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '@components/title/TitleBasic';
@@ -6,8 +6,40 @@ import Button from '@components/Button/Button';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import fonts from '../../../constant/fonts';
 import colors from '../../../constant/colors';
+import axios from 'axios';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
-export default function UpdateDesiredJob() {
+export default function UpdateDesiredJob({navigation}) {
+  const [skill, setSkill] = useState('');
+  const personal_skills = [skill];
+
+  const submit = () => {
+    var data = {
+      personal_skills: personal_skills,
+    };
+
+    var config = {
+      method: 'patch',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/users/updateUser',
+      data: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    console.log('data: ', data);
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        if (navigation.canGoBack) {
+          navigation.goBack();
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <TitleBasic title="kỹ năng cá nhân" />
@@ -15,23 +47,22 @@ export default function UpdateDesiredJob() {
         <View style={{padding: scale(10)}}>
           <View style={styles.boxTextInput}>
             <TextInput
+              value={skill}
+              onChangeText={setSkill}
               style={styles.textInput}
               placeholder="Mô tả ngắn gon về kỹ năng bản thân"
-            />
-          </View>
-
-          <View style={styles.boxTextInput}>
-            <TextInput
               multiline={true}
-              style={styles.textInput}
-              placeholder="Mô tả ngắn gon về kỹ năng bản thân"
             />
           </View>
         </View>
       </ScrollView>
       <View style={styles.viewButton}>
-        <Button title="Lưu" color="#fff" bg="#307df1" right={scale(10)} />
-        <Button title="Không lưu" color="#307df1" bg="#fff" />
+        <TouchableOpacity onPress={submit}>
+          <Button title="Lưu" color="#fff" bg="#307df1" right={scale(10)} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Button title="Không lưu" color="#307df1" bg="#fff" />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -43,7 +74,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.LIGHT_WHITE,
   },
   textInput: {
-    fontSize: scale(16),
+    fontSize: scale(14),
     marginLeft: scale(15),
     width: '90%',
     color: '#000',
@@ -60,13 +91,6 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.5,
     shadowRadius: 1,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
     elevation: 5,
     marginVertical: scale(10),
   },

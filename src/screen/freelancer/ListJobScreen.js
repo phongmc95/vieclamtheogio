@@ -6,27 +6,33 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  SafeAreaView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '../../components/title/TitleBasic';
 import colors from '../../constant/colors';
 import fonts from '../../constant/fonts';
 import icons from '../../constant/icons';
-import listJob from '../../data/ListJob';
+import images from '../../constant/images';
 
-export default function ListJobScreen({navigation}) {
+export default function ListJobScreen({navigation, route}) {
+  const {list} = route.params;
   const renderItem = ({item}) => (
-    <TouchableOpacity onPress={() => navigation.navigate('JobDetail', {item})}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('JobDetail', {id: item._id})}>
       <View style={styles.boxJob}>
         <View style={styles.row}>
-          <Image style={styles.logoJob} source={item.logo} />
+          <Image
+            style={styles.logoJob}
+            source={item.user.avatar ? {uri: item.user.avatar} : images.logo}
+          />
           <View style={styles.viewContent}>
-            <Text style={[styles.txtTitleJob]}>{item.title}</Text>
-            <Text style={styles.txtAddress}>{item.company}</Text>
+            <Text style={[styles.txtTitleJob]}>
+              {item.job_posting_position}
+            </Text>
+            <Text style={styles.txtAddress}>{item.user.name}</Text>
             <View style={styles.row}>
               <Image style={styles.iconJob} source={icons.bag} />
-              <Text style={styles.txtStatus}>{item.type}</Text>
+              <Text style={styles.txtStatus}>{item.working_form}</Text>
             </View>
             <View style={styles.row}>
               <Image style={styles.iconJob} source={icons.money} />
@@ -34,7 +40,7 @@ export default function ListJobScreen({navigation}) {
             </View>
             <View style={styles.row}>
               <Image style={styles.iconJob} source={icons.local} />
-              <Text style={styles.txtStatus}>{item.add}</Text>
+              <Text style={styles.txtStatus}>{item.work_location}</Text>
             </View>
           </View>
         </View>
@@ -46,8 +52,8 @@ export default function ListJobScreen({navigation}) {
       <TitleBasic title="danh sách việc" />
       <View style={styles.padding}>
         <FlatList
-          data={listJob}
-          keyExtractor={item => item.id}
+          data={list}
+          keyExtractor={item => item._id}
           renderItem={renderItem}
         />
       </View>
@@ -68,13 +74,6 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.5,
     shadowRadius: 1,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
     elevation: 5,
     marginBottom: scale(20),
     marginLeft: scale(3),

@@ -12,7 +12,7 @@ import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 import listJob from '@data/ListJob';
 
-export default function SimilarJob({navigation}) {
+export default function SimilarJob({navigation, list}) {
   return (
     <View style={{padding: scale(20)}}>
       <FlatList

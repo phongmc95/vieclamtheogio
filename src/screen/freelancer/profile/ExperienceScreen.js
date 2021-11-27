@@ -1,50 +1,64 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 import fonts from '../../../constant/fonts';
 
-const exp = [
-  {
-    id: 1,
-    company: 'SUZUKIVIVU',
-    possition: 'Thực tập bán hàng',
-    time: '20/01/2021 - 20/10/2021',
-    achievements: 'Xuất sắc',
-  },
-  {
-    id: 2,
-    company: 'SUZUKIVIVU',
-    possition: 'Thực tập bán hàng',
-    time: '20/01/2021 - 20/10/2021',
-    achievements: 'Xuất sắc',
-  },
-];
-
-export default function ExperienceScreen({item}) {
+export default function ExperienceScreen({data}) {
   const navigation = useNavigation();
+  const renderItem = ({item}) => {
+    return (
+      <View style={styles.box}>
+        <View style={{width: '85%'}}>
+          <Text style={styles.txtProgress}>{item.company}</Text>
+          <Text style={styles.txtDetail}>{item.possition}</Text>
+          <Text style={[styles.txtDetail, {marginBottom: scale(15)}]}>
+            {item.time}
+          </Text>
+          <Text style={styles.txtProgress}>{item.achievements}</Text>
+        </View>
+        <View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('UpdateExperience')}>
+            <Image style={styles.pen} source={icons.pen} />
+          </TouchableOpacity>
+          <Image style={styles.trash} source={icons.trash_black} />
+        </View>
+      </View>
+    );
+  };
+
+  const renderEmptyItem = () => {
+    return (
+      <View style={styles.box}>
+        <View style={{width: '85%'}}>
+          <Text style={styles.txtProgress}>Chưa cập nhật</Text>
+        </View>
+        <View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('UpdateExperience')}>
+            <Image style={styles.pen} source={icons.pen} />
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
   return (
     <View>
-      {exp.map(it => (
-        <View style={styles.box}>
-          <View style={{width: '85%'}}>
-            <Text style={styles.txtProgress}>{it.company}</Text>
-            <Text style={styles.txtDetail}>{it.possition}</Text>
-            <Text style={[styles.txtDetail, {marginBottom: scale(15)}]}>
-              {it.time}
-            </Text>
-            <Text style={styles.txtProgress}>{it.achievements}</Text>
-          </View>
-          <View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('UpdateExperience')}>
-              <Image style={styles.pen} source={icons.pen} />
-            </TouchableOpacity>
-            <Image style={styles.trash} source={icons.trash_black} />
-          </View>
-        </View>
-      ))}
+      <FlatList
+        data={data.experience}
+        keyExtractor={item => item.id}
+        renderItem={renderItem}
+        ListEmptyComponent={renderEmptyItem}
+      />
     </View>
   );
 }
@@ -60,7 +74,6 @@ const styles = StyleSheet.create({
   txtDetail: {
     fontSize: scale(14),
     color: '#404040',
-    lineHeight: scale(19),
     marginBottom: scale(5),
     fontFamily: fonts.NORMAL,
   },
@@ -76,7 +89,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 3,
-    marginTop: scale(20),
+    marginVertical: scale(20),
     marginLeft: scale(5),
     padding: scale(10),
     flexDirection: 'row',

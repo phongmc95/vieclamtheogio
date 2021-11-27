@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -19,6 +19,16 @@ import fonts from '../../../constant/fonts';
 import axios from 'axios';
 import moment from 'moment';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import SelectModal from '../../../components/SelectModal';
+
+const listGender = [
+  {id: 1, title: 'Nam'},
+  {id: 2, title: 'Nữ'},
+];
+const listMarital = [
+  {id: 1, title: 'Độc thân'},
+  {id: 2, title: 'Đã kết hôn'},
+];
 
 export default function UpdateInfomation({navigation, route}) {
   const {info} = route.params;
@@ -27,6 +37,42 @@ export default function UpdateInfomation({navigation, route}) {
   const [gender, setGender] = useState('');
   const [marital, setMarital] = useState('');
   const [address, setAddress] = useState('');
+  const [checkGender, setCheckGender] = useState(false);
+  const [checkMarital, setCheckMarital] = useState(false);
+  const [openPicker, setOpenPicker] = useState(false);
+
+  useEffect(() => {
+    setMarital(info?.marital_status);
+    setGender(info?.gender);
+    return () => {};
+  }, [info]);
+
+  const handleGender = () => {
+    setCheckGender(!checkGender);
+  };
+
+  const handleMarital = () => {
+    setCheckMarital(!checkMarital);
+  };
+
+  const handleBirthday = () => {
+    setOpenPicker(!openPicker);
+  };
+
+  const selectBirthday = date => {
+    setBirthday(moment(date).format('DD/MM/YYYY'));
+    handleBirthday();
+  };
+
+  const selectGender = item => {
+    setGender(item.title);
+    handleGender();
+  };
+
+  const selectMarital = item => {
+    setMarital(item.title);
+    handleMarital();
+  };
 
   const submit = () => {
     var data = {
@@ -75,6 +121,7 @@ export default function UpdateInfomation({navigation, route}) {
               onChangeText={setName}
               style={styles.textInput}
               placeholder={info.name}
+              placeholderTextColor="#000"
             />
           </View>
 
@@ -84,26 +131,34 @@ export default function UpdateInfomation({navigation, route}) {
               onChangeText={setBirthday}
               style={styles.textInput}
               placeholder={info.birthday ? info.birthday : 'Ngày sinh'}
+              placeholderTextColor="#000"
             />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleBirthday}>
               <Image style={styles.icon} source={icons.calendar_wb} />
             </TouchableOpacity>
+            <DateTimePickerModal
+              isVisible={openPicker}
+              mode="date"
+              onConfirm={selectBirthday}
+              onCancel={handleBirthday}
+            />
           </View>
 
           <View style={styles.boxTextInput}>
-            <TextInput
+            {/* <TextInput
               value={gender}
               onChangeText={setGender}
               style={styles.textInput}
               placeholder={info.gender}
-            />
-            <TouchableOpacity>
+            /> */}
+            <Text style={styles.textInput}>{gender}</Text>
+            <TouchableOpacity onPress={handleGender}>
               <Image style={styles.select} source={icons.select} />
             </TouchableOpacity>
           </View>
 
           <View style={styles.boxTextInput}>
-            <TextInput
+            {/* <TextInput
               value={marital}
               onChangeText={setMarital}
               style={styles.textInput}
@@ -112,8 +167,9 @@ export default function UpdateInfomation({navigation, route}) {
                   ? info.marital_status
                   : 'Tình trạng hôn nhân'
               }
-            />
-            <TouchableOpacity>
+            /> */}
+            <Text style={styles.textInput}>{marital}</Text>
+            <TouchableOpacity onPress={handleMarital}>
               <Image style={styles.select} source={icons.select} />
             </TouchableOpacity>
           </View>
@@ -154,6 +210,7 @@ export default function UpdateInfomation({navigation, route}) {
               onChangeText={setAddress}
               style={styles.textInput}
               placeholder={info.address}
+              placeholderTextColor="#000"
             />
           </View>
         </View>
@@ -163,6 +220,20 @@ export default function UpdateInfomation({navigation, route}) {
           </TouchableOpacity>
           <Button title="Không lưu" color="#307df1" bg={colors.GRAY} />
         </View>
+        <SelectModal
+          isVisible={checkGender}
+          onBackdropPress={handleGender}
+          label={'Giới tính'}
+          onPress={item => selectGender(item)}
+          data={listGender}
+        />
+        <SelectModal
+          isVisible={checkMarital}
+          onBackdropPress={handleMarital}
+          label={'Tình trạng hôn nhân'}
+          onPress={item => selectMarital(item)}
+          data={listMarital}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -192,6 +263,7 @@ const styles = StyleSheet.create({
     marginLeft: scale(15),
     width: '83%',
     color: colors.BLACK,
+    paddingVertical: scale(5),
   },
   boxTextInput: {
     flexDirection: 'row',

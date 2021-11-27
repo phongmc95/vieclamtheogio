@@ -59,9 +59,9 @@ export default function ProfileScreen() {
       case 'job':
         return <DesiredJobScreen item={user} />;
       case 'skill':
-        return <SkillPersonalScreen item={user} />;
+        return <SkillPersonalScreen data={user} />;
       case 'exp':
-        return <ExperienceScreen item={user} />;
+        return <ExperienceScreen data={user} />;
       case 'work':
         return <WorkSessionScreen item={user} />;
       default:
@@ -98,16 +98,16 @@ export default function ProfileScreen() {
             <Text style={styles.txtAvatar}>{user.name}</Text>
           </View>
           <View>
-            <Text style={styles.txtProgress}>
+            {/* <Text style={styles.txtProgress}>
               Mức độ hoàn thiện hồ sơ: <Text style={styles.percent}>50%</Text>
-            </Text>
-            <Progress.Bar
-              progress={0.5}
+            </Text> */}
+            {/* <Progress.Bar
+              progress={1}
               width={scale(305)}
               height={scale(5)}
               unfilledColor="#808080"
               style={{marginBottom: scale(30)}}
-            />
+            /> */}
             <View style={styles.tab}>
               <TabView
                 navigationState={{index, routes}}
