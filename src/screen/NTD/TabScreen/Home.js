@@ -112,7 +112,7 @@ const Home = () => {
       {/* tusBar */}
       <HeaderStyle type="home" Title={data?.user?.name} uri={data?.user?.avatar?data?.user?.avatar:data} />
       {/* main */}
-      <ScrollView style={{padding: scale(10)}}>
+      <ScrollView style={{padding: scale(10),marginBottom:scale(30)}}>
         <View style={styles.main}>
           <Text style={styles.title}>Thống kê tin đăng</Text>
           {/* view1 */}
