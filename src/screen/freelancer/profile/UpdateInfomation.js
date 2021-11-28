@@ -18,8 +18,9 @@ import colors from '../../../constant/colors';
 import fonts from '../../../constant/fonts';
 import axios from 'axios';
 import moment from 'moment';
-
+import * as ImagePicker from 'react-native-image-picker';
 import SelectModal from '../../../components/SelectModal';
+import {DateTimePickerModal} from 'react-native-modal-datetime-picker';
 
 const listGender = [
   {id: 1, title: 'Nam'},
@@ -32,11 +33,12 @@ const listMarital = [
 
 export default function UpdateInfomation({navigation, route}) {
   const {info} = route.params;
-  const [name, setName] = useState('');
-  const [birthday, setBirthday] = useState('');
+  const [name, setName] = useState(info.name);
+  const [birthday, setBirthday] = useState(info.birthday);
   const [gender, setGender] = useState('');
   const [marital, setMarital] = useState('');
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState(info.address);
+  const [avatar, setAvatar] = useState({uri: info?.avatar});
   const [checkGender, setCheckGender] = useState(false);
   const [checkMarital, setCheckMarital] = useState(false);
   const [openPicker, setOpenPicker] = useState(false);
@@ -82,6 +84,7 @@ export default function UpdateInfomation({navigation, route}) {
       marital_status: marital,
       address: address,
     };
+    console.log('data: ', data);
 
     var config = {
       method: 'patch',
@@ -91,11 +94,11 @@ export default function UpdateInfomation({navigation, route}) {
         'Content-Type': 'application/json',
       },
     };
-    console.log('data: ', data);
 
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        uploadImage();
         if (navigation.canGoBack) {
           navigation.goBack();
         }
@@ -105,14 +108,70 @@ export default function UpdateInfomation({navigation, route}) {
       });
   };
 
+  const uploadImage = () => {
+    var data = new FormData();
+    data.append('photo', avatar);
+    data.append('email', info.email);
+
+    var config = {
+      method: 'post',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/users/picture-upload',
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const options = {
+    mediaType: 'photo',
+    maxWidth: 2048,
+    maxHeight: 2048,
+  };
+  const openCamera = () => {
+    ImagePicker.launchCamera(options, response => {
+      if (response.didCancel || response.errorCode) {
+        return;
+      }
+      setAvatar({
+        uri: response.assets[0].uri,
+        name: response.assets[0].fileName,
+        type: response.assets[0].type,
+      });
+    });
+  };
+  const openLibry = () => {
+    ImagePicker.launchImageLibrary(options, response => {
+      if (response.didCancel || response.errorCode) {
+        return;
+      }
+
+      setAvatar({
+        uri: response.assets[0].uri,
+        name: response.assets[0].fileName,
+        type: response.assets[0].type,
+      });
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <TitleBasic title="thông tin liên hệ" />
       <ScrollView>
         <View style={{padding: scale(10)}}>
           <View style={{alignItems: 'center'}}>
-            <Image style={styles.avatar} source={images.avatar} />
-            <Text style={styles.txtAvatar}>Cập nhật ảnh đại diện</Text>
+            <Image
+              style={styles.avatar}
+              source={avatar ? {uri: avatar.uri} : images.avatar}
+            />
+            <TouchableOpacity onPress={openCamera}>
+              <Text style={styles.txtAvatar}>Cập nhật ảnh đại diện</Text>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.boxTextInput}>
@@ -263,7 +322,7 @@ const styles = StyleSheet.create({
     marginLeft: scale(15),
     width: '83%',
     color: colors.BLACK,
-    paddingVertical: scale(5),
+    paddingVertical: scale(8),
   },
   boxTextInput: {
     flexDirection: 'row',

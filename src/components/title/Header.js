@@ -17,11 +17,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     paddingHorizontal: scale(20),
-    paddingVertical: scale(10),
     backgroundColor: '#307DF1',
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
-    paddingTop: scale(isIos ? 60 : 0),
+    paddingTop: scale(isIos ? 60 : 5),
   },
   title: {
     fontSize: scale(16),
@@ -32,6 +31,7 @@ const styles = StyleSheet.create({
     marginLeft: scale(20),
     marginTop: scale(8),
     width: '78%',
+    marginBottom: scale(10),
   },
   image: {height: scale(30), width: scale(23)},
 });

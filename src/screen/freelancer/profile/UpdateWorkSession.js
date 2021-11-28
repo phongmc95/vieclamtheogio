@@ -178,13 +178,13 @@ const UpdateWorkSession = ({navigation}) => {
   const [day6, dispatch6] = useReducer(reducer6, initialState6);
 
   const working_day = [
-    {day: 'Thứ 2', seasons: day},
-    {day: 'Thứ 3', seasons: day1},
-    {day: 'Thứ 4', seasons: day2},
-    {day: 'Thứ 5', seasons: day3},
-    {day: 'Thứ 6', seasons: day4},
-    {day: 'Thứ 7', seasons: day5},
-    {day: 'Chủ nhật', seasons: day6},
+    {id: 1, day: 'Thứ 2', seasons: day},
+    {id: 2, day: 'Thứ 3', seasons: day1},
+    {id: 3, day: 'Thứ 4', seasons: day2},
+    {id: 4, day: 'Thứ 5', seasons: day3},
+    {id: 5, day: 'Thứ 6', seasons: day4},
+    {id: 6, day: 'Thứ 7', seasons: day5},
+    {id: 7, day: 'Chủ nhật', seasons: day6},
   ];
 
   const submit = () => {
@@ -200,7 +200,6 @@ const UpdateWorkSession = ({navigation}) => {
         'Content-Type': 'application/json',
       },
     };
-    console.log('data: ', data);
 
     axios(config)
       .then(function (response) {

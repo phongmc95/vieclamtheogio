@@ -21,7 +21,7 @@ export default function ProfileScreen() {
   const [index, setIndex] = useState(0);
   const userId = useSelector(state => state.Authen);
   const [user, setUser] = useState({name: null});
-  const da_ta=useSelector(state => state.ProfileEPl.data)
+  const da_ta = useSelector(state => state.ProfileEPl.data);
   useFocusEffect(
     useCallback(() => {
       var config = {
@@ -87,16 +87,17 @@ export default function ProfileScreen() {
       />
     </View>
   );
-  console.log(user);
   return (
     <View style={styles.container}>
       <Header title="hồ sơ" />
       <ScrollView>
         <View style={styles.content}>
           <View style={styles.center}>
-            <Image style={styles.avatar} source={da_ta.user?.avatar?
-              {uri:da_ta.user?.avatar}:images.avatar} />
-            <Text style={styles.txtAvatar}>{da_ta?.user.name}</Text>
+            <Image
+              style={styles.avatar}
+              source={user?.avatar ? {uri: user?.avatar} : images.avatar}
+            />
+            <Text style={styles.txtAvatar}>{user?.name}</Text>
           </View>
           <View>
             {/* <Text style={styles.txtProgress}>

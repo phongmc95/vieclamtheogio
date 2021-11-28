@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -15,7 +15,16 @@ import icons from '../../constant/icons';
 import images from '../../constant/images';
 
 export default function ListJobScreen({navigation, route}) {
-  const {list} = route.params;
+  const {list, title} = route.params;
+  const [listJob, setListJob] = useState('');
+
+  useEffect(() => {
+    const filter = list.filter(item => item.career === title);
+    setListJob(filter);
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const renderItem = ({item}) => (
     <TouchableOpacity
       onPress={() => navigation.navigate('JobDetail', {id: item._id})}>
@@ -29,7 +38,7 @@ export default function ListJobScreen({navigation, route}) {
             <Text style={[styles.txtTitleJob]}>
               {item.job_posting_position}
             </Text>
-            <Text style={styles.txtAddress}>{item?.user?.name}</Text>
+            <Text style={styles.txtAddress}>{item?.career}</Text>
             <View style={styles.row}>
               <Image style={styles.iconJob} source={icons.bag} />
               <Text style={styles.txtStatus}>{item.working_form}</Text>
@@ -52,7 +61,7 @@ export default function ListJobScreen({navigation, route}) {
       <TitleBasic title="danh sách việc" />
       <View style={styles.padding}>
         <FlatList
-          data={list}
+          data={title === '' ? list : listJob}
           keyExtractor={item => item._id}
           renderItem={renderItem}
         />

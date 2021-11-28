@@ -28,7 +28,7 @@ export default function SkillPersonalScreen({data}) {
   const renderEmptyItem = () => {
     return (
       <View style={{width: '85%'}}>
-        <Text style={styles.txtProgress}>Chưa cập nhật</Text>
+        <Text style={styles.txtNoUpdate}>Chưa cập nhật</Text>
       </View>
     );
   };
@@ -92,4 +92,10 @@ const styles = StyleSheet.create({
     marginVertical: 0,
   }),
   contant: {width: '85%', flexDirection: 'row', flexWrap: 'wrap'},
+  txtNoUpdate: {
+    fontSize: scale(20),
+    fontFamily: fonts.BOLD,
+    marginTop: scale(5),
+    marginLeft: scale(10),
+  },
 });

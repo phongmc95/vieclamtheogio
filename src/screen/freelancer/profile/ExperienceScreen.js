@@ -40,7 +40,7 @@ export default function ExperienceScreen({data}) {
     return (
       <View style={styles.box}>
         <View style={{width: '85%'}}>
-          <Text style={styles.txtProgress}>Chưa cập nhật</Text>
+          <Text style={styles.txtNoUpdate}>Chưa cập nhật</Text>
         </View>
         <View>
           <TouchableOpacity
@@ -105,5 +105,11 @@ const styles = StyleSheet.create({
     height: scale(20),
     marginVertical: scale(5),
     marginLeft: scale(20),
+  },
+  txtNoUpdate: {
+    fontSize: scale(20),
+    fontFamily: fonts.BOLD,
+    marginTop: scale(5),
+    marginLeft: scale(10),
   },
 });

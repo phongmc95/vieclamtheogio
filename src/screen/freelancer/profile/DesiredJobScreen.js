@@ -93,6 +93,5 @@ const styles = StyleSheet.create({
   icon: {
     width: scale(20),
     height: scale(20),
-    marginTop: scale(5),
   },
 });

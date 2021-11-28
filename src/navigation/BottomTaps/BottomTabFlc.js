@@ -5,9 +5,10 @@ import {scale} from 'react-native-size-matters';
 import {HomeICON, UVICON, ChatICON, ProfileICON} from '@assets/icon';
 import HomeScreen from '../../screen/freelancer/HomeScreen';
 import ProfileScreen from '../../screen/freelancer/ProfileScreen';
-import ChatScreen from '../../screen/freelancer/ChatScreen';
 import ManageFlc from '../../screen/freelancer/ManageFlc';
 import {isIos} from '../../Utils/CheckDevice';
+import JobPass from '../../screen/freelancer/job/JobPass';
+import {NTDICON} from '../../../assets/icon';
 
 const Tab = createBottomTabNavigator();
 const BottomTabFlc = () => {
@@ -46,8 +47,8 @@ const BottomTabFlc = () => {
                     : styles.viewIconTab
                 }>
                 <HomeICON
-                  width={21}
-                  height={19}
+                  width={focused ? 30 : 21}
+                  height={focused ? 28 : 19}
                   color={focused ? '#307DF1' : 'gray'}
                 />
               </View>
@@ -80,8 +81,8 @@ const BottomTabFlc = () => {
                     : styles.viewIconTab
                 }>
                 <ProfileICON
-                  width={21}
-                  height={19}
+                  width={focused ? 30 : 21}
+                  height={focused ? 28 : 19}
                   color={focused ? '#307DF1' : 'gray'}
                 />
               </View>
@@ -94,8 +95,8 @@ const BottomTabFlc = () => {
         }}
       />
       <Tab.Screen
-        name="Chat"
-        component={ChatScreen}
+        name="Việc làm ứng tuyển"
+        component={JobPass}
         options={{
           tabBarIcon: ({focused}) => (
             <View style={styles.viewIcon}>
@@ -112,15 +113,17 @@ const BottomTabFlc = () => {
                       ]
                     : styles.viewIconTab
                 }>
-                <ChatICON
-                  width={21}
-                  height={19}
+                <NTDICON
+                  width={focused ? 30 : 21}
+                  height={focused ? 28 : 19}
                   color={focused ? '#307DF1' : 'gray'}
                 />
               </View>
 
               <Text>
-                {focused ? <Text style={styles.blue}>Trò chuyện</Text> : null}
+                {focused ? (
+                  <Text style={styles.blue}>Việc làm ứng tuyển</Text>
+                ) : null}
               </Text>
             </View>
           ),
@@ -146,8 +149,8 @@ const BottomTabFlc = () => {
                     : styles.viewIconTab
                 }>
                 <UVICON
-                  width={21}
-                  height={19}
+                  width={focused ? 30 : 21}
+                  height={focused ? 28 : 19}
                   color={focused ? '#307DF1' : 'gray'}
                 />
               </View>
@@ -169,7 +172,8 @@ const styles = StyleSheet.create({
   viewIconTab: {
     width: scale(40),
     height: scale(40),
-    backgroundColor: '#EBEBEB', borderRadius: scale(50),
+    backgroundColor: '#EBEBEB',
+    borderRadius: scale(50),
     alignContent: 'center',
     alignItems: 'center',
     justifyContent: 'center',

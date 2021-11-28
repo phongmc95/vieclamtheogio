@@ -1,12 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import TitleBasic from '@components/title/TitleBasic';
 import icons from '@constant/icons';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import listJob from '@data/ListJob';
 import fonts from '../../../constant/fonts';
 import colors from '../../../constant/colors';
+import Header from '../../../components/title/Header';
 
 export default function JobPass() {
   const renderItem = ({item}) => (
@@ -37,7 +37,7 @@ export default function JobPass() {
 
   return (
     <View style={styles.container}>
-      <TitleBasic title="việc làm đã ứng tuyển" />
+      <Header title="việc làm đã ứng tuyển" />
       <SwipeListView
         data={listJob}
         keyExtractor={item => item.id}
@@ -72,13 +72,6 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.5,
     shadowRadius: 1,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.12,
-    shadowRadius: 60,
     elevation: 5,
     marginVertical: scale(10),
     marginLeft: scale(8),

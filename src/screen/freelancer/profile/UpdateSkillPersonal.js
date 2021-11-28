@@ -26,7 +26,6 @@ export default function UpdateDesiredJob({navigation}) {
         'Content-Type': 'application/json',
       },
     };
-    console.log('data: ', data);
 
     axios(config)
       .then(function (response) {

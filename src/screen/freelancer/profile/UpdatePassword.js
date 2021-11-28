@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -14,14 +14,57 @@ import icons from '@constant/icons';
 import Modal from 'react-native-modal';
 import images from '@constant/images';
 import Button from '@components/Button/Button';
+import axios from 'axios';
+import ModalStyle from '../../../components/ModalStyle';
 
-export default function UpdatePassword() {
+export default function UpdatePassword({navigation}) {
   const [modal, setModal] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
   const [check3, setCheck3] = useState(false);
+  const [oldPass, setOldPass] = useState('');
+  const [newPass, setNewPass] = useState('');
+  const [rePass, setRePass] = useState('');
+  const [error, setError] = useState('');
+
   const toggleModal = () => {
     setModal(!modal);
+  };
+
+  const toggleErrorModal = () => {
+    setErrorModal(!errorModal);
+  };
+
+  const submit = () => {
+    if (!oldPass || !newPass || !rePass) {
+      toggleErrorModal();
+      setError('Các ô nhập là bắt buộc không được để trống! ');
+    } else if (rePass !== newPass) {
+      toggleErrorModal();
+      setError('Mật khẩu không đúng. Vui lòng nhập lại ! ');
+    } else {
+      var data = {
+        oldPassword: oldPass,
+        newPassword: newPass,
+      };
+      console.log('data: ', data);
+
+      var config = {
+        method: 'patch',
+        url: 'https://fpt-jobs-api.herokuapp.com/api/v1/users/updateUserPassword',
+        data: data,
+      };
+
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          toggleModal();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
   return (
     <View style={styles.container}>
@@ -29,6 +72,8 @@ export default function UpdatePassword() {
       <View style={{marginVertical: scale(20)}}>
         <View style={styles.boxTextInput}>
           <TextInput
+            value={oldPass}
+            onChangeText={setOldPass}
             secureTextEntry={check1 ? false : true}
             style={styles.textInput}
             placeholder="Mật khẩu cũ"
@@ -42,9 +87,11 @@ export default function UpdatePassword() {
         </View>
         <View style={styles.boxTextInput}>
           <TextInput
+            value={newPass}
+            onChangeText={setNewPass}
             secureTextEntry={check2 ? false : true}
             style={styles.textInput}
-            placeholder="Mật khẩu cũ"
+            placeholder="Mật khẩu mới"
           />
           <TouchableOpacity onPress={() => setCheck2(!check2)}>
             <Image
@@ -55,9 +102,11 @@ export default function UpdatePassword() {
         </View>
         <View style={styles.boxTextInput}>
           <TextInput
+            value={rePass}
+            onChangeText={setRePass}
             secureTextEntry={check3 ? false : true}
             style={styles.textInput}
-            placeholder="Mật khẩu cũ"
+            placeholder="Nhập lại mật khẩu mới"
           />
           <TouchableOpacity onPress={() => setCheck3(!check3)}>
             <Image
@@ -68,7 +117,7 @@ export default function UpdatePassword() {
         </View>
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <TouchableOpacity onPress={toggleModal} on>
+        <TouchableOpacity onPress={submit}>
           <Buttonn
             title="Đổi mật khẩu"
             color="#fff"
@@ -79,7 +128,7 @@ export default function UpdatePassword() {
         <Button title="Hủy" color="#307df1" bg="#fff" />
       </View>
 
-      <Modal isVisible={modal} onBackdropPress={toggleModal}>
+      <Modal isVisible={modal} onBackdropPress={() => navigation.goBack()}>
         <View
           style={{
             width: scale(295),
@@ -103,6 +152,11 @@ export default function UpdatePassword() {
           <Image source={images.privacy} />
         </View>
       </Modal>
+      <ModalStyle
+        isVisible={errorModal}
+        onBackdropPress={toggleErrorModal}
+        content={error}
+      />
     </View>
   );
 }
@@ -122,13 +176,6 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.5,
     shadowRadius: 1,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
     elevation: 5,
     marginLeft: scale(10),
     borderRadius: scale(5),
