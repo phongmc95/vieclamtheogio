@@ -2,6 +2,9 @@ import {
   FETCH_POST_ADD_JOB_REQUEST,
   FETCH_POST_ADD_JOB_SUCCESS,
   FETCH_POST_ADD_JOB_ERROR,
+  FETCH_GET_JOB_REQUEST,
+  FETCH_GET_JOB_SUCCESS,
+  FETCH_GET_JOB_ERROR,
 } from '../actions/type/Type';
 
 const contact_info = {
@@ -69,6 +72,24 @@ const POSTJOB = (state = initialState, action) => {
         data: action.data,
       };
     case FETCH_POST_ADD_JOB_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        message: action.message,
+      };
+    case FETCH_GET_JOB_REQUEST:
+      return {
+        ...state,
+        requesting: true,
+      };
+    case FETCH_GET_JOB_SUCCESS:
+      return {
+        ...state,
+        requesting: false,
+        success: true,
+        data: action.data,
+      };
+    case FETCH_GET_JOB_ERROR:
       return {
         ...state,
         requesting: false,
