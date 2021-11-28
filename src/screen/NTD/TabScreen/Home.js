@@ -110,7 +110,8 @@ const Home = () => {
   return (
     <View style={styles.contener}>
       {/* tusBar */}
-      <HeaderStyle type="home" Title={data?.user?.name} uri={data?.user?.avatar?data?.user?.avatar:data} />
+      <HeaderStyle type="home" Title={data?.user?.name}
+                   uri={data?.user?.avatar?data?.user?.avatar:null} />
       {/* main */}
       <ScrollView style={{padding: scale(10),marginBottom:scale(30)}}>
         <View style={styles.main}>

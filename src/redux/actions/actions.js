@@ -281,12 +281,12 @@ export const UpdateProfileEPl =
 export const PostLogo = (logo, email) => async dispatch => {
   try {
     dispatch({type: LOGO_REQUEST});
-    const url = '/users/picture-upload';
+    const url = 'users/picture-upload';
     const data = JSON.stringify({
-      logo: logo,
+      photo: logo,
       email: email,
     });
-    console.log('data: ', data);
+
     const response = await axiosClient.post(url, data);
 
     dispatch({

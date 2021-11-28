@@ -30,7 +30,7 @@ const Resgister = ({navigation, route}) => {
   const checkLogin = useSelector(state => state.Authen.check_type);
   const success = useSelector(state => state.Authen.is_register);
   const load = useSelector(state => state.Authen.requesting);
-
+  console.log(checkLogin);
   const dispatch = useDispatch();
   const [phone, setPhone] = useState('');
   const [pass, setPass] = useState('');
@@ -184,7 +184,7 @@ const Resgister = ({navigation, route}) => {
               value={address}
               onChangeText={text => setAddress(text)}
             />
-            {checkLogin === 'flc' && (
+            {checkLogin === 'flc' ? (
               <View>
                 <TextInputSelected
                   Label="Nơi làm việc mong muốn"
@@ -199,7 +199,7 @@ const Resgister = ({navigation, route}) => {
                   onPress={handleOpen}
                 />
               </View>
-            )}
+            ):null}
           </View>
 
           <ButtonStyle Title="Xác nhận" onPress={submit} />

@@ -26,7 +26,6 @@ import {validateEmail, isVietnamesePhoneNumber} from '../../../base/Validate';
 const UpdateInfoNTD = ({navigation}) => {
   const dispatch = useDispatch();
   const _id = useSelector(state => state.Authen.data.user.userId);
-  //const _id = useSelector(state => state.Authen.data.user.userId);
   const data = useSelector(state => state);
   const updateEmail = useSelector(state => state.ProfileEPl.data.user.email);
   console.log('Data: ', data);
@@ -66,6 +65,7 @@ const UpdateInfoNTD = ({navigation}) => {
         intro,
       ),
     );
+    updateLogo()
   };
   const updateLogo = () => {
     dispatch(PostLogo(logo, updateEmail));
