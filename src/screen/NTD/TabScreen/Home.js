@@ -14,12 +14,14 @@ import Button from '../../../components/Button/Button';
 import HeaderStyle from '../../../components/HeaderStyle';
 import colors from '../../../constant/colors';
 import fonts from '../../../constant/fonts';
+import { useIsFocused } from '@react-navigation/native';
+
 import {
   ButtonItemBoqua,
   ButtonItemLuu,
 } from '../../../components/Button/ButtonItem';
-import {useDispatch, useSelector} from 'react-redux';
-import {ProfileEPl} from '../../../redux/actions/actions';
+import { useDispatch, useSelector } from "react-redux";
+import { ProfileEPl } from "../../../redux/actions/actions";
 const jobs = [
   {
     id: 1,
@@ -42,12 +44,13 @@ const emp = [
   },
 ];
 const Home = () => {
-  const dispatch = useDispatch();
-  const _id = useSelector(state => state.Authen.data);
-  const data = useSelector(state => state.ProfileEPl.data);
-  useEffect(() => {
-    dispatch(ProfileEPl(_id?.user?.userId));
-  }, []);
+  const isFocused = useIsFocused();
+  const  dispatch= useDispatch();
+  const _id=useSelector(state => state.Authen.data);
+  const data=useSelector(state => state.ProfileEPl.data);
+  useEffect(()=>{
+    dispatch(ProfileEPl(_id.user?.userId))
+  },[isFocused])
   console.log(_id);
   const renderItem = ({item}) => (
     <View style={styles.ViewFlatlist}>
@@ -110,13 +113,10 @@ const Home = () => {
   return (
     <View style={styles.contener}>
       {/* tusBar */}
-      <HeaderStyle
-        type="home"
-        Title={data?.user?.name}
-        uri={data?.user?.avatar ? data?.user?.avatar : null}
-      />
+      <HeaderStyle type="home" Title={data?.user?.name}
+                   uri={data?.user?.avatar?data?.user?.avatar:null} />
       {/* main */}
-      <ScrollView style={{padding: scale(10), marginBottom: scale(30)}}>
+      <ScrollView style={{padding: scale(10),marginBottom:scale(30)}}>
         <View style={styles.main}>
           <Text style={styles.title}>Thống kê tin đăng</Text>
           {/* view1 */}

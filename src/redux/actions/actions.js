@@ -111,7 +111,7 @@ export const loadRegisterFreelancer =
         industry: industry,
         job_adress: job_adress,
       });
-      console.log('data: ', data);
+
 
       const response = await axiosClient.post(url, data);
 
@@ -136,7 +136,7 @@ export const loadOTP = (email, otp) => async dispatch => {
       email: email,
       otp: otp,
     });
-    console.log('data: ', data);
+
 
     const response = await axiosClient.post(url, data);
 
@@ -161,7 +161,7 @@ export const loadForgotOTP = (email, otp) => async dispatch => {
       email: email,
       otp: otp,
     });
-    console.log('data: ', data);
+
 
     const response = await axiosClient.post(url, data);
 
@@ -185,7 +185,7 @@ export const loadForgetPass = email => async dispatch => {
     const data = JSON.stringify({
       email: email,
     });
-    console.log('data: ', data);
+
 
     const response = await axiosClient.post(url, data);
 
@@ -210,7 +210,7 @@ export const changePass = (email, password) => async dispatch => {
       email: email,
       password: password,
     });
-    console.log('data: ', data);
+
 
     const response = await axiosClient.post(url, data);
 
@@ -243,32 +243,38 @@ export const ProfileEPl = params => async dispatch => {
 };
 export const UpdateProfileEPl =
   (
-    idEmp,
+
     name,
     company_size,
     tax_code,
     address,
     city,
-    // district,
-    phone,
     website,
     description_company,
+    phone,
+    email,
+    idEmp
   ) =>
   async dispatch => {
     try {
       dispatch({type: PROFILE_UPDATE_EPL_REQUEST});
       const url = `users/updateUser/?${idEmp}`;
       const data = JSON.stringify({
-        idEmp,
+
         name,
         company_size,
         tax_code,
         address,
         city,
-        phone,
+
         website,
         description_company,
+        phone,
+        email
       });
+
+
+
       const response = await axiosClient.patch(url, data);
       dispatch({type: PROFILE_UPDATE_EPL_SUCCESS, data: response});
     } catch (err) {
@@ -350,7 +356,7 @@ export const AddPostJob =
         contact_info,
         createdBy,
       });
-      console.log('data: ', data);
+
       const response = await axiosClient.post(url, data);
 
       dispatch({
