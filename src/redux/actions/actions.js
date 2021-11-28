@@ -32,14 +32,14 @@ import {
   FETCH_POST_ADD_JOB_ERROR,
 } from './type/Type';
 
-export const loadPostsLogIn = (email, pass, role) => async dispatch => {
+export const loadPostsLogIn = (email, pass) => async dispatch => {
+
   try {
     dispatch({type: FETCH_POST_LOGIN_REQUEST});
     const url = 'auth/login';
     const data = JSON.stringify({
       email: email,
       password: pass,
-      role: role,
     });
     const response = await axiosClient.post(url, data);
 
@@ -234,6 +234,7 @@ export const ProfileEPl = params => async dispatch => {
     const response = await axiosClient.get(url);
     dispatch({type: PROFILE_EPL_SUCCESS, data: response});
   } catch (err) {
+
     dispatch({
       type: PROFILE_EPL_ERROR,
       message: err,
