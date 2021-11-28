@@ -18,6 +18,7 @@ import {jobs} from '../../data/Jobs';
 import {useDispatch, useSelector} from 'react-redux';
 import {ProfileEPl} from '../../redux/actions/actions';
 import {useIsFocused} from '@react-navigation/core';
+import images from "../../constant/images";
 
 export default function HomeScreen({navigation}) {
   const isFocused = useIsFocused();
@@ -52,7 +53,7 @@ export default function HomeScreen({navigation}) {
           <Image
             style={styles.logoJob}
             source={
-              item?.user?.avatar ? {uri: item?.user?.avatar} : icons.logoHCI
+              item?.user?.avatar ? {uri: item?.user?.avatar} : images.avatar
             }
           />
           <View style={styles.viewTitle}>
