@@ -122,7 +122,7 @@ const BottomTabFlc = () => {
 
               <Text>
                 {focused ? (
-                  <Text style={styles.blue}>Việc làm ứng tuyển</Text>
+                  <Text style={styles.blue}>Ứng tuyển</Text>
                 ) : null}
               </Text>
             </View>
