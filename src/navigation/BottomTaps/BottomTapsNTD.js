@@ -130,38 +130,7 @@ const BottomTapsNTD = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="Chats"
-        component={Chat_Screen}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <View style={styles.viewIcon}>
-              <View
-                style={
-                  focused
-                    ? [
-                        styles.viewIconTab,
-                        {
-                          marginTop: scale(-50),
-                          width: scale(60),
-                          height: scale(60),
-                        },
-                      ]
-                    : styles.viewIconTab
-                }>
-                <ChatICON
-                  width={20}
-                  height={19}
-                  color={focused ? '#307DF1' : 'gray'}
-                />
-              </View>
-              <Text>
-                {focused ? <Text style={styles.blue}>Trò chuyện</Text> : <></>}
-              </Text>
-            </View>
-          ),
-        }}
-      />
+
       <Tab.Screen
         name="Profile"
         component={Manage_Screen}

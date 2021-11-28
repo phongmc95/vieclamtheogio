@@ -14,11 +14,24 @@ import Logout from '@components/Logout';
 import fonts from '@constant/fonts';
 import colors from '../../constant/colors';
 import {isIos} from '../../Utils/CheckDevice';
+import Modal from "react-native-modal";
+import Button from "../../components/Button/Button";
+import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { log_out } from "../../redux/actions/actions";
 
-export default function ManageFlc({navigation}) {
+export default function ManageFlc({}) {
   const [modal, setModal] = useState(false);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const logout = () => {
+    dispatch(log_out());
+    navigation.navigate('Intro');
+    setModal(false);
+
+  };
   const toggleModal = () => {
-    setModal(!modal);
+    setModal(false);
   };
   return (
     <View style={styles.container}>
@@ -57,11 +70,49 @@ export default function ManageFlc({navigation}) {
       </View>
       <Image style={{marginTop: scale(10)}} source={images.jobhunt} />
       <Logout on={modal} off={toggleModal} />
+      <Modal isVisible={modal} >
+        <View style={styles.containerMD}>
+          <Text style={styles.contentMD}>Bạn có chắc chắn muốn đăng xuất?</Text>
+
+          <View style={styles.buttonMD}>
+            <TouchableOpacity onPress={logout}>
+              <Button
+                title="Đăng xuất"
+                color="#fff"
+                bg="#307df1"
+                right={scale(5)}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={toggleModal}>
+              <Button title="Hủy" color="#307df1" bg="#fff" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  containerMD: {
+    width: scale(295),
+    height: scale(173),
+    borderRadius: scale(20),
+    borderWidth: 1,
+    borderColor: '#307df1',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    paddingVertical: scale(20),
+    paddingHorizontal: scale(20),
+  },
+  contentMD: {
+    fontSize: scale(18),
+    color: '#307df1',
+    marginBottom: scale(10),
+    textAlign: 'center',
+    fontFamily: fonts.BOLD,
+  },
+  buttonMD: {flexDirection: 'row', top: '15%'},
   container: {
     flex: 1,
     backgroundColor: colors.LIGHT_WHITE,

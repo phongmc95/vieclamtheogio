@@ -40,7 +40,7 @@ export default function Logout(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  containerMD: {
     width: scale(295),
     height: scale(173),
     borderRadius: scale(20),
@@ -51,12 +51,12 @@ const styles = StyleSheet.create({
     paddingVertical: scale(20),
     paddingHorizontal: scale(20),
   },
-  content: {
+  contentMD: {
     fontSize: scale(18),
     color: '#307df1',
     marginBottom: scale(10),
     textAlign: 'center',
     fontFamily: fonts.BOLD,
   },
-  button: {flexDirection: 'row', top: '15%'},
+  buttonMD: {flexDirection: 'row', top: '15%'},
 });

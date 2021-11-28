@@ -88,29 +88,8 @@ const Resgister = ({navigation, route}) => {
     setIsValidate(!isValidate);
   };
 
-  const options = {
-    mediaType: 'photo',
-    // includeBase64: true,
-    maxWidth: 2048,
-    maxHeight: 2048,
-  };
-  const openCamera = () => {
-    ImagePicker.launchCamera(options, response => {
-      if (response.didCancel || response.errorCode) {
-        return;
-      }
-      setLogo(response);
-    });
-  };
-  const openLibry = () => {
-    ImagePicker.launchImageLibrary(options, response => {
-      if (response.didCancel || response.errorCode) {
-        return;
-      }
 
-      setLogo(response);
-    });
-  };
+
   const selectItem = item => {
     setDesiredProfession(item);
     handleOpen();
@@ -133,26 +112,12 @@ const Resgister = ({navigation, route}) => {
     <View>
       <ScrollView>
         <View style={styles.contener}>
-          <Text style={styles.title}>Đăng ký nhà tuyển dụng</Text>
+          <Text style={styles.title}>Đăng ký {checkLogin === 'flc'?'ứng viên':'nhà tuyển dụng'}</Text>
           <Text style={styles.title2}>
             Nhập đầy đủ thông tin để hoàn thành đăng ký
           </Text>
-          <View style={styles.camera}>
-            <Image
-              style={styles.avatar}
-              source={
-                !logo
-                  ? require('../../../assets/images/avatar_icon.png')
-                  : {uri: logo.assets[0].uri}
-              }
-            />
-            <TouchableOpacity style={styles.btncamera} onPress={openCamera}>
-              <CameraIcon />
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity onPress={openLibry}>
-            <Text style={styles.openLibry}>Chọn ảnh</Text>
-          </TouchableOpacity>
+
+
           <View style={styles.form}>
             <TextInputStyle
               Label="Họ và tên"
@@ -202,7 +167,7 @@ const Resgister = ({navigation, route}) => {
             ):null}
           </View>
 
-          <ButtonStyle Title="Xác nhận" onPress={submit} />
+          <ButtonStyle Title="Xác nhận" onPress={submit} styleBtn={{width:scale(130)}} />
           <View style={styles.row}>
             <Text style={styles.txt_login}>Bạn đã có tài khoản? </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
@@ -251,6 +216,7 @@ const styles = StyleSheet.create({
     color: '#4C5BD4',
     marginTop: '20%',
     fontFamily: fonts.NORMAL,
+    fontWeight:'bold'
   },
   title2: {
     fontWeight: '400',

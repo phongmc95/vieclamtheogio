@@ -50,11 +50,11 @@ export default function HomeScreen({navigation}) {
         <View style={styles.row}>
           <Image
             style={styles.logoJob}
-            source={item.user.avatar ? {uri: item.user.avatar} : icons.logoHCI}
+            source={item?.user?.avatar ? {uri: item.user.avatar} : icons.logoHCI}
           />
           <View style={styles.viewTitle}>
-            <Text style={styles.txtTitleJob}>{item.job_posting_position}</Text>
-            <Text style={styles.txtAddress}>{item.user.name}</Text>
+            <Text style={styles.txtTitleJob}>{item?.job_posting_position}</Text>
+            <Text style={styles.txtAddress}>{item?.user?.name}</Text>
           </View>
           <Image style={styles.iconHeart} source={icons.heart} />
         </View>

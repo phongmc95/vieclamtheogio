@@ -21,8 +21,8 @@ const HeaderStyle = ({Logo, Title, type,uri}) => {
 
             <Text style={styles.NameNTD}>{Title}</Text>
           </View>
-          <TouchableOpacity style={styles.Notification}>
-            <NotificationICON />
+          <TouchableOpacity >
+
           </TouchableOpacity>
         </View>
       ) : type == 'nomal' ? (
