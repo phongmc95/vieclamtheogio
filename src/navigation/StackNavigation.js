@@ -42,9 +42,10 @@ import {Provider} from 'react-redux';
 import UpdateDesiredJob from '../screen/freelancer/profile/UpdateDesiredJob';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistor, store} from '../redux/store/Store';
-
+import {StatusBar} from 'react-native';
 const Stack = createStackNavigator();
 const StackNavigation = () => {
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

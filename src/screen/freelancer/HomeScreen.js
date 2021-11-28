@@ -8,8 +8,8 @@ import {
   View,
   Image,
   TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+  ScrollView, StatusBar,
+} from "react-native";
 import {FlatList} from 'react-native-gesture-handler';
 import {scale} from 'react-native-size-matters';
 import TitleHome from '../../components/title/TitleHome';
@@ -78,6 +78,7 @@ export default function HomeScreen({navigation}) {
   };
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       <TitleHome name={data?.user?.name} />
       <ScrollView style={styles.scroll}>
         <View style={styles.viewCategory}>

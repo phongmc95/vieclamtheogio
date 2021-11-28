@@ -1,6 +1,6 @@
 import fonts from '@constant/fonts';
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import { StyleSheet, Text, View, Image, StatusBar } from "react-native";
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '../../components/title/TitleBasic';
 import icons from '../../constant/icons';
@@ -28,6 +28,7 @@ export default function NotificationScreen() {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       <TitleBasic title="Thông báo" />
       {items.map(item => (
         <View style={styles.content}>

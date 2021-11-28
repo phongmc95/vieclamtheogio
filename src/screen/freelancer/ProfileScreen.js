@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import { StyleSheet, Text, View, Image, StatusBar } from "react-native";
 import {scale} from 'react-native-size-matters';
 import images from '../../constant/images';
 import * as Progress from 'react-native-progress';
@@ -89,6 +89,7 @@ export default function ProfileScreen() {
   );
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       <Header title="hồ sơ" />
       <ScrollView>
         <View style={styles.content}>

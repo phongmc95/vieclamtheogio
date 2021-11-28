@@ -6,8 +6,8 @@ import {
   Image,
   TouchableOpacity,
   SafeAreaView,
-  ImageBackground,
-} from 'react-native';
+  ImageBackground, StatusBar,
+} from "react-native";
 import {scale} from 'react-native-size-matters';
 import icons from '../../constant/icons';
 import images from '../../constant/images';
@@ -25,6 +25,7 @@ export default function ManageFlc({navigation}) {
   };
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       <View style={styles.content}>
         <ImageBackground style={styles.imgBalloon} source={images.balloon} />
         <View style={styles.avatar}>
