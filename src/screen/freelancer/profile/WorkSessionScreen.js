@@ -58,6 +58,9 @@ export default function WorkSessionScreen({item}) {
         renderItem={renderItem}
         ListEmptyComponent={renderEmpty}
         scrollEnabled={true}
+        ListFooterComponent={() => <View style={{marginBottom:scale(250)}}/> }
+        showsVerticalScrollIndicator ={false}
+        showsHorizontalScrollIndicator={false}
       />
     </View>
   );
