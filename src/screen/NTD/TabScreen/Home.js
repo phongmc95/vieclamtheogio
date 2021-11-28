@@ -14,6 +14,8 @@ import Button from '../../../components/Button/Button';
 import HeaderStyle from '../../../components/HeaderStyle';
 import colors from '../../../constant/colors';
 import fonts from '../../../constant/fonts';
+import { useIsFocused } from '@react-navigation/native';
+
 import {
   ButtonItemBoqua,
   ButtonItemLuu,
@@ -42,12 +44,13 @@ const emp = [
   },
 ];
 const Home = () => {
+  const isFocused = useIsFocused();
   const  dispatch= useDispatch();
   const _id=useSelector(state => state.Authen.data);
   const data=useSelector(state => state.ProfileEPl.data);
   useEffect(()=>{
     dispatch(ProfileEPl(_id.user?.userId))
-  },[])
+  },[isFocused])
   console.log(_id);
   const renderItem = ({item}) => (
     <View style={styles.ViewFlatlist}>

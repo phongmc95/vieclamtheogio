@@ -17,14 +17,15 @@ import icons from '../../constant/icons';
 import {jobs} from '../../data/Jobs';
 import { useDispatch, useSelector } from "react-redux";
 import { ProfileEPl } from "../../redux/actions/actions";
-
+import { useIsFocused } from '@react-navigation/native';
 export default function HomeScreen({navigation}) {
+  const isFocused = useIsFocused();
   const _id=useSelector(state => state.Authen.data);
   const  dispatch= useDispatch();
   const data=useSelector(state => state.ProfileEPl.data);
   useEffect(()=>{
     dispatch(ProfileEPl(_id.user?.userId))
-  },[])
+  },[isFocused])
   const [listJobs, setListJobs] = useState([]);
   console.log('listJobs: ', data);
   useEffect(() => {

@@ -25,10 +25,9 @@ import {validateEmail, isVietnamesePhoneNumber} from '../../../base/Validate';
 
 const UpdateInfoNTD = ({navigation}) => {
   const dispatch = useDispatch();
-  const _id = useSelector(state => state.Authen.data.user.userId);
-  const data = useSelector(state => state);
-  const updateEmail = useSelector(state => state.ProfileEPl.data.user.email);
-  console.log('Data: ', data);
+
+  const datalocal = useSelector(state => state.ProfileEPl.data);
+  console.log(datalocal);
   const [name, setName] = useState('');
   const [quyMo, setquyMo] = useState('');
   const [mst, setMst] = useState('');
@@ -54,40 +53,45 @@ const UpdateInfoNTD = ({navigation}) => {
   const onUpdateProfile = () => {
     dispatch(
       UpdateProfileEPl(
-        _id,
+
         name,
         quyMo,
         mst,
         diaChi,
-        province,
-        phone,
+        province.title,
+
         web,
         intro,
+        phone,
+        datalocal.user.email,
+        datalocal.user._id
       ),
     );
-    updateLogo()
+    console.log('ababa');
+    // updateLogo()
   };
   const updateLogo = () => {
     dispatch(PostLogo(logo, updateEmail));
   };
   const onAddJob = () => {
-    if (
-      !name ||
-      !quyMo ||
-      !mst ||
-      !diaChi ||
-      !province ||
-      !phone ||
-      !intro
-    ) {
-      setModal(true);
-      setError('Các ô nhập là bắt buộc không được để trống! ');
-    } else if (!isVietnamesePhoneNumber(phone)) {
-      setModal(true);
-      setError('Số điện thoại không đúng định dạng. Vui lòng nhập lại !');
-    } else {
-      onUpdateProfile();
-    }
+    // if (
+    //   !name ||
+    //   !quyMo ||
+    //   !mst ||
+    //   !diaChi ||
+    //   !province ||
+    //   !phone ||
+    //   !intro
+    // ) {
+    //   setModal(true);
+    //   setError('Các ô nhập là bắt buộc không được để trống! ');
+    // } else if (!isVietnamesePhoneNumber(phone)) {
+    //   setModal(true);
+    //   setError('Số điện thoại không đúng định dạng. Vui lòng nhập lại !');
+    // } else {
+    //   onUpdateProfile();
+    // }
+   onUpdateProfile()
   };
   const openLibry = () => {
     ImagePicker.launchImageLibrary(options, response => {
@@ -106,6 +110,7 @@ const UpdateInfoNTD = ({navigation}) => {
   const handleSelectProvince = () => {
     setIsProvince(!isProvince);
   };
+  console.log("logo",province.title);
   return (
     <View style={styles.contener}>
       <View style={styles.StatusBar}>
