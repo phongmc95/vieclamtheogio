@@ -15,18 +15,20 @@ import {scale} from 'react-native-size-matters';
 import TitleHome from '../../components/title/TitleHome';
 import icons from '../../constant/icons';
 import {jobs} from '../../data/Jobs';
-import { useDispatch, useSelector } from "react-redux";
-import { ProfileEPl } from "../../redux/actions/actions";
+import {useDispatch, useSelector} from 'react-redux';
+import {ProfileEPl} from '../../redux/actions/actions';
+import {useIsFocused} from '@react-navigation/core';
 
 export default function HomeScreen({navigation}) {
-  const _id=useSelector(state => state.Authen.data);
-  const  dispatch= useDispatch();
-  const data=useSelector(state => state.ProfileEPl.data);
-  useEffect(()=>{
-    dispatch(ProfileEPl(_id.user?.userId))
-  },[])
+  const isFocused = useIsFocused();
+  const _id = useSelector(state => state.Authen.data);
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.ProfileEPl.data);
+  useEffect(() => {
+    dispatch(ProfileEPl(_id?.user?.userId));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [_id, isFocused]);
   const [listJobs, setListJobs] = useState([]);
-  console.log('listJobs: ', data);
   useEffect(() => {
     var config = {
       method: 'get',
@@ -41,7 +43,7 @@ export default function HomeScreen({navigation}) {
         console.log(error);
       });
     return () => {};
-  }, []);
+  }, [isFocused]);
 
   const renderJob = ({item}) => {
     return (
@@ -49,11 +51,13 @@ export default function HomeScreen({navigation}) {
         <View style={styles.row}>
           <Image
             style={styles.logoJob}
-            source={item.user.avatar ? {uri: item.user.avatar} : icons.logoHCI}
+            source={
+              item?.user?.avatar ? {uri: item?.user?.avatar} : icons.logoHCI
+            }
           />
           <View style={styles.viewTitle}>
             <Text style={styles.txtTitleJob}>{item.job_posting_position}</Text>
-            <Text style={styles.txtAddress}>{item.user.name}</Text>
+            <Text style={styles.txtAddress}>{item?.user?.name}</Text>
           </View>
           <Image style={styles.iconHeart} source={icons.heart} />
         </View>
@@ -77,19 +81,20 @@ export default function HomeScreen({navigation}) {
       <TitleHome name={data?.user?.name} />
       <ScrollView style={styles.scroll}>
         <View style={styles.viewCategory}>
-          <View style={styles.row}>
-            <Text style={styles.txtTitle}>Việc làm nổi bật trong ngày</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('JobHot')}>
-              <Text style={styles.txtSeeMore}>Xem thêm</Text>
-            </TouchableOpacity>
-          </View>
-
           <View style={styles.listJob}>
             {jobs.map(item => (
-              <View style={styles.boxCategory}>
-                <Image style={styles.iconCategory} source={item.img} />
-                <Text style={styles.txtCategory}>{item.title}</Text>
-              </View>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('ListJob', {
+                    list: listJobs,
+                    title: item.title,
+                  })
+                }>
+                <View style={styles.boxCategory}>
+                  <Image style={styles.iconCategory} source={item.img} />
+                  <Text style={styles.txtCategory}>{item.title}</Text>
+                </View>
+              </TouchableOpacity>
             ))}
           </View>
           <View>
@@ -97,13 +102,16 @@ export default function HomeScreen({navigation}) {
               <Text style={styles.txtTitle}>Việc làm theo giờ mới nhất</Text>
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate('ListJob', {list: listJobs})
+                  navigation.navigate('ListJob', {
+                    list: listJobs,
+                    title: '',
+                  })
                 }>
                 <Text style={styles.txtSeeMore}>Xem thêm</Text>
               </TouchableOpacity>
             </View>
             <FlatList
-              data={listJobs.slice(0, 5)}
+              data={listJobs.slice(0, 3)}
               keyExtractor={item => item._id}
               renderItem={renderJob}
             />
@@ -158,7 +166,7 @@ const styles = StyleSheet.create({
     marginTop: scale(21),
   },
   txtCategory: {
-    fontSize: scale(12),
+    fontSize: scale(11),
     lineHeight: scale(20),
     color: '#fff',
     marginTop: scale(5),

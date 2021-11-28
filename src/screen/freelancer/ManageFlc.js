@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   SafeAreaView,
+  ImageBackground,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '../../constant/icons';
@@ -14,28 +15,29 @@ import Logout from '@components/Logout';
 import fonts from '@constant/fonts';
 import colors from '../../constant/colors';
 import {isIos} from '../../Utils/CheckDevice';
+import {useSelector} from 'react-redux';
 
 export default function ManageFlc({navigation}) {
   const [modal, setModal] = useState(false);
+  const data = useSelector(state => state.ProfileEPl.data);
   const toggleModal = () => {
     setModal(!modal);
   };
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Image style={styles.imgBalloon} source={images.balloon} />
+        <ImageBackground style={styles.imgBalloon} source={images.balloon} />
         <View style={styles.avatar}>
-          <Image style={styles.imgAvatar} source={images.avatar} />
-          <Text style={styles.txtName}>Hoàng Phong</Text>
+          <Image
+            style={styles.imgAvatar}
+            source={
+              data?.user?.avatar ? {uri: data?.user?.avatar} : images.avatar
+            }
+          />
+          <Text style={styles.txtName}>{data?.user?.name}</Text>
         </View>
       </View>
       <View>
-        <TouchableOpacity onPress={() => navigation.navigate('JobPass')}>
-          <View style={styles.row}>
-            <Image style={styles.iconJob} source={icons.shakehand} />
-            <Text style={styles.txtStatus}>Việc làm đã ứng tuyển</Text>
-          </View>
-        </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('JobSaved')}>
           <View style={styles.row}>
             <Image style={styles.iconJob} source={icons.heart_blue} />
@@ -55,7 +57,16 @@ export default function ManageFlc({navigation}) {
           </View>
         </TouchableOpacity>
       </View>
-      <Image style={{marginTop: scale(10)}} source={images.jobhunt} />
+      <Image
+        style={{
+          width: '100%',
+          alignItems: 'flex-end',
+          flex: 1,
+          marginTop: scale(40),
+          marginBottom: scale(60),
+        }}
+        source={images.jobhunt}
+      />
       <Logout on={modal} off={toggleModal} />
     </View>
   );
@@ -65,7 +76,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.LIGHT_WHITE,
-    // paddingTop: scale(isIos ? 60 : 0),
+    paddingTop: scale(isIos ? 60 : 0),
   },
   iconJob: {
     height: scale(18),
@@ -89,7 +100,9 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: scale(20),
   },
   imgBalloon: {
-    marginLeft: scale(50),
+    width: '100%',
+    height: '100%',
+    marginLeft: scale(15),
   },
   avatar: {position: 'absolute', left: scale(120), top: scale(50)},
   imgAvatar: {
@@ -99,7 +112,7 @@ const styles = StyleSheet.create({
   },
   txtName: {
     fontSize: scale(20),
-    fontFamily: fonts.NORMAL,
+    fontFamily: fonts.BOLD,
     color: '#fff',
     marginTop: scale(10),
     right: scale(20),

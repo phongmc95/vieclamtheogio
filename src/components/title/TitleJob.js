@@ -5,6 +5,7 @@ import {scale} from 'react-native-size-matters';
 import fonts from '../../constant/fonts';
 import icons from '../../constant/icons';
 import images from '../../constant/images';
+import {isIos} from '../../Utils/CheckDevice';
 
 export default function TitleJob(props) {
   const navigation = useNavigation();
@@ -81,7 +82,7 @@ export default function TitleJob(props) {
 
 const styles = StyleSheet.create({
   titleBox: {
-    paddingTop:scale(40),
+    paddingTop: scale(isIos ? 40 : 10),
     paddingHorizontal: scale(20),
     paddingVertical: scale(10),
     backgroundColor: '#307DF1',

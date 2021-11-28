@@ -30,7 +30,6 @@ const Resgister = ({navigation, route}) => {
   const checkLogin = useSelector(state => state.Authen.check_type);
   const success = useSelector(state => state.Authen.is_register);
   const load = useSelector(state => state.Authen.requesting);
-  console.log(checkLogin);
   const dispatch = useDispatch();
   const [phone, setPhone] = useState('');
   const [pass, setPass] = useState('');
@@ -199,7 +198,7 @@ const Resgister = ({navigation, route}) => {
                   onPress={handleOpen}
                 />
               </View>
-            ):null}
+            ) : null}
           </View>
 
           <ButtonStyle Title="Xác nhận" onPress={submit} />

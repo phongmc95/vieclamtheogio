@@ -52,6 +52,22 @@ export default function JobDetailScreen({navigation, route}) {
     }, [id, loading]),
   );
 
+  const apply = () => {
+    var config = {
+      method: 'patch',
+      url: `https://fpt-jobs-api.herokuapp.com/api/v1/jobs/${id}/aplied`,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        toggleModal();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -111,7 +127,7 @@ export default function JobDetailScreen({navigation, route}) {
         logo={data?.job?.user?.avatar}
         title={data?.job?.job_posting_position}
         company={data?.job?.user?.name}
-        deadline={moment(data?.job?.last_date).format('DD/MM/YYYY')}
+        deadline={data?.job?.last_date}
         view={data?.job?.quantity_recruited}
       />
       <View style={{height: height / 1.4}}>
@@ -122,7 +138,7 @@ export default function JobDetailScreen({navigation, route}) {
           onIndexChange={handleIndexChange}
         />
         <View style={styles.content}>
-          <TouchableOpacity onPress={toggleModal}>
+          <TouchableOpacity onPress={apply}>
             <Button
               title="Ứng tuyển"
               color="#fff"

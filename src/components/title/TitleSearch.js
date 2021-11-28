@@ -11,6 +11,7 @@ import {
 import {scale} from 'react-native-size-matters';
 import fonts from '../../constant/fonts';
 import icons from '../../constant/icons';
+import {isIos} from '../../Utils/CheckDevice';
 
 export default function TitleSearch(props) {
   const navigation = useNavigation();
@@ -24,7 +25,7 @@ export default function TitleSearch(props) {
       </TouchableOpacity>
       <TextInput placeholder="Nhập để tìm kiếm" style={styles.txtSearch} />
       <TouchableOpacity onPress={() => navigation.navigate('Filters')}>
-        <Image style={styles.icon} source={icons.filter} />
+        <Image style={styles.icon} source={icons.search} />
       </TouchableOpacity>
     </View>
   );
@@ -34,7 +35,8 @@ const styles = StyleSheet.create({
   txtSearch: {
     fontSize: scale(16),
     width: scale(240),
-    height: scale(40), borderRadius: scale(20),
+    height: scale(40),
+    borderRadius: scale(20),
     borderWidth: 1,
     backgroundColor: '#fff',
     marginLeft: scale(15),
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
     marginLeft: scale(10),
   },
   content: {
-    paddingTop:scale(60),
+    paddingTop: scale(isIos ? 60 : 10),
     flexDirection: 'row',
     paddingHorizontal: scale(10),
     paddingVertical: scale(10),

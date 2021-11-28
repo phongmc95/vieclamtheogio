@@ -48,13 +48,13 @@ export default function WorkSessionScreen({item}) {
   };
 
   return (
-    <View style={{height: scale(350)}}>
+    <View style={{height: scale(550)}}>
       <TouchableOpacity onPress={() => navigation.navigate('UpdateWork')}>
         <Image style={styles.pen} source={icons.pen} />
       </TouchableOpacity>
       <FlatList
         data={item.working_day}
-        keyExtractor={item => item.day}
+        keyExtractor={item => item.id}
         renderItem={renderItem}
         ListEmptyComponent={renderEmpty}
         scrollEnabled={true}

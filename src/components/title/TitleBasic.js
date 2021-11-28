@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#307DF1',
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
-    paddingTop: scale(isIos ? 60 : 0),
+    paddingTop: scale(isIos ? 60 : 10),
   },
   title: {
     fontSize: scale(16),
