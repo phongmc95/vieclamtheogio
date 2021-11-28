@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Platform } from "react-native";
+import { isIos } from "../Utils/CheckDevice";
 
 const FloatActionButton = ({style, onPress}) => {
   return (
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     marginHorizontal: 16,
     right: 5,
-    bottom: 130,
+    bottom: isIos?130:100,
     // width: 64,
     // height: 64,
 backgroundColor:'white',
