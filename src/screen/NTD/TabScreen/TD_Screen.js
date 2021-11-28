@@ -24,141 +24,34 @@ import HeaderStyle from '../../../components/HeaderStyle';
 import colors from '../../../constant/colors';
 import {ButtonItemLuu} from '../../../components/Button/ButtonItem';
 import fonts from '../../../constant/fonts';
-import FloatActionButton from "../../../components/FloatActionButton";
+import FloatActionButton from '../../../components/FloatActionButton';
+import {useSelector, useDispatch} from 'react-redux';
+import {useIsFocused} from '@react-navigation/native';
+import axios from 'axios';
 const TD_Screen = ({navigation}) => {
-  const DATA = [
-    {
-      id: 1,
-      title: 'Bán thịt lợn',
-      date: '20/02/2002-02/02/2020',
-      date1: '12/12/2012',
-      count: '5',
-      manage: 'Còn hạn',
-    },
-    {
-      id: 2,
-      title: 'Bán rau',
-      date: '20/02/2002-02/02/2020',
-      date1: '12/12/2012',
-      count: '5',
-      manage: 'Còn hạn',
-    },
-    {
-      id: 3,
-      title: 'Bán đá',
-      date: '20/02/2002-02/02/2020',
-      date1: '12/12/2012',
-      count: '5',
-      manage: 'Còn hạn',
-    },
-    {
-      id: 4,
-      title: 'Bán cần',
-      date: '20/02/2002-02/02/2020',
-      date1: '12/12/2012',
-      count: '5',
-      manage: 'Còn hạn',
-    },
-  ];
-  const DATA1 = [
-    {
-      id: 1,
-      avatar:
-        'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-anh-avatar-hai.jpg',
-      nameUV: 'Phong Lợn',
-      nameJob: 'Thợ hồ',
-      maHs: '12345',
-      diaChi: 'Hà Nội',
-      views: '999',
-    },
-    {
-      id: 2,
-      avatar:
-        'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-anh-avatar-hai.jpg',
-      nameUV: 'Phong Lợn',
-      nameJob: 'Thợ hồ',
-      maHs: '12345',
-      diaChi: 'Hà Nội',
-      views: '999',
-    },
-    {
-      id: 3,
-      avatar:
-        'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-anh-avatar-hai.jpg',
-      nameUV: 'Phong Lợn',
-      nameJob: 'Thợ hồ',
-      maHs: '12345',
-      diaChi: 'Hà Nội',
-      views: '999',
-    },
-    {
-      id: 4,
-      avatar:
-        'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-anh-avatar-hai.jpg',
-      nameUV: 'Phong Lợn',
-      nameJob: 'Thợ hồ',
-      maHs: '12345',
-      diaChi: 'Hà Nội',
-      views: '999',
-    },
-    {
-      id: 5,
-      avatar:
-        'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-anh-avatar-hai.jpg',
-      nameUV: 'Phong Lợn',
-      nameJob: 'Thợ hồ',
-      maHs: '12345',
-      diaChi: 'Hà Nội',
-      views: '999',
-    },
-  ];
+  const isFocused = useIsFocused();
+  const idEmp = useSelector(state => state.Authen.data);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    var config = {
+      method: 'get',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/jobs',
+    };
 
-  const FirstRoute = () => (
-    <View style={styles.main}>
-      <FlatList
-        data={DATA}
-        keyExtractor={item => item.id}
-        renderItem={renderItem}
-        ListFooterComponent={() => <View style={{marginBottom: scale(170)}} />}
-      />
-      {/*<FAB*/}
-      {/*  style={styles.fab}*/}
-      {/*  small*/}
-      {/*  icon={() => (*/}
-      {/*    <Image source={require('../../../../assets/images/Fab.png')}/>*/}
-      {/*  )}*/}
-      {/*  onPress={() => navigation.navigate('DangTin')}*/}
-      {/*  color="white"*/}
-      {/*/>*/}
-
-    </View>
-  );
-
-  const SecondRoute = () => (
-    <View style={styles.main}>
-      <FlatList
-        data={DATA1}
-        keyExtractor={item => item.id}
-        renderItem={renderItemUV}
-        ListFooterComponent={() => <View style={{marginBottom: scale(170)}} />}
-      />
-    </View>
-  );
-  const renderScene = ({route}) => {
-    switch (route.key) {
-      case 'first':
-        return <FirstRoute />;
-      case 'second':
-        return <SecondRoute />;
-
-      default:
-        return null;
-    }
-  };
+    axios(config)
+      .then(function (response) {
+        setData(response.data.jobs);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    return () => {};
+  }, [isFocused]);
+  const listData = data.filter(item => item.createdBy === idEmp?.user?.userId);
   const renderItem = ({item}) => (
     <View style={styles.ViewFlatlist}>
       <View style={styles.viewRow}>
-        <Text style={styles.TextTitle}>{item.title}</Text>
+        <Text style={styles.TextTitle}>{item.job_posting_position}</Text>
         <TouchableOpacity style={styles.delete}>
           <DeleteICon />
         </TouchableOpacity>
@@ -166,19 +59,21 @@ const TD_Screen = ({navigation}) => {
 
       <View style={styles.viewRow}>
         <Text style={styles.TextL}>Thời gian</Text>
-        <Text style={[styles.TextR, {color: 'black'}]}>{item.date}</Text>
+        <Text style={[styles.TextR, {color: 'black'}]}>
+          {item.posting_date}
+        </Text>
       </View>
       <View style={styles.viewRow}>
         <Text style={styles.TextL}>Ngày ứng tuyển</Text>
-        <Text style={[styles.TextR, {color: 'black'}]}>{item.date1}</Text>
+        <Text style={[styles.TextR, {color: 'black'}]}>{item.last_date}</Text>
       </View>
-      <View style={styles.viewRow}>
-        <Text style={styles.TextL}>Lượt ứng tuyển</Text>
-        <Text style={[styles.TextR, {color: 'black'}]}>{item.count}</Text>
-      </View>
+      {/*<View style={styles.viewRow}>*/}
+      {/*  <Text style={styles.TextL}>Lượt ứng tuyển</Text>*/}
+      {/*  <Text style={[styles.TextR, {color: 'black'}]}>{item.count}</Text>*/}
+      {/*</View>*/}
       <View style={styles.viewRow}>
         <Text style={styles.TextL}>Quản lí</Text>
-        <Text style={styles.TextR}>{item.manage}</Text>
+        <Text style={styles.TextR}>{'Còn Hạn'}</Text>
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <TouchableOpacity
@@ -188,109 +83,30 @@ const TD_Screen = ({navigation}) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{margin: scale(5)}}
-          onPress={() => navigation.navigate('SuaTin')}>
+          onPress={() => navigation.navigate('SuaTin', {item})}>
           <ButtonItemLuu nameBTN="Sửa" />
         </TouchableOpacity>
       </View>
     </View>
   );
-  const renderItemUV = ({item}) => (
-    <View style={[styles.ViewFlatlist]}>
-      <View style={{padding: scale(5)}}>
-        <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
-          <TouchableOpacity
-            style={{flexDirection: 'row'}}
-            onPress={() => navigation.navigate('DetailUV', {item})}>
-            <Image source={{uri: item.avatar}} style={styles.avatar} />
-            <View>
-              <Text style={styles.TextTitle}>{item.nameUV}</Text>
-              <Text
-                style={[
-                  styles.TextTitle,
-                  {fontSize: scale(12), marginTop: scale(0)},
-                ]}>
-                {item.nameJob}
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.LikeIcon}>
-            <LikeIcon />
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-            marginTop: scale(13),
-          }}>
-          <View style={{flexDirection: 'row'}}>
-            <View style={{marginRight: scale(5), marginLeft: scale(5)}}>
-              <HsIcon color="#307DF1" />
-            </View>
-            <Text style={styles.textitem}>Mã hồ sơ:{item.maHs}</Text>
-          </View>
-          <View style={{flexDirection: 'row', marginRight: scale(15)}}>
-            <View style={{marginRight: scale(5)}}>
-              <ViewIcon />
-            </View>
-            <Text style={styles.textitem}>Lượt xem:{item.views}</Text>
-          </View>
-        </View>
-        <View style={{flexDirection: 'row', marginTop: scale(20)}}>
-          <View style={{marginRight: scale(5), marginLeft: scale(5)}}>
-            <LocalIcon color="#307DF1" />
-          </View>
-          <Text style={styles.textitem}>{item.diaChi}</Text>
-        </View>
-      </View>
-    </View>
-  );
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    {key: 'first', title: 'TIN ĐÃ ĐĂNG', type: 0},
-    {key: 'second', title: 'ỨNG VIÊN THEO GIỜ', type: 1},
-  ]);
-  const handleIndexChange = indexTab => {
-    setIndex(indexTab);
-  };
-  const renderTabBar = props => (
-    <View style={styles.TabBar}>
-      <TabBar
-        {...props}
-        scrollEnabled={true}
-        indicatorStyle={[{backgroundColor: '#307df1'}]}
-        style={[{backgroundColor: '#FFFFFF'}]}
-        tabStyle={{width: scale(200)}}
-        inactiveColor={'#404040'}
-        activeColor={'#307df1'}
-        renderLabel={({route, color}) => (
-          <View style={{alignItems: 'center'}}>
-            <Text
-              style={{
-                color,
-                fontSize: scale(16),
-              }}>
-              {route.title}
-            </Text>
-          </View>
-        )}
-      />
-    </View>
-  );
+
   return (
     <View style={styles.contener}>
       <View style={{backgroundColor: '#FFFFFF'}}>
         <HeaderStyle type="nomal" Title="Tuyển dụng" />
       </View>
-      {/* main */}
+      <View style={styles.main}>
+        <FlatList
+          data={listData}
+          keyExtractor={item => item.id}
+          renderItem={renderItem}
+          ListFooterComponent={() => (
+            <View style={{marginBottom: scale(170)}} />
+          )}
+        />
+      </View>
 
-      <TabView
-        navigationState={{index, routes}}
-        renderScene={renderScene}
-        renderTabBar={renderTabBar}
-        onIndexChange={handleIndexChange}
-      />
-      <FloatActionButton onPress={() => navigation.navigate('DangTin')}/>
+      <FloatActionButton onPress={() => navigation.navigate('DangTin')} />
     </View>
   );
 };

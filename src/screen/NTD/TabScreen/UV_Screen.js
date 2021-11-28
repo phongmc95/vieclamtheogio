@@ -172,13 +172,30 @@ const UV_Screen = ({navigation}) => {
       <HeaderStyle type="filter" Title="Ứng viên đã ứng tuyển" />
       {/* main */}
       <View style={styles.main}>
-        <SwipeListView
-          data={DATA}
-          renderItem={renderItem}
-          renderHiddenItem={renderHinderItem}
-          rightOpenValue={scale(-165)}
-          //   onRowDidOpen={onRowDidOpen}
-        />
+        {DATA.length !== 0 ? (
+          <View
+            style={{
+              paddingTop: scale(180),
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Image
+              style={{width: scale(80), height: scale(80)}}
+              source={require('../../../../assets/images/logoVin.png')}
+            />
+            <Text style={{padding: 12, fontSize: 16}}>
+              Bạn chưa có tin ứng tuyển
+            </Text>
+          </View>
+        ) : (
+          <SwipeListView
+            data={DATA}
+            renderItem={renderItem}
+            renderHiddenItem={renderHinderItem}
+            rightOpenValue={scale(-165)}
+            //   onRowDidOpen={onRowDidOpen}
+          />
+        )}
       </View>
       <ModalNode />
       <SelectModal

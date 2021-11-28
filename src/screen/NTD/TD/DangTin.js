@@ -124,6 +124,7 @@ const reducerContactInfo = (state, action) => {
       return state;
   }
 };
+
 const DangTin = ({navigation}) => {
   const dis = useDispatch();
   const createdBy = useSelector(state => state.Authen.data.user.userId);

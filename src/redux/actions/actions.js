@@ -30,10 +30,12 @@ import {
   FETCH_POST_ADD_JOB_REQUEST,
   FETCH_POST_ADD_JOB_SUCCESS,
   FETCH_POST_ADD_JOB_ERROR,
+  FETCH_GET_JOB_REQUEST,
+  FETCH_GET_JOB_SUCCESS,
+  FETCH_GET_JOB_ERROR,
 } from './type/Type';
 
 export const loadPostsLogIn = (email, pass) => async dispatch => {
-
   try {
     dispatch({type: FETCH_POST_LOGIN_REQUEST});
     const url = 'auth/login';
@@ -234,7 +236,6 @@ export const ProfileEPl = params => async dispatch => {
     const response = await axiosClient.get(url);
     dispatch({type: PROFILE_EPL_SUCCESS, data: response});
   } catch (err) {
-
     dispatch({
       type: PROFILE_EPL_ERROR,
       message: err,
@@ -365,3 +366,22 @@ export const AddPostJob =
       });
     }
   };
+
+export const GetJob = () => async dispatch => {
+  try {
+    dispatch({type: FETCH_GET_JOB_REQUEST});
+    const url = '/jobs';
+    const response = await axiosClient.get(url);
+    console.log('Data >>>: ', response);
+    dispatch({
+      type: FETCH_GET_JOB_SUCCESS,
+      data: response,
+    });
+  } catch (error) {
+    console.log("hhhh");
+    dispatch({
+      type: FETCH_GET_JOB_ERROR,
+      message: error,
+    });
+  }
+};
