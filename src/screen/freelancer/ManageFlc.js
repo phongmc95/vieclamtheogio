@@ -61,7 +61,8 @@ export default function ManageFlc({}) {
             <Text style={styles.txtStatus}>Đổi mật khẩu</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={toggleModal}>
+        <TouchableOpacity onPress={()=>setModal(true
+        )}>
           <View style={styles.row}>
             <Image style={styles.iconJob} source={icons.logout} />
             <Text style={styles.txtStatus}>Đăng xuất</Text>
@@ -69,7 +70,7 @@ export default function ManageFlc({}) {
         </TouchableOpacity>
       </View>
       <Image style={{marginTop: scale(10)}} source={images.jobhunt} />
-      <Logout on={modal} off={toggleModal} />
+
       <Modal isVisible={modal} >
         <View style={styles.containerMD}>
           <Text style={styles.contentMD}>Bạn có chắc chắn muốn đăng xuất?</Text>
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: scale(20),
     paddingHorizontal: scale(20),
+    marginHorizontal:scale(10)
   },
   contentMD: {
     fontSize: scale(18),
