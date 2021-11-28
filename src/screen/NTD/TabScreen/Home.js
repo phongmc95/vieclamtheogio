@@ -48,7 +48,7 @@ const Home = () => {
   useEffect(()=>{
     dispatch(ProfileEPl(_id.user?.userId))
   },[])
-  console.log(data);
+  console.log(_id);
   const renderItem = ({item}) => (
     <View style={styles.ViewFlatlist}>
       <Text style={styles.TextTitle}>{item.vi_tri}</Text>

@@ -10,8 +10,7 @@ import {
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
-import CircleCheckBox, {LABEL_POSITION} from 'react-native-circle-checkbox';
-import Sagaly from './Sagaly';
+
 import TextInputStyle from "../../../components/TextInputStyle";
 import ButtonStyle from "../../../components/ButtonStyle";
 import AddcalendarAddd from "../../../components/AddcalendarAddd";
