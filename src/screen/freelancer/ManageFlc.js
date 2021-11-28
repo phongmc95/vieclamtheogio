@@ -16,7 +16,7 @@ import colors from '../../constant/colors';
 import {isIos} from '../../Utils/CheckDevice';
 import Modal from "react-native-modal";
 import Button from "../../components/Button/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { log_out } from "../../redux/actions/actions";
 
@@ -24,6 +24,7 @@ export default function ManageFlc({}) {
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const data = useSelector(state => state.ProfileEPl.data);
   const logout = () => {
     dispatch(log_out());
     navigation.navigate('Intro');
@@ -38,8 +39,13 @@ export default function ManageFlc({}) {
       <View style={styles.content}>
         <Image style={styles.imgBalloon} source={images.balloon} />
         <View style={styles.avatar}>
-          <Image style={styles.imgAvatar} source={images.avatar} />
-          <Text style={styles.txtName}>Hoàng Phong</Text>
+          <Image
+            style={styles.imgAvatar}
+            source={
+              data?.user?.avatar ? {uri: data?.user?.avatar} : images.avatar
+            }
+          />
+          <Text style={styles.txtName}>{data?.user?.name}</Text>
         </View>
       </View>
       <View>
@@ -155,7 +161,8 @@ const styles = StyleSheet.create({
     fontFamily: fonts.NORMAL,
     color: '#fff',
     marginTop: scale(10),
-    right: scale(20),
+
+    textAlign:'center'
   },
   row: {flexDirection: 'row', marginTop: scale(5)},
 });
