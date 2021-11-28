@@ -24,7 +24,8 @@ export default function TitleHome({ name }) {
         borderBottomLeftRadius: scale(20),
         borderBottomRightRadius: scale(20),
       }}>
-      <Image style={{height: scale(40), width: scale(40),borderRadius:scale(20),borderWidth:1,borderColor:'white'}} source={dataq.user?.avatar?{uri:dataq.user?.avatar}:images.avatar} />
+      <Image style={{height: scale(40), width: scale(40),borderRadius:scale(20),borderWidth:1,borderColor:'white'}}
+             source={dataq?.user?.avatar?{uri:dataq?.user?.avatar}:images.avatar} />
       <View style={{marginLeft: scale(10), width: '55%'}}>
         <Text
           style={{
@@ -43,21 +44,12 @@ export default function TitleHome({ name }) {
           {name}
         </Text>
       </View>
-      <View style={{flexDirection: 'row'}}>
+      <View >
+
         <TouchableOpacity onPress={() => navigation.navigate('Search')}>
           <Image
-            style={{
-              height: scale(40),
-              width: scale(40),
-              marginRight: scale(10),
-            }}
-            source={icons.search}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
-          <Image
             style={{height: scale(40), width: scale(40)}}
-            source={icons.bell}
+            source={icons.search}
           />
         </TouchableOpacity>
       </View>
