@@ -4,11 +4,11 @@ import {TextInput} from 'react-native-paper';
 import {scale} from 'react-native-size-matters';
 import fonts from '../constant/fonts';
 const windowWidth = Dimensions.get('window').width;
-const TextInputStyle = ({Label, value, onChangeText}) => {
+const TextInputStyle = ({Label, value, onChangeText, keyboardType}) => {
   return (
     <View>
       <TextInput
-
+        keyboardType={keyboardType}
         label={Label}
         value={value}
         onChangeText={onChangeText}
