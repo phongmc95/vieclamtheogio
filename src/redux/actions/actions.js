@@ -289,10 +289,19 @@ export const PostLogo = (logo, email) => async dispatch => {
   try {
     dispatch({type: LOGO_REQUEST});
     const url = 'users/picture-upload';
-    const data = JSON.stringify({
-      photo: logo,
-      email: email,
-    });
+    const data = new FormData();
+
+    if (logo) {
+      const file = {
+        uri: logo.assets[0].uri,
+        name: logo.assets[0].fileName,
+        type: logo.assets[0].type,
+      };
+      console.log(file);
+      data.append('photo',file );
+    }
+    data.append('email', email);
+
 
     const response = await axiosClient.post(url, data);
 
@@ -301,7 +310,7 @@ export const PostLogo = (logo, email) => async dispatch => {
       data: response,
     });
   } catch (error) {
-    console.error(error);
+    console.log("KKKKK",error);
     dispatch({
       type: LOGO_ERROR,
       message: error,

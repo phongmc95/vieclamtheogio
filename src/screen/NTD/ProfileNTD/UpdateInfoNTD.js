@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  ScrollView,
+  ScrollView,Alert
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {BackIcon, CameraIcon, Selecter} from '../../../../assets/icon';
@@ -27,7 +27,8 @@ const UpdateInfoNTD = ({navigation}) => {
   const dispatch = useDispatch();
 
   const datalocal = useSelector(state => state.ProfileEPl.data);
-  console.log(datalocal);
+
+
   const [name, setName] = useState('');
   const [quyMo, setquyMo] = useState('');
   const [mst, setMst] = useState('');
@@ -46,7 +47,7 @@ const UpdateInfoNTD = ({navigation}) => {
   const [error, setError] = useState('');
   const options = {
     mediaType: 'photo',
-    // includeBase64: true,
+     includeBase64: true,
     maxWidth: 2048,
     maxHeight: 2048,
   };
@@ -67,31 +68,43 @@ const UpdateInfoNTD = ({navigation}) => {
         datalocal.user._id
       ),
     );
-    console.log('ababa');
-    // updateLogo()
+   if(logo){
+     updateLogo()
+   }
+    Alert.alert(
+      "Thông báo",
+      "Cập nhập thông tin thành công",
+      [
+
+        { text: "OK", onPress: () => navigation.navigate('Profile') }
+      ]
+    );
+
+
   };
   const updateLogo = () => {
-    dispatch(PostLogo(logo, updateEmail));
+    dispatch(PostLogo(logo,  datalocal.user.email));
   };
   const onAddJob = () => {
-    // if (
-    //   !name ||
-    //   !quyMo ||
-    //   !mst ||
-    //   !diaChi ||
-    //   !province ||
-    //   !phone ||
-    //   !intro
-    // ) {
-    //   setModal(true);
-    //   setError('Các ô nhập là bắt buộc không được để trống! ');
-    // } else if (!isVietnamesePhoneNumber(phone)) {
-    //   setModal(true);
-    //   setError('Số điện thoại không đúng định dạng. Vui lòng nhập lại !');
-    // } else {
-    //   onUpdateProfile();
-    // }
-   onUpdateProfile()
+    if (
+      !name ||
+      !quyMo ||
+      !mst ||
+      !diaChi ||
+      !province ||
+      !phone ||
+      !intro
+    ) {
+      setModal(true);
+      setError('Các ô nhập là bắt buộc không được để trống! ');
+    } else if (!isVietnamesePhoneNumber(phone)) {
+      setModal(true);
+      setError('Số điện thoại không đúng định dạng. Vui lòng nhập lại !');
+    } else {
+      onUpdateProfile();
+    }
+
+
   };
   const openLibry = () => {
     ImagePicker.launchImageLibrary(options, response => {
@@ -110,7 +123,7 @@ const UpdateInfoNTD = ({navigation}) => {
   const handleSelectProvince = () => {
     setIsProvince(!isProvince);
   };
-  console.log("logo",province.title);
+
   return (
     <View style={styles.contener}>
       <View style={styles.StatusBar}>
