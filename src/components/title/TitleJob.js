@@ -32,7 +32,7 @@ export default function TitleJob(props) {
             height: scale(79),
             width: scale(79),
           }}
-          source={props.logo ? {uri: props.logo} : images.logo}
+          source={props.logo ? {uri: props.logo} : images.avatar}
         />
         <View style={{width: '65%'}}>
           <Text
