@@ -8,6 +8,7 @@ import {
   Image,
   useWindowDimensions,
   Dimensions,
+  Alert,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {FAB} from 'react-native-paper';
@@ -32,6 +33,9 @@ const TD_Screen = ({navigation}) => {
   const isFocused = useIsFocused();
   const idEmp = useSelector(state => state.Authen.data);
   const [data, setData] = useState([]);
+  const [load, setLoad] = useState(false);
+  const [newData, setNewData] = useState([]);
+
   useEffect(() => {
     var config = {
       method: 'get',
@@ -41,18 +45,52 @@ const TD_Screen = ({navigation}) => {
     axios(config)
       .then(function (response) {
         setData(response.data.jobs);
+        data
+          ? setNewData(
+              data?.filter(item => item.createdBy === idEmp?.user?.userId),
+            )
+          : [];
       })
       .catch(function (error) {
         console.log(error);
       });
+    // setLoad(!load)
     return () => {};
-  }, [isFocused]);
-  const listData = data.filter(item => item.createdBy === idEmp?.user?.userId);
+  }, [load]);
+
+  const alertDelete = item =>
+    Alert.alert('Thông Báo', 'Bạn có muốn xóa tin này không ?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => handleDelete(item)},
+    ]);
+  const handleDelete = item => {
+    const url = `https://fpt-jobs-api.herokuapp.com/api/v1/jobs/${item._id}`;
+    axios
+      .delete(url)
+      .then(res => {
+        const data = data.filter(i => i._id !== item._id);
+        setData({data});
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    setLoad(!load);
+  };
+  const listData = data?.filter(item => item.createdBy === idEmp?.user?.userId);
   const renderItem = ({item}) => (
     <View style={styles.ViewFlatlist}>
       <View style={styles.viewRow}>
         <Text style={styles.TextTitle}>{item.job_posting_position}</Text>
-        <TouchableOpacity style={styles.delete}>
+        <TouchableOpacity
+          style={styles.delete}
+          onPress={() => {
+            alertDelete(item);
+            console.log('Delete');
+          }}>
           <DeleteICon />
         </TouchableOpacity>
       </View>
@@ -97,8 +135,8 @@ const TD_Screen = ({navigation}) => {
       </View>
       <View style={styles.main}>
         <FlatList
-          data={listData}
-          keyExtractor={item => item.id}
+          data={newData}
+          keyExtractor={item => item._id}
           renderItem={renderItem}
           ListFooterComponent={() => (
             <View style={{marginBottom: scale(170)}} />
