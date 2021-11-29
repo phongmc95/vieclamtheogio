@@ -7,35 +7,41 @@ import {
   TouchableOpacity,
   ScrollView,
   FlatList,
-  SafeAreaView,
+  SafeAreaView,Dimensions
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Button from '../../../components/Button/Button';
 import HeaderStyle from '../../../components/HeaderStyle';
 import colors from '../../../constant/colors';
 import fonts from '../../../constant/fonts';
-import {
-  ButtonItemBoqua,
-  ButtonItemLuu,
-} from '../../../components/Button/ButtonItem';
 import {useDispatch, useSelector} from 'react-redux';
 import {ProfileEPl} from '../../../redux/actions/actions';
 import axios from 'axios';
 import {useIsFocused} from '@react-navigation/native';
 import ButtonStyle from '../../../components/ButtonStyle';
-const emp = [
-  {
-    id: 1,
-    uv_username: 'Hà Anh Tuấn',
-    vi_tri: 'Bán hàng',
-    created_at: '20/11/2021',
-    last_time: '20/11/2021',
-    image:
-      'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-anh-avatar-hai.jpg',
-    luot_ut: 10,
-  },
-];
+import images from "../../../constant/images";
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart
+} from "react-native-chart-kit";
+
+const screenWidth = Dimensions.get("window").width;
 const Home = ({navigation}) => {
+  const chartConfig = {
+    backgroundGradientFrom: "#1E2923",
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: "#08130D",
+    backgroundGradientToOpacity: 0.5,
+    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    strokeWidth: 2, // optional, default 3
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false // optional
+  };
+
   const dispatch = useDispatch();
   const _id = useSelector(state => state.Authen.data);
   const data = useSelector(state => state.ProfileEPl.data);
@@ -63,6 +69,19 @@ const Home = ({navigation}) => {
   const listData = listJob.filter(
     item => item.createdBy === idEmp?.user?.userId,
   );
+
+  const UV=  listData?.map(item=>  item.applicants_applied.reduce((a,b)=>({...a,'data':b}),{}))
+  const DATA = {
+    labels: ["November","December","January", "February", "March", "April"],
+    datasets: [
+      {
+        data: [UV.length, 0, 0, 0, 0, 0],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+        strokeWidth: 2 // optional
+      }
+    ],
+    legend: ["Lượt ứng tuyển"] // optional
+  };
   console.log('ListData: ', listData);
   const renderItem = ({item}) => (
     <View style={styles.ViewFlatlist}>
@@ -93,32 +112,20 @@ const Home = ({navigation}) => {
       style={[styles.ViewFlatlist, {padding: scale(10), marginBottom: '25%'}]}>
       <View style={{flexDirection: 'row'}}>
         <Image
-          source={{
-            uri: item.image,
-          }}
+          source={item?.data?.avatar?{uri:item?.data?.avatar}: images.avatar}
           style={styles.imgItem}
         />
-        <Text style={styles.Name_hs}>{item.uv_username}</Text>
-      </View>
-      <View style={styles.viewRow}>
-        <Text style={styles.TextL}>Vị trí ứng tuyển</Text>
-        <Text style={[styles.TextR, {color: 'black'}]}>{item.vi_tri}</Text>
-      </View>
-      <View style={styles.viewRow}>
-        <Text style={styles.TextL}>Ngày nộp</Text>
-        <Text style={[styles.TextR, {color: 'black'}]}>{item.created_at}</Text>
-      </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          marginTop: scale(10),
-        }}>
-        <View style={{marginRight: scale(20)}}>
-          <ButtonItemLuu nameBTN="Lưu" />
+        <View>
+        <Text style={styles.Name_hs}>{item?.data?.name}</Text>
+        <View style={styles.viewRow}>
+          <Text style={styles.TextL}>Vị trí :</Text>
+          <Text style={[styles.TextR, {color: '#307df1'}]}>{item?.data?.positions}</Text>
         </View>
-        <ButtonItemBoqua nameBTN="Bỏ qua" />
+        </View>
       </View>
+
+
+
     </View>
   );
 
@@ -135,20 +142,12 @@ const Home = ({navigation}) => {
         <View style={styles.main}>
           <Text style={styles.title}>Thống kê tin đăng</Text>
           {/* view1 */}
-          <View style={styles.viewRow}>
-            <View style={styles.itemThongKe}>
-              <Text style={styles.textItem}>Ứng viên ứng tuyển</Text>
-              <Text style={styles.itemNumber}>23</Text>
-            </View>
-            <View style={styles.itemThongKe}>
-              <Text style={styles.textItem}>Ứng viên điểm lọc</Text>
-              <Text style={styles.itemNumber}>23</Text>
-            </View>
-            <View style={styles.itemThongKe}>
-              <Text style={styles.textItem}>Ứng viên đã lưu</Text>
-              <Text style={styles.itemNumber}>23</Text>
-            </View>
-          </View>
+          <LineChart
+            data={DATA}
+            width={screenWidth}
+            height={220}
+            chartConfig={chartConfig}
+          />
           {/* view2 */}
           {/* flatlist1 */}
           <View style={styles.viewRow}>
@@ -195,13 +194,13 @@ const Home = ({navigation}) => {
           )}
           <View style={styles.viewRow}>
             <Text style={styles.title}>Hồ sơ ứng tuyển mới nhất</Text>
-            <TouchableOpacity onPress={()=>navigation.navigate('TD_Screen')}>
+            <TouchableOpacity onPress={()=>navigation.navigate('UV_Screen')}>
               <Text style={[styles.TextR, {marginTop: scale(15)}]}>
                 Xem thêm
               </Text>
             </TouchableOpacity>
           </View>
-          <View
+          {UV.length ===0?<View
             style={[
               styles.ViewFlatlist,
               {
@@ -222,13 +221,14 @@ const Home = ({navigation}) => {
               }}>
               Chưa có hồ sơ ứng tuyển
             </Text>
-          </View>
-          {/* // <FlatList*!/*/}
-          {/* //   data={emp}*!/*/}
-          {/* //   keyExtractor={item => item.id}*!/*/}
-          {/*//   renderItem={renderItemHS}*!/*/}
-          {/* //   horizontal={true}*!/*/}
-          {/* // */}
+          </View>: <FlatList
+            data={UV}
+            keyExtractor={item => item.id}
+            renderItem={renderItemHS}
+            horizontal={true}
+          />
+          }
+
         </View>
       </ScrollView>
     </View>
@@ -300,6 +300,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: scale(13),
     marginLeft: scale(10),
+    color:'#000000'
   },
   TextR: {
     fontWeight: '400',
@@ -333,9 +334,9 @@ const styles = StyleSheet.create({
     marginTop: scale(10),
   },
   imgItem: {
-    width: scale(60),
-    height: scale(60),
-    borderRadius: scale(20),
+    width: scale(100),
+    height: scale(100),
+    borderRadius: scale(50),
     marginTop: scale(14),
     marginLeft: scale(10),
   },
