@@ -32,7 +32,11 @@ export default function ListJobScreen({navigation, route}) {
         <View style={styles.row}>
           <Image
             style={styles.logoJob}
-            source={item?.user?.avatar ? {uri: item.user.avatar} : images.logo}
+            source={
+              item?.user_create?.avatar
+                ? {uri: item.user_create.avatar}
+                : images.avatar
+            }
           />
           <View style={styles.viewContent}>
             <Text style={[styles.txtTitleJob]}>

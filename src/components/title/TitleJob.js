@@ -19,10 +19,12 @@ export default function TitleJob(props) {
           />
         </TouchableOpacity>
         <View style={{width: '82%'}} />
-        <Image
-          style={{height: scale(23), width: scale(23), marginTop: scale(5)}}
-          source={icons.heart_wb}
-        />
+        <TouchableOpacity onPress={props.handleSave}>
+          <Image
+            style={{height: scale(25), width: scale(28), marginTop: scale(5)}}
+            source={props.type === true ? icons.whiteLike : icons.whiteDislike}
+          />
+        </TouchableOpacity>
       </View>
       <View style={{flexDirection: 'row', marginBottom: scale(15)}}>
         <Image
@@ -32,14 +34,12 @@ export default function TitleJob(props) {
             height: scale(79),
             width: scale(79),
           }}
-          source={props.logo ? {uri: props.logo} : images.logo}
+          source={props.logo ? {uri: props.logo} : images.avatar}
         />
-        <View style={{width: '65%'}}>
+        <View style={{width: '65%', marginLeft: scale(20)}}>
           <Text
             style={{
-              fontSize: scale(18),
-              lineHeight: scale(20),
-              fontWeight: 'bold',
+              fontSize: scale(24),
               textTransform: 'uppercase',
               color: '#fff',
               fontFamily: fonts.BOLD,
@@ -48,9 +48,7 @@ export default function TitleJob(props) {
           </Text>
           <Text
             style={{
-              fontSize: scale(12),
-              lineHeight: scale(20),
-              textTransform: 'uppercase',
+              fontSize: scale(16),
               color: '#fff',
               marginTop: scale(5),
               fontFamily: fonts.NORMAL,
@@ -67,7 +65,7 @@ export default function TitleJob(props) {
           />
           <Text
             style={{
-              fontSize: scale(12),
+              fontSize: scale(14),
               fontFamily: fonts.NORMAL,
               color: '#fff',
               marginLeft: scale(5),

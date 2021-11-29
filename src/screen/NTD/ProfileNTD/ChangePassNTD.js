@@ -18,6 +18,7 @@ import {
 } from '../../../../assets/icon';
 import colors from '../../../constant/colors';
 import fonts from '../../../constant/fonts';
+import TextInputPassword from "../../../components/TextInputPassword";
 
 const ChangePassNTD = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
@@ -34,24 +35,20 @@ const ChangePassNTD = ({navigation}) => {
         <Text style={styles.title}>Đổi mật khẩu</Text>
       </View>
       <View style={styles.main}>
-        <View style={[styles.boxInput, {flexDirection: 'row'}]}>
-          <TextInput placeholder="Mật khẩu cũ" style={styles.textInput} />
-          <TouchableOpacity style={styles.Selecter}>
-            <EyeIcon color="black" />
-          </TouchableOpacity>
-        </View>
-        <View style={[styles.boxInput, {flexDirection: 'row'}]}>
-          <TextInput placeholder="Mật khẩu mới" style={styles.textInput} />
-          <TouchableOpacity style={styles.Selecter}>
-            <EyeIcon color="black" />
-          </TouchableOpacity>
-        </View>
-        <View style={[styles.boxInput, {flexDirection: 'row'}]}>
-          <TextInput placeholder="Xác nhận mật khẩu" style={styles.textInput} />
-          <TouchableOpacity style={styles.Selecter}>
-            <EyeIcon color="black" />
-          </TouchableOpacity>
-        </View>
+
+        <TextInputPassword
+          Label="Mật khẩu cũ"
+
+        />
+        <TextInputPassword
+          Label="Mật khẩu mới"
+
+        />
+        <TextInputPassword
+          Label="Nhập lại mật khẩu"
+
+        />
+
         <View style={styles.Viewbtn}>
           <TouchableOpacity onPress={showModal}>
             <Text style={styles.btnL}>Đổi mật khẩu</Text>
@@ -89,12 +86,13 @@ const styles = StyleSheet.create({
   },
   StatusBar: {
     backgroundColor: '#307DF1',
-    height: scale(60),
+    height: scale(120),
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
 
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    paddingBottom:20
   },
   title: {
     color: 'white',
@@ -149,18 +147,17 @@ const styles = StyleSheet.create({
     fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     backgroundColor: '#307FD1',
-    borderRadius: scale(30),
     paddingHorizontal: scale(17),
-    paddingVertical: scale(10),
+    paddingVertical: scale(12),
     color: 'white',
     margin: scale(5),
-    elevation: 5,
+    borderWidth: scale(1),
+    borderColor: '#307FD1',
   },
   btnR: {
     fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     backgroundColor: 'white',
-    borderRadius: scale(30),
     paddingHorizontal: scale(50),
     paddingVertical: scale(10),
     color: '#307FD1',

@@ -13,8 +13,10 @@ import {
 const initialState = {
   requesting: false,
   success: false,
+  successU: false,
   message: null,
   data: null,
+  dataU:null,
   name: '',
   company_size: '',
   tax_code: '',
@@ -56,8 +58,9 @@ const ProfileEmployer = (state = initialState, action) => {
     case PROFILE_UPDATE_EPL_SUCCESS:
       return {
         ...state,
+        successU:true,
         requesting: false,
-        data: action.data,
+        dataU: action.data,
       };
     case PROFILE_UPDATE_EPL__ERROR:
       return {

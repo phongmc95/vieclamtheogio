@@ -30,16 +30,18 @@ import {
   FETCH_POST_ADD_JOB_REQUEST,
   FETCH_POST_ADD_JOB_SUCCESS,
   FETCH_POST_ADD_JOB_ERROR,
+  FETCH_GET_JOB_REQUEST,
+  FETCH_GET_JOB_SUCCESS,
+  FETCH_GET_JOB_ERROR,
 } from './type/Type';
 
-export const loadPostsLogIn = (email, pass, role) => async dispatch => {
+export const loadPostsLogIn = (email, pass) => async dispatch => {
   try {
     dispatch({type: FETCH_POST_LOGIN_REQUEST});
     const url = 'auth/login';
     const data = JSON.stringify({
       email: email,
       password: pass,
-      role: role,
     });
     const response = await axiosClient.post(url, data);
 
@@ -111,7 +113,6 @@ export const loadRegisterFreelancer =
         industry: industry,
         job_adress: job_adress,
       });
-      console.log('data: ', data);
 
       const response = await axiosClient.post(url, data);
 
@@ -136,7 +137,6 @@ export const loadOTP = (email, otp) => async dispatch => {
       email: email,
       otp: otp,
     });
-    console.log('data: ', data);
 
     const response = await axiosClient.post(url, data);
 
@@ -161,7 +161,6 @@ export const loadForgotOTP = (email, otp) => async dispatch => {
       email: email,
       otp: otp,
     });
-    console.log('data: ', data);
 
     const response = await axiosClient.post(url, data);
 
@@ -185,7 +184,6 @@ export const loadForgetPass = email => async dispatch => {
     const data = JSON.stringify({
       email: email,
     });
-    console.log('data: ', data);
 
     const response = await axiosClient.post(url, data);
 
@@ -210,7 +208,6 @@ export const changePass = (email, password) => async dispatch => {
       email: email,
       password: password,
     });
-    console.log('data: ', data);
 
     const response = await axiosClient.post(url, data);
 
@@ -242,32 +239,34 @@ export const ProfileEPl = params => async dispatch => {
 };
 export const UpdateProfileEPl =
   (
-    idEmp,
     name,
     company_size,
     tax_code,
     address,
     city,
-    // district,
-    phone,
     website,
     description_company,
+    phone,
+    email,
+    idEmp,
   ) =>
   async dispatch => {
     try {
       dispatch({type: PROFILE_UPDATE_EPL_REQUEST});
       const url = `users/updateUser/?${idEmp}`;
       const data = JSON.stringify({
-        idEmp,
         name,
         company_size,
         tax_code,
         address,
         city,
-        phone,
+
         website,
         description_company,
+        phone,
+        email,
       });
+
       const response = await axiosClient.patch(url, data);
       dispatch({type: PROFILE_UPDATE_EPL_SUCCESS, data: response});
     } catch (err) {
@@ -282,10 +281,18 @@ export const PostLogo = (logo, email) => async dispatch => {
   try {
     dispatch({type: LOGO_REQUEST});
     const url = 'users/picture-upload';
-    const data = JSON.stringify({
-      photo: logo,
-      email: email,
-    });
+    const data = new FormData();
+
+    if (logo) {
+      const file = {
+        uri: logo.assets[0].uri,
+        name: logo.assets[0].fileName,
+        type: logo.assets[0].type,
+      };
+      console.log(file);
+      data.append('photo', file);
+    }
+    data.append('email', email);
 
     const response = await axiosClient.post(url, data);
 
@@ -294,7 +301,7 @@ export const PostLogo = (logo, email) => async dispatch => {
       data: response,
     });
   } catch (error) {
-    console.error(error);
+    console.log('KKKKK', error);
     dispatch({
       type: LOGO_ERROR,
       message: error,
@@ -349,7 +356,7 @@ export const AddPostJob =
         contact_info,
         createdBy,
       });
-      console.log('data: ', data);
+
       const response = await axiosClient.post(url, data);
 
       dispatch({
@@ -364,3 +371,22 @@ export const AddPostJob =
       });
     }
   };
+
+export const GetJob = () => async dispatch => {
+  try {
+    dispatch({type: FETCH_GET_JOB_REQUEST});
+    const url = '/jobs';
+    const response = await axiosClient.get(url);
+    console.log('Data >>>: ', response);
+    dispatch({
+      type: FETCH_GET_JOB_SUCCESS,
+      data: response,
+    });
+  } catch (error) {
+    console.log('hhhh');
+    dispatch({
+      type: FETCH_GET_JOB_ERROR,
+      message: error,
+    });
+  }
+};

@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  ScrollView,
+  ScrollView,Alert
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {BackIcon, CameraIcon, Selecter} from '../../../../assets/icon';
@@ -25,10 +25,10 @@ import {validateEmail, isVietnamesePhoneNumber} from '../../../base/Validate';
 
 const UpdateInfoNTD = ({navigation}) => {
   const dispatch = useDispatch();
-  const _id = useSelector(state => state.Authen.data.user.userId);
-  const data = useSelector(state => state);
-  const updateEmail = useSelector(state => state.ProfileEPl.data.user.email);
-  console.log('Data: ', data);
+
+  const datalocal = useSelector(state => state.ProfileEPl.data);
+
+
   const [name, setName] = useState('');
   const [quyMo, setquyMo] = useState('');
   const [mst, setMst] = useState('');
@@ -47,28 +47,43 @@ const UpdateInfoNTD = ({navigation}) => {
   const [error, setError] = useState('');
   const options = {
     mediaType: 'photo',
-    // includeBase64: true,
+     includeBase64: true,
     maxWidth: 2048,
     maxHeight: 2048,
   };
   const onUpdateProfile = () => {
     dispatch(
       UpdateProfileEPl(
-        _id,
+
         name,
         quyMo,
         mst,
         diaChi,
-        province,
-        phone,
+        province.title,
+
         web,
         intro,
+        phone,
+        datalocal.user.email,
+        datalocal.user._id
       ),
     );
-    updateLogo()
+   if(logo){
+     updateLogo()
+   }
+    Alert.alert(
+      "Thông báo",
+      "Cập nhập thông tin thành công",
+      [
+
+        { text: "OK", onPress: () => navigation.navigate('Profile') }
+      ]
+    );
+
+
   };
   const updateLogo = () => {
-    dispatch(PostLogo(logo, updateEmail));
+    dispatch(PostLogo(logo,  datalocal.user.email));
   };
   const onAddJob = () => {
     if (
@@ -88,6 +103,8 @@ const UpdateInfoNTD = ({navigation}) => {
     } else {
       onUpdateProfile();
     }
+
+
   };
   const openLibry = () => {
     ImagePicker.launchImageLibrary(options, response => {
@@ -106,6 +123,7 @@ const UpdateInfoNTD = ({navigation}) => {
   const handleSelectProvince = () => {
     setIsProvince(!isProvince);
   };
+
   return (
     <View style={styles.contener}>
       <View style={styles.StatusBar}>

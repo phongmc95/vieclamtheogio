@@ -20,15 +20,9 @@ import {
 } from '../../../components/Button/ButtonItem';
 import {useDispatch, useSelector} from 'react-redux';
 import {ProfileEPl} from '../../../redux/actions/actions';
-const jobs = [
-  {
-    id: 1,
-    vi_tri: 'Bán hàng',
-    fist_time: '20/11/2021',
-    last_time: '20/11/2021',
-    luot_ut: 10,
-  },
-];
+import axios from 'axios';
+import {useIsFocused} from '@react-navigation/native';
+import ButtonStyle from '../../../components/ButtonStyle';
 const emp = [
   {
     id: 1,
@@ -41,35 +35,56 @@ const emp = [
     luot_ut: 10,
   },
 ];
-const Home = () => {
+const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const _id = useSelector(state => state.Authen.data);
   const data = useSelector(state => state.ProfileEPl.data);
   useEffect(() => {
-    dispatch(ProfileEPl(_id?.user?.userId));
+    dispatch(ProfileEPl(_id.user?.userId));
   }, []);
-  console.log(_id);
+  const isFocused = useIsFocused();
+  const idEmp = useSelector(state => state.Authen.data);
+  const [listJob, setListJob] = useState([]);
+  useEffect(() => {
+    var config = {
+      method: 'get',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/jobs',
+    };
+
+    axios(config)
+      .then(function (response) {
+        setListJob(response.data.jobs);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    return () => {};
+  }, [isFocused]);
+  const listData = listJob.filter(
+    item => item.createdBy === idEmp?.user?.userId,
+  );
+  console.log('ListData: ', listData);
   const renderItem = ({item}) => (
     <View style={styles.ViewFlatlist}>
-      <Text style={styles.TextTitle}>{item.vi_tri}</Text>
+      <Text style={styles.TextTitle}>{item.job_posting_position}</Text>
 
       <View style={styles.viewRow}>
         <Text style={styles.TextL}>Thời gian</Text>
         <Text style={[styles.TextR, {color: 'black'}]}>
-          {item.fist_time} đến {item.last_time}
+          {item.posting_date} đến {item.last_date}
         </Text>
       </View>
       <View style={styles.viewRow}>
-        <Text style={styles.TextL}>Ngày ứng tuyển</Text>
-        <Text style={[styles.TextR, {color: 'black'}]}>{item.fist_time}</Text>
-      </View>
-      <View style={styles.viewRow}>
-        <Text style={styles.TextL}>Lượt ứng tuyển</Text>
-        <Text style={[styles.TextR, {color: 'black'}]}>{item.luot_ut}</Text>
-      </View>
-      <View style={styles.viewRow}>
         <Text style={styles.TextL}>Quản lí</Text>
-        <Text style={styles.TextR}>còn hạn</Text>
+        <Text style={styles.TextR}>{'Còn Hạn'}</Text>
+      </View>
+      <View style={styles.viewRow}>
+        <Text style={styles.TextL}>Lương</Text>
+        <Text style={styles.TextR}>{item.salary}</Text>
+      </View>
+      <View style={styles.viewRow}>
+        <Text style={styles.TextL}>Địa Chỉ</Text>
+        <Text style={styles.TextR}>{item.work_location}</Text>
       </View>
     </View>
   );
@@ -135,7 +150,6 @@ const Home = () => {
             </View>
           </View>
           {/* view2 */}
-
           {/* flatlist1 */}
           <View style={styles.viewRow}>
             <Text style={styles.title}>DS tin tuyển dụng mới nhất</Text>
@@ -145,13 +159,38 @@ const Home = () => {
               </Text>
             </TouchableOpacity>
           </View>
-          <FlatList
-            data={jobs}
-            keyExtractor={item => item.id}
-            renderItem={renderItem}
-            horizontal={true}
-          />
-          {/* flatlist2 */}
+          {listData.length === 0 || !listData ? (
+            <View
+              style={[
+                styles.ViewFlatlist,
+                {
+                  paddingVertical: scale(50),
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                },
+              ]}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: 'bold',
+                  paddingBottom: scale(15),
+                }}>
+                Chưa có tin tuyền dụng
+              </Text>
+              <ButtonStyle
+                styleBtn={{width: scale(130), backgroundColor: '#307DF1'}}
+                Title={'Đăng Tin'}
+                onPress={() => navigation.navigate('DangTin')}
+              />
+            </View>
+          ) : (
+            <FlatList
+              data={listData}
+              keyExtractor={item => item.id}
+              renderItem={renderItem}
+              horizontal={true}
+            />
+          )}
           <View style={styles.viewRow}>
             <Text style={styles.title}>Hồ sơ ứng tuyển mới nhất</Text>
             <TouchableOpacity>
@@ -160,12 +199,34 @@ const Home = () => {
               </Text>
             </TouchableOpacity>
           </View>
-          <FlatList
-            data={emp}
-            keyExtractor={item => item.id}
-            renderItem={renderItemHS}
-            horizontal={true}
-          />
+          <View
+            style={[
+              styles.ViewFlatlist,
+              {
+                paddingVertical: scale(50),
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginBottom: scale(80),
+              },
+            ]}>
+            <Image
+              style={{width: 60, height: 60}}
+              source={require('../../../../assets/images/logoVin.png')}
+            />
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: 'bold',
+              }}>
+              Chưa có hồ sơ ứng tuyển
+            </Text>
+          </View>
+          {/* // <FlatList*!/*/}
+          {/* //   data={emp}*!/*/}
+          {/* //   keyExtractor={item => item.id}*!/*/}
+          {/*//   renderItem={renderItemHS}*!/*/}
+          {/* //   horizontal={true}*!/*/}
+          {/* // */}
         </View>
       </ScrollView>
     </View>

@@ -124,14 +124,10 @@ const reducerContactInfo = (state, action) => {
       return state;
   }
 };
+
 const DangTin = ({navigation}) => {
   const dis = useDispatch();
-  const createdBy = useSelector(state => state.Authen.data.user.userId);
-  const loading = useSelector(state => state.AddJob.requesting);
-  console.log(
-    'Data: ',
-    useSelector(state => state),
-  );
+  const _id = useSelector(state => state.Authen.data);
   const initialState = {
     shift: 'Thời gian làm một ngày',
     start_time: null,
@@ -184,19 +180,14 @@ const DangTin = ({navigation}) => {
     initialStateContactInfo,
   );
   const alertAddJob = () =>
-    Alert.alert('Thông Báo', 'Bạn có muốn đăng tin không?', [
-      {
-        text: 'Cancel',
-        onPress: () => undefined,
-        style: 'cancel',
-      },
+    Alert.alert('Thông Báo', 'Đăng tin thành công?', [
       {
         text: 'OK',
         onPress: () => {
           dis(
             AddPostJob(
               job_posting_position,
-              career,
+              career.title,
               quantity_recruited,
               work_location,
               working_form,
@@ -213,7 +204,7 @@ const DangTin = ({navigation}) => {
               benefits_enjoyed,
               records_include,
               contact_info,
-              createdBy,
+              _id?.user?.userId,
             ),
           );
           navigation.goBack();
@@ -329,7 +320,7 @@ const DangTin = ({navigation}) => {
               <TextInput
                 placeholder="dd/mm/yy"
                 style={styles.textInput}
-                keyboardType={'number-pad'}
+                keyboardType={'phone-pad'}
                 value={posting_date}
                 onChangeText={text => set_posting_date(text)}
               />
@@ -346,7 +337,7 @@ const DangTin = ({navigation}) => {
               <TextInput
                 placeholder="dd/mm/yy"
                 style={styles.textInput}
-                keyboardType={'number-pad'}
+                keyboardType={'phone-pad'}
                 value={last_date}
                 onChangeText={text => set_last_date(text)}
               />

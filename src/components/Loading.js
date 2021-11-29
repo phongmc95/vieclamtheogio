@@ -2,12 +2,23 @@ import React, {Component} from 'react';
 import {Animated, Easing, StyleSheet, View} from 'react-native';
 
 const random = () => parseInt(Math.random() * 255);
-const randomColor = () => 'rgb(48, 125, 241)';
-const size = 30;
-const dim = 90;
+const randomColor = () =>
+  'rgb(' + random() + ',' + random() + ',' + random() + ')';
+const size = 60;
+const innerSize = size / 3;
 
-export default class Loader1 extends Component {
-  animation = new Animated.Value(0);
+export default class Loader4 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.color1 = randomColor();
+    this.color2 = randomColor();
+    this.color3 = randomColor();
+    this.color4 = randomColor();
+    this.color5 = randomColor();
+    this.animation = new Animated.Value(0);
+  }
+
   componentDidMount = () => {
     Animated.loop(
       Animated.timing(this.animation, {
@@ -19,178 +30,101 @@ export default class Loader1 extends Component {
     ).start();
   };
   render() {
-    const inputRange = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1];
-    const left1 = this.animation.interpolate({
-      inputRange,
-      outputRange: [
-        0,
-        dim - size,
-        dim - size,
-        0,
-        0,
-        0,
-        dim - size,
-        dim - size,
-        0,
-      ],
+    const Dim = size;
+    const angle = this.animation.interpolate({
+      inputRange: [0, 0.5, 1],
+      outputRange: ['0deg', '72deg', '360deg'],
     });
-    const top1 = this.animation.interpolate({
-      inputRange,
-      outputRange: [
-        0,
-        0,
-        dim - size,
-        dim - size,
-        0,
-        dim - size,
-        dim - size,
-        0,
-        0,
-      ],
+    const angle0 = this.animation.interpolate({
+      inputRange: [0, 0.5, 1],
+      outputRange: ['0deg', '144deg', '360deg'],
     });
-    const left2 = this.animation.interpolate({
-      inputRange,
-      outputRange: [
-        dim - size,
-        0,
-        0,
-        dim - size,
-        dim - size,
-        dim - size,
-        0,
-        0,
-        dim - size,
-      ],
+    const angle1 = this.animation.interpolate({
+      inputRange: [0, 0.5, 1],
+      outputRange: ['0deg', '216deg', '360deg'],
     });
-    const top2 = this.animation.interpolate({
-      inputRange,
-      outputRange: [
-        dim - size,
-        dim - size,
-        0,
-        0,
-        dim - size,
-        0,
-        0,
-        dim - size,
-        dim - size,
-      ],
+    const angle2 = this.animation.interpolate({
+      inputRange: [0, 0.5, 1],
+      outputRange: ['0deg', '288deg', '360deg'],
     });
-    const left3 = this.animation.interpolate({
-      inputRange,
-      outputRange: [
-        0,
-        0,
-        dim - size,
-        dim - size,
-        0,
-        dim - size,
-        dim - size,
-        0,
-        0,
-      ],
+    const angle3 = this.animation.interpolate({
+      inputRange: [0, 0.5, 1],
+      outputRange: ['0deg', '360deg', '360deg'],
     });
-    const top3 = this.animation.interpolate({
-      inputRange,
-      outputRange: [
-        dim - size,
-        0,
-        0,
-        dim - size,
-        dim - size,
-        dim - size,
-        0,
-        0,
-        dim - size,
-      ],
-    });
-    const left4 = this.animation.interpolate({
-      inputRange,
-      outputRange: [
-        dim - size,
-        dim - size,
-        0,
-        0,
-        dim - size,
-        0,
-        0,
-        dim - size,
-        dim - size,
-      ],
-    });
-    const top4 = this.animation.interpolate({
-      inputRange,
-      outputRange: [
-        0,
-        dim - size,
-        dim - size,
-        0,
-        0,
-        0,
-        dim - size,
-        dim - size,
-        0,
-      ],
-    });
-    const angleValue = this.animation.interpolate({
+    const outerAngle = this.animation.interpolate({
       inputRange: [0, 1],
       outputRange: ['0deg', '720deg'],
     });
-    const backgroundColor = randomColor();
+
     return (
       <View style={styles.container}>
-        <View style={{width: dim, height: dim}}>
+        <Animated.View
+          style={{width: Dim, height: Dim, transform: [{rotate: outerAngle}]}}>
           <Animated.View
-            style={{
-              ...styles.item,
-              backgroundColor,
-              transform: [
-                {translateX: left1},
-                {translateY: top1},
-                {rotate: angleValue},
-              ],
-            }}
-          />
+            style={{...styles.item, transform: [{rotate: angle3}]}}>
+            <View
+              style={{
+                ...styles.innerItem,
+                backgroundColor: this.color1,
+              }}
+            />
+          </Animated.View>
           <Animated.View
-            style={{
-              ...styles.item,
-              backgroundColor,
-              transform: [
-                {translateX: left2},
-                {translateY: top2},
-                {rotate: angleValue},
-              ],
-            }}
-          />
+            style={{...styles.item, transform: [{rotate: angle2}]}}>
+            <View
+              style={{
+                ...styles.innerItem,
+                backgroundColor: this.color2,
+              }}
+            />
+          </Animated.View>
           <Animated.View
-            style={{
-              ...styles.item,
-              backgroundColor,
-              transform: [
-                {translateX: left3},
-                {translateY: top3},
-                {rotate: angleValue},
-              ],
-            }}
-          />
+            style={{...styles.item, transform: [{rotate: angle1}]}}>
+            <View
+              style={{
+                ...styles.innerItem,
+                backgroundColor: this.color3,
+              }}
+            />
+          </Animated.View>
           <Animated.View
-            style={{
-              ...styles.item,
-              backgroundColor,
-              transform: [
-                {translateX: left4},
-                {translateY: top4},
-                {rotate: angleValue},
-              ],
-            }}
-          />
-        </View>
+            style={{...styles.item, transform: [{rotate: angle0}]}}>
+            <View
+              style={{
+                ...styles.innerItem,
+                backgroundColor: this.color4,
+              }}
+            />
+          </Animated.View>
+          <Animated.View style={{...styles.item, transform: [{rotate: angle}]}}>
+            <View
+              style={{
+                ...styles.innerItem,
+                backgroundColor: this.color5,
+              }}
+            />
+          </Animated.View>
+        </Animated.View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, justifyContent: 'center', alignItems: 'center'},
-  item: {width: size, height: size, position: 'absolute'},
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  item: {
+    width: size,
+    height: size,
+    borderWidth: 0,
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    justifyContent: 'center',
+  },
+  innerItem: {
+    height: innerSize / 10,
+  },
 });

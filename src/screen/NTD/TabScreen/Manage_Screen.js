@@ -145,17 +145,18 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: scale(16),
     backgroundColor: '#307FD1',
-    borderRadius: scale(30),
+
     paddingHorizontal: scale(28),
     paddingVertical: scale(10),
     color: 'white',
     margin: scale(5),
+
   },
   btnR: {
     fontWeight: '500',
     fontSize: scale(16),
     backgroundColor: 'white',
-    borderRadius: scale(30),
+
     paddingHorizontal: scale(50),
     paddingVertical: scale(10),
     color: '#307FD1',

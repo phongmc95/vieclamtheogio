@@ -26,28 +26,7 @@ const GiaiPhap = ({navigation}) => {
       {/* main */}
       <ScrollView style={styles.ScrollView}>
         {/* view1 */}
-        <View style={styles.ViewFlatlist}>
-          <View style={styles.viewRow}>
-            <Text style={styles.TextL}>Công ty đang tuyển</Text>
-            <Text style={styles.TextR}>Thợ hồ</Text>
-          </View>
-          <View style={styles.viewRow}>
-            <Text style={styles.TextL}>Ngành nghề</Text>
-            <Text style={styles.TextR}>Xây dựng</Text>
-          </View>
-          <View style={styles.viewRow}>
-            <Text style={styles.TextL}>Mức độ cạnh tranh</Text>
-            <Text style={styles.TextR}>Nhiều</Text>
-          </View>
-          <View style={styles.viewRow}>
-            <Text style={styles.TextL}>Khu vực</Text>
-            <Text style={styles.TextR}>Hà Nội</Text>
-          </View>
-          <View style={styles.viewRow}>
-            <Text style={styles.TextL}>Số lượng ứng viên</Text>
-            <Text style={styles.TextR}>Nhiều</Text>
-          </View>
-        </View>
+
         {/* view2 */}
         <View style={[styles.ViewFlatlist]}>
           <View style={{flexDirection: 'row', marginLeft: scale(15)}}>
@@ -136,7 +115,7 @@ const GiaiPhap = ({navigation}) => {
             dụng dịch vụ giúp tuyển dụng nhanh chóng hiệu quả hãy gọi chuyên
             viên hỗ trợ :
           </Text>
-          <Text style={styles.TextR}>Mai Hương (0904646975)</Text>
+          <Text style={styles.TextR}>MR.Tuan (0904646975)</Text>
           <Text style={styles.content}>hotline</Text>
           <Text style={styles.TextR}> 0329 39.88.58 | 024 36.36.66.99</Text>
           <Text style={styles.content}>
@@ -157,12 +136,13 @@ const styles = StyleSheet.create({
   },
   StatusBar: {
     backgroundColor: '#307DF1',
-    height: scale(60),
+    height: scale(120),
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
 
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    paddingBottom:20
   },
   title: {
     color: 'white',

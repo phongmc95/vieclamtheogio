@@ -24,7 +24,7 @@ const Login = ({navigation}) => {
   const dispatch = useDispatch();
   const checkLogin = useSelector(state => state.Authen.check_type);
   const Error = useSelector(state => state.Authen.message);
-  const check = useSelector(state => state.Authen.success);
+  const check = useSelector(state => state.Authen.data);
   const loading = useSelector(state => state.Authen.requesting);
 
   const [email, setEmail] = useState('');
@@ -45,18 +45,14 @@ const Login = ({navigation}) => {
       setModal(true);
       setError('Bạn nhập email không đúng định dạng. Vui lòng nhập lại ! ');
     } else {
-      dispatch(
-        loadPostsLogIn(
-          email,
-          pass,
-          checkLogin === 'flc' ? 'candidate' : 'employer',
-        ),
-      );
+      dispatch(loadPostsLogIn(email, pass));
     }
   };
   const navi = () => {
-    if (check === true) {
-      navigation.navigate(checkLogin !== 'flc' ? 'tabNTD' : 'BottomTabFlc');
+    if (check) {
+      navigation.navigate(
+        check.user.role === 'employer' ? 'tabNTD' : 'BottomTabFlc',
+      );
       return;
     }
   };
