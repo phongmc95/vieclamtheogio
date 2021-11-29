@@ -47,9 +47,7 @@ const HeaderStyle = ({Logo, Title, type,uri}) => {
             }}>
             <Text style={styles.NameNTD}>{Title}</Text>
           </View>
-          <TouchableOpacity style={{padding: scale(10)}}>
-            <FilterIcon />
-          </TouchableOpacity>
+
         </View>
       ) : null}
     </View>
@@ -83,7 +81,7 @@ const styles = StyleSheet.create({
     fontSize: scale(16),
     textTransform: 'uppercase',
     fontFamily: fonts.BOLD,
-    marginLeft: scale(5),
+    marginLeft: scale(15),
   },
   Notification: {
     backgroundColor: 'white',

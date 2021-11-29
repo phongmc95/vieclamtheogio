@@ -66,12 +66,12 @@ const Home = ({navigation}) => {
   console.log('ListData: ', listData);
   const renderItem = ({item}) => (
     <View style={styles.ViewFlatlist}>
-      <Text style={styles.TextTitle}>{item.job_posting_position}</Text>
+      <Text style={styles.TextTitle}>{item?.job_posting_position}</Text>
 
       <View style={styles.viewRow}>
         <Text style={styles.TextL}>Thời gian</Text>
         <Text style={[styles.TextR, {color: 'black'}]}>
-          {item.posting_date} đến {item.last_date}
+          {item.posting_date} đến {item?.last_date}
         </Text>
       </View>
       <View style={styles.viewRow}>
@@ -79,12 +79,12 @@ const Home = ({navigation}) => {
         <Text style={styles.TextR}>{'Còn Hạn'}</Text>
       </View>
       <View style={styles.viewRow}>
-        <Text style={styles.TextL}>Lương</Text>
-        <Text style={styles.TextR}>{item.salary}</Text>
+        <Text style={styles.TextL}>Lượt ứng tuyển</Text>
+        <Text style={styles.TextR}>{item?.applicants_applied.length}</Text>
       </View>
       <View style={styles.viewRow}>
         <Text style={styles.TextL}>Địa Chỉ</Text>
-        <Text style={styles.TextR}>{item.work_location}</Text>
+        <Text style={styles.TextR}>{item?.work_location}</Text>
       </View>
     </View>
   );
@@ -153,7 +153,7 @@ const Home = ({navigation}) => {
           {/* flatlist1 */}
           <View style={styles.viewRow}>
             <Text style={styles.title}>DS tin tuyển dụng mới nhất</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.navigate('TD_Screen')}>
               <Text style={[styles.TextR, {marginTop: scale(15)}]}>
                 Xem thêm
               </Text>
@@ -189,11 +189,13 @@ const Home = ({navigation}) => {
               keyExtractor={item => item.id}
               renderItem={renderItem}
               horizontal={true}
+              pagingEnabled={true}
+              showsHorizontalScrollIndicator={false}
             />
           )}
           <View style={styles.viewRow}>
             <Text style={styles.title}>Hồ sơ ứng tuyển mới nhất</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.navigate('TD_Screen')}>
               <Text style={[styles.TextR, {marginTop: scale(15)}]}>
                 Xem thêm
               </Text>

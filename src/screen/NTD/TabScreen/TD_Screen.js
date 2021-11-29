@@ -56,7 +56,7 @@ const TD_Screen = ({navigation}) => {
       });
     // setLoad(!load)
     return () => {};
-  }, [load]);
+  }, [load,isFocused,newData]);
 
   const alertDelete = item =>
     Alert.alert('Thông Báo', 'Bạn có muốn xóa tin này không ?', [
@@ -105,10 +105,7 @@ const TD_Screen = ({navigation}) => {
         <Text style={styles.TextL}>Ngày ứng tuyển</Text>
         <Text style={[styles.TextR, {color: 'black'}]}>{item.last_date}</Text>
       </View>
-      {/*<View style={styles.viewRow}>*/}
-      {/*  <Text style={styles.TextL}>Lượt ứng tuyển</Text>*/}
-      {/*  <Text style={[styles.TextR, {color: 'black'}]}>{item.count}</Text>*/}
-      {/*</View>*/}
+
       <View style={styles.viewRow}>
         <Text style={styles.TextL}>Quản lí</Text>
         <Text style={styles.TextR}>{'Còn Hạn'}</Text>
@@ -135,7 +132,7 @@ const TD_Screen = ({navigation}) => {
       </View>
       <View style={styles.main}>
         <FlatList
-          data={newData}
+          data={listData}
           keyExtractor={item => item._id}
           renderItem={renderItem}
           ListFooterComponent={() => (
