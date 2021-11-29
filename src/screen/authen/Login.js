@@ -62,6 +62,7 @@ const Login = ({navigation}) => {
   };
   useEffect(() => {
     navi();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
   return (
     <View style={styles.contener}>

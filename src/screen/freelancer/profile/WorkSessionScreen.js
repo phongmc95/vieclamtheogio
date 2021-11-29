@@ -48,7 +48,7 @@ export default function WorkSessionScreen({item}) {
   };
 
   return (
-    <View style={{height: scale(550)}}>
+    <View style={{height: scale(600)}}>
       <TouchableOpacity onPress={() => navigation.navigate('UpdateWork')}>
         <Image style={styles.pen} source={icons.pen} />
       </TouchableOpacity>

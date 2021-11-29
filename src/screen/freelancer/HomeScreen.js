@@ -8,8 +8,9 @@ import {
   View,
   Image,
   TouchableOpacity,
-  ScrollView, StatusBar,
-} from "react-native";
+  ScrollView,
+  StatusBar,
+} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {scale} from 'react-native-size-matters';
 import TitleHome from '../../components/title/TitleHome';
@@ -57,7 +58,7 @@ export default function HomeScreen({navigation}) {
           />
           <View style={styles.viewTitle}>
             <Text style={styles.txtTitleJob}>{item.job_posting_position}</Text>
-            <Text style={styles.txtAddress}>{item?.user?.name}</Text>
+            <Text style={styles.txtAddress}>{item?.career}</Text>
           </View>
           <Image style={styles.iconHeart} source={icons.heart} />
         </View>
