@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from "react";
 
 import {
   StyleSheet,
@@ -6,8 +6,8 @@ import {
   View,
   TouchableOpacity,
   Image,
-  TextInput,
-} from 'react-native';
+  TextInput, FlatList,
+} from "react-native";
 import {scale} from 'react-native-size-matters';
 import {PhoneIcon, ClockIcon, SelectDowIcon} from '../../../../assets/icon';
 import {SwipeListView} from 'react-native-swipe-list-view';
@@ -17,62 +17,12 @@ import SelectModal from '../../../components/SelectModal';
 import Button from '../../../components/Button/Button';
 import colors from '../../../constant/colors';
 import fonts from '../../../constant/fonts';
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { useIsFocused } from "@react-navigation/native";
+import images from "../../../constant/images";
 const UV_Screen = ({navigation}) => {
-  const DATA = [
-    {
-      id: 1,
-      avatar:
-        'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-anh-avatar-hai.jpg',
-      nameUV: 'Phong Lợn',
 
-      phone: '0232223135',
-      city: 'Hà Nội',
-      time: 'Thứ 2, Thứ 3,Thứ 4, Thứ 5',
-    },
-
-    {
-      id: 2,
-      avatar:
-        'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-anh-avatar-hai.jpg',
-      nameUV: 'Phong Lợn',
-
-      phone: '0232223135',
-      city: 'Hà Nội',
-      time: 'Thứ 2, Thứ 3,Thứ 4, Thứ 5',
-    },
-
-    {
-      id: 3,
-      avatar:
-        'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-anh-avatar-hai.jpg',
-      nameUV: 'Phong Lợn',
-
-      phone: '0232223135',
-      city: 'Hà Nội',
-      time: 'Thứ 2, Thứ 3,Thứ 4, Thứ 5',
-    },
-
-    {
-      id: 4,
-      avatar:
-        'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-anh-avatar-hai.jpg',
-      nameUV: 'Phong Lợn',
-
-      phone: '0232223135',
-      city: 'Hà Nội',
-      time: 'Thứ 2, Thứ 3,Thứ 4, Thứ 5',
-    },
-    {
-      id: 5,
-      avatar:
-        'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-anh-avatar-hai.jpg',
-      nameUV: 'Phong Lợn',
-
-      phone: '0232223135',
-      city: 'Hà Nội',
-      time: 'Thứ 2, Thứ 3,Thứ 4, Thứ 5',
-    },
-  ];
 
   const states = [
     {id: 2, title: 'Đến phỏng vấn'},
@@ -83,6 +33,29 @@ const UV_Screen = ({navigation}) => {
   const [Visible, setVisible] = useState(false);
   const [showStatus, setShowStastus] = useState(false);
   const [state, setState] = useState({id: null, title: 'Trạng thái'});
+  const [data, setData] = useState([]);
+  const [load, setLoad] = useState(false);
+  const [newData, setNewData] = useState([]);
+  const idEmp = useSelector(state => state.Authen.data);
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    var config = {
+      method: 'get',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/jobs',
+    };
+
+    axios(config)
+      .then(function (response) {
+        setData(response.data.jobs);
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    // setLoad(!load)
+
+    return () => {};
+  }, [load,isFocused]);
   const toggleModal = () => {
     setVisible(!Visible);
   };
@@ -90,89 +63,43 @@ const UV_Screen = ({navigation}) => {
   const toggleModalSelect = () => {
     setShowStastus(!showStatus);
   };
+
+    const listData = data?.filter(item => item.createdBy === idEmp?.user?.userId);
+
+   const UV=  listData?.map(item=>  item.applicants_applied.reduce((a,b)=>({...a,'data':b}),{}))
+
+
+        //console.log(item?.applicants_applied,">>>");
+
+
   const renderItem = ({item}) => (
     <View style={[styles.viewFL, styleHinder]}>
+      {console.log(item?.data.name)}
       <TouchableOpacity
         style={{flexDirection: 'row'}}
         onPress={() => navigation.navigate('DetailUV', {item})}>
-        <Image source={{uri: item.avatar}} style={styles.avatar} />
-        <Text style={styles.nameUV}>{item.nameUV}</Text>
-      </TouchableOpacity>
-      <View style={styles.viewItemRow}>
+        <Image source={item?.data?.avatar?{uri:item?.data?.avatar}: images.avatar} style={styles.avatar} />
+        <View><Text style={styles.nameUV}>{item?.data?.name}</Text>
         <View style={{flexDirection: 'row'}}>
           <View style={{marginRight: scale(5), marginLeft: scale(5)}}>
-            <ClockIcon />
+            <Text style={[styles.textitem,{color:'#000000',}]}>Vị trí:</Text>
           </View>
-          <Text style={styles.textitem}>{item.city}</Text>
+          <Text style={styles.textitem}>{item?.data?.positions}</Text>
         </View>
-        <View style={{flexDirection: 'row', marginRight: scale(15)}}>
-          <View style={{marginRight: scale(5)}}>
-            <PhoneIcon />
-          </View>
-          <Text style={styles.textitem}>{item.phone}</Text>
-        </View>
-      </View>
-      <View style={{flexDirection: 'row', marginTop: scale(20)}}>
-        <View style={{marginRight: scale(5), marginLeft: scale(5)}}>
-          <ClockIcon />
-        </View>
-        <Text style={styles.textitem}>Ca1:{item.time}</Text>
-      </View>
+     </View>
+      </TouchableOpacity>
+
+
     </View>
   );
-  const renderHinderItem = ({item}) => (
-    <View style={styles.hinder}>
-      <TouchableOpacity style={styles.nghichu} onPress={toggleModal}>
-        <Text
-          style={{
-            fontSize: scale(12),
-            fontWeight: '500',
-            color: 'white',
-            fontFamily: fonts.NORMAL,
-          }}>
-          Ghi chú
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.status}
-        onPress={() => setShowStastus(!showStatus)}>
-        <Text
-          style={{
-            fontSize: scale(12),
-            fontWeight: '400',
-            color: 'white',
-            fontFamily: fonts.NORMAL,
-          }}>
-          {state.title}
-        </Text>
-        <View style={{position: 'absolute', right: 0, marginRight: scale(15)}}>
-          <SelectDowIcon />
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
-  const ModalNode = () => {
-    return (
-      <Modal visible={Visible} onDismiss={toggleModal} dismissible={false}>
-        <View style={styles.modalView}>
-          <Text style={styles.titleNote}>Ghi chú nhà tuyển dụng</Text>
-          <View style={[styles.boxInput]}>
-            <TextInput
-              placeholder="Nhập tối thiểu 50 từ"
-              style={styles.textInput}
-            />
-          </View>
-          <Button title="Lưu" color={colors.WHITE} bg={colors.BLUE} />
-        </View>
-      </Modal>
-    );
-  };
+
+
   return (
     <View style={styles.contener}>
       <HeaderStyle type="filter" Title="Ứng viên đã ứng tuyển" />
       {/* main */}
       <View style={styles.main}>
-        {DATA.length !== 0 ? (
+        {UV.length === 0 ? (
           <View
             style={{
               paddingTop: scale(180),
@@ -184,30 +111,21 @@ const UV_Screen = ({navigation}) => {
               source={require('../../../../assets/images/logoVin.png')}
             />
             <Text style={{padding: 12, fontSize: 16}}>
-              Bạn chưa có tin ứng tuyển
+              Bạn chưa có ứng viên nào ứng tuyển
             </Text>
           </View>
         ) : (
-          <SwipeListView
-            data={DATA}
+          <FlatList
+            data={UV}
             renderItem={renderItem}
-            renderHiddenItem={renderHinderItem}
-            rightOpenValue={scale(-165)}
+          keyExtractor={item => item.data?.positions}
+            ListFooterComponent={()=><View style={{paddingBottom:scale(50)}}/>}
             //   onRowDidOpen={onRowDidOpen}
           />
         )}
       </View>
-      <ModalNode />
-      <SelectModal
-        isVisible={showStatus}
-        onBackdropPress={toggleModalSelect}
-        label={'Trạng thái'}
-        onPress={item => {
-          setState(item);
-          toggleModalSelect();
-        }}
-        data={states}
-      />
+
+
     </View>
   );
 };
@@ -253,8 +171,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   avatar: {
-    width: scale(60),
-    height: scale(60),
+    width: scale(100),
+    height: scale(100),
     borderRadius: scale(50),
     marginLeft: scale(5),
   },
@@ -263,12 +181,14 @@ const styles = StyleSheet.create({
   },
   textitem: {
     fontFamily: fonts.NORMAL,
-    fontSize: scale(12),
-    marginTop: scale(5),
+    fontSize: scale(18),
+    marginLeft: scale(8),
+    marginTop: scale(10),
+    color:'#307df1'
   },
   nameUV: {
     fontFamily: fonts.NORMAL,
-    fontSize: scale(16),
+    fontSize: scale(21),
     color: '#307DF1',
     marginLeft: scale(10),
     marginTop: scale(10),
