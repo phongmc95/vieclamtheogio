@@ -32,8 +32,8 @@ import {
   FETCH_POST_ADD_JOB_ERROR,
   FETCH_GET_JOB_REQUEST,
   FETCH_GET_JOB_SUCCESS,
-  FETCH_GET_JOB_ERROR,
-} from './type/Type';
+  FETCH_GET_JOB_ERROR, FETCH_POST_UPDATE_JOB_REQUEST, FETCH_POST_UPDATE_JOB_SUCCESS, FETCH_POST_UPDATE_JOB_ERROR,
+} from "./type/Type";
 
 export const loadPostsLogIn = (email, pass) => async dispatch => {
   try {
@@ -390,3 +390,66 @@ export const GetJob = () => async dispatch => {
     });
   }
 };
+export const UpdateJob =
+  (
+    job_posting_position,
+    career,
+    quantity_recruited,
+    work_location,
+    working_form,
+    salary,
+    min_education,
+    probation,
+    rose,
+    experience,
+    posting_date,
+    last_date,
+    work_schedule,
+    job_description,
+    job_requirements,
+    benefits_enjoyed,
+    records_include,
+    contact_info,
+    createdBy,
+    idJob
+  ) =>
+    async dispatch => {
+      try {
+        dispatch({type: FETCH_POST_UPDATE_JOB_REQUEST});
+        const url = `jobs/${idJob}`;
+        const data = JSON.stringify({
+          job_posting_position,
+          career,
+          quantity_recruited,
+          work_location,
+          working_form,
+          salary,
+          min_education,
+          probation,
+          rose,
+          experience,
+          posting_date,
+          last_date,
+          work_schedule,
+          job_description,
+          job_requirements,
+          benefits_enjoyed,
+          records_include,
+          contact_info,
+          createdBy,
+        });
+
+        const response = await axiosClient.patch(url, data);
+
+        dispatch({
+          type: FETCH_POST_UPDATE_JOB_SUCCESS,
+          data: response,
+        });
+      } catch (error) {
+        console.error(error);
+        dispatch({
+          type: FETCH_POST_UPDATE_JOB_ERROR,
+          message: error,
+        });
+      }
+    };

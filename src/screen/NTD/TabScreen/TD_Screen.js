@@ -47,8 +47,8 @@ const TD_Screen = ({navigation}) => {
         setData(response.data.jobs);
         data
           ? setNewData(
-              data?.filter(item => item.createdBy === idEmp?.user?.userId),
-            )
+            data?.filter(item => item.createdBy === idEmp?.user?.userId),
+          )
           : [];
       })
       .catch(function (error) {

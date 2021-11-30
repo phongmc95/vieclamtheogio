@@ -22,7 +22,7 @@ const Manage_Screen = ({navigation}) => {
     <View style={styles.contener}>
       <View style={styles.StatusBar}>
         <Image
-          source={ !data.user?.avatar?logo:{uri:data?.user?.avatar}}
+          source={ !data?.user?.avatar?logo:{uri:data?.user?.avatar}}
           style={styles.avatar}
         />
         <Text style={styles.title}>{data?.user?.name}</Text>

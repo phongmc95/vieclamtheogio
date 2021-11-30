@@ -6,7 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
-  TextInput,
+  TextInput,Alert
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
@@ -19,6 +19,7 @@ import {jobs} from '../../../data/Jobs';
 import ModalStyle from '../../../components/ModalStyle';
 import {useDispatch, useSelector} from 'react-redux';
 import icons from '../../../constant/icons';
+import { UpdateJob } from "../../../redux/actions/actions";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -122,29 +123,28 @@ const reducerContactInfo = (state, action) => {
 };
 const SuaTin = ({navigation, route}) => {
   const item = route.params.item;
-  console.log('params: ', route.params.item);
+  console.log('params: ', item);
   const dis = useDispatch();
-  const createdBy = useSelector(state => state.Authen.data.user.userId);
-  const loading = useSelector(state => state.AddJob.requesting);
+
   const initialState = {
     shift: 'Thời gian làm một ngày',
-    start_time: item.work_schedule[0].start_time,
-    end_time: item.work_schedule[0].end_time,
+    start_time: item?.work_schedule[0]?.start_time,
+    end_time: item?.work_schedule[0]?.end_time,
     work_days: {
-      monday: item.work_schedule[0].work_days.monday,
-      tuesday: item.work_schedule[0].work_days.tuesday,
-      wednesday: item.work_schedule[0].work_days.wednesday,
-      thursday: item.work_schedule[0].work_days.thursday,
-      friday: item.work_schedule[0].work_days.friday,
-      saturday: item.work_schedule[0].work_days.saturday,
-      sunday: item.work_schedule[0].work_days.sunday,
+      monday: item?.work_schedule[0]?.work_days.monday,
+      tuesday: item?.work_schedule[0]?.work_days.tuesday,
+      wednesday: item?.work_schedule[0]?.work_days.wednesday,
+      thursday: item?.work_schedule[0]?.work_days.thursday,
+      friday: item?.work_schedule[0]?.work_days.friday,
+      saturday: item?.work_schedule[0]?.work_days.saturday,
+      sunday: item?.work_schedule[0]?.work_days.sunday,
     },
   };
   const initialStateContactInfo = {
-    contact_person: '',
-    contact_address: '',
-    contact_phone: '',
-    contact_email: '',
+    contact_person: item?.contact_info?.contact_person,
+    contact_address: item?.contact_info?.contact_address,
+    contact_phone: item?.contact_info?.contact_phone,
+    contact_email: item?.contact_info?.contact_email,
   };
   const selectItem = item => {
     setCareer(item);
@@ -190,6 +190,32 @@ const SuaTin = ({navigation, route}) => {
     reducerContactInfo,
     initialStateContactInfo,
   );
+  const submit=()=>{
+   dis(UpdateJob(
+     job_posting_position,
+     career.title,
+     quantity_recruited,
+     work_location,
+     working_form,
+     salary,
+     min_education,
+     probation,
+     rose,
+     '',
+     posting_date,
+     last_date,
+     work_schedule_list,
+     job_description,
+     job_requirements,
+     benefits_enjoyed,
+     records_include,
+     contact_info,
+    item?.createdBy,
+     item?._id
+     ));
+   // navigation.navigate('TD_Screen')
+  }
+
   return (
     <View style={styles.contener}>
       <View style={styles.StatusBar}>
@@ -198,7 +224,7 @@ const SuaTin = ({navigation, route}) => {
           onPress={() => navigation.goBack()}>
           <BackIcon />
         </TouchableOpacity>
-        <Text style={styles.title}>Đăng tin</Text>
+        <Text style={styles.title}>Sửa tin</Text>
       </View>
       {/* main */}
       <ScrollView style={{marginBottom: scale(50)}}>
@@ -374,7 +400,7 @@ const SuaTin = ({navigation, route}) => {
           <ButtonStyle
             styleBtn={{width: 150, margin: scale(30)}}
             Title={'Sửa Tin'}
-            onPress={{}}
+            onPress={submit()}
           />
         </View>
       </ScrollView>

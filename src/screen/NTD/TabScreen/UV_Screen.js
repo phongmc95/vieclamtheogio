@@ -58,6 +58,7 @@ const UV_Screen = ({navigation}) => {
 
   const renderItem = ({item}) => (
     <View style={[styles.viewFL, styleHinder]}>
+
       <TouchableOpacity
         style={{flexDirection: 'row'}}
         onPress={() => navigation.navigate('DetailUV', {item, type: 'epl'})}>
