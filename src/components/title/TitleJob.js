@@ -7,7 +7,14 @@ import icons from '../../constant/icons';
 import images from '../../constant/images';
 import {isIos} from '../../Utils/CheckDevice';
 
-export default function TitleJob(props) {
+export default function TitleJob({
+  handleSave,
+  type,
+  logo,
+  title,
+  company,
+  deadline,
+}) {
   const navigation = useNavigation();
   return (
     <View style={styles.titleBox}>
@@ -19,10 +26,10 @@ export default function TitleJob(props) {
           />
         </TouchableOpacity>
         <View style={{width: '82%'}} />
-        <TouchableOpacity onPress={props.handleSave}>
+        <TouchableOpacity onPress={handleSave}>
           <Image
             style={{height: scale(25), width: scale(28), marginTop: scale(5)}}
-            source={props.type === true ? icons.whiteLike : icons.whiteDislike}
+            source={type === true ? icons.whiteLike : icons.whiteDislike}
           />
         </TouchableOpacity>
       </View>
@@ -34,7 +41,7 @@ export default function TitleJob(props) {
             height: scale(79),
             width: scale(79),
           }}
-          source={props.logo ? {uri: props.logo} : images.avatar}
+          source={logo ? {uri: logo} : images.avatar}
         />
         <View style={{width: '65%', marginLeft: scale(20)}}>
           <Text
@@ -44,7 +51,7 @@ export default function TitleJob(props) {
               color: '#fff',
               fontFamily: fonts.BOLD,
             }}>
-            {props.title}
+            {title}
           </Text>
           <Text
             style={{
@@ -53,7 +60,7 @@ export default function TitleJob(props) {
               marginTop: scale(5),
               fontFamily: fonts.NORMAL,
             }}>
-            {props.company}
+            {company}
           </Text>
         </View>
       </View>
@@ -70,7 +77,7 @@ export default function TitleJob(props) {
               color: '#fff',
               marginLeft: scale(5),
             }}>
-            Hạn nộp: <Text>{props.deadline}</Text>
+            Hạn nộp: <Text>{deadline}</Text>
           </Text>
         </View>
       </View>

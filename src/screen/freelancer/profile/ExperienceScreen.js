@@ -11,9 +11,11 @@ import {
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 import fonts from '../../../constant/fonts';
+import EmptyData from '../../../components/EmptyData';
 
-export default function ExperienceScreen({data}) {
+export default function ExperienceScreen({data, type}) {
   const navigation = useNavigation();
+
   const renderItem = ({item}) => {
     return (
       <View style={styles.box}>
@@ -25,32 +27,28 @@ export default function ExperienceScreen({data}) {
           </Text>
           <Text style={styles.txtProgress}>{item.achievements}</Text>
         </View>
-        <View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('UpdateExperience')}>
-            <Image style={styles.pen} source={icons.pen} />
-          </TouchableOpacity>
-          <Image style={styles.trash} source={icons.trash_black} />
-        </View>
+        {type === 'flc' && (
+          <View>
+            <TouchableOpacity onPress={update}>
+              <Image style={styles.pen} source={icons.pen} />
+            </TouchableOpacity>
+            <Image style={styles.trash} source={icons.trash_black} />
+          </View>
+        )}
       </View>
     );
   };
 
-  const renderEmptyItem = () => {
-    return (
-      <View style={styles.box}>
-        <View style={{width: '85%'}}>
-          <Text style={styles.txtNoUpdate}>Chưa cập nhật</Text>
-        </View>
-        <View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('UpdateExperience')}>
-            <Image style={styles.pen} source={icons.pen} />
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
+  const update = () => navigation.navigate('UpdateExperience');
+
+  const renderEmptyItem = () => (
+    <EmptyData
+      content="Chưa cập nhật"
+      onPress={update}
+      icon={icons.pen}
+      type={type}
+    />
+  );
   return (
     <View>
       <FlatList

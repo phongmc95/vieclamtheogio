@@ -6,7 +6,7 @@ import icons from '@constant/icons';
 import fonts from '../../../constant/fonts';
 import colors from '../../../constant/colors';
 
-export default function InfomationScreen({item}) {
+export default function InfomationScreen({item, type}) {
   const navigation = useNavigation();
   return (
     <View style={styles.box}>
@@ -46,14 +46,16 @@ export default function InfomationScreen({item}) {
             Địa chỉ: <Text style={styles.blue}>{item.address}</Text>
           </Text>
         </View>
-        <View>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('UpdateInfomation', {info: item})
-            }>
-            <Image style={styles.icon} source={icons.pen} />
-          </TouchableOpacity>
-        </View>
+        {type === 'flc' && (
+          <View>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('UpdateInfomation', {info: item})
+              }>
+              <Image style={styles.icon} source={icons.pen} />
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </View>
   );

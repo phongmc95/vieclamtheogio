@@ -30,14 +30,9 @@ export default function JobDetailScreen({navigation, route}) {
   const loading = useSelector(state => state.Authen.requesting);
   const [contact, setContact] = useState(false);
   const profile = useSelector(state => state.ProfileEPl.data);
-  const [isSave, setIsSave] = useState(false);
-
-  useEffect(() => {
-    const job = profile?.user?.save_job.find(item => item?.job?._id === id);
-    setIsSave(job?.is_save);
-    return () => {};
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [isOpen, setIsOpen] = useState(false);
+  const job = profile?.user?.save_job.find(item => item?.job?._id === id);
+  const isSave = job?.is_save;
 
   useFocusEffect(
     useCallback(() => {
@@ -75,6 +70,10 @@ export default function JobDetailScreen({navigation, route}) {
 
   const toggleModal = () => {
     setModal(!modal);
+  };
+
+  const toggleSuccess = () => {
+    setIsOpen(!isOpen);
   };
 
   const toggleContact = () => {
@@ -141,6 +140,7 @@ export default function JobDetailScreen({navigation, route}) {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        toggleSuccess();
       })
       .catch(function (error) {
         console.log(error);
@@ -155,7 +155,7 @@ export default function JobDetailScreen({navigation, route}) {
         title={data?.job?.job_posting_position}
         company={data?.job?.career}
         deadline={data?.job?.last_date}
-        handleSave={save()}
+        handleSave={save}
         type={isSave}
       />
       <View style={{height: height / 1.4}}>
@@ -183,6 +183,12 @@ export default function JobDetailScreen({navigation, route}) {
         on={modal}
         off={toggleModal}
         content1="Yêu cầu nhận việc của bạn đã được gửi tới Nhà tuyển dụng"
+        title="THÔNG BÁO"
+      />
+      <Notification
+        on={isOpen}
+        off={toggleSuccess}
+        content1="Lưu tin thành công!!!"
         title="THÔNG BÁO"
       />
       <Notification

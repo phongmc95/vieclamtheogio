@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from 'react';
 
 import {
   StyleSheet,
@@ -6,24 +6,17 @@ import {
   View,
   TouchableOpacity,
   Image,
-  TextInput, FlatList,
-} from "react-native";
-import {scale} from 'react-native-size-matters';
-import {PhoneIcon, ClockIcon, SelectDowIcon} from '../../../../assets/icon';
-import {SwipeListView} from 'react-native-swipe-list-view';
-import {Modal} from 'react-native-paper';
+  FlatList,
+} from 'react-native';
 import HeaderStyle from '../../../components/HeaderStyle';
-import SelectModal from '../../../components/SelectModal';
-import Button from '../../../components/Button/Button';
 import colors from '../../../constant/colors';
 import fonts from '../../../constant/fonts';
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { useIsFocused } from "@react-navigation/native";
-import images from "../../../constant/images";
+import axios from 'axios';
+import {useSelector} from 'react-redux';
+import {useIsFocused} from '@react-navigation/native';
+import images from '../../../constant/images';
+import {scale} from 'react-native-size-matters';
 const UV_Screen = ({navigation}) => {
-
-
   const states = [
     {id: 2, title: 'Đến phỏng vấn'},
     {id: 3, title: 'Đạt yêu cầu'},
@@ -47,52 +40,46 @@ const UV_Screen = ({navigation}) => {
     axios(config)
       .then(function (response) {
         setData(response.data.jobs);
-
       })
       .catch(function (error) {
         console.log(error);
       });
     // setLoad(!load)
-
     return () => {};
-  }, [load,isFocused]);
-  const toggleModal = () => {
-    setVisible(!Visible);
-  };
+  }, [load, isFocused]);
 
-  const toggleModalSelect = () => {
-    setShowStastus(!showStatus);
-  };
+  const listData = data?.filter(item => item.createdBy === idEmp?.user?.userId);
 
-    const listData = data?.filter(item => item.createdBy === idEmp?.user?.userId);
+  const UV = listData?.map(item =>
+    item.applicants_applied.reduce((a, b) => ({...a, data: b}), {}),
+  );
 
-   const UV=  listData?.map(item=>  item.applicants_applied.reduce((a,b)=>({...a,'data':b}),{}))
-
-
-        //console.log(item?.applicants_applied,">>>");
-
+  //console.log(item?.applicants_applied,">>>");
 
   const renderItem = ({item}) => (
     <View style={[styles.viewFL, styleHinder]}>
       {console.log(item?.data.name)}
       <TouchableOpacity
         style={{flexDirection: 'row'}}
-        onPress={() => navigation.navigate('DetailUV', {item})}>
-        <Image source={item?.data?.avatar?{uri:item?.data?.avatar}: images.avatar} style={styles.avatar} />
-        <View><Text style={styles.nameUV}>{item?.data?.name}</Text>
-        <View style={{flexDirection: 'row'}}>
-          <View style={{marginRight: scale(5), marginLeft: scale(5)}}>
-            <Text style={[styles.textitem,{color:'#000000',}]}>Vị trí:</Text>
+        onPress={() => navigation.navigate('DetailUV', {item, type: 'epl'})}>
+        <Image
+          source={
+            item?.data?.avatar ? {uri: item?.data?.avatar} : images.avatar
+          }
+          style={styles.avatar}
+        />
+        <View>
+          <Text style={styles.nameUV}>{item?.data?.name}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <View style={{marginRight: scale(5), marginLeft: scale(5)}}>
+              <Text style={[styles.textitem, {color: '#000000'}]}>Vị trí:</Text>
+            </View>
+            <Text style={styles.textitem}>{item?.data?.positions}</Text>
           </View>
-          <Text style={styles.textitem}>{item?.data?.positions}</Text>
         </View>
-     </View>
       </TouchableOpacity>
-
-
     </View>
   );
-
 
   return (
     <View style={styles.contener}>
@@ -118,14 +105,14 @@ const UV_Screen = ({navigation}) => {
           <FlatList
             data={UV}
             renderItem={renderItem}
-          keyExtractor={item => item.data?.positions}
-            ListFooterComponent={()=><View style={{paddingBottom:scale(50)}}/>}
+            keyExtractor={item => item.data?.positions}
+            ListFooterComponent={() => (
+              <View style={{paddingBottom: scale(50)}} />
+            )}
             //   onRowDidOpen={onRowDidOpen}
           />
         )}
       </View>
-
-
     </View>
   );
 };
@@ -184,7 +171,7 @@ const styles = StyleSheet.create({
     fontSize: scale(18),
     marginLeft: scale(8),
     marginTop: scale(10),
-    color:'#307df1'
+    color: '#307df1',
   },
   nameUV: {
     fontFamily: fonts.NORMAL,

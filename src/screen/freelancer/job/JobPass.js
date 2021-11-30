@@ -10,6 +10,7 @@ import axios from 'axios';
 import {useIsFocused} from '@react-navigation/core';
 import images from '../../../constant/images';
 import {useSelector} from 'react-redux';
+import EmptyData from '../../../components/EmptyData';
 
 export default function JobPass({navigation}) {
   const isFocused = useIsFocused();
@@ -91,6 +92,7 @@ export default function JobPass({navigation}) {
               <Text style={styles.contact}>Liên hệ</Text>
             </View>
           )}
+          ListEmptyComponent={() => <EmptyData content="Chưa có dữ liệu" />}
           rightOpenValue={-150}
         />
       </View>

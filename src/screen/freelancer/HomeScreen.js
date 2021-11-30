@@ -110,7 +110,7 @@ export default function HomeScreen({navigation}) {
           </View>
           <View>
             <View style={styles.row}>
-              <Text style={styles.txtTitle}>Việc làm theo giờ mới nhất</Text>
+              <Text style={styles.txtTitle}>Việc làm mới nhất</Text>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('ListJob', {

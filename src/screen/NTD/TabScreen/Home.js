@@ -153,7 +153,7 @@ const Home = ({navigation}) => {
           {/* flatlist1 */}
           <View style={styles.viewRow}>
             <Text style={styles.title}>DS tin tuyển dụng mới nhất</Text>
-            <TouchableOpacity onPress={()=>navigation.navigate('TD_Screen')}>
+            <TouchableOpacity onPress={() => navigation.navigate('TD_Screen')}>
               <Text style={[styles.TextR, {marginTop: scale(15)}]}>
                 Xem thêm
               </Text>
@@ -195,7 +195,7 @@ const Home = ({navigation}) => {
           )}
           <View style={styles.viewRow}>
             <Text style={styles.title}>Hồ sơ ứng tuyển mới nhất</Text>
-            <TouchableOpacity onPress={()=>navigation.navigate('TD_Screen')}>
+            <TouchableOpacity onPress={() => navigation.navigate('TD_Screen')}>
               <Text style={[styles.TextR, {marginTop: scale(15)}]}>
                 Xem thêm
               </Text>

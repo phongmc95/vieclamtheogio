@@ -15,6 +15,7 @@ import colors from '../../../constant/colors';
 import {useSelector} from 'react-redux';
 import images from '../../../constant/images';
 import icons from '../../../constant/icons';
+import EmptyData from '../../../components/EmptyData';
 
 export default function JobSaved({navigation}) {
   const [check, setCheck] = useState(false);
@@ -74,6 +75,7 @@ export default function JobSaved({navigation}) {
           showsVerticalScrollIndicator={false}
           keyExtractor={item => item.job._id}
           renderItem={renderItem}
+          ListEmptyComponent={() => <EmptyData content="Chưa có dữ liệu" />}
         />
       </View>
     </View>
