@@ -72,12 +72,12 @@ const Home = ({navigation}) => {
 
   const UV=  listData?.map(item=>  item.applicants_applied.reduce((a,b)=>({...a,'data':b}),{}))
   const DATA = {
-    labels: ["November","December","January", "February", "March", "April"],
+    labels: ["11","12","1", "2", "3", "4"],
     datasets: [
       {
         data: [UV.length, 0, 0, 0, 0, 0],
         color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-        strokeWidth: 2 // optional
+        strokeWidth: 2 // optionalK
       }
     ],
     legend: ["Lượt ứng tuyển"] // optional
@@ -138,7 +138,7 @@ const Home = ({navigation}) => {
         uri={data?.user?.avatar ? data?.user?.avatar : null}
       />
       {/* main */}
-      <ScrollView style={{padding: scale(10), marginBottom: scale(30)}}>
+      <ScrollView style={{ marginBottom: scale(30)}}>
         <View style={styles.main}>
           <Text style={styles.title}>Thống kê tin đăng</Text>
           {/* view1 */}
