@@ -46,7 +46,7 @@ const eye_invisible = require('../../assets/icons/ic_eye_invisible.png');
 const eye_black = require('../../assets/icons/ic_eye_black.png');
 const eye_white = require('../../assets/icons/ic_eye_white.png');
 const shakehand = require('../../assets/icons/ic_shakehand.png');
-const heart_wb = require('../../assets/icons/icon_heart.png');
+const heart_wb = require('../../assets/icons/heart.png');
 const synchronize = require('../../assets/icons/ic_synchronize.png');
 const logout = require('../../assets/icons/ic_logout.png');
 const dot = require('../../assets/icons/dot.png');
@@ -54,7 +54,16 @@ const heart_blue = require('../../assets/icons/ic_heart_blue.png');
 const confirm = require('../../assets/icons/ic_confirm.png');
 const camera = require('../../assets/icons/ic_camera.png');
 
+const redLike = require('../../assets/images/like.png');
+const whiteLike = require('../../assets/images/like1.png');
+const reDislike = require('../../assets/images/dislike.png');
+const whiteDislike = require('../../assets/images/dislike1.png');
+
 export default {
+  redLike,
+  whiteLike,
+  reDislike,
+  whiteDislike,
   avatar,
   select2,
   confirm,
@@ -64,7 +73,6 @@ export default {
   check2,
   checked2,
   bigmoney,
-  profile,
   eye_black,
   eye_invisible,
   eye_white,

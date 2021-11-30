@@ -7,7 +7,14 @@ import icons from '../../constant/icons';
 import images from '../../constant/images';
 import {isIos} from '../../Utils/CheckDevice';
 
-export default function TitleJob(props) {
+export default function TitleJob({
+  handleSave,
+  type,
+  logo,
+  title,
+  company,
+  deadline,
+}) {
   const navigation = useNavigation();
   return (
     <View style={styles.titleBox}>
@@ -19,10 +26,12 @@ export default function TitleJob(props) {
           />
         </TouchableOpacity>
         <View style={{width: '82%'}} />
-        <Image
-          style={{height: scale(23), width: scale(23), marginTop: scale(5)}}
-          source={icons.heart_wb}
-        />
+        <TouchableOpacity onPress={handleSave}>
+          <Image
+            style={{height: scale(25), width: scale(28), marginTop: scale(5)}}
+            source={type === true ? icons.whiteLike : icons.whiteDislike}
+          />
+        </TouchableOpacity>
       </View>
       <View style={{flexDirection: 'row', marginBottom: scale(15)}}>
         <Image
@@ -32,30 +41,26 @@ export default function TitleJob(props) {
             height: scale(79),
             width: scale(79),
           }}
-          source={props.logo ? {uri: props.logo} : images.avatar}
+          source={logo ? {uri: logo} : images.avatar}
         />
-        <View style={{width: '65%'}}>
+        <View style={{width: '65%', marginLeft: scale(20)}}>
           <Text
             style={{
-              fontSize: scale(18),
-              lineHeight: scale(20),
-              fontWeight: 'bold',
+              fontSize: scale(24),
               textTransform: 'uppercase',
               color: '#fff',
               fontFamily: fonts.BOLD,
             }}>
-            {props.title}
+            {title}
           </Text>
           <Text
             style={{
-              fontSize: scale(12),
-              lineHeight: scale(20),
-              textTransform: 'uppercase',
+              fontSize: scale(16),
               color: '#fff',
               marginTop: scale(5),
               fontFamily: fonts.NORMAL,
             }}>
-            {props.company}
+            {company}
           </Text>
         </View>
       </View>
@@ -67,12 +72,12 @@ export default function TitleJob(props) {
           />
           <Text
             style={{
-              fontSize: scale(12),
+              fontSize: scale(14),
               fontFamily: fonts.NORMAL,
               color: '#fff',
               marginLeft: scale(5),
             }}>
-            Hạn nộp: <Text>{props.deadline}</Text>
+            Hạn nộp: <Text>{deadline}</Text>
           </Text>
         </View>
       </View>

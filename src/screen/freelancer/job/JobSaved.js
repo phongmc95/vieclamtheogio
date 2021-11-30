@@ -6,50 +6,77 @@ import {
   Image,
   TouchableOpacity,
   SafeAreaView,
+  FlatList,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '@components/title/TitleBasic';
-import icons from '@constant/icons';
 import fonts from '../../../constant/fonts';
 import colors from '../../../constant/colors';
+import {useSelector} from 'react-redux';
+import images from '../../../constant/images';
+import icons from '../../../constant/icons';
+import EmptyData from '../../../components/EmptyData';
 
-export default function JobSaved() {
+export default function JobSaved({navigation}) {
   const [check, setCheck] = useState(false);
-  return (
-    <View style={styles.container}>
-      <TitleBasic title="Việc làm  đã lưu" icon={icons.trash_white} />
-      <View style={styles.content}>
+  const profile = useSelector(state => state.ProfileEPl.data);
+  const list = profile?.user?.save_job.filter(item => item.is_save === true);
+  console.log('list: ', list);
+
+  const renderItem = ({item}) => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate('JobDetail', {id: item?.job?._id})}>
         <View style={styles.boxJob}>
           <View style={styles.row}>
-            <Image style={styles.logoJob} source={icons.logoHCI} />
+            <Image
+              style={styles.logoJob}
+              source={
+                item?.job?.user_create?.avatar
+                  ? {uri: item?.job?.user_create?.avatar}
+                  : images.avatar
+              }
+            />
+
             <View style={styles.title}>
               <Text style={styles.txtTitleJob}>
-                Kỹ sư lập trình ứng dụng di động
+                {item?.job?.job_posting_position}
               </Text>
-              <Text style={styles.txtAddress}>Công ty cổ phần H.C.I</Text>
+              <Text style={styles.txtAddress}>{item?.job?.career}</Text>
             </View>
+
+            <Image style={styles.trash} source={icons.trash_black} />
           </View>
           <View style={{marginTop: scale(10)}}>
             <View style={styles.row}>
               <Image style={styles.iconJob} source={icons.bag} />
-              <Text style={styles.txtStatus}>Toàn thời gian</Text>
+              <Text style={styles.txtStatus}>{item?.job?.working_form}</Text>
             </View>
             <View style={styles.row}>
               <Image style={styles.iconJob} source={icons.money} />
-              <Text style={styles.txtStatus}>7 - 10 Triệu</Text>
+              <Text style={styles.txtStatus}>{item?.job?.salary}</Text>
             </View>
             <View style={styles.row}>
               <Image style={styles.iconJob} source={icons.local} />
-              <Text style={styles.txtStatus}>Hà Nội, Hồ Chí Minh</Text>
+              <Text style={styles.txtStatus}>{item?.job?.work_location}</Text>
             </View>
           </View>
         </View>
-        <TouchableOpacity onPress={() => setCheck(!check)}>
-          <Image
-            style={{marginTop: scale(80), marginLeft: scale(10)}}
-            source={!check ? icons.check2 : icons.checked2}
-          />
-        </TouchableOpacity>
+      </TouchableOpacity>
+    );
+  };
+
+  return (
+    <View style={styles.container}>
+      <TitleBasic title="Việc làm  đã lưu" />
+      <View style={{paddingHorizontal: scale(10), marginBottom: scale(60)}}>
+        <FlatList
+          data={list}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={item => item.job._id}
+          renderItem={renderItem}
+          ListEmptyComponent={() => <EmptyData content="Chưa có dữ liệu" />}
+        />
       </View>
     </View>
   );
@@ -65,7 +92,7 @@ const styles = StyleSheet.create({
     paddingVertical: scale(12),
     borderWidth: 0.5,
     borderRadius: scale(20),
-    width: scale(295),
+    width: scale(325),
     backgroundColor: '#fff',
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
@@ -77,7 +104,7 @@ const styles = StyleSheet.create({
   logoJob: {
     width: scale(45),
     height: scale(45),
-    marginTop: scale(5),
+    borderRadius: scale(30),
   },
   txtTitleJob: {
     fontSize: scale(15),
@@ -115,5 +142,10 @@ const styles = StyleSheet.create({
   title: {
     marginHorizontal: scale(8),
     width: '85%',
+  },
+  trash: {
+    right: scale(40),
+    height: scale(20),
+    width: scale(18),
   },
 });

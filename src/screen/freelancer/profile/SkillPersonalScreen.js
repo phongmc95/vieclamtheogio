@@ -11,8 +11,9 @@ import {
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 import fonts from '../../../constant/fonts';
+import EmptyData from '../../../components/EmptyData';
 
-export default function SkillPersonalScreen({data}) {
+export default function SkillPersonalScreen({data, type}) {
   const navigation = useNavigation();
 
   const renderItem = ({item}) => {
@@ -25,32 +26,42 @@ export default function SkillPersonalScreen({data}) {
     );
   };
 
-  const renderEmptyItem = () => {
-    return (
-      <View style={{width: '85%'}}>
-        <Text style={styles.txtNoUpdate}>Chưa cập nhật</Text>
-      </View>
-    );
-  };
+  const update = () => navigation.navigate('UpdateSkill');
 
   return (
-    <View style={styles.box}>
-      <View style={styles.contant}>
-        <FlatList
-          data={data.personal_skills}
-          keyExtractor={item => item.id}
-          renderItem={renderItem}
-          ListEmptyComponent={renderEmptyItem}
+    <View>
+      {data?.personal_skills?.length > 0 ? (
+        data?.personal_skills[0] !== '' ? (
+          <View style={styles.box}>
+            <View style={styles.contant}>
+              <FlatList
+                data={data?.personal_skills}
+                keyExtractor={item => item.id}
+                renderItem={renderItem}
+              />
+            </View>
+            {type === 'flc' && (
+              <TouchableOpacity onPress={update}>
+                <Image style={styles.pen(data)} source={icons.pen} />
+              </TouchableOpacity>
+            )}
+          </View>
+        ) : (
+          <EmptyData
+            content="Chưa cập nhật"
+            onPress={update}
+            icon={icons.pen}
+            type={type}
+          />
+        )
+      ) : (
+        <EmptyData
+          content="Chưa cập nhật"
+          onPress={update}
+          icon={icons.pen}
+          type={type}
         />
-      </View>
-      <View>
-        <TouchableOpacity onPress={() => navigation.navigate('UpdateSkill')}>
-          <Image style={styles.pen(data)} source={icons.pen} />
-        </TouchableOpacity>
-        {/* {data.personal_skills.length > 0 && (
-          <Image style={styles.trash} source={icons.trash_black} />
-        )} */}
-      </View>
+      )}
     </View>
   );
 }
@@ -59,7 +70,6 @@ const styles = StyleSheet.create({
   txtProgress: {
     fontSize: scale(14),
     color: '#000',
-    marginBottom: scale(10),
     fontFamily: fonts.NORMAL,
   },
   box: {
@@ -86,16 +96,9 @@ const styles = StyleSheet.create({
     marginLeft: scale(10),
   },
   pen: data => ({
-    width: scale(20),
-    height: scale(20),
-    marginLeft: scale(10),
-    marginVertical: 0,
+    width: scale(15),
+    height: scale(15),
+    marginLeft: scale(20),
   }),
   contant: {width: '85%', flexDirection: 'row', flexWrap: 'wrap'},
-  txtNoUpdate: {
-    fontSize: scale(20),
-    fontFamily: fonts.BOLD,
-    marginTop: scale(5),
-    marginLeft: scale(10),
-  },
 });

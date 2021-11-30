@@ -45,22 +45,20 @@ const Login = ({navigation}) => {
       setModal(true);
       setError('Bạn nhập email không đúng định dạng. Vui lòng nhập lại ! ');
     } else {
-      dispatch(
-        loadPostsLogIn(
-          email,
-          pass,
-        ),
-      );
+      dispatch(loadPostsLogIn(email, pass));
     }
   };
   const navi = () => {
     if (check) {
-      navigation.navigate(check.user.role === 'employer' ? 'tabNTD' : 'BottomTabFlc');
+      navigation.navigate(
+        check.user.role === 'employer' ? 'tabNTD' : 'BottomTabFlc',
+      );
       return;
     }
   };
   useEffect(() => {
     navi();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
   return (
     <View style={styles.contener}>

@@ -6,7 +6,7 @@ import {jobs} from '@data/Jobs';
 import fonts from '../../../constant/fonts';
 import {useNavigation} from '@react-navigation/native';
 
-export default function DesiredJobScreen({item}) {
+export default function DesiredJobScreen({item, type}) {
   const navigation = useNavigation();
   return (
     <View style={styles.box}>
@@ -38,12 +38,14 @@ export default function DesiredJobScreen({item}) {
             Địa điểm: <Text style={{color: '#307df1'}}>{item.job_adress}</Text>
           </Text>
         </View>
-        <View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('UpdateDesiredJob')}>
-            <Image style={styles.icon} source={icons.pen} />
-          </TouchableOpacity>
-        </View>
+        {type === 'flc' && (
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('UpdateDesiredJob')}>
+              <Image style={styles.icon} source={icons.pen} />
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </View>
   );

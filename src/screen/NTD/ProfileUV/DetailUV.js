@@ -1,33 +1,42 @@
-import React, {useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-} from 'react-native';
+import React, {useCallback, useState} from 'react';
+import {StyleSheet, Text, View, Image, StatusBar} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {
-  BackIcon,
-  LikeIcon,
-  HsIcon,
-  EyeIcon,
-  LocalIcon,
-} from '../../../../assets/icon';
-import {Modal} from 'react-native-paper';
 import {TabView, TabBar} from 'react-native-tab-view';
-import InfoUV from './InfoUV';
-import DesiredJobUV from './DesiredJobUV';
-import SkillUV from './SkillUV';
-import ExperienceUV from './ExperienceUV';
-import WorkSessionUV from './WorkSessionUV';
-import ButtonStyle from '../../../components/ButtonStyle';
-import fonts from '../../../constant/fonts';
-const DetailUV = ({navigation, route}) => {
+import {ScrollView} from 'react-native-gesture-handler';
+import fonts from '@constant/fonts';
+import axios from 'axios';
+import {useFocusEffect} from '@react-navigation/core';
+import images from '../../../constant/images';
+import InfomationScreen from '../../freelancer/profile/InfomationScreen';
+import DesiredJobScreen from '../../freelancer/profile/DesiredJobScreen';
+import SkillPersonalScreen from '../../freelancer/profile/SkillPersonalScreen';
+import ExperienceScreen from '../../freelancer/profile/ExperienceScreen';
+import WorkSessionScreen from '../../freelancer/profile/WorkSessionScreen';
+import colors from '../../../constant/colors';
+import Header from '../../../components/title/Header';
+import TitleBasic from '../../../components/title/TitleBasic';
+
+export default function DetailUV({route}) {
   const {item} = route.params;
   const [index, setIndex] = useState(0);
+  const [user, setUser] = useState({name: null});
+  useFocusEffect(
+    useCallback(() => {
+      var config = {
+        method: 'get',
+        url: `https://fpt-jobs-api.herokuapp.com/api/v1/users/${item.data._id}`,
+      };
+
+      axios(config)
+        .then(function (response) {
+          setUser(response.data.user);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user]),
+  );
 
   const handleIndexChange = indexTab => {
     setIndex(indexTab);
@@ -44,15 +53,15 @@ const DetailUV = ({navigation, route}) => {
   const renderScene = ({route}) => {
     switch (route.key) {
       case 'info':
-        return <InfoUV />;
+        return <InfomationScreen item={user} />;
       case 'job':
-        return <DesiredJobUV />;
+        return <DesiredJobScreen item={user} />;
       case 'skill':
-        return <SkillUV />;
+        return <SkillPersonalScreen data={user} />;
       case 'exp':
-        return <ExperienceUV />;
+        return <ExperienceScreen data={user} />;
       case 'work':
-        return <WorkSessionUV />;
+        return <WorkSessionScreen item={user} />;
       default:
         return null;
     }
@@ -63,145 +72,93 @@ const DetailUV = ({navigation, route}) => {
       <TabBar
         {...props}
         scrollEnabled={true}
-        indicatorStyle={[{backgroundColor: '#307df1'}]}
-        style={[{backgroundColor: '#FFFFFF'}]}
-        tabStyle={{width: scale(210)}}
-        inactiveColor={'#404040'}
-        activeColor={'#307df1'}
+        indicatorStyle={styles.blue}
+        style={styles.white}
+        tabStyle={styles.width210}
+        inactiveColor={colors.GRAY}
+        activeColor={colors.BLUE}
         renderLabel={({route, color}) => (
-          <View style={{alignItems: 'center'}}>
-            <Text
-              style={{
-                color,
-                fontSize: scale(16),
-                lineHeight: scale(18),
-                fontFamily: fonts.NORMAL,
-              }}>
-              {route.title}
-            </Text>
+          <View style={styles.align}>
+            <Text style={styles.title(color)}>{route.title}</Text>
           </View>
         )}
       />
     </View>
   );
-
   return (
-    <View style={styles.contener}>
-      <ScrollView style={{marginBottom: scale(0)}}>
-        <View style={styles.StatusBar}>
-          <View style={styles.viewRowBw}>
-            <View style={{flexDirection: 'row', marginBottom: scale(20)}}>
-              <TouchableOpacity
-                style={styles.goback}
-                onPress={() => navigation.goBack()}>
-                <BackIcon />
-              </TouchableOpacity>
-              <Text style={styles.title}>CHI TIẾT ỨNG VIÊN</Text>
-            </View>
-            <TouchableOpacity style={styles.btnlike}>
-              <LikeIcon />
-            </TouchableOpacity>
+    <View style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
+      <TitleBasic title="hồ sơ" />
+      <ScrollView>
+        <View style={styles.content}>
+          <View style={styles.center}>
+            <Image
+              style={styles.avatar}
+              source={user?.avatar ? {uri: user?.avatar} : images.avatar}
+            />
+            <Text style={styles.txtAvatar}>{user?.name}</Text>
           </View>
-
-          <View style={styles.viewAvatar}>
-            <Image source={{uri: item.avatar}} style={styles.avatar} />
-            <Text style={styles.nameUV}>{item.nameUV}</Text>
-          </View>
-          <View
-            style={{
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-              marginTop: scale(13),
-            }}>
-            <View style={{flexDirection: 'row'}}>
-              <View style={{marginRight: scale(5), marginLeft: scale(10)}}>
-                <HsIcon color="white" />
-              </View>
-              <Text style={styles.textitem}>Mã hồ sơ: 99</Text>
-            </View>
-            <View style={{flexDirection: 'row', marginRight: scale(15)}}>
-              <View style={{marginRight: scale(5)}}>
-                <EyeIcon color="white" />
-              </View>
-              <Text style={styles.textitem}>Lượt xem: 1000</Text>
+          <View>
+            {/* <Text style={styles.txtProgress}>
+              Mức độ hoàn thiện hồ sơ: <Text style={styles.percent}>50%</Text>
+            </Text> */}
+            {/* <Progress.Bar
+              progress={1}
+              width={scale(305)}
+              height={scale(5)}
+              unfilledColor="#808080"
+              style={{marginBottom: scale(30)}}
+            /> */}
+            <View style={styles.tab}>
+              <TabView
+                navigationState={{index, routes}}
+                renderScene={renderScene}
+                renderTabBar={renderTabBar}
+                onIndexChange={handleIndexChange}
+              />
             </View>
           </View>
-          <View style={{flexDirection: 'row', marginTop: scale(20)}}>
-            <View style={{marginRight: scale(5), marginLeft: scale(10)}}>
-              <LocalIcon color="white" />
-            </View>
-            <Text style={styles.textitem}>Hà Nội, Việt Nam</Text>
-          </View>
-        </View>
-
-        <View style={{height: scale(900)}}>
-          <TabView
-            navigationState={{index, routes}}
-            renderScene={renderScene}
-            renderTabBar={renderTabBar}
-            onIndexChange={handleIndexChange}
-          />
         </View>
       </ScrollView>
     </View>
   );
-};
-
-export default DetailUV;
+}
 
 const styles = StyleSheet.create({
-  contener: {
+  container: {
     flex: 1,
+    backgroundColor: colors.LIGHT_WHITE,
   },
-  StatusBar: {
-    backgroundColor: '#307DF1',
-    paddingVertical: scale(20),
-    borderBottomLeftRadius: scale(20),
-    borderBottomRightRadius: scale(20),
-  },
-  title: {
-    color: 'white',
-    fontSize: scale(18),
-    fontFamily: fonts.BOLD,
-    lineHeight: scale(20),
-    marginLeft: scale(20),
-    marginTop: scale(3),
-  },
-  goback: {
-    marginLeft: scale(10),
-  },
-  btnlike: {marginHorizontal: scale(20)},
   avatar: {
-    width: scale(100),
     height: scale(100),
-    borderRadius: scale(50),
+    width: scale(100),
+    borderRadius: scale(200),
   },
-  viewAvatar: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  nameUV: {
+  txtAvatar: {
     fontSize: scale(20),
-    fontWeight: '500',
-    textAlign: 'center',
-    fontFamily: fonts.NORMAL,
-    color: 'white',
+    fontFamily: fonts.BOLD,
+    marginTop: scale(10),
+    color: colors.BLACK,
+    marginBottom: scale(30),
   },
-  viewRowBw: {
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    marginTop: scale(30),
-  },
-  textitem: {
+  txtProgress: {
     fontSize: scale(14),
-    color: 'white',
+    color: colors.BLACK,
+    marginBottom: scale(20),
     fontFamily: fonts.NORMAL,
-    marginTop: scale(2),
   },
-  Foodter: {
-    backgroundColor: 'white',
-    height: scale(60),
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  tab: {height: scale(700)},
+  percent: {color: colors.BLUE},
+  content: {padding: scale(20)},
+  title: color => ({
+    color,
+    fontSize: scale(14),
+    lineHeight: scale(18),
+    fontFamily: fonts.BOLD,
+  }),
+  align: {alignItems: 'center'},
+  width210: {width: scale(210)},
+  blue: {backgroundColor: colors.BLUE},
+  white: {backgroundColor: colors.LIGHT_WHITE},
+  center: {alignItems: 'center'},
 });

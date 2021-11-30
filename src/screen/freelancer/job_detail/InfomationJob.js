@@ -75,11 +75,11 @@ export default function InfomationJob({data}) {
               marginTop: scale(5),
               marginBottom: scale(30),
             }}>
-            <Image style={styles.iconJob} source={icons.hand} />
+            {/* <Image style={styles.iconJob} source={icons.hand} />
             <Text style={styles.txtStatus}>
               Hình thức trả lương:{' '}
               <Text style={{fontWeight: 'normal'}}>{data?.job?.rose}</Text>
-            </Text>
+            </Text> */}
           </View>
           <View style={{marginBottom: scale(20)}}>
             <View style={{flexDirection: 'row'}}>

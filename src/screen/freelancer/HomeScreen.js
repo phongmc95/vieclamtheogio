@@ -8,8 +8,9 @@ import {
   View,
   Image,
   TouchableOpacity,
-  ScrollView, StatusBar,
-} from "react-native";
+  ScrollView,
+  StatusBar,
+} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {scale} from 'react-native-size-matters';
 import TitleHome from '../../components/title/TitleHome';
@@ -18,13 +19,14 @@ import {jobs} from '../../data/Jobs';
 import {useDispatch, useSelector} from 'react-redux';
 import {ProfileEPl} from '../../redux/actions/actions';
 import {useIsFocused} from '@react-navigation/core';
-import images from "../../constant/images";
+import images from '../../constant/images';
 
 export default function HomeScreen({navigation}) {
   const isFocused = useIsFocused();
   const _id = useSelector(state => state.Authen.data);
   const dispatch = useDispatch();
   const data = useSelector(state => state.ProfileEPl.data);
+
   useEffect(() => {
     dispatch(ProfileEPl(_id?.user?.userId));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,33 +50,40 @@ export default function HomeScreen({navigation}) {
 
   const renderJob = ({item}) => {
     return (
-      <View style={styles.boxJob}>
-        <View style={styles.row}>
-          <Image
-            style={styles.logoJob}
-            source={
-              item?.user?.avatar ? {uri: item?.user?.avatar} : images.avatar
-            }
-          />
-          <View style={styles.viewTitle}>
-            <Text style={styles.txtTitleJob}>{item.job_posting_position}</Text>
-            <Text style={styles.txtAddress}>{item?.user?.name}</Text>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('JobDetail', {id: item._id})}>
+        <View style={styles.boxJob}>
+          <View style={styles.row}>
+            <Image
+              style={styles.logoJob}
+              source={
+                item?.user_create?.avatar
+                  ? {uri: item?.user_create?.avatar}
+                  : images.avatar
+              }
+            />
+            <View style={styles.viewTitle}>
+              <Text style={styles.txtTitleJob}>
+                {item.job_posting_position}
+              </Text>
+              <Text style={styles.txtAddress}>{item?.career}</Text>
+            </View>
+            <Image style={styles.iconHeart} source={icons.reDislike} />
           </View>
-          <Image style={styles.iconHeart} source={icons.heart} />
+          <View style={styles.row}>
+            <Image style={styles.iconJob} source={icons.bag} />
+            <Text style={styles.txtStatus}>{item.working_form}</Text>
+          </View>
+          <View style={styles.row}>
+            <Image style={styles.iconJob} source={icons.money} />
+            <Text style={styles.txtStatus}>{item.salary}</Text>
+          </View>
+          <View style={styles.row}>
+            <Image style={styles.iconJob} source={icons.local} />
+            <Text style={styles.txtStatus}>{item.work_location}</Text>
+          </View>
         </View>
-        <View style={styles.row}>
-          <Image style={styles.iconJob} source={icons.bag} />
-          <Text style={styles.txtStatus}>{item.working_form}</Text>
-        </View>
-        <View style={styles.row}>
-          <Image style={styles.iconJob} source={icons.money} />
-          <Text style={styles.txtStatus}>{item.salary}</Text>
-        </View>
-        <View style={styles.row}>
-          <Image style={styles.iconJob} source={icons.local} />
-          <Text style={styles.txtStatus}>{item.work_location}</Text>
-        </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   return (
@@ -101,7 +110,7 @@ export default function HomeScreen({navigation}) {
           </View>
           <View>
             <View style={styles.row}>
-              <Text style={styles.txtTitle}>Việc làm theo giờ mới nhất</Text>
+              <Text style={styles.txtTitle}>Việc làm mới nhất</Text>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('ListJob', {
@@ -113,7 +122,7 @@ export default function HomeScreen({navigation}) {
               </TouchableOpacity>
             </View>
             <FlatList
-              data={listJobs.slice(0, 3)}
+              data={listJobs.reverse().slice(0, 3)}
               keyExtractor={item => item._id}
               renderItem={renderJob}
             />
@@ -195,7 +204,7 @@ const styles = StyleSheet.create({
   logoJob: {
     width: scale(45),
     height: scale(45),
-    marginTop: scale(5),
+    borderRadius: scale(30),
   },
   txtTitleJob: {
     fontSize: scale(15),

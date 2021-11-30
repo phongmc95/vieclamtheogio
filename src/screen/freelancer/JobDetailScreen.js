@@ -5,24 +5,20 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
-  SafeAreaView,
+  Alert,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
 import TitleJob from '@components/title/TitleJob';
 import {TabView, TabBar} from 'react-native-tab-view';
 import InfomationJob from './job_detail/InfomationJob';
-import SimilarJob from './job_detail/SimilarJob';
-import JobWithEmp from './job_detail/JobWithEmp';
 import CalendarJob from './job_detail/CalendarJob';
 import Button from '@components/Button/Button';
 import Notification from '@components/Notification';
 import axios from 'axios';
-import moment from 'moment';
 import {useFocusEffect} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import fonts from '../../constant/fonts';
-import images from '../../constant/images';
 
 const height = Dimensions.get('window').height;
 
@@ -33,6 +29,10 @@ export default function JobDetailScreen({navigation, route}) {
   const [data, setData] = useState({_id: null});
   const loading = useSelector(state => state.Authen.requesting);
   const [contact, setContact] = useState(false);
+  const profile = useSelector(state => state.ProfileEPl.data);
+  const [isOpen, setIsOpen] = useState(false);
+  const job = profile?.user?.save_job.find(item => item?.job?._id === id);
+  const isSave = job?.is_save;
 
   useFocusEffect(
     useCallback(() => {
@@ -70,6 +70,10 @@ export default function JobDetailScreen({navigation, route}) {
 
   const toggleModal = () => {
     setModal(!modal);
+  };
+
+  const toggleSuccess = () => {
+    setIsOpen(!isOpen);
   };
 
   const toggleContact = () => {
@@ -120,15 +124,39 @@ export default function JobDetailScreen({navigation, route}) {
       />
     </View>
   );
+
+  const save = () => {
+    var config = {
+      method: 'patch',
+      url: `https://fpt-jobs-api.herokuapp.com/api/v1/users/save-job/${id}`,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: {
+        is_save: isSave === false ? true : false,
+      },
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        toggleSuccess();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <View style={styles.container}>
       <TitleJob
-        icon={icons.heart_wb}
+        icon={icons.whiteDislike}
         logo={data?.job?.user?.avatar}
         title={data?.job?.job_posting_position}
-        company={data?.job?.user?.name}
+        company={data?.job?.career}
         deadline={data?.job?.last_date}
-        view={data?.job?.quantity_recruited}
+        handleSave={save}
+        type={isSave}
       />
       <View style={{height: height / 1.4}}>
         <TabView
@@ -155,6 +183,12 @@ export default function JobDetailScreen({navigation, route}) {
         on={modal}
         off={toggleModal}
         content1="Yêu cầu nhận việc của bạn đã được gửi tới Nhà tuyển dụng"
+        title="THÔNG BÁO"
+      />
+      <Notification
+        on={isOpen}
+        off={toggleSuccess}
+        content1="Lưu tin thành công!!!"
         title="THÔNG BÁO"
       />
       <Notification

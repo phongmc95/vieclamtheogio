@@ -5,29 +5,38 @@ import {
   View,
   Image,
   TouchableOpacity,
-  SafeAreaView,
-  ImageBackground, StatusBar,
-} from "react-native";
+  StatusBar,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '../../constant/icons';
 import images from '../../constant/images';
-import Logout from '@components/Logout';
 import fonts from '@constant/fonts';
 import colors from '../../constant/colors';
-import {isIos} from '../../Utils/CheckDevice';
-import {useSelector} from 'react-redux';
+import Modal from 'react-native-modal';
+import Button from '../../components/Button/Button';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {log_out} from '../../redux/actions/actions';
+import LoadSreen from '../../components/loadScreen';
 
-export default function ManageFlc({navigation}) {
+export default function ManageFlc({}) {
   const [modal, setModal] = useState(false);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
   const data = useSelector(state => state.ProfileEPl.data);
+  const logout = () => {
+    dispatch(log_out());
+    navigation.navigate('Intro');
+    setModal(false);
+  };
   const toggleModal = () => {
-    setModal(!modal);
+    setModal(false);
   };
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       <View style={styles.content}>
-        <ImageBackground style={styles.imgBalloon} source={images.balloon} />
+        <Image style={styles.imgBalloon} source={images.balloon} />
         <View style={styles.avatar}>
           <Image
             style={styles.imgAvatar}
@@ -41,7 +50,7 @@ export default function ManageFlc({navigation}) {
       <View>
         <TouchableOpacity onPress={() => navigation.navigate('JobSaved')}>
           <View style={styles.row}>
-            <Image style={styles.iconJob} source={icons.heart_blue} />
+            <Image style={styles.iconJob} source={icons.heart_wb} />
             <Text style={styles.txtStatus}>Việc làm đã lưu</Text>
           </View>
         </TouchableOpacity>
@@ -51,7 +60,7 @@ export default function ManageFlc({navigation}) {
             <Text style={styles.txtStatus}>Đổi mật khẩu</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={toggleModal}>
+        <TouchableOpacity onPress={() => setModal(true)}>
           <View style={styles.row}>
             <Image style={styles.iconJob} source={icons.logout} />
             <Text style={styles.txtStatus}>Đăng xuất</Text>
@@ -59,25 +68,58 @@ export default function ManageFlc({navigation}) {
         </TouchableOpacity>
       </View>
       <Image
-        style={{
-          width: '100%',
-          alignItems: 'flex-end',
-          flex: 1,
-          marginTop: scale(40),
-          marginBottom: scale(60),
-        }}
+        style={{marginTop: scale(60), marginBottom: scale(60), width: '100%'}}
         source={images.jobhunt}
       />
-      <Logout on={modal} off={toggleModal} />
+
+      <Modal isVisible={modal}>
+        <View style={styles.containerMD}>
+          <Text style={styles.contentMD}>Bạn có chắc chắn muốn đăng xuất?</Text>
+
+          <View style={styles.buttonMD}>
+            <TouchableOpacity onPress={logout}>
+              <Button
+                title="Đăng xuất"
+                color="#fff"
+                bg="#307df1"
+                right={scale(5)}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={toggleModal}>
+              <Button title="Hủy" color="#307df1" bg="#fff" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  containerMD: {
+    width: scale(295),
+    height: scale(173),
+    borderRadius: scale(20),
+    borderWidth: 1,
+    borderColor: '#307df1',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    paddingVertical: scale(20),
+    paddingHorizontal: scale(20),
+    marginHorizontal: scale(10),
+  },
+  contentMD: {
+    fontSize: scale(18),
+    color: '#307df1',
+    marginBottom: scale(10),
+    textAlign: 'center',
+    fontFamily: fonts.BOLD,
+  },
+  buttonMD: {flexDirection: 'row', top: '15%'},
   container: {
     flex: 1,
     backgroundColor: colors.LIGHT_WHITE,
-    paddingTop: scale(isIos ? 60 : 0),
+    // paddingTop: scale(isIos ? 60 : 0),
   },
   iconJob: {
     height: scale(18),
@@ -101,9 +143,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: scale(20),
   },
   imgBalloon: {
-    width: '100%',
-    height: '100%',
-    marginLeft: scale(15),
+    marginLeft: scale(50),
   },
   avatar: {position: 'absolute', left: scale(120), top: scale(50)},
   imgAvatar: {
@@ -116,7 +156,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.BOLD,
     color: '#fff',
     marginTop: scale(10),
-    right: scale(20),
+    right: scale(30),
   },
   row: {flexDirection: 'row', marginTop: scale(5)},
 });

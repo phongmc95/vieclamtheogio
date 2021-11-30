@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import { StyleSheet, Text, View, Image, StatusBar } from "react-native";
+import {StyleSheet, Text, View, Image, StatusBar} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import images from '../../constant/images';
 import * as Progress from 'react-native-progress';
@@ -16,12 +16,13 @@ import Header from '../../components/title/Header';
 import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {useFocusEffect} from '@react-navigation/core';
+import LoadSreen from '../../components/loadScreen';
 
 export default function ProfileScreen() {
   const [index, setIndex] = useState(0);
   const userId = useSelector(state => state.Authen);
   const [user, setUser] = useState({name: null});
-  const da_ta = useSelector(state => state.ProfileEPl.data);
+  const loading = useSelector(state => state.Authen.requesting);
   useFocusEffect(
     useCallback(() => {
       var config = {
@@ -55,15 +56,15 @@ export default function ProfileScreen() {
   const renderScene = ({route}) => {
     switch (route.key) {
       case 'info':
-        return <InfomationScreen item={user} />;
+        return <InfomationScreen item={user} type="flc" />;
       case 'job':
-        return <DesiredJobScreen item={user} />;
+        return <DesiredJobScreen item={user} type="flc" />;
       case 'skill':
-        return <SkillPersonalScreen data={user} />;
+        return <SkillPersonalScreen data={user} type="flc" />;
       case 'exp':
-        return <ExperienceScreen data={user} />;
+        return <ExperienceScreen data={user} type="flc" />;
       case 'work':
-        return <WorkSessionScreen item={user} />;
+        return <WorkSessionScreen item={user} type="flc" />;
       default:
         return null;
     }
@@ -122,6 +123,7 @@ export default function ProfileScreen() {
           </View>
         </View>
       </ScrollView>
+      <LoadSreen load={loading} />
     </View>
   );
 }

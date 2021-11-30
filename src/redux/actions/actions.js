@@ -114,7 +114,6 @@ export const loadRegisterFreelancer =
         job_adress: job_adress,
       });
 
-
       const response = await axiosClient.post(url, data);
 
       dispatch({
@@ -138,7 +137,6 @@ export const loadOTP = (email, otp) => async dispatch => {
       email: email,
       otp: otp,
     });
-
 
     const response = await axiosClient.post(url, data);
 
@@ -164,7 +162,6 @@ export const loadForgotOTP = (email, otp) => async dispatch => {
       otp: otp,
     });
 
-
     const response = await axiosClient.post(url, data);
 
     dispatch({
@@ -187,7 +184,6 @@ export const loadForgetPass = email => async dispatch => {
     const data = JSON.stringify({
       email: email,
     });
-
 
     const response = await axiosClient.post(url, data);
 
@@ -212,7 +208,6 @@ export const changePass = (email, password) => async dispatch => {
       email: email,
       password: password,
     });
-
 
     const response = await axiosClient.post(url, data);
 
@@ -244,7 +239,6 @@ export const ProfileEPl = params => async dispatch => {
 };
 export const UpdateProfileEPl =
   (
-
     name,
     company_size,
     tax_code,
@@ -254,14 +248,13 @@ export const UpdateProfileEPl =
     description_company,
     phone,
     email,
-    idEmp
+    idEmp,
   ) =>
   async dispatch => {
     try {
       dispatch({type: PROFILE_UPDATE_EPL_REQUEST});
       const url = `users/updateUser/?${idEmp}`;
       const data = JSON.stringify({
-
         name,
         company_size,
         tax_code,
@@ -271,10 +264,8 @@ export const UpdateProfileEPl =
         website,
         description_company,
         phone,
-        email
+        email,
       });
-
-
 
       const response = await axiosClient.patch(url, data);
       dispatch({type: PROFILE_UPDATE_EPL_SUCCESS, data: response});
@@ -299,10 +290,9 @@ export const PostLogo = (logo, email) => async dispatch => {
         type: logo.assets[0].type,
       };
       console.log(file);
-      data.append('photo',file );
+      data.append('photo', file);
     }
     data.append('email', email);
-
 
     const response = await axiosClient.post(url, data);
 
@@ -311,7 +301,7 @@ export const PostLogo = (logo, email) => async dispatch => {
       data: response,
     });
   } catch (error) {
-    console.log("KKKKK",error);
+    console.log('KKKKK', error);
     dispatch({
       type: LOGO_ERROR,
       message: error,
@@ -393,7 +383,7 @@ export const GetJob = () => async dispatch => {
       data: response,
     });
   } catch (error) {
-    console.log("hhhh");
+    console.log('hhhh');
     dispatch({
       type: FETCH_GET_JOB_ERROR,
       message: error,

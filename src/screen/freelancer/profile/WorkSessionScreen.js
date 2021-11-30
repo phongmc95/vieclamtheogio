@@ -14,7 +14,7 @@ import fonts from '../../../constant/fonts';
 import colors from '../../../constant/colors';
 import {working_day} from '../../../data/Jobs';
 
-export default function WorkSessionScreen({item}) {
+export default function WorkSessionScreen({item, type}) {
   const navigation = useNavigation();
 
   const renderItem = ({item}) => {
@@ -48,18 +48,22 @@ export default function WorkSessionScreen({item}) {
   };
 
   return (
-    <View style={{height: scale(550)}}>
-      <TouchableOpacity onPress={() => navigation.navigate('UpdateWork')}>
-        <Image style={styles.pen} source={icons.pen} />
-      </TouchableOpacity>
+    <View style={{height: scale(600)}}>
+      {type === 'flc' ? (
+        <TouchableOpacity onPress={() => navigation.navigate('UpdateWork')}>
+          <Image style={styles.pen} source={icons.pen} />
+        </TouchableOpacity>
+      ) : (
+        <View style={styles.bottom} />
+      )}
       <FlatList
         data={item.working_day}
         keyExtractor={item => item.id}
         renderItem={renderItem}
         ListEmptyComponent={renderEmpty}
         scrollEnabled={true}
-        ListFooterComponent={() => <View style={{marginBottom:scale(250)}}/> }
-        showsVerticalScrollIndicator ={false}
+        ListFooterComponent={() => <View style={{marginBottom: scale(250)}} />}
+        showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       />
     </View>
