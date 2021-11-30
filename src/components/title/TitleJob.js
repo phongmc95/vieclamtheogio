@@ -37,16 +37,17 @@ export default function TitleJob({
         <Image
           style={{
             marginLeft: scale(16),
-            marginRight: scale(10),
             height: scale(79),
             width: scale(79),
+            borderRadius: scale(40),
           }}
           source={logo ? {uri: logo} : images.avatar}
         />
-        <View style={{width: '65%', marginLeft: scale(20)}}>
+        <View
+          style={{width: '65%', marginLeft: scale(20), marginTop: scale(10)}}>
           <Text
             style={{
-              fontSize: scale(24),
+              fontSize: scale(16),
               textTransform: 'uppercase',
               color: '#fff',
               fontFamily: fonts.BOLD,

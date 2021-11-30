@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   ScrollView,
   FlatList,
-  SafeAreaView,Dimensions
+  SafeAreaView,
+  Dimensions,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Button from '../../../components/Button/Button';
@@ -19,27 +20,20 @@ import {ProfileEPl} from '../../../redux/actions/actions';
 import axios from 'axios';
 import {useIsFocused} from '@react-navigation/native';
 import ButtonStyle from '../../../components/ButtonStyle';
-import images from "../../../constant/images";
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart
-} from "react-native-chart-kit";
+import images from '../../../constant/images';
+import {LineChart} from 'react-native-chart-kit';
 
-const screenWidth = Dimensions.get("window").width;
+const screenWidth = Dimensions.get('window').width;
 const Home = ({navigation}) => {
   const chartConfig = {
-    backgroundGradientFrom: "#1E2923",
+    backgroundGradientFrom: '#1E2923',
     backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: "#08130D",
+    backgroundGradientTo: '#08130D',
     backgroundGradientToOpacity: 0.5,
     color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
-    useShadowColorFromDataset: false // optional
+    useShadowColorFromDataset: false, // optional
   };
 
   const dispatch = useDispatch();
@@ -70,19 +64,20 @@ const Home = ({navigation}) => {
     item => item.createdBy === idEmp?.user?.userId,
   );
 
-  const UV=  listData?.map(item=>  item.applicants_applied.reduce((a,b)=>({...a,'data':b}),{}))
+  const UV = listData?.map(item =>
+    item.applicants_applied.reduce((a, b) => ({...a, data: b}), {}),
+  );
   const DATA = {
-    labels: ["11","12","1", "2", "3", "4"],
+    labels: ['11', '12', '1', '2', '3', '4'],
     datasets: [
       {
         data: [UV.length, 0, 0, 0, 0, 0],
         color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-        strokeWidth: 2 // optionalK
-      }
+        strokeWidth: 2, // optionalK
+      },
     ],
-    legend: ["Lượt ứng tuyển"] // optional
+    legend: ['Lượt ứng tuyển'], // optional
   };
-  console.log('ListData: ', listData);
   const renderItem = ({item}) => (
     <View style={styles.ViewFlatlist}>
       <Text style={styles.TextTitle}>{item?.job_posting_position}</Text>
@@ -112,20 +107,21 @@ const Home = ({navigation}) => {
       style={[styles.ViewFlatlist, {padding: scale(10), marginBottom: '25%'}]}>
       <View style={{flexDirection: 'row'}}>
         <Image
-          source={item?.data?.avatar?{uri:item?.data?.avatar}: images.avatar}
+          source={
+            item?.data?.avatar ? {uri: item?.data?.avatar} : images.avatar
+          }
           style={styles.imgItem}
         />
         <View>
-        <Text style={styles.Name_hs}>{item?.data?.name}</Text>
-        <View style={styles.viewRow}>
-          <Text style={styles.TextL}>Vị trí :</Text>
-          <Text style={[styles.TextR, {color: '#307df1'}]}>{item?.data?.positions}</Text>
-        </View>
+          <Text style={styles.Name_hs}>{item?.data?.name}</Text>
+          <View style={styles.viewRow}>
+            <Text style={styles.TextL}>Vị trí :</Text>
+            <Text style={[styles.TextR, {color: '#307df1'}]}>
+              {item?.data?.positions}
+            </Text>
+          </View>
         </View>
       </View>
-
-
-
     </View>
   );
 
@@ -138,7 +134,7 @@ const Home = ({navigation}) => {
         uri={data?.user?.avatar ? data?.user?.avatar : null}
       />
       {/* main */}
-      <ScrollView style={{ marginBottom: scale(30)}}>
+      <ScrollView style={{marginBottom: scale(30)}}>
         <View style={styles.main}>
           <Text style={styles.title}>Thống kê tin đăng</Text>
           {/* view1 */}
@@ -152,7 +148,7 @@ const Home = ({navigation}) => {
           {/* flatlist1 */}
           <View style={styles.viewRow}>
             <Text style={styles.title}>DS tin tuyển dụng mới nhất</Text>
-            <TouchableOpacity onPress={()=>navigation.navigate('TD_Screen')}>
+            <TouchableOpacity onPress={() => navigation.navigate('TD_Screen')}>
               <Text style={[styles.TextR, {marginTop: scale(15)}]}>
                 Xem thêm
               </Text>
@@ -188,47 +184,49 @@ const Home = ({navigation}) => {
               keyExtractor={item => item.id}
               renderItem={renderItem}
               horizontal={true}
-              pagingEnabled={true}
               showsHorizontalScrollIndicator={false}
             />
           )}
           <View style={styles.viewRow}>
             <Text style={styles.title}>Hồ sơ ứng tuyển mới nhất</Text>
-            <TouchableOpacity onPress={()=>navigation.navigate('UV_Screen')}>
+            <TouchableOpacity onPress={() => navigation.navigate('UV_Screen')}>
               <Text style={[styles.TextR, {marginTop: scale(15)}]}>
                 Xem thêm
               </Text>
             </TouchableOpacity>
           </View>
-          {UV.length ===0?<View
-            style={[
-              styles.ViewFlatlist,
-              {
-                paddingVertical: scale(50),
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginBottom: scale(80),
-              },
-            ]}>
-            <Image
-              style={{width: 60, height: 60}}
-              source={require('../../../../assets/images/logoVin.png')}
+          {UV.length === 0 ? (
+            <View
+              style={[
+                styles.ViewFlatlist,
+                {
+                  paddingVertical: scale(50),
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginBottom: scale(80),
+                },
+              ]}>
+              <Image
+                style={{width: 60, height: 60}}
+                source={require('../../../../assets/images/logoVin.png')}
+              />
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: 'bold',
+                }}>
+                Chưa có hồ sơ ứng tuyển
+              </Text>
+            </View>
+          ) : (
+            <FlatList
+              data={UV}
+              keyExtractor={item => item.id}
+              renderItem={renderItemHS}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
             />
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: 'bold',
-              }}>
-              Chưa có hồ sơ ứng tuyển
-            </Text>
-          </View>: <FlatList
-            data={UV}
-            keyExtractor={item => item.id}
-            renderItem={renderItemHS}
-            horizontal={true}
-          />
-          }
-
+          )}
         </View>
       </ScrollView>
     </View>
@@ -300,7 +298,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: scale(13),
     marginLeft: scale(10),
-    color:'#000000'
+    color: '#000000',
   },
   TextR: {
     fontWeight: '400',
@@ -311,11 +309,9 @@ const styles = StyleSheet.create({
   ViewFlatlist: {
     width: scale(320),
     paddingVertical: scale(10),
-
     borderRadius: scale(20),
-
     backgroundColor: 'white',
-    margin: scale(5),
+    marginHorizontal: scale(10),
 
     shadowColor: '#000',
     shadowOffset: {

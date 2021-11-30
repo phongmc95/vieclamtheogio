@@ -2,7 +2,6 @@ import React, {useCallback, useState} from 'react';
 import {StyleSheet, Text, View, Image, StatusBar} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import images from '../../constant/images';
-import * as Progress from 'react-native-progress';
 import ExperienceScreen from './profile/ExperienceScreen';
 import InfomationScreen from './profile/InfomationScreen';
 import SkillPersonalScreen from './profile/SkillPersonalScreen';

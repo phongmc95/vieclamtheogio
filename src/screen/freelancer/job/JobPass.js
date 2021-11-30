@@ -11,11 +11,14 @@ import {useIsFocused} from '@react-navigation/core';
 import images from '../../../constant/images';
 import {useSelector} from 'react-redux';
 import EmptyData from '../../../components/EmptyData';
+import Notification from '../../../components/Notification';
 
 export default function JobPass({navigation}) {
   const isFocused = useIsFocused();
   const [listJob, setListJobs] = useState([]);
   const _id = useSelector(state => state.Authen.data);
+  const [contact, setContact] = useState(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     var config = {
@@ -29,7 +32,6 @@ export default function JobPass({navigation}) {
           item.applicants_applied.find(it => it._id === _id?.user?.userId),
         );
         setListJobs(listApply);
-        console.log('listApply: ', listApply.length);
       })
       .catch(function (error) {
         console.log(error);
@@ -37,6 +39,11 @@ export default function JobPass({navigation}) {
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
+
+  const handleOpen = () => {
+    setOpen(!open);
+  };
+
   const renderItem = ({item}) => (
     <View style={styles.boxJob}>
       <TouchableOpacity
@@ -87,15 +94,41 @@ export default function JobPass({navigation}) {
           data={listJob}
           keyExtractor={item => item.id}
           renderItem={renderItem}
-          renderHiddenItem={() => (
-            <View style={styles.swiper}>
-              <Text style={styles.contact}>Liên hệ</Text>
-            </View>
-          )}
+          renderHiddenItem={({item}) => {
+            setContact(item.contact_info);
+            return (
+              <TouchableOpacity onPress={handleOpen}>
+                <View style={styles.swiper}>
+                  <Text style={styles.contact}>Liên hệ</Text>
+                </View>
+              </TouchableOpacity>
+            );
+          }}
           ListEmptyComponent={() => <EmptyData content="Chưa có dữ liệu" />}
           rightOpenValue={-150}
         />
       </View>
+      <Notification
+        title="LIÊN HỆ"
+        on={open}
+        off={handleOpen}
+        content={
+          <View style={{bottom: scale(20)}}>
+            <Text style={styles.txtContact}>
+              Người liên hệ: {contact?.contact_person}
+            </Text>
+            <Text style={styles.txtContact}>
+              Địa chỉ: {contact?.contact_address}
+            </Text>
+            <Text style={styles.txtContact}>
+              Số điện thoại: {contact?.contact_phone}
+            </Text>
+            <Text style={styles.txtContact}>
+              Email: {contact?.contact_email}
+            </Text>
+          </View>
+        }
+      />
     </View>
   );
 }
@@ -174,4 +207,8 @@ const styles = StyleSheet.create({
     borderRadius: scale(20),
   },
   contact: {color: '#fff', fontFamily: fonts.NORMAL, fontSize: scale(16)},
+  txtContact: {
+    fontFamily: fonts.NORMAL,
+    fontSize: scale(14),
+  },
 });

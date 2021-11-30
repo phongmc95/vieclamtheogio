@@ -23,6 +23,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AddPostJob} from '../../../redux/actions/actions';
 import ModalStyle from '../../../components/ModalStyle';
 import {validateEmail, isVietnamesePhoneNumber} from '../../../base/Validate';
+import {isIos} from '../../../Utils/CheckDevice';
+import colors from '../../../constant/colors';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -452,10 +454,11 @@ export default DangTin;
 const styles = StyleSheet.create({
   contener: {
     flex: 1,
+    backgroundColor: colors.LIGHT_WHITE,
   },
   StatusBar: {
     backgroundColor: '#307DF1',
-    height: scale(100),
+    height: scale(isIos ? 100 : 50),
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
 

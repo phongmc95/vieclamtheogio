@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import Modal from 'react-native-modal';
 import {scale} from 'react-native-size-matters';
+import fonts from '../constant/fonts';
 
 export default function Notification(props) {
   return (
@@ -16,14 +17,14 @@ export default function Notification(props) {
           borderColor: '#307df1',
           backgroundColor: '#fff',
           alignItems: 'center',
-          paddingVertical: scale(20),
-          paddingHorizontal: scale(40),
+          padding: scale(20),
         }}>
         <Text
           style={{
             fontSize: scale(20),
             color: '#307df1',
             marginBottom: scale(10),
+            fontFamily: fonts.NORMAL,
           }}>
           {props.title}
         </Text>
@@ -32,6 +33,7 @@ export default function Notification(props) {
             fontSize: scale(17),
             color: '#404040',
             textAlign: 'center',
+            fontFamily: fonts.NORMAL,
           }}>
           {props.content1}
         </Text>

@@ -151,7 +151,7 @@ export default function JobDetailScreen({navigation, route}) {
     <View style={styles.container}>
       <TitleJob
         icon={icons.whiteDislike}
-        logo={data?.job?.user?.avatar}
+        logo={data?.job?.user_create?.avatar}
         title={data?.job?.job_posting_position}
         company={data?.job?.career}
         deadline={data?.job?.last_date}

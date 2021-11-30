@@ -87,8 +87,6 @@ const Resgister = ({navigation, route}) => {
     setIsValidate(!isValidate);
   };
 
-
-
   const selectItem = item => {
     setDesiredProfession(item);
     handleOpen();
@@ -111,11 +109,12 @@ const Resgister = ({navigation, route}) => {
     <View>
       <ScrollView>
         <View style={styles.contener}>
-          <Text style={styles.title}>Đăng ký {checkLogin === 'flc'?'ứng viên':'nhà tuyển dụng'}</Text>
+          <Text style={styles.title}>
+            Đăng ký {checkLogin === 'flc' ? 'ứng viên' : 'nhà tuyển dụng'}
+          </Text>
           <Text style={styles.title2}>
             Nhập đầy đủ thông tin để hoàn thành đăng ký
           </Text>
-
 
           <View style={styles.form}>
             <TextInputStyle
@@ -166,7 +165,11 @@ const Resgister = ({navigation, route}) => {
             ) : null}
           </View>
 
-          <ButtonStyle Title="Xác nhận" onPress={submit} styleBtn={{width:scale(130)}} />
+          <ButtonStyle
+            Title="Xác nhận"
+            onPress={submit}
+            styleBtn={{width: scale(130)}}
+          />
           <View style={styles.row}>
             <Text style={styles.txt_login}>Bạn đã có tài khoản? </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
@@ -215,7 +218,7 @@ const styles = StyleSheet.create({
     color: '#4C5BD4',
     marginTop: '20%',
     fontFamily: fonts.NORMAL,
-    fontWeight:'bold'
+    fontWeight: 'bold',
   },
   title2: {
     fontWeight: '400',
