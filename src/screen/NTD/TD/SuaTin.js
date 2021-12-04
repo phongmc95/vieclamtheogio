@@ -131,13 +131,13 @@ const SuaTin = ({navigation, route}) => {
     start_time: item?.work_schedule[0]?.start_time,
     end_time: item?.work_schedule[0]?.end_time,
     work_days: {
-      monday: item?.work_schedule[0]?.work_days.monday,
-      tuesday: item?.work_schedule[0]?.work_days.tuesday,
-      wednesday: item?.work_schedule[0]?.work_days.wednesday,
-      thursday: item?.work_schedule[0]?.work_days.thursday,
-      friday: item?.work_schedule[0]?.work_days.friday,
-      saturday: item?.work_schedule[0]?.work_days.saturday,
-      sunday: item?.work_schedule[0]?.work_days.sunday,
+      monday: item?.work_schedule[0]?.work_days?.monday,
+      tuesday: item?.work_schedule[0]?.work_days?.tuesday,
+      wednesday: item?.work_schedule[0]?.work_days?.wednesday,
+      thursday: item?.work_schedule[0]?.work_days?.thursday,
+      friday: item?.work_schedule[0]?.work_days?.friday,
+      saturday: item?.work_schedule[0]?.work_days?.saturday,
+      sunday: item?.work_schedule[0]?.work_days?.sunday,
     },
   };
   const initialStateContactInfo = {

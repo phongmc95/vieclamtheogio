@@ -36,12 +36,7 @@ export default function InfomationScreen({item, type}) {
           <Text style={styles.txtProgress}>
             Email: <Text style={styles.blue}>{item.email}</Text>
           </Text>
-          {/* <Text style={styles.txtProgress}>
-            Tỉnh thành: <Text style={styles.blue}>Hà Nội </Text>
-          </Text>
-          <Text style={styles.txtProgress}>
-            Quận huyện: <Text style={styles.blue}>Hoàng Mai</Text>
-          </Text> */}
+
           <Text style={styles.txtProgress}>
             Địa chỉ: <Text style={styles.blue}>{item.address}</Text>
           </Text>
@@ -57,6 +52,7 @@ export default function InfomationScreen({item, type}) {
           </View>
         )}
       </View>
+
     </View>
   );
 }

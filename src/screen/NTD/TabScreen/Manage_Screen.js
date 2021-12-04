@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, StatusBar } from "react-native";
 import {scale} from 'react-native-size-matters';
 import {FoderICon, FocusIcon, LogoutIcon} from '../../../../assets/icon';
 import {Modal} from 'react-native-paper';
@@ -20,6 +20,7 @@ const Manage_Screen = ({navigation}) => {
   };
   return (
     <View style={styles.contener}>
+      <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       <View style={styles.StatusBar}>
         <Image
           source={ !data?.user?.avatar?logo:{uri:data?.user?.avatar}}

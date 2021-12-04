@@ -8,8 +8,8 @@ import {
   ScrollView,
   FlatList,
   SafeAreaView,
-  Dimensions,
-} from 'react-native';
+  Dimensions, StatusBar,
+} from "react-native";
 import {scale} from 'react-native-size-matters';
 import Button from '../../../components/Button/Button';
 import HeaderStyle from '../../../components/HeaderStyle';
@@ -127,6 +127,7 @@ const Home = ({navigation}) => {
 
   return (
     <View style={styles.contener}>
+      <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       {/* tusBar */}
       <HeaderStyle
         type="home"

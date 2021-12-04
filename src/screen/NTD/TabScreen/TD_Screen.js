@@ -8,8 +8,8 @@ import {
   Image,
   useWindowDimensions,
   Dimensions,
-  Alert,
-} from 'react-native';
+  Alert, StatusBar,
+} from "react-native";
 import {scale} from 'react-native-size-matters';
 import {FAB} from 'react-native-paper';
 import {
@@ -127,6 +127,7 @@ const TD_Screen = ({navigation}) => {
 
   return (
     <View style={styles.contener}>
+      <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       <View style={{backgroundColor: '#FFFFFF'}}>
         <HeaderStyle type="nomal" Title="Tuyển dụng" />
       </View>

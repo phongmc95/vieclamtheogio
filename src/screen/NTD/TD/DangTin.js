@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
-  Alert,
-} from 'react-native';
+  Alert, StatusBar,
+} from "react-native";
 import {scale} from 'react-native-size-matters';
 import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
 import CircleCheckBox, {LABEL_POSITION} from 'react-native-circle-checkbox';
@@ -247,6 +247,7 @@ const DangTin = ({navigation}) => {
   };
   return (
     <View style={styles.contener}>
+      <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       <View style={styles.StatusBar}>
         <TouchableOpacity
           style={styles.goback}

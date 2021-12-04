@@ -6,8 +6,8 @@ import {
   View,
   TouchableOpacity,
   Image,
-  FlatList,
-} from 'react-native';
+  FlatList, StatusBar,
+} from "react-native";
 import HeaderStyle from '../../../components/HeaderStyle';
 import colors from '../../../constant/colors';
 import fonts from '../../../constant/fonts';
@@ -83,6 +83,7 @@ const UV_Screen = ({navigation}) => {
 
   return (
     <View style={styles.contener}>
+      <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       <HeaderStyle type="filter" Title="Ứng viên đã ứng tuyển" />
       {/* main */}
       <View style={styles.main}>

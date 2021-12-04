@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {StyleSheet, Text, View, Image, StatusBar} from 'react-native';
+import {StyleSheet, Text, View, Image, StatusBar,Linking,Platform,Alert} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {TabView, TabBar} from 'react-native-tab-view';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -15,6 +15,7 @@ import WorkSessionScreen from '../../freelancer/profile/WorkSessionScreen';
 import colors from '../../../constant/colors';
 import Header from '../../../components/title/Header';
 import TitleBasic from '../../../components/title/TitleBasic';
+import FooterButton from "../../../components/FooterButton";
 
 export default function DetailUV({route}) {
   const {item} = route.params;
@@ -89,7 +90,7 @@ export default function DetailUV({route}) {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       <TitleBasic title="hồ sơ" />
-      <ScrollView>
+
         <View style={styles.content}>
           <View style={styles.center}>
             <Image
@@ -119,7 +120,28 @@ export default function DetailUV({route}) {
             </View>
           </View>
         </View>
-      </ScrollView>
+<FooterButton phone={()=>{
+  const phones = user?.phone;
+  console.log(user?.phone);
+  if (phones) {
+    let phoneNumber ='';
+
+    if (Platform.OS === 'android') {
+      phoneNumber = `tel:${phones}`;
+    } else {
+      phoneNumber = `telprompt:${phones}`;
+    }
+
+    Linking.openURL(phoneNumber).catch((e) =>
+      console.error('Errorr: ', e),
+    );
+  } else {
+    alert("Client doesn't have a phone number!");
+  }
+}}
+/>
+
+
     </View>
   );
 }
