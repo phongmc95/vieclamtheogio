@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  Alert,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TextInputStyle from '../../components/TextInputStyle';
@@ -26,17 +27,24 @@ const Login = ({navigation}) => {
   const Error = useSelector(state => state.Authen.message);
   const check = useSelector(state => state.Authen.data);
   const loading = useSelector(state => state.Authen.requesting);
-
+  const message = useSelector(state => state.Authen.message);
+  console.log('loading: ', loading);
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
-
+  console.log(
+    'State: ',
+    useSelector(state => state.Authen),
+  );
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
-
-  const err = () => {
-    setModal(true);
-    setError('Sai địa chỉ email hoặc mật khẩu');
+  const loadingError = () => {
+    if (loading === false && message !== null) {
+      Alert.alert('Thông Báo', 'Tài khoản sai email hoặc password');
+    }
   };
+  useEffect(() => {
+    loadingError();
+  }, [loading, message]);
   const submit = () => {
     if (!email || !pass) {
       setModal(true);
@@ -85,8 +93,10 @@ const Login = ({navigation}) => {
         <TouchableOpacity onPress={() => navigation.navigate('InputEmail')}>
           <Text
             style={{
-              marginLeft: isIos ? '60%' : '70%',
-              fontSize: scale(13),
+              // marginLeft: isIos ? '60%' : '70%',
+              paddingHorizontal: scale(16),
+              textAlign: 'right',
+              fontSize: scale(14),
               fontFamily: fonts.NORMAL,
             }}>
             Quên mật khẩu?

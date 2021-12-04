@@ -61,11 +61,11 @@ const TD_Screen = ({navigation}) => {
   const alertDelete = item =>
     Alert.alert('Thông Báo', 'Bạn có muốn xóa tin này không ?', [
       {
-        text: 'Cancel',
+        text: 'Không',
         onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
       },
-      {text: 'OK', onPress: () => handleDelete(item)},
+      {text: 'Có', onPress: () => handleDelete(item)},
     ]);
   const handleDelete = item => {
     const url = `https://fpt-jobs-api.herokuapp.com/api/v1/jobs/${item._id}`;
