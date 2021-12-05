@@ -50,11 +50,11 @@ const UV_Screen = ({navigation}) => {
   }, [load, isFocused]);
 
   const listData = data?.filter(item => item.createdBy === idEmp?.user?.userId);
-
+  // console.log('ListData: ', listData);
   const UV = listData?.map(item =>
     item.applicants_applied.reduce((a, b) => ({...a, data: b}), {}),
   );
-
+  // console.log('UV: ', UV);
   //console.log(item?.applicants_applied,">>>");
 
   const renderItem = ({item}) => (
@@ -87,7 +87,7 @@ const UV_Screen = ({navigation}) => {
       <HeaderStyle type="filter" Title="Ứng viên đã ứng tuyển" />
       {/* main */}
       <View style={styles.main}>
-        {UV.length === 0 ? (
+        {UV.length === 0 || UV.map(item => item === {}) ? (
           <View
             style={{
               paddingTop: scale(180),
