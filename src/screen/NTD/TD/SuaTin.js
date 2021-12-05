@@ -428,13 +428,14 @@ const styles = StyleSheet.create({
   },
   StatusBar: {
     backgroundColor: '#307DF1',
-    height: scale(100),
+    height: scale(60),
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
 
     flexDirection: 'row',
     alignItems: 'flex-end',
-    paddingBottom: scale(15),
+    paddingBottom: scale(30),
+    marginBottom:scale(10)
   },
   title: {
     color: 'white',
