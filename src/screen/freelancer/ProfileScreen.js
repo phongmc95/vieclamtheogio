@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {StyleSheet, Text, View, Image, StatusBar} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import images from '../../constant/images';
 import ExperienceScreen from './profile/ExperienceScreen';
@@ -15,13 +15,12 @@ import Header from '../../components/title/Header';
 import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {useFocusEffect} from '@react-navigation/core';
-import LoadSreen from '../../components/loadScreen';
 
 export default function ProfileScreen() {
   const [index, setIndex] = useState(0);
   const userId = useSelector(state => state.Authen);
   const [user, setUser] = useState({name: null});
-  const loading = useSelector(state => state.Authen.requesting);
+  const da_ta = useSelector(state => state.ProfileEPl.data);
   useFocusEffect(
     useCallback(() => {
       var config = {
@@ -55,15 +54,15 @@ export default function ProfileScreen() {
   const renderScene = ({route}) => {
     switch (route.key) {
       case 'info':
-        return <InfomationScreen item={user} type="flc" />;
+        return <InfomationScreen item={user} />;
       case 'job':
-        return <DesiredJobScreen item={user} type="flc" />;
+        return <DesiredJobScreen item={user} />;
       case 'skill':
-        return <SkillPersonalScreen data={user} type="flc" />;
+        return <SkillPersonalScreen data={user} />;
       case 'exp':
-        return <ExperienceScreen data={user} type="flc" />;
+        return <ExperienceScreen data={user} />;
       case 'work':
-        return <WorkSessionScreen item={user} type="flc" />;
+        return <WorkSessionScreen item={user} />;
       default:
         return null;
     }
@@ -89,7 +88,6 @@ export default function ProfileScreen() {
   );
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       <Header title="hồ sơ" />
       <ScrollView>
         <View style={styles.content}>
@@ -122,7 +120,6 @@ export default function ProfileScreen() {
           </View>
         </View>
       </ScrollView>
-      <LoadSreen load={loading} />
     </View>
   );
 }

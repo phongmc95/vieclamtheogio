@@ -19,6 +19,8 @@ import axios from 'axios';
 import {useFocusEffect} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import fonts from '../../constant/fonts';
+import {callPhone, sendEmail} from '../../components/Contact';
+import colors from '../../constant/colors';
 
 const height = Dimensions.get('window').height;
 
@@ -203,12 +205,40 @@ export default function JobDetailScreen({navigation, route}) {
             <Text style={styles.txtContact}>
               Địa chỉ: {data?.job?.contact_info?.contact_address}
             </Text>
-            <Text style={styles.txtContact}>
-              Số điện thoại: {data?.job?.contact_info?.contact_phone}
-            </Text>
-            <Text style={styles.txtContact}>
-              Email: {data?.job?.contact_info?.contact_email}
-            </Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.txtContact}>Số điện thoại:</Text>
+              <TouchableOpacity
+                onPress={() =>
+                  callPhone(data?.job?.contact_info?.contact_phone)
+                }>
+                <Text
+                  style={{
+                    marginLeft: scale(5),
+                    marginTop: scale(2),
+                    color: colors.BLUE,
+                    textDecorationLine: 'underline',
+                  }}>
+                  {data?.job?.contact_info?.contact_phone}
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.txtContact}>Email:</Text>
+              <TouchableOpacity
+                onPress={() =>
+                  sendEmail(data?.job?.contact_info?.contact_email)
+                }>
+                <Text
+                  style={{
+                    marginLeft: scale(5),
+                    marginTop: scale(2),
+                    color: colors.BLUE,
+                    textDecorationLine: 'underline',
+                  }}>
+                  {data?.job?.contact_info?.contact_email}
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         }
       />

@@ -26,8 +26,8 @@ const CalendarJob = ({item}) => {
               lineHeight: scale(14),
               marginBottom: scale(20),
             }}>
-            Công việc này có thể thời gian làm thay đổi  phù hợp, bạn sẽ được sắp xếp cụ thể khi trao đổi
-            trực tiếp.
+            Công việc này có thể thời gian làm thay đổi phù hợp, bạn sẽ được sắp
+            xếp cụ thể khi trao đổi trực tiếp.
           </Text>
 
           <FlatList
@@ -91,11 +91,12 @@ const styles = StyleSheet.create({
   button2: item => ({
     fontSize: scale(14),
     fontFamily: fonts.BOLD,
-    color: item.work_days.monday === true ? colors.WHITE : '#307DF1',
+    color: item?.work_days?.monday === true ? colors.WHITE : '#307DF1',
     width: scale(90),
     paddingVertical: scale(10),
     textAlign: 'center',
-    backgroundColor: item.work_days.monday === true ? colors.YELLOW : '#ebebeb',
+    backgroundColor:
+      item?.work_days?.monday === true ? colors.YELLOW : '#ebebeb',
     paddingTop: scale(8),
     borderRadius: scale(5),
     marginRight: scale(20),
@@ -104,11 +105,12 @@ const styles = StyleSheet.create({
   button6: item => ({
     fontSize: scale(14),
     fontFamily: fonts.BOLD,
-    color: item.work_days.friday === true ? colors.WHITE : '#307DF1',
+    color: item?.work_days?.friday === true ? colors.WHITE : '#307DF1',
     width: scale(90),
     paddingVertical: scale(10),
     textAlign: 'center',
-    backgroundColor: item.work_days.friday === true ? colors.YELLOW : '#ebebeb',
+    backgroundColor:
+      item?.work_days?.friday === true ? colors.YELLOW : '#ebebeb',
     paddingTop: scale(8),
     borderRadius: scale(5),
     marginRight: scale(20),
@@ -117,12 +119,12 @@ const styles = StyleSheet.create({
   button7: item => ({
     fontSize: scale(14),
     fontFamily: fonts.BOLD,
-    color: item.work_days.saturday === true ? colors.WHITE : '#307DF1',
+    color: item?.work_days?.saturday === true ? colors.WHITE : '#307DF1',
     width: scale(90),
     paddingVertical: scale(10),
     textAlign: 'center',
     backgroundColor:
-      item.work_days.saturday === true ? colors.YELLOW : '#ebebeb',
+      item?.work_days?.saturday === true ? colors.YELLOW : '#ebebeb',
     paddingTop: scale(8),
     borderRadius: scale(5),
     marginRight: scale(20),
@@ -131,11 +133,12 @@ const styles = StyleSheet.create({
   buttonCN: item => ({
     fontSize: scale(14),
     fontFamily: fonts.BOLD,
-    color: item.work_days.sunday === true ? colors.WHITE : '#307DF1',
+    color: item?.work_days?.sunday === true ? colors.WHITE : '#307DF1',
     width: scale(90),
     paddingVertical: scale(10),
     textAlign: 'center',
-    backgroundColor: item.work_days.sunday === true ? colors.YELLOW : '#ebebeb',
+    backgroundColor:
+      item?.work_days?.sunday === true ? colors.YELLOW : '#ebebeb',
     paddingTop: scale(8),
     borderRadius: scale(5),
     marginRight: scale(20),
@@ -144,12 +147,12 @@ const styles = StyleSheet.create({
   button3: item => ({
     fontSize: scale(14),
     fontFamily: fonts.BOLD,
-    color: item.work_days.tuesday === true ? colors.WHITE : '#307DF1',
+    color: item?.work_days?.tuesday === true ? colors.WHITE : '#307DF1',
     width: scale(90),
     paddingVertical: scale(10),
     textAlign: 'center',
     backgroundColor:
-      item.work_days.tuesday === true ? colors.YELLOW : '#ebebeb',
+      item?.work_days?.tuesday === true ? colors.YELLOW : '#ebebeb',
     paddingTop: scale(8),
     borderRadius: scale(5),
     marginRight: scale(20),
@@ -158,12 +161,12 @@ const styles = StyleSheet.create({
   button4: item => ({
     fontSize: scale(14),
     fontFamily: fonts.BOLD,
-    color: item.work_days.wednesday === true ? colors.WHITE : '#307DF1',
+    color: item?.work_days?.wednesday === true ? colors.WHITE : '#307DF1',
     width: scale(90),
     paddingVertical: scale(10),
     textAlign: 'center',
     backgroundColor:
-      item.work_days.wednesday === true ? colors.YELLOW : '#ebebeb',
+      item?.work_days?.wednesday === true ? colors.YELLOW : '#ebebeb',
     paddingTop: scale(8),
     borderRadius: scale(5),
     marginRight: scale(20),
@@ -172,12 +175,12 @@ const styles = StyleSheet.create({
   button5: item => ({
     fontSize: scale(14),
     fontFamily: fonts.BOLD,
-    color: item.work_days.thursday === true ? colors.WHITE : '#307DF1',
+    color: item?.work_days?.thursday === true ? colors.WHITE : '#307DF1',
     width: scale(90),
     paddingVertical: scale(10),
     textAlign: 'center',
     backgroundColor:
-      item.work_days.thursday === true ? colors.YELLOW : '#ebebeb',
+      item?.work_days?.thursday === true ? colors.YELLOW : '#ebebeb',
     paddingTop: scale(8),
     borderRadius: scale(5),
     marginRight: scale(20),

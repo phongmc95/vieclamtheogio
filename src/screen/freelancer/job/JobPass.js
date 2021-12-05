@@ -12,6 +12,7 @@ import images from '../../../constant/images';
 import {useSelector} from 'react-redux';
 import EmptyData from '../../../components/EmptyData';
 import Notification from '../../../components/Notification';
+import {sendEmail, callPhone} from '../../../components/Contact';
 
 export default function JobPass({navigation}) {
   const isFocused = useIsFocused();
@@ -120,12 +121,20 @@ export default function JobPass({navigation}) {
             <Text style={styles.txtContact}>
               Địa chỉ: {contact?.contact_address}
             </Text>
-            <Text style={styles.txtContact}>
-              Số điện thoại: {contact?.contact_phone}
-            </Text>
-            <Text style={styles.txtContact}>
-              Email: {contact?.contact_email}
-            </Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.txtContact}>Số điện thoại:</Text>
+              <TouchableOpacity
+                onPress={() => callPhone(contact?.contact_phone)}>
+                <Text style={styles.txtBlue}>{contact?.contact_phone}</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.txtContact}>Email:</Text>
+              <TouchableOpacity
+                onPress={() => sendEmail(contact?.contact_email)}>
+                <Text style={styles.txtBlue}>{contact?.contact_email}</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         }
       />
@@ -210,5 +219,11 @@ const styles = StyleSheet.create({
   txtContact: {
     fontFamily: fonts.NORMAL,
     fontSize: scale(14),
+  },
+  txtBlue: {
+    marginLeft: scale(5),
+    marginTop: scale(2),
+    color: colors.BLUE,
+    textDecorationLine: 'underline',
   },
 });

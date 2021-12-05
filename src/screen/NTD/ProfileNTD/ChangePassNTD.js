@@ -18,7 +18,8 @@ import {
 } from '../../../../assets/icon';
 import colors from '../../../constant/colors';
 import fonts from '../../../constant/fonts';
-import TextInputPassword from "../../../components/TextInputPassword";
+import TextInputPassword from '../../../components/TextInputPassword';
+import {isIos} from '../../../Utils/CheckDevice';
 
 const ChangePassNTD = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
@@ -35,19 +36,9 @@ const ChangePassNTD = ({navigation}) => {
         <Text style={styles.title}>Đổi mật khẩu</Text>
       </View>
       <View style={styles.main}>
-
-        <TextInputPassword
-          Label="Mật khẩu cũ"
-
-        />
-        <TextInputPassword
-          Label="Mật khẩu mới"
-
-        />
-        <TextInputPassword
-          Label="Nhập lại mật khẩu"
-
-        />
+        <TextInputPassword Label="Mật khẩu cũ" />
+        <TextInputPassword Label="Mật khẩu mới" />
+        <TextInputPassword Label="Nhập lại mật khẩu" />
 
         <View style={styles.Viewbtn}>
           <TouchableOpacity onPress={showModal}>
@@ -86,13 +77,13 @@ const styles = StyleSheet.create({
   },
   StatusBar: {
     backgroundColor: '#307DF1',
-    height: scale(120),
+    height: scale(isIos ? 120 : 50),
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
 
     flexDirection: 'row',
     alignItems: 'flex-end',
-    paddingBottom:20
+    paddingBottom: 20,
   },
   title: {
     color: 'white',
