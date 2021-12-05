@@ -39,9 +39,14 @@ const Login = ({navigation}) => {
   const [error, setError] = useState('');
   const loadingError = () => {
     if (loading === false && message !== null) {
-      Alert.alert('Thông Báo', 'Tài khoản sai email hoặc password');
+      setModal(true);
+      setError('Bạn nhập sai email hoặc mật khẩu ! ');
     }
   };
+  const CloseModal=()=>{
+    dispatch(log_out());
+    setModal(false)
+  }
   useEffect(() => {
     loadingError();
   }, [loading, message]);
@@ -126,7 +131,7 @@ const Login = ({navigation}) => {
       </ScrollView>
       <ModalStyle
         isVisible={modal}
-        onBackdropPress={() => setModal(false)}
+        onBackdropPress={CloseModal}
         content={error}
       />
       <LoadSreen load={loading} />

@@ -139,6 +139,8 @@ export default function DetailUV({route}) {
     alert("Client doesn't have a phone number!");
   }
 }}
+              email_uv={user?.email}
+              vitri={item.data.positions}
 />
 
 
