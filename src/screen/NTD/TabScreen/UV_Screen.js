@@ -6,8 +6,9 @@ import {
   View,
   TouchableOpacity,
   Image,
-  FlatList, StatusBar,
-} from "react-native";
+  FlatList,
+  StatusBar,
+} from 'react-native';
 import HeaderStyle from '../../../components/HeaderStyle';
 import colors from '../../../constant/colors';
 import fonts from '../../../constant/fonts';
@@ -58,7 +59,6 @@ const UV_Screen = ({navigation}) => {
 
   const renderItem = ({item}) => (
     <View style={[styles.viewFL, styleHinder]}>
-
       <TouchableOpacity
         style={{flexDirection: 'row'}}
         onPress={() => navigation.navigate('DetailUV', {item, type: 'epl'})}>

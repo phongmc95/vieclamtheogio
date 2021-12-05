@@ -6,7 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  ScrollView,Alert
+  ScrollView,
+  Alert,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {BackIcon, CameraIcon, Selecter} from '../../../../assets/icon';
@@ -22,12 +23,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {UpdateProfileEPl, PostLogo} from '../../../redux/actions/actions';
 import ModalStyle from '../../../components/ModalStyle';
 import {validateEmail, isVietnamesePhoneNumber} from '../../../base/Validate';
+import {isIos} from '../../../Utils/CheckDevice';
 
 const UpdateInfoNTD = ({navigation}) => {
   const dispatch = useDispatch();
 
   const datalocal = useSelector(state => state.ProfileEPl.data);
-
 
   const [name, setName] = useState('');
   const [quyMo, setquyMo] = useState('');
@@ -47,14 +48,13 @@ const UpdateInfoNTD = ({navigation}) => {
   const [error, setError] = useState('');
   const options = {
     mediaType: 'photo',
-     includeBase64: true,
+    includeBase64: true,
     maxWidth: 2048,
     maxHeight: 2048,
   };
   const onUpdateProfile = () => {
     dispatch(
       UpdateProfileEPl(
-
         name,
         quyMo,
         mst,
@@ -65,36 +65,21 @@ const UpdateInfoNTD = ({navigation}) => {
         intro,
         phone,
         datalocal.user.email,
-        datalocal.user._id
+        datalocal.user._id,
       ),
     );
-   if(logo){
-     updateLogo()
-   }
-    Alert.alert(
-      "Thông báo",
-      "Cập nhập thông tin thành công",
-      [
-
-        { text: "OK", onPress: () => navigation.navigate('Profile') }
-      ]
-    );
-
-
+    if (logo) {
+      updateLogo();
+    }
+    Alert.alert('Thông báo', 'Cập nhập thông tin thành công', [
+      {text: 'OK', onPress: () => navigation.navigate('Profile')},
+    ]);
   };
   const updateLogo = () => {
-    dispatch(PostLogo(logo,  datalocal.user.email));
+    dispatch(PostLogo(logo, datalocal.user.email));
   };
   const onAddJob = () => {
-    if (
-      !name ||
-      !quyMo ||
-      !mst ||
-      !diaChi ||
-      !province ||
-      !phone ||
-      !intro
-    ) {
+    if (!name || !quyMo || !mst || !diaChi || !province || !phone || !intro) {
       setModal(true);
       setError('Các ô nhập là bắt buộc không được để trống! ');
     } else if (!isVietnamesePhoneNumber(phone)) {
@@ -103,8 +88,6 @@ const UpdateInfoNTD = ({navigation}) => {
     } else {
       onUpdateProfile();
     }
-
-
   };
   const openLibry = () => {
     ImagePicker.launchImageLibrary(options, response => {
@@ -242,7 +225,7 @@ const styles = StyleSheet.create({
   },
   StatusBar: {
     backgroundColor: '#307DF1',
-    height: scale(100),
+    height: scale(isIos ? 100 : 50),
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
 
@@ -251,7 +234,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: scale(20),
+    fontSize: scale(18),
     fontFamily: fonts.BOLD,
     marginLeft: scale(20),
     textTransform: 'uppercase',

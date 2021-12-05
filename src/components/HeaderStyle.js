@@ -6,24 +6,19 @@ import {scale} from 'react-native-size-matters';
 import {useNavigation} from '@react-navigation/native';
 import {FilterIcon} from '../../assets/icon/index';
 import fonts from '../constant/fonts';
-import logobase from '../../assets/img/logoVin.png'
-const HeaderStyle = ({Logo, Title, type,uri}) => {
+import logobase from '../../assets/img/logoVin.png';
+const HeaderStyle = ({Logo, Title, type, uri}) => {
   const navigation = useNavigation();
   return (
     <View>
       {type == 'home' ? (
         <View style={styles.StatusBar}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Image
-              source={!uri?logobase:{uri:uri}}
-              style={styles.logo}
-            />
+            <Image source={!uri ? logobase : {uri: uri}} style={styles.logo} />
 
             <Text style={styles.NameNTD}>{Title}</Text>
           </View>
-          <TouchableOpacity >
-
-          </TouchableOpacity>
+          <TouchableOpacity />
         </View>
       ) : type == 'nomal' ? (
         <View style={styles.StatusBar}>
@@ -47,7 +42,6 @@ const HeaderStyle = ({Logo, Title, type,uri}) => {
             }}>
             <Text style={styles.NameNTD}>{Title}</Text>
           </View>
-
         </View>
       ) : null}
     </View>
@@ -59,7 +53,7 @@ export default HeaderStyle;
 const styles = StyleSheet.create({
   StatusBar: {
     backgroundColor: '#307DF1',
-    height: isIos ? scale(100) : scale(60),
+    height: isIos ? scale(100) : scale(50),
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
     flexDirection: 'row',
@@ -73,8 +67,8 @@ const styles = StyleSheet.create({
     margin: scale(10),
     marginLeft: scale(10),
     borderRadius: scale(20),
-    borderColor:'white',
-    borderWidth:1
+    borderColor: 'white',
+    borderWidth: 1,
   },
   NameNTD: {
     color: 'white',
