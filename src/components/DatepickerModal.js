@@ -4,7 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Modal from 'react-native-modal';
 import { scale } from "react-native-size-matters";
 import fonts from "../constant/fonts";
-const DatepickerModal=({isVisible,onBackdropPress,onChange,mode})=>{
+const DatepickerModal=({isVisible,onChange,value})=>{
   const [date, setDate] = useState(new Date());
   return(
     <>
@@ -15,6 +15,7 @@ const DatepickerModal=({isVisible,onBackdropPress,onChange,mode})=>{
 
         mode={'date'}
         onChange={onChange}
+
 
       />
     }
