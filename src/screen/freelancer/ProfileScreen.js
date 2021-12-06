@@ -20,7 +20,6 @@ export default function ProfileScreen() {
   const [index, setIndex] = useState(0);
   const userId = useSelector(state => state.Authen);
   const [user, setUser] = useState({name: null});
-  const da_ta = useSelector(state => state.ProfileEPl.data);
   useFocusEffect(
     useCallback(() => {
       var config = {
@@ -54,15 +53,15 @@ export default function ProfileScreen() {
   const renderScene = ({route}) => {
     switch (route.key) {
       case 'info':
-        return <InfomationScreen item={user} />;
+        return <InfomationScreen item={user} type={userId?.check_type} />;
       case 'job':
-        return <DesiredJobScreen item={user} />;
+        return <DesiredJobScreen item={user} type={userId?.check_type} />;
       case 'skill':
-        return <SkillPersonalScreen data={user} />;
+        return <SkillPersonalScreen data={user} type={userId?.check_type} />;
       case 'exp':
-        return <ExperienceScreen data={user} />;
+        return <ExperienceScreen data={user} type={userId?.check_type} />;
       case 'work':
-        return <WorkSessionScreen item={user} />;
+        return <WorkSessionScreen item={user} type={userId?.check_type} />;
       default:
         return null;
     }

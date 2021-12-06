@@ -52,7 +52,6 @@ export default function InfomationScreen({item, type}) {
           </View>
         )}
       </View>
-
     </View>
   );
 }

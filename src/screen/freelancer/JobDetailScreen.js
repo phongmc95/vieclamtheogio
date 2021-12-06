@@ -21,6 +21,7 @@ import {useSelector} from 'react-redux';
 import fonts from '../../constant/fonts';
 import {callPhone, sendEmail} from '../../components/Contact';
 import colors from '../../constant/colors';
+import ModalStyle from '../../components/ModalStyle';
 
 const height = Dimensions.get('window').height;
 
@@ -33,8 +34,10 @@ export default function JobDetailScreen({navigation, route}) {
   const [contact, setContact] = useState(false);
   const profile = useSelector(state => state.ProfileEPl.data);
   const [isOpen, setIsOpen] = useState(false);
+  const [openError, setOpenError] = useState(false);
   const job = profile?.user?.save_job.find(item => item?.job?._id === id);
   const isSave = job?.is_save;
+  console.log('isSave: ', isSave);
 
   useFocusEffect(
     useCallback(() => {
@@ -47,8 +50,9 @@ export default function JobDetailScreen({navigation, route}) {
         .then(function (response) {
           setData(response.data);
         })
-        .catch(function (error) {
+        .catch(error => {
           console.log(error);
+          setOpenError(true);
         });
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, loading]),
@@ -128,16 +132,18 @@ export default function JobDetailScreen({navigation, route}) {
   );
 
   const save = () => {
+    var data = JSON.stringify({
+      is_save: isSave === false ? true : false,
+    });
     var config = {
       method: 'patch',
       url: `https://fpt-jobs-api.herokuapp.com/api/v1/users/save-job/${id}`,
       headers: {
         'Content-Type': 'application/json',
       },
-      data: {
-        is_save: isSave === false ? true : false,
-      },
+      data: data,
     };
+    console.log('data: ', data);
 
     axios(config)
       .then(function (response) {
@@ -241,6 +247,11 @@ export default function JobDetailScreen({navigation, route}) {
             </View>
           </View>
         }
+      />
+      <ModalStyle
+        isVisible={openError}
+        onBackdropPress={() => navigation.goBack()}
+        content="Công việc không tồn tại!!!"
       />
     </View>
   );

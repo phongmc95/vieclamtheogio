@@ -41,7 +41,15 @@ export default function TitleJob({
             width: scale(79),
             borderRadius: scale(40),
           }}
-          source={logo ? {uri: logo} : images.avatar}
+          source={
+            logo === '/uploads/example.jpeg'
+              ? images.avatar
+              : logo === undefined
+              ? images.avatar
+              : logo === null
+              ? images.avatar
+              : {uri: logo}
+          }
         />
         <View
           style={{width: '65%', marginLeft: scale(20), marginTop: scale(10)}}>

@@ -33,9 +33,13 @@ export default function ListJobScreen({navigation, route}) {
           <Image
             style={styles.logoJob}
             source={
-              item?.user_create?.avatar
-                ? {uri: item.user_create.avatar}
-                : images.avatar
+              item?.user_create?.avatar === '/uploads/example.jpeg'
+                ? images.avatar
+                : item?.user_create?.avatar === undefined
+                ? images.avatar
+                : item?.user_create?.avatar === null
+                ? images.avatar
+                : {uri: item.user_create.avatar}
             }
           />
           <View style={styles.viewContent}>
