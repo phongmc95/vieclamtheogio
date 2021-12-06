@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
-  Alert, StatusBar,
+  Alert, StatusBar, Platform,
 } from "react-native";
 import {scale} from 'react-native-size-matters';
 import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
@@ -25,7 +25,8 @@ import ModalStyle from '../../../components/ModalStyle';
 import {validateEmail, isVietnamesePhoneNumber} from '../../../base/Validate';
 import {isIos} from '../../../Utils/CheckDevice';
 import colors from '../../../constant/colors';
-
+import DatepickerModal from "../../../components/DatepickerModal";
+import moment from "moment";
 const reducer = (state, action) => {
   switch (action.type) {
     case 'START_TIME':
@@ -245,6 +246,13 @@ const DangTin = ({navigation}) => {
       alertAddJob();
     }
   };
+  const [dateVisibel,setDateVisibel]=useState(false)
+  const [date, setDate] = useState(new Date());
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setDateVisibel(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
   return (
     <View style={styles.contener}>
       <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
@@ -327,7 +335,7 @@ const DangTin = ({navigation}) => {
                 value={posting_date}
                 onChangeText={text => set_posting_date(text)}
               />
-              <TouchableOpacity style={styles.Selecter}>
+              <TouchableOpacity style={styles.Selecter} onPress={()=>setDateVisibel(!dateVisibel)}>
                 <DateIcon />
               </TouchableOpacity>
             </View>
@@ -446,6 +454,10 @@ const DangTin = ({navigation}) => {
         onBackdropPress={() => setModal(false)}
         content={error}
       />
+      <DatepickerModal isVisible={dateVisibel}
+                       mode={'date'}
+                       onChange={date=>set_posting_date(moment(date).format('DD/MM/YYYY'))}
+                      />
     </View>
   );
 };
