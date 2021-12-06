@@ -11,7 +11,7 @@ import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {scale} from 'react-native-size-matters';
 import ModalStyle from '../../components/ModalStyle';
 import {useDispatch, useSelector} from 'react-redux';
-import {loadOTP, loadForgotOTP} from '../../redux/actions/actions';
+import {loadOTP, loadForgotOTP, log_out} from '../../redux/actions/actions';
 import fonts from '../../constant/fonts';
 
 const OTP_Confirm = ({navigation, route}) => {
@@ -23,6 +23,11 @@ const OTP_Confirm = ({navigation, route}) => {
   const [otp, setOtp] = useState('');
   const [visible, setVisible] = React.useState(false);
   const [message, setMessage] = useState('');
+  const [modal, setModal] = useState(false);
+  const [error, setError] = useState('');
+  const loading = useSelector(state => state.Authen.requesting);
+  const msg = useSelector(state => state.Authen.message);
+  console.log('Loading: ', loading);
 
   useEffect(() => {
     if (verify_forgot === true && type === 'forgot') {
@@ -39,10 +44,20 @@ const OTP_Confirm = ({navigation, route}) => {
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [verify_register, verify_forgot]);
+  const loadingError = () => {
+    if (loading === false && msg !== null) {
+      setModal(true);
+      setError('Bạn nhập sai mã otp! ');
+    }
+  };
+
+  useEffect(() => {
+    loadingError();
+  }, [loading, msg]);
   const submit = () => {
     if (!otp) {
-      setMessage('Bạn chưa nhập mã OTP ');
-      handleModal();
+      setModal(true);
+      setError('Bạn chưa nhập mã OTP ');
     } else {
       dispatch(
         type === 'register'
@@ -51,10 +66,13 @@ const OTP_Confirm = ({navigation, route}) => {
       );
     }
   };
-
-  const handleModal = () => {
-    setVisible(!visible);
+  const CloseModal = () => {
+    dispatch(log_out());
+    setModal(false);
   };
+  // const handleModal = () => {
+  //   setVisible(!visible);
+  // };
   return (
     <View>
       <ScrollView>
@@ -95,10 +113,15 @@ const OTP_Confirm = ({navigation, route}) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      {/*<ModalStyle*/}
+      {/*  isVisible={modal}*/}
+      {/*  onBackdropPress={CloseModal}*/}
+      {/*  content={message}*/}
+      {/*/>*/}
       <ModalStyle
-        isVisible={visible}
-        onBackdropPress={handleModal}
-        content={message}
+        isVisible={modal}
+        onBackdropPress={CloseModal}
+        content={error}
       />
     </View>
   );
@@ -139,7 +162,7 @@ const styles = StyleSheet.create({
     fontSize: scale(20),
     color: '#307df1',
     marginTop: scale(10),
-    marginLeft: scale(20),
+    marginLeft: scale(6),
     fontFamily: fonts.NORMAL,
   },
   btn: {
