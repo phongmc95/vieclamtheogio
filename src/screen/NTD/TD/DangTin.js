@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
-  Alert, StatusBar,
+  Alert, StatusBar, Platform,
 } from "react-native";
 import {scale} from 'react-native-size-matters';
 import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
@@ -26,6 +26,9 @@ import {validateEmail, isVietnamesePhoneNumber} from '../../../base/Validate';
 import {isIos} from '../../../Utils/CheckDevice';
 import colors from '../../../constant/colors';
 
+import moment from "moment";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import DatepickerModal from "../../../components/DatepickerModal";
 const reducer = (state, action) => {
   switch (action.type) {
     case 'START_TIME':
@@ -174,6 +177,10 @@ const DangTin = ({navigation}) => {
   const [work_schedule_list, set_work_schedule_list] = useState([]);
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
+  const [dateVisibel,setDateVisibel]=useState(false)
+ const [type,settype]=useState('')
+  const [date, setDate] = useState(new Date());
+
   useEffect(() => {
     set_work_schedule_list([work_schedule]);
   }, [work_schedule]);
@@ -245,6 +252,26 @@ const DangTin = ({navigation}) => {
       alertAddJob();
     }
   };
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate
+    setDateVisibel(Platform.OS === 'ios');
+    if(type!=='last'){
+      set_posting_date(moment(currentDate).format('DD/MM/YYYY'));
+      setDateVisibel(false)
+    }else {
+      set_last_date(moment(currentDate).format('DD/MM/YYYY'));
+      setDateVisibel(false)
+    }
+
+  };
+  const onChan = (event, selectedDate) => {
+    const currentDatee = selectedDate || dates;
+    setDateVisibel(Platform.OS === 'ios');
+    set_last_date(moment(currentDatee).format('DD/MM/YYYY'));
+
+  };
+  console.log(dateVisibel);
   return (
     <View style={styles.contener}>
       <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
@@ -327,7 +354,8 @@ const DangTin = ({navigation}) => {
                 value={posting_date}
                 onChangeText={text => set_posting_date(text)}
               />
-              <TouchableOpacity style={styles.Selecter}>
+              <TouchableOpacity style={styles.Selecter} onPress={()=>{setDateVisibel(!dateVisibel);settype('fist')
+              }}>
                 <DateIcon />
               </TouchableOpacity>
             </View>
@@ -344,7 +372,9 @@ const DangTin = ({navigation}) => {
                 value={last_date}
                 onChangeText={text => set_last_date(text)}
               />
-              <TouchableOpacity style={styles.Selecter}>
+
+              <TouchableOpacity style={styles.Selecter} onPress={()=>{setDateVisibel(!dateVisibel);settype('last')
+              }}>
                 <DateIcon />
               </TouchableOpacity>
             </View>
@@ -446,6 +476,23 @@ const DangTin = ({navigation}) => {
         onBackdropPress={() => setModal(false)}
         content={error}
       />
+
+
+        {dateVisibel&&
+          (
+          <DateTimePicker
+
+            value={date}
+
+            mode={'date'}
+            onChange={onChange}
+
+
+          />
+          )
+        }
+
+
     </View>
   );
 };

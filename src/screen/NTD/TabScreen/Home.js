@@ -79,7 +79,7 @@ const Home = ({navigation}) => {
     legend: ['Lượt ứng tuyển'], // optional
   };
   const renderItem = ({item}) => (
-    <View style={styles.ViewFlatlist}>
+    <View style={[styles.ViewFlatlist, {marginVertical: 20}]}>
       <Text style={styles.TextTitle}>{item?.job_posting_position}</Text>
 
       <View style={styles.viewRow}>
@@ -104,7 +104,7 @@ const Home = ({navigation}) => {
   );
   const renderItemHS = ({item}) => (
     <View
-      style={[styles.ViewFlatlist, {padding: scale(10), marginBottom: '25%'}]}>
+      style={[styles.ViewFlatlist, {padding: scale(10), marginBottom: '25%', marginVertical: 20}]}>
       <View style={{flexDirection: 'row'}}>
         <Image
           source={

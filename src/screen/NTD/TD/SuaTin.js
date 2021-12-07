@@ -6,7 +6,8 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
-  TextInput,Alert
+  TextInput,
+  Alert,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
@@ -19,7 +20,7 @@ import {jobs} from '../../../data/Jobs';
 import ModalStyle from '../../../components/ModalStyle';
 import {useDispatch, useSelector} from 'react-redux';
 import icons from '../../../constant/icons';
-import { UpdateJob } from "../../../redux/actions/actions";
+import {UpdateJob} from '../../../redux/actions/actions';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -190,32 +191,42 @@ const SuaTin = ({navigation, route}) => {
     reducerContactInfo,
     initialStateContactInfo,
   );
-  const submit=()=>{
-   dis(UpdateJob(
-     job_posting_position,
-     career.title,
-     quantity_recruited,
-     work_location,
-     working_form,
-     salary,
-     min_education,
-     probation,
-     rose,
-     '',
-     posting_date,
-     last_date,
-     work_schedule_list,
-     job_description,
-     job_requirements,
-     benefits_enjoyed,
-     records_include,
-     contact_info,
-    item?.createdBy,
-     item?._id
-     ));
-   // navigation.navigate('TD_Screen')
-  }
-
+  const submit = () => {
+    dis(
+      UpdateJob(
+        job_posting_position,
+        career.title,
+        quantity_recruited,
+        work_location,
+        working_form,
+        salary,
+        min_education,
+        probation,
+        rose,
+        '',
+        posting_date,
+        last_date,
+        work_schedule_list,
+        job_description,
+        job_requirements,
+        benefits_enjoyed,
+        records_include,
+        contact_info,
+        item?.createdBy,
+        item?._id,
+      ),
+    );
+    navigation.goBack();
+  };
+  const alertDelete = () =>
+    Alert.alert('Thông báo', 'Bạn có muốn sửa tin không', [
+      {
+        text: 'Không',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'Sửa', onPress: () => submit()},
+    ]);
   return (
     <View style={styles.contener}>
       <View style={styles.StatusBar}>
@@ -400,7 +411,7 @@ const SuaTin = ({navigation, route}) => {
           <ButtonStyle
             styleBtn={{width: 150, margin: scale(30)}}
             Title={'Sửa Tin'}
-            onPress={submit()}
+            onPress={alertDelete}
           />
         </View>
       </ScrollView>
@@ -428,13 +439,14 @@ const styles = StyleSheet.create({
   },
   StatusBar: {
     backgroundColor: '#307DF1',
-    height: scale(100),
+    height: scale(60),
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
 
     flexDirection: 'row',
     alignItems: 'flex-end',
-    paddingBottom: scale(15),
+    paddingBottom: scale(30),
+    marginBottom:scale(10)
   },
   title: {
     color: 'white',

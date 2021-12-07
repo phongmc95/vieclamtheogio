@@ -43,6 +43,7 @@ import UpdateDesiredJob from '../screen/freelancer/profile/UpdateDesiredJob';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistor, store} from '../redux/store/Store';
 import {StatusBar} from 'react-native';
+import NotificationS from "../screen/NTD/TD/NotificationS";
 const Stack = createStackNavigator();
 const StackNavigation = () => {
 
@@ -100,6 +101,7 @@ const StackNavigation = () => {
             <Stack.Screen name="UpdateWork" component={UpdateWorkSession} />
             <Stack.Screen name="JobDetail" component={JobDetailScreen} />
             <Stack.Screen name="ListJob" component={ListJobScreen} />
+            <Stack.Screen name={'NotificationS'} component={NotificationS}/>
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
