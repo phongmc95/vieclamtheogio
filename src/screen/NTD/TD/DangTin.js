@@ -7,8 +7,10 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
-  Alert, StatusBar, Platform,
-} from "react-native";
+  Alert,
+  StatusBar,
+  Platform,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
 import CircleCheckBox, {LABEL_POSITION} from 'react-native-circle-checkbox';
@@ -26,9 +28,9 @@ import {validateEmail, isVietnamesePhoneNumber} from '../../../base/Validate';
 import {isIos} from '../../../Utils/CheckDevice';
 import colors from '../../../constant/colors';
 
-import moment from "moment";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import DatepickerModal from "../../../components/DatepickerModal";
+import moment from 'moment';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import DatepickerModal from '../../../components/DatepickerModal';
 const reducer = (state, action) => {
   switch (action.type) {
     case 'START_TIME':
@@ -133,6 +135,8 @@ const reducerContactInfo = (state, action) => {
 const DangTin = ({navigation}) => {
   const dis = useDispatch();
   const _id = useSelector(state => state.Authen.data);
+  const _success = useSelector(state => state.AddJob.success);
+
   const initialState = {
     shift: 'Thời gian làm một ngày',
     start_time: null,
@@ -177,49 +181,30 @@ const DangTin = ({navigation}) => {
   const [work_schedule_list, set_work_schedule_list] = useState([]);
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
-  const [dateVisibel,setDateVisibel]=useState(false)
- const [type,settype]=useState('')
+  const [dateVisibel, setDateVisibel] = useState(false);
+  const [type, settype] = useState('');
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     set_work_schedule_list([work_schedule]);
   }, [work_schedule]);
+
+  useEffect(() => {
+    if (_success === true) {
+      setModal(true);
+      setError('Đăng tin thành công!!!');
+    } else {
+      setModal(true);
+      setError('Đăng tin không thành công. Vui lòng nhập lại!');
+    }
+    return () => {};
+  }, []);
+
   const [contact_info, dispatchContactInfo] = useReducer(
     reducerContactInfo,
     initialStateContactInfo,
   );
-  const alertAddJob = () =>
-    Alert.alert('Thông Báo', 'Đăng tin thành công?', [
-      {
-        text: 'OK',
-        onPress: () => {
-          dis(
-            AddPostJob(
-              job_posting_position,
-              career.title,
-              quantity_recruited,
-              work_location,
-              working_form,
-              salary,
-              min_education,
-              probation,
-              rose,
-              '',
-              posting_date,
-              last_date,
-              work_schedule_list,
-              job_description,
-              job_requirements,
-              benefits_enjoyed,
-              records_include,
-              contact_info,
-              _id?.user?.userId,
-            ),
-          );
-          navigation.goBack();
-        },
-      },
-    ]);
+
   const onAddJob = () => {
     if (
       !job_posting_position ||
@@ -249,29 +234,59 @@ const DangTin = ({navigation}) => {
       setModal(true);
       setError('Số điện thoại không đúng định dạng. Vui lòng nhập lại !');
     } else {
-      alertAddJob();
+      dis(
+        AddPostJob(
+          job_posting_position,
+          career.title,
+          quantity_recruited,
+          work_location,
+          working_form,
+          salary,
+          min_education,
+          probation,
+          rose,
+          '',
+          posting_date,
+          last_date,
+          work_schedule_list,
+          job_description,
+          job_requirements,
+          benefits_enjoyed,
+          records_include,
+          contact_info,
+          _id?.user?.userId,
+        ),
+      );
     }
   };
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate
+    const currentDate = selectedDate;
     setDateVisibel(Platform.OS === 'ios');
-    if(type!=='last'){
+    if (type !== 'last') {
       set_posting_date(moment(currentDate).format('DD/MM/YYYY'));
-      setDateVisibel(false)
-    }else {
+      setDateVisibel(false);
+    } else {
       set_last_date(moment(currentDate).format('DD/MM/YYYY'));
-      setDateVisibel(false)
+      setDateVisibel(false);
     }
-
   };
+
+  const closeModal = () => {
+    setModal(false);
+  };
+
+  const goBack = () => {
+    if (navigation.canGoBack) {
+      navigation.goBack();
+    }
+  };
+
   const onChan = (event, selectedDate) => {
     const currentDatee = selectedDate || dates;
     setDateVisibel(Platform.OS === 'ios');
     set_last_date(moment(currentDatee).format('DD/MM/YYYY'));
-
   };
-  console.log(dateVisibel);
   return (
     <View style={styles.contener}>
       <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
@@ -354,8 +369,12 @@ const DangTin = ({navigation}) => {
                 value={posting_date}
                 onChangeText={text => set_posting_date(text)}
               />
-              <TouchableOpacity style={styles.Selecter} onPress={()=>{setDateVisibel(!dateVisibel);settype('fist')
-              }}>
+              <TouchableOpacity
+                style={styles.Selecter}
+                onPress={() => {
+                  setDateVisibel(!dateVisibel);
+                  settype('fist');
+                }}>
                 <DateIcon />
               </TouchableOpacity>
             </View>
@@ -373,8 +392,12 @@ const DangTin = ({navigation}) => {
                 onChangeText={text => set_last_date(text)}
               />
 
-              <TouchableOpacity style={styles.Selecter} onPress={()=>{setDateVisibel(!dateVisibel);settype('last')
-              }}>
+              <TouchableOpacity
+                style={styles.Selecter}
+                onPress={() => {
+                  setDateVisibel(!dateVisibel);
+                  settype('last');
+                }}>
                 <DateIcon />
               </TouchableOpacity>
             </View>
@@ -473,26 +496,13 @@ const DangTin = ({navigation}) => {
       />
       <ModalStyle
         isVisible={modal}
-        onBackdropPress={() => setModal(false)}
+        onBackdropPress={_success === true ? goBack : closeModal}
         content={error}
       />
 
-
-        {dateVisibel&&
-          (
-          <DateTimePicker
-
-            value={date}
-
-            mode={'date'}
-            onChange={onChange}
-
-
-          />
-          )
-        }
-
-
+      {dateVisibel && (
+        <DateTimePicker value={date} mode={'date'} onChange={onChange} />
+      )}
     </View>
   );
 };
