@@ -1,6 +1,6 @@
 import fonts from '@constant/fonts';
 import React from 'react';
-import { StyleSheet, Text, View, Image, StatusBar } from "react-native";
+import {StyleSheet, Text, View, Image, StatusBar} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '../../components/title/TitleBasic';
 import icons from '../../constant/icons';
@@ -61,9 +61,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#F3F3F3',
     marginRight: scale(15),
     marginTop: scale(2),
+    borderRadius: scale(30),
   },
   txtTitle: {
-    fontSize: scale(16),
+    fontSize: scale(14),
     lineHeight: scale(20),
     color: '#404040',
     fontFamily: fonts.NORMAL,
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
     width: '65%',
   },
   txtTime: {
-    fontSize: scale(14),
+    fontSize: scale(12),
     lineHeight: scale(20),
     color: '#404040',
     fontFamily: fonts.NORMAL,

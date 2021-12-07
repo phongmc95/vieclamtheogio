@@ -273,12 +273,6 @@ export default function UpdateInfomation({navigation, route}) {
             />
           </View>
         </View>
-        <View style={styles.button}>
-          <TouchableOpacity onPress={submit}>
-            <Button title="Lưu" color="#fff" bg="#307df1" right={scale(10)} />
-          </TouchableOpacity>
-          <Button title="Không lưu" color="#307df1" bg={colors.GRAY} />
-        </View>
         <SelectModal
           isVisible={checkGender}
           onBackdropPress={handleGender}
@@ -294,6 +288,14 @@ export default function UpdateInfomation({navigation, route}) {
           data={listMarital}
         />
       </ScrollView>
+      <View style={styles.button}>
+        <TouchableOpacity onPress={submit}>
+          <Button title="Lưu" color="#fff" bg="#307df1" right={scale(10)} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Button title="Không lưu" color="#307df1" bg={colors.GRAY} />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }
@@ -346,11 +348,10 @@ const styles = StyleSheet.create({
     marginLeft: scale(10),
   },
   button: {
-    height: scale(60),
     width: '100%',
     backgroundColor: colors.LIGHT_WHITE,
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingTop: scale(10),
+    paddingVertical: scale(5),
   },
 });

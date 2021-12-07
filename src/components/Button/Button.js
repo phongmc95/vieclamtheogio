@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.NORMAL,
     color: props.color,
     paddingVertical: scale(10),
+    // height: scale(40),
     backgroundColor: props.bg,
     borderRadius: scale(30),
     width: scale(130),
@@ -26,6 +27,5 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 5,
     marginRight: props.right,
-    marginBottom: scale(10),
   }),
 });

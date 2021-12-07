@@ -7,9 +7,11 @@ import icons from '../../constant/icons';
 import {isIos} from '../../Utils/CheckDevice';
 import {useSelector} from 'react-redux';
 import images from '../../constant/images';
+import {NotificationICON} from '../../../assets/icon';
 
 export default function TitleHome({name}) {
   const dataq = useSelector(state => state.ProfileEPl.data);
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -51,6 +53,20 @@ export default function TitleHome({name}) {
           {name}
         </Text>
       </View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Notification')}
+        style={{
+          width: scale(35),
+          height: scale(35),
+          borderRadius: scale(17.5),
+          backgroundColor: 'white',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: scale(10),
+          marginLeft: scale(10),
+        }}>
+        <NotificationICON />
+      </TouchableOpacity>
     </View>
   );
 }

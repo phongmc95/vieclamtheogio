@@ -216,7 +216,8 @@ const UpdateWorkSession = ({navigation}) => {
   return (
     <View style={styles.container}>
       <TitleBasic title="buổi có thể đi làm" />
-      <ScrollView style={{padding: scale(20), paddingBottom: scale(60)}}>
+      <ScrollView
+        style={{padding: scale(20), paddingBottom: scale(60), height: '85%'}}>
         <WorkDay
           title={'Thứ 2'}
           onPressM={() => dispatch({type: 'morning'})}
@@ -266,15 +267,15 @@ const UpdateWorkSession = ({navigation}) => {
           onPressE={() => dispatch6({type: 'evening'})}
           day={day6}
         />
-        <View style={styles.buttonView}>
-          <TouchableOpacity onPress={submit}>
-            <Button title="Lưu" color="#fff" bg="#307df1" right={scale(10)} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Button title="Không lưu" color="#307df1" bg="#fff" />
-          </TouchableOpacity>
-        </View>
       </ScrollView>
+      <View style={styles.buttonView}>
+        <TouchableOpacity onPress={submit}>
+          <Button title="Lưu" color="#fff" bg="#307df1" right={scale(10)} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Button title="Không lưu" color="#307df1" bg="#fff" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -318,13 +319,11 @@ const styles = StyleSheet.create({
   row: {flexDirection: 'row'},
   bottom: {marginBottom: scale(20)},
   buttonView: {
-    height: scale(110),
     width: '100%',
     backgroundColor: colors.LIGHT_WHITE,
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingTop: scale(10),
-    paddingBottom: scale(60),
+    paddingVertical: scale(5),
   },
 });
 
