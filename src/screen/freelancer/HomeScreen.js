@@ -72,7 +72,7 @@ export default function HomeScreen({navigation}) {
               </Text>
               <Text style={styles.txtAddress}>{item?.career}</Text>
             </View>
-            <Image style={styles.iconHeart} source={icons.reDislike} />
+            {/* <Image style={styles.iconHeart} source={icons.reDislike} /> */}
           </View>
           <View style={styles.row}>
             <Image style={styles.iconJob} source={icons.bag} />

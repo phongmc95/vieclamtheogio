@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
+import colors from '../constant/colors';
 import fonts from '../constant/fonts';
 const AddcalendarAddd = ({
   shift,
@@ -27,27 +28,42 @@ const AddcalendarAddd = ({
     <View>
       <Text
         style={{
-          fontSize: 16,
+          fontSize: scale(16),
           marginLeft: scale(20),
           marginVertical: scale(10),
+          fontFamily: fonts.NORMAL,
         }}>
         {shift}
       </Text>
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <Text style={{marginTop: scale(15)}}>Từ</Text>
+        <Text
+          style={{
+            marginTop: scale(15),
+            fontFamily: fonts.NORMAL,
+            marginHorizontal: scale(5),
+          }}>
+          Từ
+        </Text>
         <View style={[styles.boxInput, {width: scale(125)}]}>
           <TextInput
-            placeholder="00"
+            placeholder="VD 08:00"
             style={styles.textInput}
             keyboardType={'number-pad'}
             value={value}
             onChangeText={onChangeText}
           />
         </View>
-        <Text style={{marginTop: scale(15)}}>Đến</Text>
+        <Text
+          style={{
+            marginTop: scale(15),
+            fontFamily: fonts.NORMAL,
+            marginHorizontal: scale(5),
+          }}>
+          Đến
+        </Text>
         <View style={[styles.boxInput, {width: scale(125)}]}>
           <TextInput
-            placeholder="00"
+            placeholder="VD 18:00"
             style={styles.textInput}
             keyboardType={'number-pad'}
             value={value2}
@@ -176,17 +192,16 @@ const styles = StyleSheet.create({
   boxInput: {
     width: scale(325),
     height: scale(40),
-    borderWidth: scale(0.5),
     borderColor: 'black',
     justifyContent: 'center',
     alignContent: 'center',
-
+    backgroundColor: colors.WHITE,
     margin: scale(5),
     borderRadius: scale(5),
   },
   textInput: {
-    fontWeight: '300',
-    fontSize: scale(16),
+    fontFamily: fonts.NORMAL,
+    fontSize: scale(14),
     marginLeft: scale(5),
   },
   Selecter: {

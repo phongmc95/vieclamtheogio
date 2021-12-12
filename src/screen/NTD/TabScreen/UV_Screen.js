@@ -17,6 +17,10 @@ import {useSelector} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
 import images from '../../../constant/images';
 import {scale} from 'react-native-size-matters';
+import {SwipeListView} from 'react-native-swipe-list-view';
+import {SelectDowIcon} from '../../../../assets/icon';
+import SelectModal from '../../../components/SelectModal';
+import moment from 'moment';
 const UV_Screen = ({navigation}) => {
   const states = [
     {id: 2, title: 'Đến phỏng vấn'},
@@ -24,15 +28,20 @@ const UV_Screen = ({navigation}) => {
     {id: 4, title: 'Không đạt yêu cầu'},
   ];
   const [styleHinder, setStyleHinder] = useState({backgroundColor: 'white'});
-  const [Visible, setVisible] = useState(false);
   const [showStatus, setShowStastus] = useState(false);
   const [state, setState] = useState({id: null, title: 'Trạng thái'});
   const [data, setData] = useState([]);
   const [load, setLoad] = useState(false);
-  const [newData, setNewData] = useState([]);
   const idEmp = useSelector(state => state.Authen.data);
+  const [id, setId] = useState('');
+  const [jobID, setJobID] = useState('');
   const isFocused = useIsFocused();
   useEffect(() => {
+    appliedList();
+    return () => {};
+  }, [load, isFocused]);
+
+  const appliedList = () => {
     var config = {
       method: 'get',
       url: 'https://fpt-jobs-api.herokuapp.com/api/v1/jobs',
@@ -45,16 +54,47 @@ const UV_Screen = ({navigation}) => {
       .catch(function (error) {
         console.log(error);
       });
-    // setLoad(!load)
-    return () => {};
-  }, [load, isFocused]);
+  };
+
+  const status = item => {
+    setShowStastus(!showStatus);
+    setId(item.data._id);
+    setJobID(item.data.jobId);
+  };
+
+  const accessApplied = title => {
+    var data = JSON.stringify({
+      status: title,
+      id_apply: id,
+    });
+
+    var config = {
+      method: 'patch',
+      url: `https://fpt-jobs-api.herokuapp.com/api/v1/jobs/access-apply/${jobID}`,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const toggleModalSelect = () => {
+    setShowStastus(!showStatus);
+  };
 
   const listData = data?.filter(item => item.createdBy === idEmp?.user?.userId);
-  // console.log('ListData: ', listData);
+  console.log('ListData: ', listData);
   const UV = listData?.map(item =>
     item.applicants_applied.reduce((a, b) => ({...a, data: b}), {}),
   );
-  // console.log('UV: ', UV);
   //console.log(item?.applicants_applied,">>>");
 
   const renderItem = ({item}) => (
@@ -76,7 +116,30 @@ const UV_Screen = ({navigation}) => {
             </View>
             <Text style={styles.textitem}>{item?.data?.positions}</Text>
           </View>
+          <View style={{flexDirection: 'row'}}>
+            <View style={{marginRight: scale(5), marginLeft: scale(5)}}>
+              <Text style={[styles.textitem, {color: '#000000'}]}>Ngày:</Text>
+            </View>
+            <Text style={styles.textitem}>
+              {moment(item?.data?.apply_date).format('DD/MM/YYYY')}
+            </Text>
+          </View>
         </View>
+      </TouchableOpacity>
+    </View>
+  );
+
+  const renderHinderItem = ({item}) => (
+    <View style={styles.hinder}>
+      <TouchableOpacity style={styles.status} onPress={() => status(item)}>
+        <Text
+          style={{
+            fontSize: scale(12),
+            color: 'white',
+            fontFamily: fonts.NORMAL,
+          }}>
+          {state.title} <SelectDowIcon />
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -87,7 +150,7 @@ const UV_Screen = ({navigation}) => {
       <HeaderStyle type="filter" Title="Ứng viên đã ứng tuyển" />
       {/* main */}
       <View style={styles.main}>
-        {UV.length === 0 || UV===null ? (
+        {UV.length === 0 || UV === null ? (
           <View
             style={{
               paddingTop: scale(180),
@@ -103,10 +166,12 @@ const UV_Screen = ({navigation}) => {
             </Text>
           </View>
         ) : (
-          <FlatList
+          <SwipeListView
             data={UV}
             renderItem={renderItem}
             keyExtractor={item => item.data?.positions}
+            renderHiddenItem={renderHinderItem}
+            rightOpenValue={scale(-155)}
             ListFooterComponent={() => (
               <View style={{paddingBottom: scale(50)}} />
             )}
@@ -114,6 +179,17 @@ const UV_Screen = ({navigation}) => {
           />
         )}
       </View>
+      <SelectModal
+        isVisible={showStatus}
+        onBackdropPress={toggleModalSelect}
+        label={'Trạng thái'}
+        onPress={item => {
+          setState(item);
+          toggleModalSelect();
+          accessApplied(item.title);
+        }}
+        data={states}
+      />
     </View>
   );
 };
@@ -159,32 +235,30 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   avatar: {
-    width: scale(100),
-    height: scale(100),
-    borderRadius: scale(50),
+    width: scale(60),
+    height: scale(60),
+    borderRadius: scale(30),
     marginLeft: scale(5),
+    marginTop: scale(12),
   },
   LikeIcon: {
     margin: scale(18),
   },
   textitem: {
     fontFamily: fonts.NORMAL,
-    fontSize: scale(18),
+    fontSize: scale(16),
     marginLeft: scale(8),
     marginTop: scale(10),
     color: '#307df1',
   },
   nameUV: {
     fontFamily: fonts.NORMAL,
-    fontSize: scale(21),
+    fontSize: scale(18),
     color: '#307DF1',
     marginLeft: scale(10),
-    marginTop: scale(10),
   },
   hinder: {
     width: scale(142),
-    height: scale(144),
-
     marginLeft: scale(190),
     margin: scale(5),
   },
@@ -201,11 +275,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#307DF1',
   },
   status: {
-    height: scale(36),
+    height: scale(107),
     flexDirection: 'row',
     backgroundColor: '#307DF1',
-    borderRadius: scale(30),
-    marginTop: scale(10),
+    borderRadius: scale(20),
     alignItems: 'center',
     justifyContent: 'center',
   },

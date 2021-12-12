@@ -18,10 +18,14 @@ export default function JobPass({navigation}) {
   const isFocused = useIsFocused();
   const [listJob, setListJobs] = useState([]);
   const _id = useSelector(state => state.Authen.data);
-  const [contact, setContact] = useState(null);
-  const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    getJobApplied();
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
+
+  const getJobApplied = () => {
     var config = {
       method: 'get',
       url: 'https://fpt-jobs-api.herokuapp.com/api/v1/jobs',
@@ -30,19 +34,39 @@ export default function JobPass({navigation}) {
     axios(config)
       .then(function (response) {
         const listApply = response.data.jobs.filter(item =>
-          item.applicants_applied.find(it => it._id === _id?.user?.userId),
+          item.applicants_applied.find(it => it.name === _id?.user?.name),
         );
         setListJobs(listApply);
       })
       .catch(function (error) {
         console.log(error);
       });
-    return () => {};
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocused]);
+  };
 
-  const handleOpen = () => {
-    setOpen(!open);
+  const handleOpen = item => {
+    console.log(
+      'item: ',
+      item.applicants_applied.find(it => it.name === _id?.user?.name),
+    );
+    var data = JSON.stringify({
+      id_apply: _id?.user?.userId,
+      is_cancel: false,
+    });
+
+    var config = {
+      method: 'patch',
+      url: `https://fpt-jobs-api.herokuapp.com/api/v1/jobs/cancel-apply/${item._id}`,
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        getJobApplied();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const renderItem = ({item}) => (
@@ -96,48 +120,18 @@ export default function JobPass({navigation}) {
           keyExtractor={item => item.id}
           renderItem={renderItem}
           renderHiddenItem={({item}) => {
-            setContact(item.contact_info);
             return (
-              <TouchableOpacity onPress={handleOpen}>
+              <TouchableOpacity onPress={() => handleOpen(item)}>
                 <View style={styles.swiper}>
-                  <Text style={styles.contact}>Liên hệ</Text>
+                  <Text style={styles.contact}>Huỷ</Text>
                 </View>
               </TouchableOpacity>
             );
           }}
           ListEmptyComponent={() => <EmptyData content="Chưa có dữ liệu" />}
-          rightOpenValue={-150}
+          rightOpenValue={scale(-120)}
         />
       </View>
-      <Notification
-        title="LIÊN HỆ"
-        on={open}
-        off={handleOpen}
-        content={
-          <View style={{bottom: scale(20)}}>
-            <Text style={styles.txtContact}>
-              Người liên hệ: {contact?.contact_person}
-            </Text>
-            <Text style={styles.txtContact}>
-              Địa chỉ: {contact?.contact_address}
-            </Text>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.txtContact}>Số điện thoại:</Text>
-              <TouchableOpacity
-                onPress={() => callPhone(contact?.contact_phone)}>
-                <Text style={styles.txtBlue}>{contact?.contact_phone}</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.txtContact}>Email:</Text>
-              <TouchableOpacity
-                onPress={() => sendEmail(contact?.contact_email)}>
-                <Text style={styles.txtBlue}>{contact?.contact_email}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        }
-      />
     </View>
   );
 }

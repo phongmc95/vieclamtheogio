@@ -86,6 +86,63 @@ export const working_day = [
   },
 ];
 
+export const Salary = [
+  {
+    id: '1',
+    title: 'Dưới 5 triệu',
+  },
+  {
+    id: '2',
+    title: '5 - 10 triệu',
+  },
+  {
+    id: '3',
+    title: '10 - 15 triệu',
+  },
+  {
+    id: '4',
+    title: 'Trên 20 triệu',
+  },
+];
+
+export const Literacy = [
+  {
+    id: '1',
+    title: 'Trung học cơ sở',
+  },
+  {
+    id: '2',
+    title: 'Trung học phổ thông',
+  },
+  {
+    id: '3',
+    title: 'Cao đẳng',
+  },
+  {
+    id: '4',
+    title: 'Đại học',
+  },
+];
+
+export const WorkingForm = [
+  {
+    id: '1',
+    title: 'Việc làm toàn thời gian',
+  },
+  {
+    id: '2',
+    title: 'Việc làm bán thời gian',
+  },
+  {
+    id: '3',
+    title: 'Việc làm tại nhà',
+  },
+  {
+    id: '4',
+    title: 'Việc làm thời vụ',
+  },
+];
+
 export const provinces = [
   {
     id: '1',

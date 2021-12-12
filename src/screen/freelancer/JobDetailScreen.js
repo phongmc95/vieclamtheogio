@@ -22,6 +22,7 @@ import fonts from '../../constant/fonts';
 import {callPhone, sendEmail} from '../../components/Contact';
 import colors from '../../constant/colors';
 import ModalStyle from '../../components/ModalStyle';
+import {useIsFocused} from '@react-navigation/native';
 
 const height = Dimensions.get('window').height;
 
@@ -30,33 +31,44 @@ export default function JobDetailScreen({navigation, route}) {
   const [index, setIndex] = useState(0);
   const [modal, setModal] = useState(false);
   const [data, setData] = useState({_id: null});
-  const loading = useSelector(state => state.Authen.requesting);
+  const user = useSelector(state => state.Authen);
   const [contact, setContact] = useState(false);
-  const profile = useSelector(state => state.ProfileEPl.data);
   const [isOpen, setIsOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
-  const job = profile?.user?.save_job.find(item => item?.job?._id === id);
-  const isSave = job?.is_save;
-  console.log('isSave: ', isSave);
+  const [isSave, setIsSave] = useState(false);
+  const isFocused = useIsFocused();
+  const [idSave, setIdSave] = useState('');
 
   useFocusEffect(
     useCallback(() => {
-      var config = {
-        method: 'get',
-        url: `https://fpt-jobs-api.herokuapp.com/api/v1/jobs/${id}`,
-      };
-
-      axios(config)
-        .then(function (response) {
-          setData(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-          setOpenError(true);
-        });
+      getDetailJob();
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id, loading]),
+    }, [isFocused]),
   );
+
+  const getDetailJob = () => {
+    var config = {
+      method: 'get',
+      url: `https://fpt-jobs-api.herokuapp.com/api/v1/jobs/${id}`,
+    };
+
+    axios(config)
+      .then(function (response) {
+        setData(response.data);
+        if (response.data.job.save_job.length > 0) {
+          const data = response.data.job.save_job.find(
+            item => item.userId === user.data.user.userId,
+          );
+          setIsSave(data.is_save);
+          setIdSave(data._id);
+          console.log('data: ', data);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        // setOpenError(true);
+      });
+  };
 
   const apply = () => {
     var config = {
@@ -133,22 +145,25 @@ export default function JobDetailScreen({navigation, route}) {
 
   const save = () => {
     var data = JSON.stringify({
-      is_save: isSave === false ? true : false,
+      is_save: true,
+      id_save: idSave,
     });
+
     var config = {
       method: 'patch',
-      url: `https://fpt-jobs-api.herokuapp.com/api/v1/users/save-job/${id}`,
+      url: `https://fpt-jobs-api.herokuapp.com/api/v1/jobs/save-job/${id}`,
       headers: {
         'Content-Type': 'application/json',
       },
       data: data,
     };
-    console.log('data: ', data);
 
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         toggleSuccess();
+        getDetailJob();
+        setIsSave(true);
       })
       .catch(function (error) {
         console.log(error);

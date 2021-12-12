@@ -11,7 +11,9 @@ const SplashScreen = ({navigation}) => {
     fadeIn();
     const time = setTimeout(() => {
       data && checkLogin
-        ? navigation.navigate(data.user.role === 'employer' ? 'tabNTD' : 'BottomTabFlc')
+        ? navigation.navigate(
+            data.user.role === 'employer' ? 'tabNTD' : 'BottomTabFlc',
+          )
         : navigation.navigate('Intro');
     }, 5000);
     return () => {

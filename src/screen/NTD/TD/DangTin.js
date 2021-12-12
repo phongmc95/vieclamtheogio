@@ -3,23 +3,19 @@ import {
   StyleSheet,
   Text,
   View,
-  FlatList,
   TouchableOpacity,
   ScrollView,
   TextInput,
-  Alert,
   StatusBar,
   Platform,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {BackIcon, Selecter, DateIcon} from '../../../../assets/icon';
-import CircleCheckBox, {LABEL_POSITION} from 'react-native-circle-checkbox';
-import Sagaly from './Sagaly';
 import TextInputStyle from '../../../components/TextInputStyle';
 import ButtonStyle from '../../../components/ButtonStyle';
 import AddcalendarAddd from '../../../components/AddcalendarAddd';
 import TextInputSelected from '../../../components/TextInputSelected';
-import {jobs} from '../../../data/Jobs';
+import {jobs, Literacy, Salary, WorkingForm} from '../../../data/Jobs';
 import SelectModal from '../../../components/SelectModal';
 import {useDispatch, useSelector} from 'react-redux';
 import {AddPostJob} from '../../../redux/actions/actions';
@@ -30,7 +26,7 @@ import colors from '../../../constant/colors';
 
 import moment from 'moment';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import DatepickerModal from '../../../components/DatepickerModal';
+import fonts from '../../../constant/fonts';
 const reducer = (state, action) => {
   switch (action.type) {
     case 'START_TIME':
@@ -132,35 +128,33 @@ const reducerContactInfo = (state, action) => {
   }
 };
 
+const initialState = {
+  shift: 'Thời gian làm một ngày',
+  start_time: null,
+  end_time: null,
+  work_days: {
+    monday: false,
+    tuesday: false,
+    wednesday: false,
+    thursday: false,
+    friday: false,
+    saturday: false,
+    sunday: false,
+  },
+};
+const initialStateContactInfo = {
+  contact_person: '',
+  contact_address: '',
+  contact_phone: '',
+  contact_email: '',
+};
+
 const DangTin = ({navigation}) => {
   const dis = useDispatch();
   const _id = useSelector(state => state.Authen.data);
+  console.log('_id: ', _id);
   const _success = useSelector(state => state.AddJob.success);
-
-  const initialState = {
-    shift: 'Thời gian làm một ngày',
-    start_time: null,
-    end_time: null,
-    work_days: {
-      monday: false,
-      tuesday: false,
-      wednesday: false,
-      thursday: false,
-      friday: false,
-      saturday: false,
-      sunday: false,
-    },
-  };
-  const initialStateContactInfo = {
-    contact_person: '',
-    contact_address: '',
-    contact_phone: '',
-    contact_email: '',
-  };
-  const selectItem = item => {
-    setCareer(item);
-    setVisible(false);
-  };
+  const _error = useSelector(state => state.AddJob.message);
   const [work_schedule, dispatch] = useReducer(reducer, initialState);
   const [job_posting_position, setJob_posting_position] = useState('');
   const [visible, setVisible] = useState(false);
@@ -182,8 +176,12 @@ const DangTin = ({navigation}) => {
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
   const [dateVisibel, setDateVisibel] = useState(false);
+  const [timeVisibel, setTimeVisibel] = useState(false);
   const [type, settype] = useState('');
   const [date, setDate] = useState(new Date());
+  const [isSalary, setIsSalary] = useState(false);
+  const [isWorkingForm, setIsWorkingForm] = useState(false);
+  const [isLiteracy, setIsLiteracy] = useState(false);
 
   useEffect(() => {
     set_work_schedule_list([work_schedule]);
@@ -193,12 +191,35 @@ const DangTin = ({navigation}) => {
     if (_success === true) {
       setModal(true);
       setError('Đăng tin thành công!!!');
-    } else {
+    }
+
+    if (_error) {
       setModal(true);
-      setError('Đăng tin không thành công. Vui lòng nhập lại!');
+      setError('Đăng tin không thành công. Vui lòng đăng nhập lại!');
     }
     return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const selectItem = item => {
+    setCareer(item.title);
+    setVisible(false);
+  };
+
+  const selectSalary = item => {
+    setsalary(item.title);
+    setIsSalary(false);
+  };
+
+  const selectLiteracy = item => {
+    setmin_education(item.title);
+    setIsLiteracy(false);
+  };
+
+  const selectWorkingForm = item => {
+    setworking_form(item.title);
+    setIsWorkingForm(false);
+  };
 
   const [contact_info, dispatchContactInfo] = useReducer(
     reducerContactInfo,
@@ -272,6 +293,24 @@ const DangTin = ({navigation}) => {
     }
   };
 
+  const onChangeTime = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setTimeVisibel(Platform.OS === 'ios');
+    if (type !== 'last') {
+      dispatch({
+        type: 'START_TIME',
+        start_time: moment(currentDate).format('HH:mm'),
+      });
+      setTimeVisibel(false);
+    } else {
+      dispatch({
+        type: 'END_TIME',
+        end_time: moment(currentDate).format('HH:mm'),
+      });
+      setDateVisibel(false);
+    }
+  };
+
   const closeModal = () => {
     setModal(false);
   };
@@ -282,11 +321,6 @@ const DangTin = ({navigation}) => {
     }
   };
 
-  const onChan = (event, selectedDate) => {
-    const currentDatee = selectedDate || dates;
-    setDateVisibel(Platform.OS === 'ios');
-    set_last_date(moment(currentDatee).format('DD/MM/YYYY'));
-  };
   return (
     <View style={styles.contener}>
       <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
@@ -302,13 +336,13 @@ const DangTin = ({navigation}) => {
       <ScrollView style={{marginBottom: scale(50)}}>
         <View style={styles.main}>
           <TextInputStyle
-            Label="Vị trí đăng tuyển"
+            Label="Tiêu đề"
             value={job_posting_position}
             onChangeText={text => setJob_posting_position(text)}
           />
           <TextInputSelected
             Label="Ngành nghề"
-            value={career.title}
+            value={career}
             onChangeText={text => setCareer(text)}
             onPress={() => setVisible(true)}
           />
@@ -324,21 +358,24 @@ const DangTin = ({navigation}) => {
             value={work_location}
             onChangeText={text => setwork_location(text)}
           />
-          <TextInputStyle
+          <TextInputSelected
             Label="Hình thức làm việc"
             value={working_form}
             onChangeText={text => setworking_form(text)}
+            onPress={() => setIsWorkingForm(true)}
           />
-          <TextInputStyle
+          <TextInputSelected
             Label="Mức lương"
             value={salary}
             keyboardType={'number-pad'}
             onChangeText={text => setsalary(text)}
+            onPress={() => setIsSalary(true)}
           />
-          <TextInputStyle
+          <TextInputSelected
             Label="Trình độ học vấn"
             value={min_education}
             onChangeText={text => setmin_education(text)}
+            onPress={() => setIsLiteracy(true)}
           />
           <TextInputStyle
             Label="Thời gian thử việc"
@@ -346,24 +383,35 @@ const DangTin = ({navigation}) => {
             onChangeText={text => setprobation(text)}
           />
           <TextInputStyle
-            Label="Hoa hồng"
+            Label="Hoa hồng (Nếu có)"
             value={rose}
             onChangeText={text => setrose(text)}
           />
 
-          <Text style={{fontSize: scale(16), fontWeight: '500'}}>
+          <Text
+            style={{
+              fontSize: scale(16),
+              fontFamily: fonts.BOLD,
+              marginVertical: scale(20),
+            }}>
             LỊCH LÀM VIỆC
           </Text>
-          <Text style={styles.TextTitle}>Thời gian</Text>
           <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-            <Text style={{marginTop: scale(15)}}>Từ</Text>
+            <Text
+              style={{
+                marginTop: scale(15),
+                fontFamily: fonts.NORMAL,
+                marginHorizontal: scale(5),
+              }}>
+              Từ
+            </Text>
             <View
               style={[
                 styles.boxInput,
                 {flexDirection: 'row', width: scale(125)},
               ]}>
               <TextInput
-                placeholder="dd/mm/yy"
+                placeholder="dd/mm/yyyy"
                 style={styles.textInput}
                 keyboardType={'phone-pad'}
                 value={posting_date}
@@ -378,14 +426,21 @@ const DangTin = ({navigation}) => {
                 <DateIcon />
               </TouchableOpacity>
             </View>
-            <Text style={{marginTop: scale(15)}}>Đến</Text>
+            <Text
+              style={{
+                marginTop: scale(15),
+                fontFamily: fonts.NORMAL,
+                marginHorizontal: scale(5),
+              }}>
+              Đến
+            </Text>
             <View
               style={[
                 styles.boxInput,
                 {flexDirection: 'row', width: scale(125)},
               ]}>
               <TextInput
-                placeholder="dd/mm/yy"
+                placeholder="dd/mm/yyyy"
                 style={styles.textInput}
                 keyboardType={'phone-pad'}
                 value={last_date}
@@ -419,7 +474,24 @@ const DangTin = ({navigation}) => {
             }
             value1={work_schedule.end_time}
             onChangeText2={text => dispatch({type: 'END_TIME', end_time: text})}
+            onPressTime1={() => {
+              setTimeVisibel(!timeVisibel);
+              settype('fist');
+            }}
+            onPressTime2={() => {
+              setTimeVisibel(!timeVisibel);
+              settype('last');
+            }}
           />
+
+          <Text
+            style={{
+              fontSize: scale(16),
+              fontFamily: fonts.BOLD,
+              marginVertical: scale(20),
+            }}>
+            MÔ TẢ CÔNG VIỆC
+          </Text>
 
           <TextInputStyle
             Label="Mô tả"
@@ -441,7 +513,12 @@ const DangTin = ({navigation}) => {
             value={records_include}
             onChangeText={text => set_records_include(text)}
           />
-          <Text style={{fontSize: scale(16), fontWeight: '500'}}>
+          <Text
+            style={{
+              fontSize: scale(16),
+              fontFamily: fonts.BOLD,
+              marginVertical: scale(20),
+            }}>
             THÔNG TIN LIÊN HỆ
           </Text>
           <TextInputStyle
@@ -494,6 +571,31 @@ const DangTin = ({navigation}) => {
         onPress={item => selectItem(item)}
         data={jobs}
       />
+
+      <SelectModal
+        isVisible={isSalary}
+        onBackdropPress={() => setIsSalary(false)}
+        label={'Mức lương'}
+        onPress={item => selectSalary(item)}
+        data={Salary}
+      />
+
+      <SelectModal
+        isVisible={isWorkingForm}
+        onBackdropPress={() => setIsWorkingForm(false)}
+        label={'Hình thức làm việc'}
+        onPress={item => selectWorkingForm(item)}
+        data={WorkingForm}
+      />
+
+      <SelectModal
+        isVisible={isLiteracy}
+        onBackdropPress={() => setIsLiteracy(false)}
+        label={'Trình độ học vấn'}
+        onPress={item => selectLiteracy(item)}
+        data={Literacy}
+      />
+
       <ModalStyle
         isVisible={modal}
         onBackdropPress={_success === true ? goBack : closeModal}
@@ -527,9 +629,11 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: scale(18),
-    fontWeight: '700',
+    fontFamily: fonts.BOLD,
     lineHeight: scale(20),
     marginLeft: scale(20),
+    top: scale(2),
+    textTransform: 'uppercase',
   },
   goback: {
     marginLeft: scale(10),
@@ -540,20 +644,19 @@ const styles = StyleSheet.create({
   boxInput: {
     width: scale(325),
     height: scale(40),
-    borderWidth: scale(0.5),
     borderColor: 'black',
     justifyContent: 'space-between',
     alignContent: 'center',
     margin: scale(5),
     borderRadius: scale(5),
+    backgroundColor: colors.WHITE,
   },
   textInput: {
-    fontWeight: '300',
-    fontSize: scale(16),
+    fontSize: scale(14),
     marginLeft: scale(5),
   },
   TextTitle: {
-    fontWeight: '500',
+    fontFamily: fonts.BOLD,
     fontSize: scale(16),
     marginLeft: scale(-210),
     marginTop: scale(10),

@@ -1,5 +1,14 @@
 import React, {useCallback, useState} from 'react';
-import {StyleSheet, Text, View, Image, StatusBar,Linking,Platform,Alert} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  StatusBar,
+  Linking,
+  Platform,
+  Alert,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {TabView, TabBar} from 'react-native-tab-view';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -15,12 +24,13 @@ import WorkSessionScreen from '../../freelancer/profile/WorkSessionScreen';
 import colors from '../../../constant/colors';
 import Header from '../../../components/title/Header';
 import TitleBasic from '../../../components/title/TitleBasic';
-import FooterButton from "../../../components/FooterButton";
+import FooterButton from '../../../components/FooterButton';
 
 export default function DetailUV({route}) {
   const {item} = route.params;
   const [index, setIndex] = useState(0);
   const [user, setUser] = useState({name: null});
+  console.log('item.data._id: ', item.data);
   useFocusEffect(
     useCallback(() => {
       var config = {
@@ -91,59 +101,58 @@ export default function DetailUV({route}) {
       <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       <TitleBasic title="hồ sơ" />
 
-        <View style={styles.content}>
-          <View style={styles.center}>
-            <Image
-              style={styles.avatar}
-              source={user?.avatar ? {uri: user?.avatar} : images.avatar}
-            />
-            <Text style={styles.txtAvatar}>{user?.name}</Text>
-          </View>
-          <View>
-            {/* <Text style={styles.txtProgress}>
+      <View style={styles.content}>
+        <View style={styles.center}>
+          <Image
+            style={styles.avatar}
+            source={user?.avatar ? {uri: user?.avatar} : images.avatar}
+          />
+          <Text style={styles.txtAvatar}>{user?.name}</Text>
+        </View>
+        <View>
+          {/* <Text style={styles.txtProgress}>
               Mức độ hoàn thiện hồ sơ: <Text style={styles.percent}>50%</Text>
             </Text> */}
-            {/* <Progress.Bar
+          {/* <Progress.Bar
               progress={1}
               width={scale(305)}
               height={scale(5)}
               unfilledColor="#808080"
               style={{marginBottom: scale(30)}}
             /> */}
-            <View style={styles.tab}>
-              <TabView
-                navigationState={{index, routes}}
-                renderScene={renderScene}
-                renderTabBar={renderTabBar}
-                onIndexChange={handleIndexChange}
-              />
-            </View>
+          <View style={styles.tab}>
+            <TabView
+              navigationState={{index, routes}}
+              renderScene={renderScene}
+              renderTabBar={renderTabBar}
+              onIndexChange={handleIndexChange}
+            />
           </View>
         </View>
-<FooterButton phone={()=>{
-  const phones = user?.phone;
-  console.log(user?.phone);
-  if (phones) {
-    let phoneNumber ='';
+      </View>
+      <FooterButton
+        phone={() => {
+          const phones = user?.phone;
+          console.log(user?.phone);
+          if (phones) {
+            let phoneNumber = '';
 
-    if (Platform.OS === 'android') {
-      phoneNumber = `tel:${phones}`;
-    } else {
-      phoneNumber = `telprompt:${phones}`;
-    }
+            if (Platform.OS === 'android') {
+              phoneNumber = `tel:${phones}`;
+            } else {
+              phoneNumber = `telprompt:${phones}`;
+            }
 
-    Linking.openURL(phoneNumber).catch((e) =>
-      console.error('Errorr: ', e),
-    );
-  } else {
-    alert("Client doesn't have a phone number!");
-  }
-}}
-              email_uv={user?.email}
-              vitri={item.data.positions}
-/>
-
-
+            Linking.openURL(phoneNumber).catch(e =>
+              console.error('Errorr: ', e),
+            );
+          } else {
+            alert("Client doesn't have a phone number!");
+          }
+        }}
+        email_uv={user?.email}
+        vitri={item.data.positions}
+      />
     </View>
   );
 }

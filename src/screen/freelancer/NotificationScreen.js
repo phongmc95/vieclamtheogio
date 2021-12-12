@@ -1,42 +1,71 @@
 import fonts from '@constant/fonts';
-import React from 'react';
+import {useIsFocused} from '@react-navigation/core';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, Image, StatusBar} from 'react-native';
 import {scale} from 'react-native-size-matters';
+import {useSelector} from 'react-redux';
 import TitleBasic from '../../components/title/TitleBasic';
-import icons from '../../constant/icons';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../constant/colors';
+import images from '../../constant/images';
 
 export default function NotificationScreen() {
-  const items = [
-    {
-      id: 1,
-      title: 'Công ty cổ phần thanh toán Hưng Hà đã theo dõi bạn',
-      time: '1 phút trước',
-    },
-    {
-      id: 2,
-      title: 'Công ty cổ phần  NAVICONS đã theo dõi bạn',
-      time: '30 phút trước',
-    },
-    {
-      id: 3,
-      title: 'Công ty TUYỂN DỤNG IP  đã theo dõi bạn',
-      time: '1 giờ trước',
-    },
-  ];
+  const [data, setData] = useState([]);
+  console.log('data: ', data);
+  const user = useSelector(state => state.Authen.data);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    appliedList();
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
+  const appliedList = () => {
+    var config = {
+      method: 'get',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/jobs',
+    };
+
+    axios(config)
+      .then(function (response) {
+        const data = response.data.jobs
+          .map(item =>
+            item.applicants_applied.find(
+              item => item.name === user?.user?.name,
+            ),
+          )
+          .filter(item => item !== undefined);
+
+        setData(data.filter(item => item.access_name));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       <TitleBasic title="Thông báo" />
-      {items.map(item => (
+      {data.map(item => (
         <View style={styles.content}>
           <View style={styles.viewItem}>
-            <Image style={styles.icon} source={icons.logoHCI} />
+            <Image style={styles.icon} source={images.avatar} />
             <View>
-              <Text style={styles.txtTitle}>{item.title}</Text>
-              <Text style={styles.txtTime}>{item.time}</Text>
+              {item.status === 'Đạt yêu cầu' ? (
+                <Text style={styles.txtTitle}>
+                  Bạn đã đạt yêu cầu của nhà tuyển dụng {item.access_name}
+                </Text>
+              ) : item.status === 'Không đạt yêu cầu' ? (
+                <Text style={styles.txtTitle}>
+                  Bạn không đạt yêu cầu của nhà tuyển dụng {item.access_name}
+                </Text>
+              ) : (
+                <Text style={styles.txtTitle}>
+                  Nhà tuyển dụng {item.access_name} đã mời bạn đến phỏng vấn
+                </Text>
+              )}
+              {/* <Text style={styles.txtTime}>{item.time}</Text> */}
             </View>
           </View>
         </View>

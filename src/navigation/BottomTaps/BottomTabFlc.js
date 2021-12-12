@@ -14,6 +14,7 @@ const Tab = createBottomTabNavigator();
 const BottomTabFlc = () => {
   return (
     <Tab.Navigator
+      initialRouteName="Home"
       tabBarOptions={{
         showLabel: false,
         tabStyle: {

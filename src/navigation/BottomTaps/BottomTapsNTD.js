@@ -20,6 +20,7 @@ const Tab = createBottomTabNavigator();
 const BottomTapsNTD = () => {
   return (
     <Tab.Navigator
+      initialRouteName="HomeEPL"
       tabBarOptions={{
         showLabel: false,
         tabStyle: {
@@ -34,7 +35,7 @@ const BottomTapsNTD = () => {
         },
       }}>
       <Tab.Screen
-        name="Home"
+        name="HomeEPL"
         component={Home}
         options={{
           tabBarIcon: ({focused}) => (

@@ -28,13 +28,8 @@ const Login = ({navigation}) => {
   const check = useSelector(state => state.Authen.data);
   const loading = useSelector(state => state.Authen.requesting);
   const message = useSelector(state => state.Authen.message);
-  console.log('loading: ', loading);
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
-  console.log(
-    'State: ',
-    useSelector(state => state.Authen),
-  );
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
   const loadingError = () => {
@@ -43,12 +38,13 @@ const Login = ({navigation}) => {
       setError('Bạn nhập sai email hoặc mật khẩu ! ');
     }
   };
-  const CloseModal=()=>{
+  const CloseModal = () => {
     dispatch(log_out());
-    setModal(false)
-  }
+    setModal(false);
+  };
   useEffect(() => {
     loadingError();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, message]);
   const submit = () => {
     if (!email || !pass) {
