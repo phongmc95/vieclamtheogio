@@ -152,8 +152,8 @@ const initialStateContactInfo = {
 const DangTin = ({navigation}) => {
   const dis = useDispatch();
   const _id = useSelector(state => state.Authen.data);
-  console.log('_id: ', _id);
   const _success = useSelector(state => state.AddJob.success);
+  console.log('_success: ', _success);
   const _error = useSelector(state => state.AddJob.message);
   const [work_schedule, dispatch] = useReducer(reducer, initialState);
   const [job_posting_position, setJob_posting_position] = useState('');
@@ -199,7 +199,7 @@ const DangTin = ({navigation}) => {
     }
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [_success, _error]);
 
   const selectItem = item => {
     setCareer(item.title);
@@ -313,9 +313,11 @@ const DangTin = ({navigation}) => {
 
   const closeModal = () => {
     setModal(false);
+    dispatch({type: 'CLEAR_MODAL'});
   };
 
   const goBack = () => {
+    dispatch({type: 'CLEAR_MODAL'});
     if (navigation.canGoBack) {
       navigation.goBack();
     }
@@ -474,14 +476,6 @@ const DangTin = ({navigation}) => {
             }
             value1={work_schedule.end_time}
             onChangeText2={text => dispatch({type: 'END_TIME', end_time: text})}
-            onPressTime1={() => {
-              setTimeVisibel(!timeVisibel);
-              settype('fist');
-            }}
-            onPressTime2={() => {
-              setTimeVisibel(!timeVisibel);
-              settype('last');
-            }}
           />
 
           <Text
