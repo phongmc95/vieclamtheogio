@@ -18,7 +18,12 @@ import {useIsFocused} from '@react-navigation/native';
 import images from '../../../constant/images';
 import {scale} from 'react-native-size-matters';
 import {SwipeListView} from 'react-native-swipe-list-view';
-import {SelectDowIcon} from '../../../../assets/icon';
+import {
+  ClockIcon,
+  LocalIcon,
+  PhoneIcon,
+  SelectDowIcon,
+} from '../../../../assets/icon';
 import SelectModal from '../../../components/SelectModal';
 import moment from 'moment';
 const UV_Screen = ({navigation}) => {
@@ -36,10 +41,45 @@ const UV_Screen = ({navigation}) => {
   const [id, setId] = useState('');
   const [jobID, setJobID] = useState('');
   const isFocused = useIsFocused();
+  const [dataUV, setDataUV] = useState([]);
+  const [job, setJob] = useState([]);
+
   useEffect(() => {
     appliedList();
     return () => {};
   }, [load, isFocused]);
+
+  useEffect(() => {
+    var config = {
+      method: 'get',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/users',
+    };
+
+    axios(config)
+      .then(function (response) {
+        setDataUV(response.data.users.filter(item => item.name !== undefined));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    var config = {
+      method: 'get',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/jobs',
+    };
+
+    axios(config)
+      .then(function (response) {
+        setJob(response.data.jobs);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    return () => {};
+  }, []);
 
   const appliedList = () => {
     var config = {
@@ -91,58 +131,95 @@ const UV_Screen = ({navigation}) => {
   };
 
   const listData = data?.filter(item => item.createdBy === idEmp?.user?.userId);
-  console.log('ListData: ', listData);
-  const UV = listData?.map(item =>
+  const listUV = listData?.map(item =>
     item.applicants_applied.reduce((a, b) => ({...a, data: b}), {}),
   );
+
+  const UV = listUV.filter(item => Object.keys(item).length > 0);
+
   //console.log(item?.applicants_applied,">>>");
 
-  const renderItem = ({item}) => (
-    <View style={[styles.viewFL, styleHinder]}>
-      <TouchableOpacity
-        style={{flexDirection: 'row'}}
-        onPress={() => navigation.navigate('DetailUV', {item, type: 'epl'})}>
-        <Image
-          source={
-            item?.data?.avatar ? {uri: item?.data?.avatar} : images.avatar
-          }
-          style={styles.avatar}
-        />
-        <View>
-          <Text style={styles.nameUV}>{item?.data?.name}</Text>
-          <View style={{flexDirection: 'row'}}>
-            <View style={{marginRight: scale(5), marginLeft: scale(5)}}>
-              <Text style={[styles.textitem, {color: '#000000'}]}>Vị trí:</Text>
+  const RenderItem = ({item}) => {
+    const epl = dataUV.find(it => it.name === item.data.name);
+    const jobs = job.find(it => it._id === item.data.jobId);
+    return (
+      <View style={[styles.viewFL, styleHinder]}>
+        <TouchableOpacity
+          style={{flexDirection: 'row'}}
+          onPress={() =>
+            navigation.navigate('DetailUV', {id: epl?._id, type: 'epl'})
+          }>
+          <View>
+            <View style={{flexDirection: 'row'}}>
+              <Image
+                source={
+                  item?.data?.avatar === undefined
+                    ? images.avatar
+                    : item?.data?.avatar === '/uploads/example.jpeg'
+                    ? images.avatar
+                    : item?.data?.avatar === null
+                    ? images.avatar
+                    : {uri: item?.data?.avatar}
+                }
+                style={styles.avatar}
+              />
+              <View style={{marginLeft: scale(10)}}>
+                <Text style={styles.nameUV}>{item?.data?.name}</Text>
+                <Text
+                  style={[
+                    styles.textitem,
+                    {marginLeft: scale(10), marginTop: scale(5)},
+                  ]}>
+                  {jobs?.job_posting_position}
+                </Text>
+              </View>
             </View>
-            <Text style={styles.textitem}>{item?.data?.positions}</Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <View style={{marginRight: scale(5), marginLeft: scale(5)}}>
-              <Text style={[styles.textitem, {color: '#000000'}]}>Ngày:</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  marginLeft: scale(10),
+                  marginTop: scale(10),
+                  width: '58%',
+                }}>
+                <LocalIcon color={colors.BLUE} />
+                <Text style={styles.textitem}>{epl?.job_adress}</Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  marginLeft: scale(10),
+                  marginTop: scale(10),
+                }}>
+                <PhoneIcon />
+                <Text style={styles.textitem}>{epl?.phone}</Text>
+              </View>
             </View>
-            <Text style={styles.textitem}>
-              {moment(item?.data?.apply_date).format('DD/MM/YYYY')}
-            </Text>
           </View>
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
-  const renderHinderItem = ({item}) => (
-    <View style={styles.hinder}>
-      <TouchableOpacity style={styles.status} onPress={() => status(item)}>
-        <Text
-          style={{
-            fontSize: scale(12),
-            color: 'white',
-            fontFamily: fonts.NORMAL,
-          }}>
-          {state.title} <SelectDowIcon />
-        </Text>
-      </TouchableOpacity>
-    </View>
-  );
+  const renderHinderItem = ({item}) => {
+    return (
+      <View style={styles.hinder}>
+        <TouchableOpacity style={styles.status} onPress={() => status(item)}>
+          <Text
+            style={{
+              fontSize: scale(12),
+              color: 'white',
+              fontFamily: fonts.NORMAL,
+            }}>
+            {state.title} <SelectDowIcon />
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.contener}>
@@ -168,7 +245,7 @@ const UV_Screen = ({navigation}) => {
         ) : (
           <SwipeListView
             data={UV}
-            renderItem={renderItem}
+            renderItem={({item}) => <RenderItem item={item} />}
             keyExtractor={item => item.data?.positions}
             renderHiddenItem={renderHinderItem}
             rightOpenValue={scale(-155)}
@@ -248,14 +325,14 @@ const styles = StyleSheet.create({
     fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     marginLeft: scale(8),
-    marginTop: scale(10),
-    color: '#307df1',
+    marginTop: scale(2),
   },
   nameUV: {
     fontFamily: fonts.NORMAL,
     fontSize: scale(18),
     color: '#307DF1',
     marginLeft: scale(10),
+    marginTop: '8%',
   },
   hinder: {
     width: scale(142),
@@ -275,7 +352,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#307DF1',
   },
   status: {
-    height: scale(107),
+    height: '100%',
     flexDirection: 'row',
     backgroundColor: '#307DF1',
     borderRadius: scale(20),

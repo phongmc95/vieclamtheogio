@@ -1,4 +1,7 @@
+import moment from 'moment';
 import icons from '../constant/icons';
+
+export const currentDate = moment(new Date()).format('DD/MM/YYYY');
 
 export const jobs = [
   {id: 1, title: 'Bán hàng', img: icons.cart, count: '1000'},

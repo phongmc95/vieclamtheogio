@@ -95,6 +95,13 @@ const POSTJOB = (state = initialState, action) => {
         requesting: false,
         message: action.message,
       };
+    case 'CLEAR_MODAL':
+      return {
+        ...state,
+        requesting: false,
+        message: null,
+        success: false,
+      };
     default:
       return state;
   }

@@ -16,11 +16,22 @@ import TextInputSelected from '../../../components/TextInputSelected';
 import AddcalendarAddd from '../../../components/AddcalendarAddd';
 import ButtonStyle from '../../../components/ButtonStyle';
 import SelectModal from '../../../components/SelectModal';
-import {jobs} from '../../../data/Jobs';
+import {
+  currentDate,
+  jobs,
+  Literacy,
+  Salary,
+  WorkingForm,
+} from '../../../data/Jobs';
 import ModalStyle from '../../../components/ModalStyle';
 import {useDispatch, useSelector} from 'react-redux';
 import icons from '../../../constant/icons';
 import {UpdateJob} from '../../../redux/actions/actions';
+import colors from '../../../constant/colors';
+import fonts from '../../../constant/fonts';
+import {Platform} from 'react-native';
+import moment from 'moment';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -124,7 +135,6 @@ const reducerContactInfo = (state, action) => {
 };
 const SuaTin = ({navigation, route}) => {
   const item = route.params.item;
-  console.log('params: ', item);
   const dis = useDispatch();
 
   const initialState = {
@@ -184,6 +194,14 @@ const SuaTin = ({navigation, route}) => {
   const [work_schedule_list, set_work_schedule_list] = useState([]);
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
+  const [isSalary, setIsSalary] = useState(false);
+  const [isWorkingForm, setIsWorkingForm] = useState(false);
+  const [isLiteracy, setIsLiteracy] = useState(false);
+  const [dateVisibel, setDateVisibel] = useState(false);
+  const [timeVisibel, setTimeVisibel] = useState(false);
+  const [type, settype] = useState('');
+  const [date, setDate] = useState(new Date());
+
   useEffect(() => {
     set_work_schedule_list([work_schedule]);
   }, [work_schedule]);
@@ -227,6 +245,34 @@ const SuaTin = ({navigation, route}) => {
       },
       {text: 'Sửa', onPress: () => submit()},
     ]);
+
+  const selectSalary = item => {
+    setsalary(item.title);
+    setIsSalary(false);
+  };
+
+  const selectLiteracy = item => {
+    setmin_education(item.title);
+    setIsLiteracy(false);
+  };
+
+  const selectWorkingForm = item => {
+    setworking_form(item.title);
+    setIsWorkingForm(false);
+  };
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setDateVisibel(Platform.OS === 'ios');
+    if (type !== 'last') {
+      set_posting_date(moment(currentDate).format('DD/MM/YYYY'));
+      setDateVisibel(false);
+    } else {
+      set_last_date(moment(currentDate).format('DD/MM/YYYY'));
+      setDateVisibel(false);
+    }
+  };
+
   return (
     <View style={styles.contener}>
       <View style={styles.StatusBar}>
@@ -263,21 +309,24 @@ const SuaTin = ({navigation, route}) => {
             value={work_location}
             onChangeText={text => setwork_location(text)}
           />
-          <TextInputStyle
+          <TextInputSelected
             Label="Hình thức làm việc"
             value={working_form}
             onChangeText={text => setworking_form(text)}
+            onPress={() => setIsWorkingForm(true)}
           />
-          <TextInputStyle
+          <TextInputSelected
             Label="Mức lương"
             value={salary}
             keyboardType={'number-pad'}
             onChangeText={text => setsalary(text)}
+            onPress={() => setIsSalary(true)}
           />
-          <TextInputStyle
+          <TextInputSelected
             Label="Trình độ học vấn"
             value={min_education}
             onChangeText={text => setmin_education(text)}
+            onPress={() => setIsLiteracy(true)}
           />
           <TextInputStyle
             Label="Thời gian thử việc"
@@ -290,42 +339,79 @@ const SuaTin = ({navigation, route}) => {
             onChangeText={text => setrose(text)}
           />
 
-          <Text style={{fontSize: scale(16), fontWeight: '500'}}>
+          <Text
+            style={{
+              fontSize: scale(16),
+              fontFamily: fonts.BOLD,
+              marginVertical: scale(20),
+            }}>
             LỊCH LÀM VIỆC
           </Text>
-          <Text style={styles.TextTitle}>Thời gian</Text>
           <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-            <Text style={{marginTop: scale(15)}}>Từ</Text>
+            <Text
+              style={{
+                marginTop: scale(15),
+                fontFamily: fonts.NORMAL,
+                marginHorizontal: scale(5),
+              }}>
+              Từ
+            </Text>
             <View
               style={[
                 styles.boxInput,
-                {flexDirection: 'row', width: scale(125)},
+                {
+                  flexDirection: 'row',
+                  width: scale(125),
+                  backgroundColor: colors.WHITE,
+                },
               ]}>
               <TextInput
-                placeholder="dd/mm/yy"
+                placeholder="dd/mm/yyyy"
                 style={styles.textInput}
-                keyboardType={'number-pad'}
+                keyboardType={'phone-pad'}
                 value={posting_date}
                 onChangeText={text => set_posting_date(text)}
               />
-              <TouchableOpacity style={styles.Selecter}>
+              <TouchableOpacity
+                style={styles.Selecter}
+                onPress={() => {
+                  setDateVisibel(true);
+                  settype('fist');
+                }}>
                 <DateIcon />
               </TouchableOpacity>
             </View>
-            <Text style={{marginTop: scale(15)}}>Đến</Text>
+            <Text
+              style={{
+                marginTop: scale(15),
+                fontFamily: fonts.NORMAL,
+                marginHorizontal: scale(5),
+              }}>
+              Đến
+            </Text>
             <View
               style={[
                 styles.boxInput,
-                {flexDirection: 'row', width: scale(125)},
+                {
+                  flexDirection: 'row',
+                  width: scale(125),
+                  backgroundColor: colors.WHITE,
+                },
               ]}>
               <TextInput
-                placeholder="dd/mm/yy"
+                placeholder="dd/mm/yyyy"
                 style={styles.textInput}
-                keyboardType={'number-pad'}
+                keyboardType={'phone-pad'}
                 value={last_date}
                 onChangeText={text => set_last_date(text)}
               />
-              <TouchableOpacity style={styles.Selecter}>
+
+              <TouchableOpacity
+                style={styles.Selecter}
+                onPress={() => {
+                  setDateVisibel(true);
+                  settype('last');
+                }}>
                 <DateIcon />
               </TouchableOpacity>
             </View>
@@ -349,6 +435,15 @@ const SuaTin = ({navigation, route}) => {
             onChangeText2={text => dispatch({type: 'END_TIME', end_time: text})}
           />
 
+          <Text
+            style={{
+              fontSize: scale(16),
+              fontFamily: fonts.BOLD,
+              marginVertical: scale(20),
+            }}>
+            MÔ TẢ CÔNG VIỆC
+          </Text>
+
           <TextInputStyle
             Label="Mô tả"
             value={job_description}
@@ -369,7 +464,12 @@ const SuaTin = ({navigation, route}) => {
             value={records_include}
             onChangeText={text => set_records_include(text)}
           />
-          <Text style={{fontSize: scale(16), fontWeight: '500'}}>
+          <Text
+            style={{
+              fontSize: scale(16),
+              fontFamily: fonts.BOLD,
+              marginVertical: scale(20),
+            }}>
             THÔNG TIN LIÊN HỆ
           </Text>
           <TextInputStyle
@@ -415,12 +515,39 @@ const SuaTin = ({navigation, route}) => {
           />
         </View>
       </ScrollView>
+      {dateVisibel && (
+        <DateTimePicker value={date} mode={'date'} onChange={onChange} />
+      )}
+
       <SelectModal
         isVisible={visible}
         onBackdropPress={() => setVisible(false)}
         label={'Ngành nghề mong muốn'}
         onPress={item => selectItem(item)}
         data={jobs}
+      />
+      <SelectModal
+        isVisible={isSalary}
+        onBackdropPress={() => setIsSalary(false)}
+        label={'Mức lương'}
+        onPress={item => selectSalary(item)}
+        data={Salary}
+      />
+
+      <SelectModal
+        isVisible={isWorkingForm}
+        onBackdropPress={() => setIsWorkingForm(false)}
+        label={'Hình thức làm việc'}
+        onPress={item => selectWorkingForm(item)}
+        data={WorkingForm}
+      />
+
+      <SelectModal
+        isVisible={isLiteracy}
+        onBackdropPress={() => setIsLiteracy(false)}
+        label={'Trình độ học vấn'}
+        onPress={item => selectLiteracy(item)}
+        data={Literacy}
       />
       <ModalStyle
         isVisible={modal}
@@ -436,27 +563,28 @@ export default SuaTin;
 const styles = StyleSheet.create({
   contener: {
     flex: 1,
+    backgroundColor: colors.LIGHT_WHITE,
   },
   StatusBar: {
     backgroundColor: '#307DF1',
-    height: scale(60),
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
 
     flexDirection: 'row',
-    alignItems: 'flex-end',
-    paddingBottom: scale(30),
-    marginBottom:scale(10)
+    padding: scale(10),
+    marginBottom: scale(20),
   },
   title: {
     color: 'white',
-    fontSize: scale(18),
-    fontWeight: '700',
-    lineHeight: scale(20),
+    fontSize: scale(24),
+    fontFamily: fonts.BOLD,
     marginLeft: scale(20),
+    marginTop: scale(5),
+    textTransform: 'uppercase',
   },
   goback: {
     marginLeft: scale(10),
+    marginTop: scale(5),
   },
   main: {
     alignItems: 'center',

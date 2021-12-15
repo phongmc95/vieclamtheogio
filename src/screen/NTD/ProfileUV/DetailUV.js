@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -27,28 +27,26 @@ import TitleBasic from '../../../components/title/TitleBasic';
 import FooterButton from '../../../components/FooterButton';
 
 export default function DetailUV({route}) {
-  const {item} = route.params;
+  const {id} = route.params;
   const [index, setIndex] = useState(0);
   const [user, setUser] = useState({name: null});
-  console.log('item.data._id: ', item.data);
-  useFocusEffect(
-    useCallback(() => {
-      var config = {
-        method: 'get',
-        url: `https://fpt-jobs-api.herokuapp.com/api/v1/users/${item.data._id}`,
-      };
 
-      axios(config)
-        .then(function (response) {
-          setUser(response.data.user);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]),
-  );
+  useEffect(() => {
+    var config = {
+      method: 'get',
+      url: `https://fpt-jobs-api.herokuapp.com/api/v1/users/${id}`,
+    };
 
+    axios(config)
+      .then(function (response) {
+        setUser(response.data.user);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const handleIndexChange = indexTab => {
     setIndex(indexTab);
   };
@@ -105,7 +103,15 @@ export default function DetailUV({route}) {
         <View style={styles.center}>
           <Image
             style={styles.avatar}
-            source={user?.avatar ? {uri: user?.avatar} : images.avatar}
+            source={
+              user?.avatar === '/uploads/example.jpeg'
+                ? images.avatar
+                : user?.avatar === undefined
+                ? images.avatar
+                : user?.avatar === null
+                ? images.avatar
+                : {uri: user?.avatar}
+            }
           />
           <Text style={styles.txtAvatar}>{user?.name}</Text>
         </View>
@@ -151,7 +157,7 @@ export default function DetailUV({route}) {
           }
         }}
         email_uv={user?.email}
-        vitri={item.data.positions}
+        // vitri={item.data.positions}
       />
     </View>
   );

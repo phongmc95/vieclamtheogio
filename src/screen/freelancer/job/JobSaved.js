@@ -18,14 +18,16 @@ import icons from '../../../constant/icons';
 import EmptyData from '../../../components/EmptyData';
 import axios from 'axios';
 import {useIsFocused} from '@react-navigation/native';
+import Notification from '../../../components/Notification';
 
 export default function JobSaved({navigation}) {
   const profile = useSelector(state => state.ProfileEPl.data);
-  const list = profile?.user?.save_job.filter(item => item.is_save === true);
+  // const list = profile?.user?.save_job.filter(item => item.is_save === true);
   const userId = useSelector(state => state.Authen);
   const [user, setUser] = useState([]);
   const id = userId?.data?.user?.userId;
   const isFocued = useIsFocused();
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     getJobSave();
@@ -71,11 +73,17 @@ export default function JobSaved({navigation}) {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        setIsOpen(true);
         getJobSave();
       })
       .catch(function (error) {
         console.log(error);
       });
+  };
+
+  const toggleSuccess = () => {
+    setIsOpen(false);
+    getJobSave();
   };
 
   const renderItem = ({item, index}) => {
@@ -135,6 +143,12 @@ export default function JobSaved({navigation}) {
           ListEmptyComponent={() => <EmptyData content="Chưa có dữ liệu" />}
         />
       </View>
+      <Notification
+        on={isOpen}
+        off={toggleSuccess}
+        content1="Xoá tin thành công!!!"
+        title="THÔNG BÁO"
+      />
     </View>
   );
 }

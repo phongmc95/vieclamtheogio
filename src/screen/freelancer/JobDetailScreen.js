@@ -61,7 +61,6 @@ export default function JobDetailScreen({navigation, route}) {
           );
           setIsSave(data.is_save);
           setIdSave(data._id);
-          console.log('data: ', data);
         }
       })
       .catch(error => {

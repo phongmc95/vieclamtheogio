@@ -8,8 +8,9 @@ import {
   ScrollView,
   FlatList,
   SafeAreaView,
-  Dimensions, StatusBar,
-} from "react-native";
+  Dimensions,
+  StatusBar,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import Button from '../../../components/Button/Button';
 import HeaderStyle from '../../../components/HeaderStyle';
@@ -22,6 +23,8 @@ import {useIsFocused} from '@react-navigation/native';
 import ButtonStyle from '../../../components/ButtonStyle';
 import images from '../../../constant/images';
 import {LineChart} from 'react-native-chart-kit';
+import {ClockIcon, LocalIcon, PhoneIcon} from '../../../../assets/icon';
+import moment from 'moment';
 
 const screenWidth = Dimensions.get('window').width;
 const Home = ({navigation}) => {
@@ -30,21 +33,26 @@ const Home = ({navigation}) => {
     backgroundGradientFromOpacity: 0,
     backgroundGradientTo: '#08130D',
     backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    // color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
     useShadowColorFromDataset: false, // optional
+    color: (opacity = 1) => `rgba(0, 0, 0,${opacity})`,
   };
 
   const dispatch = useDispatch();
   const _id = useSelector(state => state.Authen.data);
   const data = useSelector(state => state.ProfileEPl.data);
-  useEffect(() => {
-    dispatch(ProfileEPl(_id.user?.userId));
-  }, []);
   const isFocused = useIsFocused();
   const idEmp = useSelector(state => state.Authen.data);
   const [listJob, setListJob] = useState([]);
+  const [dataUV, setDataUV] = useState([]);
+  const [job, setJob] = useState([]);
+
+  useEffect(() => {
+    dispatch(ProfileEPl(_id.user?.userId));
+  }, []);
+
   useEffect(() => {
     var config = {
       method: 'get',
@@ -60,70 +68,155 @@ const Home = ({navigation}) => {
       });
     return () => {};
   }, [isFocused]);
+
+  useEffect(() => {
+    var config = {
+      method: 'get',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/users',
+    };
+
+    axios(config)
+      .then(function (response) {
+        setDataUV(response.data.users.filter(item => item.name !== undefined));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    var config = {
+      method: 'get',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/jobs',
+    };
+
+    axios(config)
+      .then(function (response) {
+        setJob(response.data.jobs);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    return () => {};
+  }, []);
+
   const listData = listJob.filter(
     item => item.createdBy === idEmp?.user?.userId,
   );
 
-  const UV = listData?.map(item =>
+  const listUV = listData?.map(item =>
     item.applicants_applied.reduce((a, b) => ({...a, data: b}), {}),
   );
+
   const DATA = {
     labels: ['11', '12', '1', '2', '3', '4'],
     datasets: [
       {
-        data: [UV.length, 0, 0, 0, 0, 0],
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+        data: [4, listUV.length, 0, 0, 0, 0],
+        color: (opacity = 1) => `rgba(48, 125, 241, ${opacity})`, // optional
         strokeWidth: 2, // optionalK
       },
     ],
     legend: ['Lượt ứng tuyển'], // optional
   };
-  const renderItem = ({item}) => (
-    <View style={[styles.ViewFlatlist, {marginVertical: 20}]}>
-      <Text style={styles.TextTitle}>{item?.job_posting_position}</Text>
+  const RenderItem = ({item}) => {
+    return (
+      <View style={[styles.ViewFlatlist, {marginVertical: 10}]}>
+        <Text style={styles.TextTitle}>{item?.job_posting_position}</Text>
 
-      <View style={styles.viewRow}>
-        <Text style={styles.TextL}>Thời gian</Text>
-        <Text style={[styles.TextR, {color: 'black'}]}>
-          {item.posting_date} đến {item?.last_date}
-        </Text>
-      </View>
-      <View style={styles.viewRow}>
-        <Text style={styles.TextL}>Quản lí</Text>
-        <Text style={styles.TextR}>{'Còn Hạn'}</Text>
-      </View>
-      <View style={styles.viewRow}>
-        <Text style={styles.TextL}>Lượt ứng tuyển</Text>
-        <Text style={styles.TextR}>{item?.applicants_applied.length}</Text>
-      </View>
-      <View style={styles.viewRow}>
-        <Text style={styles.TextL}>Địa Chỉ</Text>
-        <Text style={styles.TextR}>{item?.work_location}</Text>
-      </View>
-    </View>
-  );
-  const renderItemHS = ({item}) => (
-    <View
-      style={[styles.ViewFlatlist, {padding: scale(10), marginBottom: '25%', marginVertical: 20}]}>
-      <View style={{flexDirection: 'row'}}>
-        <Image
-          source={
-            item?.data?.avatar ? {uri: item?.data?.avatar} : images.avatar
-          }
-          style={styles.imgItem}
-        />
-        <View>
-          <Text style={styles.Name_hs}>{item?.data?.name}</Text>
-          <View style={styles.viewRow}>
-            <Text style={styles.TextL}>Vị trí :</Text>
-            <Text style={[styles.TextR, {color: '#307df1'}]}>
-              {item?.data?.positions}
-            </Text>
-          </View>
+        <View style={[styles.viewRow, {justifyContent: 'space-between'}]}>
+          <Text style={styles.TextL}>Thời gian</Text>
+          <Text style={[styles.TextR, {color: 'black'}]}>
+            {item.posting_date} đến {item?.last_date}
+          </Text>
+        </View>
+        <View style={[styles.viewRow, {justifyContent: 'space-between'}]}>
+          <Text style={styles.TextL}>Quản lí</Text>
+          <Text style={styles.TextR}>{'Còn Hạn'}</Text>
+        </View>
+        <View style={[styles.viewRow, {justifyContent: 'space-between'}]}>
+          <Text style={styles.TextL}>Lượt ứng tuyển</Text>
+          <Text style={styles.TextR}>{item?.applicants_applied.length}</Text>
+        </View>
+        <View style={[styles.viewRow, {justifyContent: 'space-between'}]}>
+          <Text style={styles.TextL}>Địa Chỉ</Text>
+          <Text style={styles.TextR}>{item?.work_location}</Text>
         </View>
       </View>
-    </View>
-  );
+    );
+  };
+  const unique = arr => {
+    return Array.from(new Set(arr)); //
+  };
+
+  const RenderItemHS = ({item}) => {
+    const epl = dataUV.find(it => it.name === item.data.name);
+    const jobs = job.find(it => it._id === item.data.jobId);
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('DetailUV', {id: epl?._id, type: 'epl'})
+        }>
+        <View
+          style={[
+            styles.ViewFlatlist,
+            {paddingLeft: scale(10), marginVertical: scale(5)},
+          ]}>
+          <View style={{flexDirection: 'row'}}>
+            <Image
+              source={
+                item?.data?.avatar === undefined
+                  ? images.avatar
+                  : item?.data?.avatar === '/uploads/example.jpeg'
+                  ? images.avatar
+                  : item?.data?.avatar === null
+                  ? images.avatar
+                  : {uri: item?.data?.avatar}
+              }
+              style={styles.imgItem}
+            />
+            <View style={{marginTop: scale(5), marginLeft: scale(5)}}>
+              <Text style={styles.Name_hs}>{item?.data?.name}</Text>
+              <Text
+                style={[
+                  styles.Name_hs,
+                  {
+                    fontSize: scale(14),
+                    fontFamily: fonts.NORMAL,
+                    marginTop: scale(5),
+                  },
+                ]}>
+                {jobs?.job_posting_position}
+              </Text>
+            </View>
+          </View>
+          <View style={{flexDirection: 'row', marginTop: scale(5)}}>
+            <View style={[styles.viewRow, {width: '50%'}]}>
+              <LocalIcon color={colors.BLUE} />
+              <Text
+                style={[
+                  styles.TextR,
+                  {color: colors.BLACK, marginTop: scale(3)},
+                ]}>
+                {epl?.address}
+              </Text>
+            </View>
+            <View style={[styles.viewRow, {justifyContent: 'space-between'}]}>
+              <PhoneIcon />
+              <Text
+                style={[
+                  styles.TextR,
+                  {color: colors.BLACK, marginTop: scale(3)},
+                ]}>
+                {epl?.phone}
+              </Text>
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={styles.contener}>
@@ -135,19 +228,25 @@ const Home = ({navigation}) => {
         uri={data?.user?.avatar ? data?.user?.avatar : null}
       />
       {/* main */}
-      <ScrollView style={{marginBottom: scale(30)}}>
-        <View style={styles.main}>
+      <ScrollView>
+        <View
+          style={{
+            paddingVertical: scale(10),
+            marginBottom: scale(50),
+          }}>
           <Text style={styles.title}>Thống kê tin đăng</Text>
           {/* view1 */}
-          <LineChart
-            data={DATA}
-            width={screenWidth}
-            height={220}
-            chartConfig={chartConfig}
-          />
+          <View style={{alignItems: 'center', marginTop: scale(20)}}>
+            <LineChart
+              data={DATA}
+              width={screenWidth - 20}
+              height={220}
+              chartConfig={chartConfig}
+            />
+          </View>
           {/* view2 */}
           {/* flatlist1 */}
-          <View style={styles.viewRow}>
+          <View style={[styles.viewRow, {justifyContent: 'space-between'}]}>
             <Text style={styles.title}>DS tin tuyển dụng mới nhất</Text>
             <TouchableOpacity onPress={() => navigation.navigate('TD_Screen')}>
               <Text style={[styles.TextR, {marginTop: scale(15)}]}>
@@ -168,7 +267,7 @@ const Home = ({navigation}) => {
               <Text
                 style={{
                   fontSize: 18,
-                  fontWeight: 'bold',
+                  fontFamily: fonts.BOLD,
                   paddingBottom: scale(15),
                 }}>
                 Chưa có tin tuyền dụng
@@ -181,14 +280,12 @@ const Home = ({navigation}) => {
             </View>
           ) : (
             <FlatList
-              data={listData}
+              data={listData.slice(0, 3)}
               keyExtractor={item => item.id}
-              renderItem={renderItem}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
+              renderItem={({item}) => <RenderItem item={item} />}
             />
           )}
-          <View style={styles.viewRow}>
+          <View style={[styles.viewRow, {justifyContent: 'space-between'}]}>
             <Text style={styles.title}>Hồ sơ ứng tuyển mới nhất</Text>
             <TouchableOpacity onPress={() => navigation.navigate('UV_Screen')}>
               <Text style={[styles.TextR, {marginTop: scale(15)}]}>
@@ -196,7 +293,7 @@ const Home = ({navigation}) => {
               </Text>
             </TouchableOpacity>
           </View>
-          {UV.length === 0 ? (
+          {listUV.length === 0 ? (
             <View
               style={[
                 styles.ViewFlatlist,
@@ -214,18 +311,16 @@ const Home = ({navigation}) => {
               <Text
                 style={{
                   fontSize: 18,
-                  fontWeight: 'bold',
+                  fontFamily: fonts.BOLD,
                 }}>
                 Chưa có hồ sơ ứng tuyển
               </Text>
             </View>
           ) : (
             <FlatList
-              data={UV}
-              keyExtractor={item => item.id}
-              renderItem={renderItemHS}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
+              data={unique(listUV).slice(0, 3)}
+              keyExtractor={item => item.data._id}
+              renderItem={({item}) => <RenderItemHS item={item} />}
             />
           )}
         </View>
@@ -242,11 +337,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.LIGHT_WHITE,
   },
 
-  main: {
-    marginTop: scale(5),
-  },
   title: {
-    fontWeight: '500',
     fontSize: scale(14),
     lineHeight: scale(20),
     marginTop: scale(15),
@@ -267,13 +358,12 @@ const styles = StyleSheet.create({
   textItem: {
     width: scale(60),
     fontSize: scale(13),
-    fontWeight: '400',
-
+    fontFamily: fonts.NORMAL,
     textAlign: 'center',
   },
   itemNumber: {
     color: '#307DF1',
-    fontWeight: '500',
+    fontFamily: fonts.BOLD,
     fontSize: scale(36),
 
     textAlign: 'center',
@@ -292,23 +382,23 @@ const styles = StyleSheet.create({
   },
   viewRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     margin: scale(5),
   },
   TextL: {
-    fontWeight: '400',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(13),
     marginLeft: scale(10),
     color: '#000000',
   },
   TextR: {
-    fontWeight: '400',
     fontSize: scale(13),
     color: '#307DF1',
     marginRight: scale(10),
+    marginLeft: scale(5),
+    fontFamily: fonts.NORMAL,
   },
   ViewFlatlist: {
-    width: scale(320),
+    width: '95%',
     paddingVertical: scale(10),
     borderRadius: scale(20),
     backgroundColor: 'white',
@@ -324,23 +414,21 @@ const styles = StyleSheet.create({
     elevation: scale(5),
   },
   TextTitle: {
-    fontWeight: '500',
+    fontFamily: fonts.BOLD,
     fontSize: scale(16),
     color: '#307DF1',
     marginLeft: scale(15),
     marginTop: scale(10),
   },
   imgItem: {
-    width: scale(100),
-    height: scale(100),
+    width: scale(60),
+    height: scale(60),
     borderRadius: scale(50),
-    marginTop: scale(14),
     marginLeft: scale(10),
   },
   Name_hs: {
-    fontWeight: '500',
+    fontFamily: fonts.BOLD,
     fontSize: scale(18),
     marginLeft: scale(15),
-    marginTop: scale(33),
   },
 });

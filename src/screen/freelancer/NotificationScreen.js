@@ -54,7 +54,8 @@ export default function NotificationScreen() {
             <View>
               {item.status === 'Đạt yêu cầu' ? (
                 <Text style={styles.txtTitle}>
-                  Bạn đã đạt yêu cầu của nhà tuyển dụng {item.access_name}
+                  Bạn đã đạt yêu cầu của nhà tuyển dụng {item.access_name}. Nhà
+                  tuyển dụng sẽ sớm liên hệ với bạn!
                 </Text>
               ) : item.status === 'Không đạt yêu cầu' ? (
                 <Text style={styles.txtTitle}>
@@ -81,8 +82,10 @@ const styles = StyleSheet.create({
   },
   viewItem: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: '#404040',
+    borderBottomWidth: 0.5,
+    paddingBottom: scale(10),
+    borderStyle: 'dashed',
+    borderRadius: 1,
   },
   icon: {
     height: scale(55),
@@ -98,7 +101,7 @@ const styles = StyleSheet.create({
     color: '#404040',
     fontFamily: fonts.NORMAL,
     flexWrap: 'wrap',
-    width: '65%',
+    width: '50%',
   },
   txtTime: {
     fontSize: scale(12),

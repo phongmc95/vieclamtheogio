@@ -42,10 +42,14 @@ const ChangePassNTD = ({navigation}) => {
 
         <View style={styles.Viewbtn}>
           <TouchableOpacity onPress={showModal}>
-            <Text style={styles.btnL}>Đổi mật khẩu</Text>
+            <View style={styles.button}>
+              <Text style={styles.btnL}>Đổi mật khẩu</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.btnR}>Hủy</Text>
+            <View style={styles.buttonCancel}>
+              <Text style={styles.btnR}>Hủy</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -137,25 +141,12 @@ const styles = StyleSheet.create({
   btnL: {
     fontFamily: fonts.NORMAL,
     fontSize: scale(16),
-    backgroundColor: '#307FD1',
-    paddingHorizontal: scale(17),
-    paddingVertical: scale(12),
     color: 'white',
-    margin: scale(5),
-    borderWidth: scale(1),
-    borderColor: '#307FD1',
   },
   btnR: {
     fontFamily: fonts.NORMAL,
     fontSize: scale(16),
-    backgroundColor: 'white',
-    paddingHorizontal: scale(50),
-    paddingVertical: scale(10),
     color: '#307FD1',
-    margin: scale(5),
-    borderWidth: scale(1),
-    borderColor: '#307FD1',
-    elevation: 5,
   },
   modal: {
     width: scale(295),
@@ -165,5 +156,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: scale(25),
     padding: scale(10),
+  },
+  button: {
+    backgroundColor: '#307FD1',
+    paddingHorizontal: scale(17),
+    paddingVertical: scale(12),
+    margin: scale(5),
+    borderWidth: scale(1),
+    borderColor: '#307FD1',
+    borderRadius: scale(10),
+    elevation: 5,
+  },
+  buttonCancel: {
+    backgroundColor: 'white',
+    paddingHorizontal: scale(50),
+    paddingVertical: scale(12),
+    margin: scale(5),
+    borderWidth: scale(1),
+    borderColor: '#307FD1',
+    elevation: 5,
+    borderRadius: scale(10),
   },
 });

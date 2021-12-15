@@ -24,6 +24,7 @@ const Manage_Screen = ({navigation}) => {
   const submit = () => {
     dispatch(log_out());
     navigation.navigate('Intro');
+    hideModal();
   };
   return (
     <View style={styles.contener}>
@@ -46,7 +47,7 @@ const Manage_Screen = ({navigation}) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btn}
-          onPress={() => navigation.navigate('ChangePassNTD')}>
+          onPress={() => navigation.navigate('UpdatePassword')}>
           <View style={styles.icon}>
             <FocusIcon />
           </View>
@@ -75,21 +76,24 @@ const Manage_Screen = ({navigation}) => {
             style={{
               color: '#307Df1',
               fontSize: scale(20),
-              fontWeight: '400',
+              fontFamily: fonts.NORMAL,
               textAlign: 'center',
-              marginBottom: scale(40),
             }}>
             Bạn có chắc chắn muốn đăng xuất?
           </Text>
           <View style={styles.Viewbtn}>
             <TouchableOpacity onPress={submit}>
-              <Text style={styles.btnL}>Đăng xuất</Text>
+              <View style={styles.button}>
+                <Text style={styles.btnL}>Đăng xuất</Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
                 setVisible(false);
               }}>
-              <Text style={styles.btnR}>Hủy</Text>
+              <View style={styles.buttonCancel}>
+                <Text style={styles.btnR}>Hủy</Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
@@ -117,7 +121,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: scale(18),
-    fontWeight: '700',
+    fontFamily: fonts.BOLD,
     paddingTop: scale(10),
   },
   avatar: {
@@ -143,32 +147,38 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     margin: scale(7),
-    padding: scale(20),
+    padding: scale(25),
   },
   Viewbtn: {
     flexDirection: 'row',
+    marginTop: '17%',
   },
   btnL: {
-    fontWeight: '500',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(16),
-    backgroundColor: '#307FD1',
-
-    paddingHorizontal: scale(28),
-    paddingVertical: scale(10),
     color: 'white',
-    margin: scale(5),
   },
   btnR: {
-    fontWeight: '500',
+    fontFamily: fonts.NORMAL,
     fontSize: scale(16),
     backgroundColor: 'white',
-
-    paddingHorizontal: scale(50),
-    paddingVertical: scale(10),
     color: '#307FD1',
-    margin: scale(5),
-    borderWidth: scale(1),
-    borderColor: '#307FD1',
   },
   icon: {marginTop: scale(3)},
+  button: {
+    borderRadius: scale(10),
+    backgroundColor: '#307FD1',
+    paddingHorizontal: scale(28),
+    paddingVertical: scale(10),
+    margin: scale(5),
+  },
+  buttonCancel: {
+    backgroundColor: '#fff',
+    paddingHorizontal: scale(50),
+    paddingVertical: scale(9),
+    margin: scale(5),
+    borderColor: '#307FD1',
+    borderRadius: scale(10),
+    borderWidth: 1,
+  },
 });
