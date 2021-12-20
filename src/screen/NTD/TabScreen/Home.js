@@ -25,6 +25,7 @@ import images from '../../../constant/images';
 import {LineChart} from 'react-native-chart-kit';
 import {ClockIcon, LocalIcon, PhoneIcon} from '../../../../assets/icon';
 import moment from 'moment';
+import EmptyData from '../../../components/EmptyData';
 
 const screenWidth = Dimensions.get('window').width;
 const Home = ({navigation}) => {
@@ -105,20 +106,23 @@ const Home = ({navigation}) => {
     item => item.createdBy === idEmp?.user?.userId,
   );
 
-  const listUV = listData?.map(item =>
-    item.applicants_applied.reduce((a, b) => ({...a, data: b}), {}),
-  );
+  const listUV = listData.map(item => item.applicants_applied);
 
   const DATA = {
-    labels: ['11', '12', '1', '2', '3', '4'],
+    labels: ['T12', 'T1', 'T2', 'T3', 'T4', 'T5'],
     datasets: [
       {
-        data: [4, listUV.length, 0, 0, 0, 0],
+        data: [0, listUV.length, 0, 0, 0, 0],
         color: (opacity = 1) => `rgba(48, 125, 241, ${opacity})`, // optional
         strokeWidth: 2, // optionalK
       },
+      {
+        data: [0, listData.length, 0, 0, 0, 0],
+        color: (opacity = 1) => `rgba(255, 40, 77, ${opacity})`, // optional
+        strokeWidth: 2, // optionalK
+      },
     ],
-    legend: ['Lượt ứng tuyển'], // optional
+    legend: ['Lượt ứng tuyển', 'Tin tuyển dụng'], // optional
   };
   const RenderItem = ({item}) => {
     return (
@@ -151,8 +155,8 @@ const Home = ({navigation}) => {
   };
 
   const RenderItemHS = ({item}) => {
-    const epl = dataUV.find(it => it.name === item.data.name);
-    const jobs = job.find(it => it._id === item.data.jobId);
+    const epl = dataUV.find(it => it.name === item?.name);
+    const jobs = job.find(it => it._id === item?.jobId);
     return (
       <TouchableOpacity
         onPress={() =>
@@ -166,18 +170,18 @@ const Home = ({navigation}) => {
           <View style={{flexDirection: 'row'}}>
             <Image
               source={
-                item?.data?.avatar === undefined
+                item?.avatar === undefined
                   ? images.avatar
-                  : item?.data?.avatar === '/uploads/example.jpeg'
+                  : item?.avatar === '/uploads/example.jpeg'
                   ? images.avatar
-                  : item?.data?.avatar === null
+                  : item?.avatar === null
                   ? images.avatar
-                  : {uri: item?.data?.avatar}
+                  : {uri: item?.avatar}
               }
               style={styles.imgItem}
             />
             <View style={{marginTop: scale(5), marginLeft: scale(5)}}>
-              <Text style={styles.Name_hs}>{item?.data?.name}</Text>
+              <Text style={styles.Name_hs}>{item?.name}</Text>
               <Text
                 style={[
                   styles.Name_hs,
@@ -192,7 +196,7 @@ const Home = ({navigation}) => {
             </View>
           </View>
           <View style={{flexDirection: 'row', marginTop: scale(5)}}>
-            <View style={[styles.viewRow, {width: '50%'}]}>
+            <View style={[styles.viewRow, {width: '53%'}]}>
               <LocalIcon color={colors.BLUE} />
               <Text
                 style={[
@@ -283,6 +287,9 @@ const Home = ({navigation}) => {
               data={listData.slice(0, 3)}
               keyExtractor={item => item.id}
               renderItem={({item}) => <RenderItem item={item} />}
+              ListEmptyComponent={() => (
+                <EmptyData content="Chưa có tin tuyển dụng" />
+              )}
             />
           )}
           <View style={[styles.viewRow, {justifyContent: 'space-between'}]}>
@@ -293,36 +300,14 @@ const Home = ({navigation}) => {
               </Text>
             </TouchableOpacity>
           </View>
-          {listUV.length === 0 ? (
-            <View
-              style={[
-                styles.ViewFlatlist,
-                {
-                  paddingVertical: scale(50),
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginBottom: scale(80),
-                },
-              ]}>
-              <Image
-                style={{width: 60, height: 60}}
-                source={require('../../../../assets/images/logoVin.png')}
-              />
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontFamily: fonts.BOLD,
-                }}>
-                Chưa có hồ sơ ứng tuyển
-              </Text>
-            </View>
-          ) : (
-            <FlatList
-              data={unique(listUV).slice(0, 3)}
-              keyExtractor={item => item.data._id}
-              renderItem={({item}) => <RenderItemHS item={item} />}
-            />
-          )}
+          <FlatList
+            data={listUV[0]}
+            keyExtractor={item => item._id}
+            renderItem={({item}) => <RenderItemHS item={item} />}
+            ListEmptyComponent={() => (
+              <EmptyData content="Chưa có hồ sơ ứng tuyển" />
+            )}
+          />
         </View>
       </ScrollView>
     </View>

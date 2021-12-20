@@ -8,8 +8,9 @@ import {
   Image,
   useWindowDimensions,
   Dimensions,
-  Alert, StatusBar,
-} from "react-native";
+  Alert,
+  StatusBar,
+} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {FAB} from 'react-native-paper';
 import {
@@ -47,8 +48,8 @@ const TD_Screen = ({navigation}) => {
         setData(response.data.jobs);
         data
           ? setNewData(
-            data?.filter(item => item.createdBy === idEmp?.user?.userId),
-          )
+              data?.filter(item => item.createdBy === idEmp?.user?.userId),
+            )
           : [];
       })
       .catch(function (error) {
@@ -56,7 +57,7 @@ const TD_Screen = ({navigation}) => {
       });
     // setLoad(!load)
     return () => {};
-  }, [load,isFocused,newData]);
+  }, [load, isFocused, newData]);
 
   const alertDelete = item =>
     Alert.alert('Thông Báo', 'Bạn có muốn xóa tin này không ?', [
@@ -81,49 +82,51 @@ const TD_Screen = ({navigation}) => {
     setLoad(!load);
   };
   const listData = data?.filter(item => item.createdBy === idEmp?.user?.userId);
-  const renderItem = ({item}) => (
-    <View style={styles.ViewFlatlist}>
-      <View style={styles.viewRow}>
-        <Text style={styles.TextTitle}>{item.job_posting_position}</Text>
-        <TouchableOpacity
-          style={styles.delete}
-          onPress={() => {
-            alertDelete(item);
-            console.log('Delete');
-          }}>
-          <DeleteICon />
-        </TouchableOpacity>
-      </View>
+  const renderItem = ({item}) => {
+    return (
+      <View style={styles.ViewFlatlist}>
+        <View style={styles.viewRow}>
+          <Text style={styles.TextTitle}>{item.job_posting_position}</Text>
+          <TouchableOpacity
+            style={styles.delete}
+            onPress={() => {
+              alertDelete(item);
+              console.log('Delete');
+            }}>
+            <DeleteICon />
+          </TouchableOpacity>
+        </View>
 
-      <View style={styles.viewRow}>
-        <Text style={styles.TextL}>Thời gian</Text>
-        <Text style={[styles.TextR, {color: 'black'}]}>
-          {item.posting_date}
-        </Text>
-      </View>
-      <View style={styles.viewRow}>
-        <Text style={styles.TextL}>Ngày ứng tuyển</Text>
-        <Text style={[styles.TextR, {color: 'black'}]}>{item.last_date}</Text>
-      </View>
+        <View style={styles.viewRow}>
+          <Text style={styles.TextL}>Thời gian</Text>
+          <Text style={[styles.TextR, {color: 'black'}]}>
+            {item.posting_date}
+          </Text>
+        </View>
+        <View style={styles.viewRow}>
+          <Text style={styles.TextL}>Ngày ứng tuyển</Text>
+          <Text style={[styles.TextR, {color: 'black'}]}>{item.last_date}</Text>
+        </View>
 
-      <View style={styles.viewRow}>
-        <Text style={styles.TextL}>Quản lí</Text>
-        <Text style={styles.TextR}>{'Còn Hạn'}</Text>
+        <View style={styles.viewRow}>
+          <Text style={styles.TextL}>Quản lí</Text>
+          <Text style={styles.TextR}>{'Còn Hạn'}</Text>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <TouchableOpacity
+            style={{margin: scale(5)}}
+            onPress={() => navigation.navigate('GiaiPhap')}>
+            <ButtonItemLuu nameBTN="Giải pháp" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{margin: scale(5)}}
+            onPress={() => navigation.navigate('SuaTin', {item})}>
+            <ButtonItemLuu nameBTN="Sửa" />
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <TouchableOpacity
-          style={{margin: scale(5)}}
-          onPress={() => navigation.navigate('GiaiPhap')}>
-          <ButtonItemLuu nameBTN="Giải pháp" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{margin: scale(5)}}
-          onPress={() => navigation.navigate('SuaTin', {item})}>
-          <ButtonItemLuu nameBTN="Sửa" />
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+    );
+  };
 
   return (
     <View style={styles.contener}>

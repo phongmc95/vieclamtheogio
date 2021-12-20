@@ -1,11 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
   Dimensions,
-  Alert,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import icons from '@constant/icons';
@@ -16,7 +15,6 @@ import CalendarJob from './job_detail/CalendarJob';
 import Button from '@components/Button/Button';
 import Notification from '@components/Notification';
 import axios from 'axios';
-import {useFocusEffect} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import fonts from '../../constant/fonts';
 import {callPhone, sendEmail} from '../../components/Contact';
@@ -38,13 +36,13 @@ export default function JobDetailScreen({navigation, route}) {
   const [isSave, setIsSave] = useState(false);
   const isFocused = useIsFocused();
   const [idSave, setIdSave] = useState('');
+  const [content, setContent] = useState('');
 
-  useFocusEffect(
-    useCallback(() => {
-      getDetailJob();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isFocused]),
-  );
+  useEffect(() => {
+    getDetailJob();
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
 
   const getDetailJob = () => {
     var config = {
@@ -63,9 +61,8 @@ export default function JobDetailScreen({navigation, route}) {
           setIdSave(data._id);
         }
       })
-      .catch(error => {
+      .catch(function (error) {
         console.log(error);
-        // setOpenError(true);
       });
   };
 
@@ -78,9 +75,18 @@ export default function JobDetailScreen({navigation, route}) {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        // Toast.showSuccess('Ứng tuyển thành công!');
         toggleModal();
+        setContent('Yêu cầu nhận việc của bạn đã được gửi tới Nhà tuyển dụng');
       })
       .catch(function (error) {
+        // Toast.show(
+        //   ,
+        // );
+        toggleModal();
+        setContent(
+          'Yêu cầu nhận việc của bạn không được gửi tới Nhà tuyển dụng. Bạn đã ứng tuyển công việc rồi!',
+        );
         console.log(error);
       });
   };
@@ -204,7 +210,7 @@ export default function JobDetailScreen({navigation, route}) {
       <Notification
         on={modal}
         off={toggleModal}
-        content1="Yêu cầu nhận việc của bạn đã được gửi tới Nhà tuyển dụng"
+        content1={content}
         title="THÔNG BÁO"
       />
       <Notification
@@ -237,6 +243,7 @@ export default function JobDetailScreen({navigation, route}) {
                     marginTop: scale(2),
                     color: colors.BLUE,
                     textDecorationLine: 'underline',
+                    fontSize: scale(18),
                   }}>
                   {data?.job?.contact_info?.contact_phone}
                 </Text>
@@ -254,6 +261,7 @@ export default function JobDetailScreen({navigation, route}) {
                     marginTop: scale(2),
                     color: colors.BLUE,
                     textDecorationLine: 'underline',
+                    fontSize: scale(18),
                   }}>
                   {data?.job?.contact_info?.contact_email}
                 </Text>
@@ -299,7 +307,7 @@ const styles = StyleSheet.create({
   blue: {backgroundColor: '#307df1'},
   white: {backgroundColor: '#ffffff'},
   txtContact: {
-    fontSize: scale(12),
+    fontSize: scale(18),
     fontFamily: fonts.NORMAL,
     marginVertical: scale(2),
   },

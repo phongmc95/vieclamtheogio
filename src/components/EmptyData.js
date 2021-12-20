@@ -8,7 +8,7 @@ export default function EmptyData({content, onPress, icon, type}) {
   return (
     <View style={styles.container}>
       <View style={{flexDirection: 'row'}}>
-        <View style={{alignItems: 'center', left: scale(10)}}>
+        <View style={{alignItems: 'center'}}>
           <Image
             style={styles.image}
             source={require('../../assets/images/logoVin.png')}

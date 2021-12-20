@@ -169,7 +169,7 @@ export default function UpdateInfomation({navigation, route}) {
               style={styles.avatar}
               source={avatar ? {uri: avatar.uri} : images.avatar}
             />
-            <TouchableOpacity onPress={openCamera}>
+            <TouchableOpacity onPress={openLibry}>
               <Text style={styles.txtAvatar}>Cập nhật ảnh đại diện</Text>
             </TouchableOpacity>
           </View>

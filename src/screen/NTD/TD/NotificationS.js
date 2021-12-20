@@ -46,19 +46,15 @@ const NotificationS = ({navigation}) => {
     item => item.createdBy === idEmp?.user?.userId,
   );
 
-  const UV = listData?.map(item =>
-    item.applicants_applied.reduce((a, b) => ({...a, data: b}), {}),
-  );
+  const UV = listData?.map(item => item.applicants_applied);
   const renderItemHS = ({item}) => (
     <TouchableOpacity
       onPress={() => navigation.navigate('UV_Screen')}
       style={[styles.ViewFlatlist]}>
       <Text style={styles.Name_hs} numberOfLines={3}>
-        <Text style={{color: '#FFA800', fontWeight: 'bold'}}>
-          {item?.data?.name}
-        </Text>{' '}
+        <Text style={{color: '#FFA800', fontWeight: 'bold'}}>{item?.name}</Text>{' '}
         đã ứng tuyển vị trí{' '}
-        <Text style={[{color: '#307df1'}]}>{item?.data?.positions}</Text>{' '}
+        <Text style={[{color: '#307df1'}]}>{item?.positions}</Text>{' '}
       </Text>
     </TouchableOpacity>
   );
@@ -74,7 +70,7 @@ const NotificationS = ({navigation}) => {
         <Text style={styles.title}>Thông báo</Text>
       </View>
       <FlatList
-        data={UV}
+        data={UV[0]}
         keyExtractor={item => item.id}
         renderItem={renderItemHS}
         showsHorizontalScrollIndicator={false}

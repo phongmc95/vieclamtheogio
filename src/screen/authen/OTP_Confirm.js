@@ -13,28 +13,19 @@ import ModalStyle from '../../components/ModalStyle';
 import {useDispatch, useSelector} from 'react-redux';
 import {loadOTP, loadForgotOTP, log_out} from '../../redux/actions/actions';
 import fonts from '../../constant/fonts';
+import axios from 'axios';
+import NotifiSuccess from '../../components/NotifiSuccess';
 
 const OTP_Confirm = ({navigation, route}) => {
   const dispatch = useDispatch();
   const {email_otp, type} = route.params;
-  const verify_register = useSelector(state => state.Authen.verify_email);
-  const verify_forgot = useSelector(state => state.Authen.verify_forgot);
   const [timerCount, setTimer] = useState(300);
   const [otp, setOtp] = useState('');
-  const [visible, setVisible] = React.useState(false);
-  const [message, setMessage] = useState('');
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
-  const loading = useSelector(state => state.Authen.requesting);
-  const msg = useSelector(state => state.Authen.message);
-  console.log('Loading: ', loading);
+  const [isVerrify, setIsVerrify] = useState(false);
 
   useEffect(() => {
-    if (verify_forgot === true && type === 'forgot') {
-      navigation.navigate('NewPass', {email_otp});
-    } else if (verify_register === true && type === 'register') {
-      navigation.navigate('Login');
-    }
     let interval = setInterval(() => {
       setTimer(lastTimerCount => {
         lastTimerCount <= 1 && clearInterval(interval);
@@ -43,29 +34,49 @@ const OTP_Confirm = ({navigation, route}) => {
     }, 1000);
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [verify_register, verify_forgot]);
-  const loadingError = () => {
-    if (loading === false && msg !== null) {
-      setModal(true);
-      setError('Bạn nhập sai mã otp! ');
-    }
-  };
+  }, []);
 
-  useEffect(() => {
-    loadingError();
-  }, [loading, msg]);
   const submit = () => {
     if (!otp) {
       setModal(true);
       setError('Bạn chưa nhập mã OTP ');
     } else {
-      dispatch(
-        type === 'register'
-          ? loadOTP(email_otp, otp)
-          : loadForgotOTP(email_otp, otp),
-      );
+      verify();
     }
   };
+
+  const verify = () => {
+    var data = JSON.stringify({
+      email: email_otp,
+      otp: otp,
+    });
+    console.log('data: ', data);
+
+    var config = {
+      method: 'post',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/auth/verify-email',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        if (type === 'forgot') {
+          navigation.navigate('NewPass', {email_otp});
+        } else if (type === 'register') {
+          setIsVerrify(true);
+        }
+      })
+      .catch(function (error) {
+        setModal(true);
+        setError('Bạn nhập sai mã otp! ');
+        console.log(error);
+      });
+  };
+
   const CloseModal = () => {
     dispatch(log_out());
     setModal(false);
@@ -122,6 +133,15 @@ const OTP_Confirm = ({navigation, route}) => {
         isVisible={modal}
         onBackdropPress={CloseModal}
         content={error}
+      />
+      <NotifiSuccess
+        on={isVerrify}
+        off={() => {
+          setIsVerrify(false);
+          navigation.navigate('Login');
+        }}
+        title="THÔNG BÁO"
+        content="Đăng ký thành công!!!"
       />
     </View>
   );

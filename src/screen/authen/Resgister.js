@@ -1,40 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
-  Image,
   ScrollView,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {CameraIcon} from '../../../assets/icon';
-import * as ImagePicker from 'react-native-image-picker';
 import TextInputStyle from '../../components/TextInputStyle';
 import TextInputPassword from '../../components/TextInputPassword';
 import ButtonStyle from '../../components/ButtonStyle';
-import {useDispatch, useSelector} from 'react-redux';
 import SelectModal from '../../components/SelectModal';
 import TextInputSelected from '../../components/TextInputSelected';
 import fonts from '../../constant/fonts';
 import {jobs, provinces} from '../../data/Jobs';
 import ModalStyle from '../../components/ModalStyle';
 import {validateEmail, isVietnamesePhoneNumber} from '../../base/Validate';
-import {
-  loadRegisterEmployer,
-  loadRegisterFreelancer,
-} from '../../redux/actions/actions';
 import LoadSreen from '../../components/loadScreen';
+import axios from 'axios';
+import {useSelector} from 'react-redux';
 
 const Resgister = ({navigation, route}) => {
   const checkLogin = useSelector(state => state.Authen.check_type);
-  const success = useSelector(state => state.Authen.is_register);
   const load = useSelector(state => state.Authen.requesting);
-  const dispatch = useDispatch();
   const [phone, setPhone] = useState('');
   const [pass, setPass] = useState('');
   const [pass1, setPass1] = useState('');
-  const [logo, setLogo] = useState(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
@@ -44,14 +35,7 @@ const Resgister = ({navigation, route}) => {
   const [isProvince, setIsProvince] = useState(false);
   const [isValidate, setIsValidate] = useState(false);
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    if (success === true) {
-      navigation.navigate('OTP_Confirm', {email_otp: email, type: 'register'});
-    }
-    return () => {};
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [success, load]);
+  const [success, setSuccess] = useState(false);
 
   const submit = () => {
     if (!email || !pass || !phone || !name || !address) {
@@ -67,20 +51,44 @@ const Resgister = ({navigation, route}) => {
       onValidate();
       setError('Mật khẩu không đúng. Vui lòng nhập lại ! ');
     } else {
-      checkLogin === 'flc'
-        ? dispatch(
-            loadRegisterFreelancer(
-              email,
-              pass,
-              name,
-              phone,
-              address,
-              desiredProfession.title,
-              province.title,
-            ),
-          )
-        : dispatch(loadRegisterEmployer(email, pass, name, phone, address));
+      register();
     }
+  };
+
+  const register = () => {
+    setSuccess(true);
+    var data = JSON.stringify({
+      email: email,
+      password: pass,
+      name: name,
+      phone: phone,
+      address: address,
+      industry: checkLogin === 'flc' ? desiredProfession.title : null,
+      job_adress: checkLogin === 'flc' ? province.title : null,
+    });
+
+    var config = {
+      method: 'post',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/auth/register',
+      headers: {
+        Authorization: '',
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        setSuccess(false);
+        navigation.navigate('OTP_Confirm', {
+          email_otp: email,
+          type: 'register',
+        });
+      })
+      .catch(function (error) {
+        setSuccess(false);
+        console.log(error);
+      });
   };
 
   const onValidate = () => {
@@ -126,6 +134,7 @@ const Resgister = ({navigation, route}) => {
               Label="Số điện thoại"
               value={phone}
               onChangeText={text => setPhone(text)}
+              keyboardType="numeric"
             />
             <TextInputStyle
               Label="Email"
@@ -198,7 +207,7 @@ const Resgister = ({navigation, route}) => {
         onBackdropPress={() => setIsValidate(false)}
         content={error}
       />
-      <LoadSreen load={load} />
+      <LoadSreen load={success} />
     </View>
   );
 };

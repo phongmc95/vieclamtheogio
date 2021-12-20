@@ -7,7 +7,7 @@ const randomColor = () =>
 const size = 60;
 const innerSize = size / 3;
 
-export default class Loader4 extends Component {
+export default class Loader3 extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -126,5 +126,6 @@ const styles = StyleSheet.create({
   },
   innerItem: {
     height: innerSize / 10,
+    width: innerSize,
   },
 });

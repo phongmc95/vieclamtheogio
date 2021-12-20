@@ -53,15 +53,15 @@ export default function ProfileScreen() {
   const renderScene = ({route}) => {
     switch (route.key) {
       case 'info':
-        return <InfomationScreen item={user} type={userId?.check_type} />;
+        return <InfomationScreen item={user} type="flc" />;
       case 'job':
-        return <DesiredJobScreen item={user} type={userId?.check_type} />;
+        return <DesiredJobScreen item={user} type="flc" />;
       case 'skill':
-        return <SkillPersonalScreen data={user} type={userId?.check_type} />;
+        return <SkillPersonalScreen data={user} type="flc" />;
       case 'exp':
-        return <ExperienceScreen data={user} type={userId?.check_type} />;
+        return <ExperienceScreen data={user} type="flc" />;
       case 'work':
-        return <WorkSessionScreen item={user} type={userId?.check_type} />;
+        return <WorkSessionScreen item={user} type="flc" />;
       default:
         return null;
     }

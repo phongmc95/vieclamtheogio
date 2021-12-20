@@ -62,15 +62,15 @@ export default function DetailUV({route}) {
   const renderScene = ({route}) => {
     switch (route.key) {
       case 'info':
-        return <InfomationScreen item={user} />;
+        return <InfomationScreen item={user} type="epl" />;
       case 'job':
-        return <DesiredJobScreen item={user} />;
+        return <DesiredJobScreen item={user} type="epl" />;
       case 'skill':
-        return <SkillPersonalScreen data={user} />;
+        return <SkillPersonalScreen data={user} type="epl" />;
       case 'exp':
-        return <ExperienceScreen data={user} />;
+        return <ExperienceScreen data={user} type="epl" />;
       case 'work':
-        return <WorkSessionScreen item={user} />;
+        return <WorkSessionScreen item={user} type="epl" />;
       default:
         return null;
     }

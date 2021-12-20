@@ -10,7 +10,7 @@ export default function Notification(props) {
       <View
         style={{
           width: scale(295),
-          height: scale(173),
+          // height: scale(173),
           overflow: 'hidden',
           borderRadius: scale(20),
           borderWidth: 1,

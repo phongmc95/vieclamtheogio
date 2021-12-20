@@ -15,12 +15,35 @@ import colors from '../../../constant/colors';
 import {log_out} from '../../../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import logo from '../../../../assets/img/logoVin.png';
+import axios from 'axios';
+import {useIsFocused} from '@react-navigation/core';
 const Manage_Screen = ({navigation}) => {
   const data = useSelector(state => state.ProfileEPl.data);
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const dispatch = useDispatch();
+  const [profile, setProfile] = useState(null);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    var config = {
+      method: 'get',
+      url: `https://fpt-jobs-api.herokuapp.com/api/v1/users/${data?.user?._id}`,
+    };
+
+    axios(config)
+      .then(function (response) {
+        setProfile(response.data.user);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
+
   const submit = () => {
     dispatch(log_out());
     navigation.navigate('Intro');
@@ -31,15 +54,15 @@ const Manage_Screen = ({navigation}) => {
       <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       <View style={styles.StatusBar}>
         <Image
-          source={!data?.user?.avatar ? logo : {uri: data?.user?.avatar}}
+          source={!profile?.avatar ? logo : {uri: profile?.avatar}}
           style={styles.avatar}
         />
-        <Text style={styles.title}>{data?.user?.name}</Text>
+        <Text style={styles.title}>{profile?.name}</Text>
       </View>
       <View>
         <TouchableOpacity
           style={styles.btn}
-          onPress={() => navigation.navigate('UpdateInfoNTD')}>
+          onPress={() => navigation.navigate('UpdateInfoNTD', {item: profile})}>
           <View style={styles.icon}>
             <FoderICon />
           </View>

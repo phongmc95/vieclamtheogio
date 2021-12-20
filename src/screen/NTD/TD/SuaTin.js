@@ -32,6 +32,8 @@ import fonts from '../../../constant/fonts';
 import {Platform} from 'react-native';
 import moment from 'moment';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import axios from 'axios';
+import NotifiSuccess from '../../../components/NotifiSuccess';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -135,7 +137,6 @@ const reducerContactInfo = (state, action) => {
 };
 const SuaTin = ({navigation, route}) => {
   const item = route.params.item;
-  const dis = useDispatch();
 
   const initialState = {
     shift: 'Thời gian làm một ngày',
@@ -157,10 +158,6 @@ const SuaTin = ({navigation, route}) => {
     contact_phone: item?.contact_info?.contact_phone,
     contact_email: item?.contact_info?.contact_email,
   };
-  const selectItem = item => {
-    setCareer(item);
-    setVisible(false);
-  };
   const [work_schedule, dispatch] = useReducer(reducer, initialState);
   const [job_posting_position, setJob_posting_position] = useState(
     item.job_posting_position,
@@ -169,9 +166,7 @@ const SuaTin = ({navigation, route}) => {
   const [work_location, setwork_location] = useState(item.work_location);
   const [career, setCareer] = useState({
     id: 1,
-    title: 'Bán hàng',
-    img: icons.cart,
-    count: '1000',
+    title: item.career,
   });
   const [quantity_recruited, setQuantity_recruited] = useState(
     item.quantity_recruited,
@@ -198,43 +193,56 @@ const SuaTin = ({navigation, route}) => {
   const [isWorkingForm, setIsWorkingForm] = useState(false);
   const [isLiteracy, setIsLiteracy] = useState(false);
   const [dateVisibel, setDateVisibel] = useState(false);
-  const [timeVisibel, setTimeVisibel] = useState(false);
   const [type, settype] = useState('');
   const [date, setDate] = useState(new Date());
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     set_work_schedule_list([work_schedule]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [work_schedule]);
   const [contact_info, dispatchContactInfo] = useReducer(
     reducerContactInfo,
     initialStateContactInfo,
   );
   const submit = () => {
-    dis(
-      UpdateJob(
-        job_posting_position,
-        career.title,
-        quantity_recruited,
-        work_location,
-        working_form,
-        salary,
-        min_education,
-        probation,
-        rose,
-        '',
-        posting_date,
-        last_date,
-        work_schedule_list,
-        job_description,
-        job_requirements,
-        benefits_enjoyed,
-        records_include,
-        contact_info,
-        item?.createdBy,
-        item?._id,
-      ),
-    );
-    navigation.goBack();
+    var data = JSON.stringify({
+      job_posting_position: job_posting_position,
+      career: career.title,
+      quantity_recruited: quantity_recruited,
+      work_location: work_location,
+      working_form: working_form,
+      salary: salary,
+      min_education: min_education,
+      probation: probation,
+      rose: rose,
+      posting_date: posting_date,
+      last_date: last_date,
+      work_schedule: work_schedule_list,
+      job_description: job_description,
+      job_requirements: job_requirements,
+      benefits_enjoyed: benefits_enjoyed,
+      records_include: records_include,
+      contact_info: contact_info,
+    });
+
+    var config = {
+      method: 'patch',
+      url: `https://fpt-jobs-api.herokuapp.com/api/v1/jobs/${item?._id}`,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setSuccess(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   const alertDelete = () =>
     Alert.alert('Thông báo', 'Bạn có muốn sửa tin không', [
@@ -245,6 +253,11 @@ const SuaTin = ({navigation, route}) => {
       },
       {text: 'Sửa', onPress: () => submit()},
     ]);
+
+  const selectItem = item => {
+    setCareer(item);
+    setVisible(false);
+  };
 
   const selectSalary = item => {
     setsalary(item.title);
@@ -431,7 +444,7 @@ const SuaTin = ({navigation, route}) => {
             onChangeText={text =>
               dispatch({type: 'START_TIME', start_time: text})
             }
-            value1={work_schedule.end_time}
+            value2={work_schedule.end_time}
             onChangeText2={text => dispatch({type: 'END_TIME', end_time: text})}
           />
 
@@ -448,21 +461,25 @@ const SuaTin = ({navigation, route}) => {
             Label="Mô tả"
             value={job_description}
             onChangeText={text => set_job_description(text)}
+            multiline={true}
           />
           <TextInputStyle
             Label="Yêu cầu công việc"
             value={job_requirements}
             onChangeText={text => set_job_requirements(text)}
+            multiline={true}
           />
           <TextInputStyle
             Label="Quyền lợi được hưởng"
             value={benefits_enjoyed}
             onChangeText={text => set_benefits_enjoyed(text)}
+            multiline={true}
           />
           <TextInputStyle
             Label="Hồ sơ bao gồm"
             value={records_include}
             onChangeText={text => set_records_include(text)}
+            multiline={true}
           />
           <Text
             style={{
@@ -554,6 +571,17 @@ const SuaTin = ({navigation, route}) => {
         onBackdropPress={() => setModal(false)}
         content={error}
       />
+      <NotifiSuccess
+        on={success}
+        off={() => {
+          if (navigation.canGoBack) {
+            navigation.goBack();
+          }
+          setSuccess(false);
+        }}
+        title="THÔNG BÁO"
+        content="Cập nhật thành công!"
+      />
     </View>
   );
 };
@@ -576,7 +604,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: scale(24),
+    fontSize: scale(18),
     fontFamily: fonts.BOLD,
     marginLeft: scale(20),
     marginTop: scale(5),

@@ -98,8 +98,8 @@ const UV_Screen = ({navigation}) => {
 
   const status = item => {
     setShowStastus(!showStatus);
-    setId(item.data._id);
-    setJobID(item.data.jobId);
+    setId(item?._id);
+    setJobID(item?.jobId);
   };
 
   const accessApplied = title => {
@@ -131,17 +131,13 @@ const UV_Screen = ({navigation}) => {
   };
 
   const listData = data?.filter(item => item.createdBy === idEmp?.user?.userId);
-  const listUV = listData?.map(item =>
-    item.applicants_applied.reduce((a, b) => ({...a, data: b}), {}),
-  );
-
-  const UV = listUV.filter(item => Object.keys(item).length > 0);
+  const listUV = listData?.map(item => item.applicants_applied);
 
   //console.log(item?.applicants_applied,">>>");
 
   const RenderItem = ({item}) => {
-    const epl = dataUV.find(it => it.name === item.data.name);
-    const jobs = job.find(it => it._id === item.data.jobId);
+    const epl = dataUV.find(it => it.name === item?.name);
+    const jobs = job.find(it => it._id === item?.jobId);
     return (
       <View style={[styles.viewFL, styleHinder]}>
         <TouchableOpacity
@@ -153,18 +149,18 @@ const UV_Screen = ({navigation}) => {
             <View style={{flexDirection: 'row'}}>
               <Image
                 source={
-                  item?.data?.avatar === undefined
+                  item?.avatar === undefined
                     ? images.avatar
-                    : item?.data?.avatar === '/uploads/example.jpeg'
+                    : item?.avatar === '/uploads/example.jpeg'
                     ? images.avatar
-                    : item?.data?.avatar === null
+                    : item?.avatar === null
                     ? images.avatar
-                    : {uri: item?.data?.avatar}
+                    : {uri: item?.avatar}
                 }
                 style={styles.avatar}
               />
               <View style={{marginLeft: scale(10)}}>
-                <Text style={styles.nameUV}>{item?.data?.name}</Text>
+                <Text style={styles.nameUV}>{item?.name}</Text>
                 <Text
                   style={[
                     styles.textitem,
@@ -183,7 +179,7 @@ const UV_Screen = ({navigation}) => {
                   flexDirection: 'row',
                   marginLeft: scale(10),
                   marginTop: scale(10),
-                  width: '58%',
+                  width: '52%',
                 }}>
                 <LocalIcon color={colors.BLUE} />
                 <Text style={styles.textitem}>{epl?.job_adress}</Text>
@@ -227,7 +223,7 @@ const UV_Screen = ({navigation}) => {
       <HeaderStyle type="filter" Title="Ứng viên đã ứng tuyển" />
       {/* main */}
       <View style={styles.main}>
-        {UV.length === 0 || UV === null ? (
+        {listUV.length === 0 || listUV === null ? (
           <View
             style={{
               paddingTop: scale(180),
@@ -244,9 +240,9 @@ const UV_Screen = ({navigation}) => {
           </View>
         ) : (
           <SwipeListView
-            data={UV}
+            data={listUV[0]}
             renderItem={({item}) => <RenderItem item={item} />}
-            keyExtractor={item => item.data?.positions}
+            keyExtractor={item => item.positions}
             renderHiddenItem={renderHinderItem}
             rightOpenValue={scale(-155)}
             ListFooterComponent={() => (

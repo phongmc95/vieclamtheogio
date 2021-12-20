@@ -4,24 +4,17 @@ import {scale} from 'react-native-size-matters';
 import TextInputPassword from '../../../components/TextInputPassword';
 import ButtonStyle from '../../../components/ButtonStyle';
 import {getDeviceWidth} from '../../../Utils/CheckDevice';
-import {useDispatch, useSelector} from 'react-redux';
 import ModalStyle from '../../../components/ModalStyle';
-import {changePass} from '../../../redux/actions/actions';
+import axios from 'axios';
+import NotifiSuccess from '../../../components/NotifiSuccess';
+import LoadSreen from '../../../components/loadScreen';
 const NewPass = ({navigation, route}) => {
-  const isChange = useSelector(state => state.Forgot.isChange);
-  const dispatch = useDispatch();
   const {email_otp} = route.params;
   const [pass, setPass] = useState('');
   const [pass1, setPass1] = useState('');
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    if (isChange === true) {
-      navigation.navigate('Login');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isChange]);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const submit = () => {
     if (pass1 !== pass) {
@@ -31,9 +24,33 @@ const NewPass = ({navigation, route}) => {
       setModal(true);
       setError('Các ô nhập là bắt buộc không được để trống! ');
     } else {
-      dispatch(changePass(email_otp, pass));
+      newPass();
     }
     return () => {};
+  };
+
+  const newPass = () => {
+    var data = JSON.stringify({
+      email: email_otp,
+      password: pass,
+    });
+
+    var config = {
+      method: 'post',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/auth/reset-password',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        setIsSuccess(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
@@ -78,6 +95,15 @@ const NewPass = ({navigation, route}) => {
         isVisible={modal}
         onBackdropPress={() => setModal(false)}
         content={error}
+      />
+      <NotifiSuccess
+        on={isSuccess}
+        off={() => {
+          setIsSuccess(false);
+          navigation.navigate('Login');
+        }}
+        title="THÔNG BÁO"
+        content="Đổi mật khẩu thành công!!!"
       />
     </View>
   );

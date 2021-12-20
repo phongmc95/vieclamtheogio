@@ -131,7 +131,11 @@ const styles = StyleSheet.create({
     color: '#404040',
     fontFamily: fonts.NORMAL,
   },
-  padding: {padding: scale(20)},
+  padding: {
+    paddingHorizontal: scale(20),
+    marginTop: scale(20),
+    marginBottom: scale(50),
+  },
   viewContent: {
     marginHorizontal: scale(8),
     width: '65%',

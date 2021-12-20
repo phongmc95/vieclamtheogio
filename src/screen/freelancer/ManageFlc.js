@@ -36,16 +36,13 @@ export default function ManageFlc({}) {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       <View style={styles.content}>
-        <Image style={styles.imgBalloon} source={images.balloon} />
-        <View style={styles.avatar}>
-          <Image
-            style={styles.imgAvatar}
-            source={
-              data?.user?.avatar ? {uri: data?.user?.avatar} : images.avatar
-            }
-          />
-          <Text style={styles.txtName}>{data?.user?.name}</Text>
-        </View>
+        <Image
+          style={styles.imgAvatar}
+          source={
+            data?.user?.avatar ? {uri: data?.user?.avatar} : images.avatar
+          }
+        />
+        <Text style={styles.txtName}>{data?.user?.name}</Text>
       </View>
       <View>
         <TouchableOpacity onPress={() => navigation.navigate('JobSaved')}>
@@ -141,11 +138,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#307df1',
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   imgBalloon: {
     marginLeft: scale(50),
   },
-  avatar: {position: 'absolute', left: scale(120), top: scale(50)},
+  avatar: {position: 'absolute'},
   imgAvatar: {
     height: scale(100),
     width: scale(100),
@@ -156,7 +155,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.BOLD,
     color: '#fff',
     marginTop: scale(10),
-    right: scale(30),
+    textAlign: 'center',
   },
   row: {flexDirection: 'row', marginTop: scale(5)},
 });

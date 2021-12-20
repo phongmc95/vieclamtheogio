@@ -18,7 +18,7 @@ import TextInputSelected from '../../../components/TextInputSelected';
 import {jobs, Literacy, Salary, WorkingForm} from '../../../data/Jobs';
 import SelectModal from '../../../components/SelectModal';
 import {useDispatch, useSelector} from 'react-redux';
-import {AddPostJob} from '../../../redux/actions/actions';
+import {AddPostJob, clearData} from '../../../redux/actions/actions';
 import ModalStyle from '../../../components/ModalStyle';
 import {validateEmail, isVietnamesePhoneNumber} from '../../../base/Validate';
 import {isIos} from '../../../Utils/CheckDevice';
@@ -27,6 +27,8 @@ import colors from '../../../constant/colors';
 import moment from 'moment';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import fonts from '../../../constant/fonts';
+import LoadSreen from '../../../components/loadScreen';
+import axios from 'axios';
 const reducer = (state, action) => {
   switch (action.type) {
     case 'START_TIME':
@@ -150,16 +152,12 @@ const initialStateContactInfo = {
 };
 
 const DangTin = ({navigation}) => {
-  const dis = useDispatch();
   const _id = useSelector(state => state.Authen.data);
-  const _success = useSelector(state => state.AddJob.success);
-  console.log('_success: ', _success);
-  const _error = useSelector(state => state.AddJob.message);
   const [work_schedule, dispatch] = useReducer(reducer, initialState);
   const [job_posting_position, setJob_posting_position] = useState('');
   const [visible, setVisible] = useState(false);
   const [work_location, setwork_location] = useState('');
-  const [career, setCareer] = useState('');
+  const [career, setCareer] = useState({id: null, title: ''});
   const [quantity_recruited, setQuantity_recruited] = useState('');
   const [working_form, setworking_form] = useState('');
   const [salary, setsalary] = useState('');
@@ -176,33 +174,19 @@ const DangTin = ({navigation}) => {
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
   const [dateVisibel, setDateVisibel] = useState(false);
-  const [timeVisibel, setTimeVisibel] = useState(false);
   const [type, settype] = useState('');
   const [date, setDate] = useState(new Date());
   const [isSalary, setIsSalary] = useState(false);
   const [isWorkingForm, setIsWorkingForm] = useState(false);
   const [isLiteracy, setIsLiteracy] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     set_work_schedule_list([work_schedule]);
   }, [work_schedule]);
 
-  useEffect(() => {
-    if (_success === true) {
-      setModal(true);
-      setError('Đăng tin thành công!!!');
-    }
-
-    if (_error) {
-      setModal(true);
-      setError('Đăng tin không thành công. Vui lòng đăng nhập lại!');
-    }
-    return () => {};
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [_success, _error]);
-
   const selectItem = item => {
-    setCareer(item.title);
+    setCareer(item);
     setVisible(false);
   };
 
@@ -236,7 +220,6 @@ const DangTin = ({navigation}) => {
       !salary ||
       !min_education ||
       !probation ||
-      !rose ||
       !posting_date ||
       !last_date ||
       !job_description ||
@@ -255,30 +238,54 @@ const DangTin = ({navigation}) => {
       setModal(true);
       setError('Số điện thoại không đúng định dạng. Vui lòng nhập lại !');
     } else {
-      dis(
-        AddPostJob(
-          job_posting_position,
-          career.title,
-          quantity_recruited,
-          work_location,
-          working_form,
-          salary,
-          min_education,
-          probation,
-          rose,
-          '',
-          posting_date,
-          last_date,
-          work_schedule_list,
-          job_description,
-          job_requirements,
-          benefits_enjoyed,
-          records_include,
-          contact_info,
-          _id?.user?.userId,
-        ),
-      );
+      addJob();
     }
+  };
+
+  const addJob = () => {
+    var data = JSON.stringify({
+      job_posting_position: job_posting_position,
+      career: career.title,
+      quantity_recruited: quantity_recruited,
+      work_location: work_location,
+      working_form: working_form,
+      salary: salary,
+      min_education: min_education,
+      probation: probation,
+      rose: rose,
+      posting_date: posting_date,
+      last_date: last_date,
+      work_schedule: work_schedule_list,
+      job_description: job_description,
+      job_requirements: job_requirements,
+      benefits_enjoyed: benefits_enjoyed,
+      records_include: records_include,
+      contact_info: contact_info,
+      createdBy: _id?.user?.userId,
+    });
+
+    var config = {
+      method: 'post',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/jobs',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setSuccess(true);
+        setModal(true);
+        setError('Đăng tin thành công!!!');
+      })
+      .catch(function (error) {
+        setSuccess(false);
+        setModal(true);
+        setError('Đăng tin không thành công. Vui lòng đăng nhập lại!');
+        console.log(error);
+      });
   };
 
   const onChange = (event, selectedDate) => {
@@ -293,33 +300,31 @@ const DangTin = ({navigation}) => {
     }
   };
 
-  const onChangeTime = (event, selectedDate) => {
-    const currentDate = selectedDate;
-    setTimeVisibel(Platform.OS === 'ios');
-    if (type !== 'last') {
-      dispatch({
-        type: 'START_TIME',
-        start_time: moment(currentDate).format('HH:mm'),
-      });
-      setTimeVisibel(false);
-    } else {
-      dispatch({
-        type: 'END_TIME',
-        end_time: moment(currentDate).format('HH:mm'),
-      });
-      setDateVisibel(false);
-    }
-  };
+  // const onChangeTime = (event, selectedDate) => {
+  //   const currentDate = selectedDate;
+  //   setTimeVisibel(Platform.OS === 'ios');
+  //   if (type !== 'last') {
+  //     dispatch({
+  //       type: 'START_TIME',
+  //       start_time: moment(currentDate).format('HH:mm'),
+  //     });
+  //     setTimeVisibel(false);
+  //   } else {
+  //     dispatch({
+  //       type: 'END_TIME',
+  //       end_time: moment(currentDate).format('HH:mm'),
+  //     });
+  //     setDateVisibel(false);
+  //   }
+  // };
 
   const closeModal = () => {
-    setModal(false);
-    dispatch({type: 'CLEAR_MODAL'});
-  };
-
-  const goBack = () => {
-    dispatch({type: 'CLEAR_MODAL'});
-    if (navigation.canGoBack) {
-      navigation.goBack();
+    if (success === true) {
+      if (navigation.canGoBack) {
+        navigation.goBack();
+      }
+    } else {
+      setModal(false);
     }
   };
 
@@ -344,7 +349,7 @@ const DangTin = ({navigation}) => {
           />
           <TextInputSelected
             Label="Ngành nghề"
-            value={career}
+            value={career.title}
             onChangeText={text => setCareer(text)}
             onPress={() => setVisible(true)}
           />
@@ -491,21 +496,25 @@ const DangTin = ({navigation}) => {
             Label="Mô tả"
             value={job_description}
             onChangeText={text => set_job_description(text)}
+            multiline={true}
           />
           <TextInputStyle
             Label="Yêu cầu công việc"
             value={job_requirements}
             onChangeText={text => set_job_requirements(text)}
+            multiline={true}
           />
           <TextInputStyle
             Label="Quyền lợi được hưởng"
             value={benefits_enjoyed}
             onChangeText={text => set_benefits_enjoyed(text)}
+            multiline={true}
           />
           <TextInputStyle
             Label="Hồ sơ bao gồm"
             value={records_include}
             onChangeText={text => set_records_include(text)}
+            multiline={true}
           />
           <Text
             style={{
@@ -592,7 +601,7 @@ const DangTin = ({navigation}) => {
 
       <ModalStyle
         isVisible={modal}
-        onBackdropPress={_success === true ? goBack : closeModal}
+        onBackdropPress={closeModal}
         content={error}
       />
 

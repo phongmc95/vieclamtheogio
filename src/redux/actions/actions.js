@@ -66,6 +66,14 @@ export const checkLogin = data => {
     data: data,
   };
 };
+
+export const clearData = () => {
+  return {
+    type: FETCH_POST_ADD_JOB_SUCCESS,
+    success: false,
+    data: null,
+  };
+};
 export const log_out = () => {
   return {
     type: LOG_OUT,
@@ -244,7 +252,7 @@ export const UpdateProfileEPl =
   (
     name,
     company_size,
-    tax_code,
+    tax_code = '',
     address,
     city,
     website,
@@ -263,12 +271,12 @@ export const UpdateProfileEPl =
         tax_code,
         address,
         city,
-
         website,
         description_company,
         phone,
         email,
       });
+      console.log('data: ', data);
 
       const response = await axiosClient.patch(url, data);
       dispatch({type: PROFILE_UPDATE_EPL_SUCCESS, data: response});
@@ -420,6 +428,7 @@ export const UpdateJob =
     try {
       dispatch({type: FETCH_POST_UPDATE_JOB_REQUEST});
       const url = `jobs/${idJob}`;
+      console.log('data: ', data);
       const data = JSON.stringify({
         job_posting_position,
         career,

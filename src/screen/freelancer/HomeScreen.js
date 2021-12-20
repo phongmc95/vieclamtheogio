@@ -96,6 +96,16 @@ export default function HomeScreen({navigation}) {
       <TitleHome name={data?.user?.name} />
       <ScrollView style={styles.scroll}>
         <View style={styles.viewCategory}>
+          <View
+            style={{
+              flexDirection: 'row',
+            }}>
+            <Text style={styles.txtTitle}>Danh sách công việc</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('JobHot', {list: listJobs})}>
+              <Text style={styles.txtSeeMore}>Xem thêm</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.listJob}>
             {jobs.map(item => (
               <TouchableOpacity

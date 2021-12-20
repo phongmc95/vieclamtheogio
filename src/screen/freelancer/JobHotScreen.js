@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,30 +6,61 @@ import {
   Image,
   ScrollView,
   SafeAreaView,
+  FlatList,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '@components/title/TitleBasic';
-import {jobs} from '@data/Jobs';
 import fonts from '@constant/fonts';
+import axios from 'axios';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
-export default function JobHotScreen() {
-  return (
-    <View>
-      <ScrollView>
-        <View style={styles.container}>
-          <TitleBasic title="việc làm nổi bật" />
-          {jobs.map(item => (
-            <View>
-              <View style={styles.content}>
-                <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.count}>
-                  {item.count} Công việc sẵn sàng
-                </Text>
-                <Image style={styles.image} source={item.img} />
-              </View>
-            </View>
-          ))}
+export default function JobHotScreen({route, navigation}) {
+  const {list} = route.params;
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    var config = {
+      method: 'get',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/jobs/career',
+    };
+
+    axios(config)
+      .then(function (response) {
+        setJobs(response.data.career);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    return () => {};
+  }, []);
+
+  const renderItem = ({item}) => {
+    const count = list.filter(it => it.career === item.title).length;
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('ListJob', {
+            list: list,
+            title: item.title,
+          })
+        }>
+        <View style={styles.content}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.count}>{count} Công việc sẵn sàng</Text>
+          <Image style={styles.image} source={item.img} />
         </View>
+      </TouchableOpacity>
+    );
+  };
+  return (
+    <View style={styles.container}>
+      <TitleBasic title="việc làm nổi bật" />
+      <ScrollView style={{marginBottom: scale(20)}}>
+        <FlatList
+          data={jobs}
+          keyExtractor={item => item._id}
+          renderItem={renderItem}
+        />
       </ScrollView>
     </View>
   );
@@ -46,7 +77,6 @@ const styles = StyleSheet.create({
     width: '90%',
     borderRadius: scale(20),
     backgroundColor: '#307DF1',
-
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
