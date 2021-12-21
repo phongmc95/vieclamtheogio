@@ -18,6 +18,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {log_out} from '../../redux/actions/actions';
 import LoadSreen from '../../components/loadScreen';
+import {LOG_OUT} from '../../redux/actions/type/Type';
 
 export default function ManageFlc({}) {
   const [modal, setModal] = useState(false);
@@ -25,8 +26,10 @@ export default function ManageFlc({}) {
   const navigation = useNavigation();
   const data = useSelector(state => state.ProfileEPl.data);
   const logout = () => {
-    dispatch(log_out());
-    navigation.navigate('Intro');
+    dispatch({
+      type: LOG_OUT,
+    });
+    navigation.push('Intro');
     setModal(false);
   };
   const toggleModal = () => {

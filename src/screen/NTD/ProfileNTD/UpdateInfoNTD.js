@@ -31,7 +31,7 @@ const UpdateInfoNTD = ({navigation, route}) => {
   // const [phone, setPhone] = useState('');
   const [web, setWeb] = useState(item.website);
   const [intro, setIntro] = useState(item.description_company);
-  const [logo, setLogo] = useState(item.avatar);
+  const [logo, setLogo] = useState({uri: item.avatar});
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -119,10 +119,6 @@ const UpdateInfoNTD = ({navigation, route}) => {
   //   handleSelectProvince();
   // };
 
-  const handleSelectProvince = () => {
-    setIsProvince(!isProvince);
-  };
-
   return (
     <View style={styles.contener}>
       <View style={styles.StatusBar}>
@@ -139,10 +135,8 @@ const UpdateInfoNTD = ({navigation, route}) => {
             <Image
               source={
                 logo
-                  ? {uri: logo}
-                  : logo === null
-                  ? require('../../../../assets/img/logoVin.png')
-                  : {uri: logo.uri}
+                  ? {uri: logo.uri}
+                  : require('../../../../assets/img/logoVin.png')
               }
               style={[styles.avatar]}
             />

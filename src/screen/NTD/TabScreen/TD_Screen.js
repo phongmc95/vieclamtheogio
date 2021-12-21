@@ -5,29 +5,17 @@ import {
   View,
   FlatList,
   TouchableOpacity,
-  Image,
-  useWindowDimensions,
-  Dimensions,
   Alert,
   StatusBar,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {FAB} from 'react-native-paper';
-import {
-  DeleteICon,
-  LikeIcon,
-  HsIcon,
-  LocalIcon,
-  ViewIcon,
-  EyeIconPass,
-} from '../../../../assets/icon';
-import {TabView, TabBar} from 'react-native-tab-view';
+import {DeleteICon} from '../../../../assets/icon';
 import HeaderStyle from '../../../components/HeaderStyle';
 import colors from '../../../constant/colors';
 import {ButtonItemLuu} from '../../../components/Button/ButtonItem';
 import fonts from '../../../constant/fonts';
 import FloatActionButton from '../../../components/FloatActionButton';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
 const TD_Screen = ({navigation}) => {

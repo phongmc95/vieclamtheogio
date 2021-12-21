@@ -22,7 +22,6 @@ import {useSelector} from 'react-redux';
 
 const Resgister = ({navigation, route}) => {
   const checkLogin = useSelector(state => state.Authen.check_type);
-  const load = useSelector(state => state.Authen.requesting);
   const [phone, setPhone] = useState('');
   const [pass, setPass] = useState('');
   const [pass1, setPass1] = useState('');
@@ -65,6 +64,7 @@ const Resgister = ({navigation, route}) => {
       address: address,
       industry: checkLogin === 'flc' ? desiredProfession.title : null,
       job_adress: checkLogin === 'flc' ? province.title : null,
+      role: checkLogin === 'flc' ? 'candidate' : 'employer',
     });
 
     var config = {

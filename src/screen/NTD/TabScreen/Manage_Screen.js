@@ -17,6 +17,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import logo from '../../../../assets/img/logoVin.png';
 import axios from 'axios';
 import {useIsFocused} from '@react-navigation/core';
+import {LOG_OUT} from '../../../redux/actions/type/Type';
 const Manage_Screen = ({navigation}) => {
   const data = useSelector(state => state.ProfileEPl.data);
   const [visible, setVisible] = React.useState(false);
@@ -45,8 +46,10 @@ const Manage_Screen = ({navigation}) => {
   }, [isFocused]);
 
   const submit = () => {
-    dispatch(log_out());
-    navigation.navigate('Intro');
+    dispatch({
+      type: LOG_OUT,
+    });
+    navigation.push('Intro');
     hideModal();
   };
   return (

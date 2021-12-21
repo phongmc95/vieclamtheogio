@@ -13,17 +13,19 @@ import colors from '../../constant/colors';
 import fonts from '../../constant/fonts';
 import icons from '../../constant/icons';
 import images from '../../constant/images';
+import {useIsFocused} from '@react-navigation/native';
 
 export default function ListJobScreen({navigation, route}) {
   const {list, title} = route.params;
   const [listJob, setListJob] = useState('');
+  const isFocued = useIsFocused();
 
   useEffect(() => {
     const filter = list.filter(item => item.career === title);
     setListJob(filter);
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isFocued]);
 
   const renderItem = ({item}) => (
     <TouchableOpacity

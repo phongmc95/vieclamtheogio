@@ -28,8 +28,8 @@ const initialState = {
   verify_forgot: false,
   is_register: false,
   is_forget: false,
-
 };
+
 const LogIn = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_POST_LOGIN_REQUEST:
@@ -122,7 +122,15 @@ const LogIn = (state = initialState, action) => {
       };
 
     case LOG_OUT:
-      return initialState;
+      return {
+        ...state,
+        requesting: false,
+        success: false,
+        message: null,
+        data: null,
+        check_type: null,
+      };
+
     case CHECK_VERIFY:
       return {
         ...state,

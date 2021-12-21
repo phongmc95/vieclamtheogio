@@ -36,7 +36,7 @@ export default function UpdateInfomation({navigation, route}) {
   const [name, setName] = useState(info.name);
   const [birthday, setBirthday] = useState(info.birthday);
   const [gender, setGender] = useState('');
-  const [marital, setMarital] = useState('');
+  const [marital, setMarital] = useState('Tình trạng hôn nhân');
   const [address, setAddress] = useState(info.address);
   const [avatar, setAvatar] = useState({uri: info?.avatar});
   const [checkGender, setCheckGender] = useState(false);
