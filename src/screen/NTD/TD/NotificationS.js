@@ -97,10 +97,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: scale(18),
-    fontWeight: '700',
-    lineHeight: scale(20),
+    fontSize: scale(22),
     marginLeft: scale(20),
+    fontFamily: fonts.BOLD,
+    textTransform: 'uppercase',
+    top: scale(2),
   },
   goback: {
     marginLeft: scale(10),

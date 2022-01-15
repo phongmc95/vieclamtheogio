@@ -6,7 +6,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  SafeAreaView,
+  FlatList,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleBasic from '@components/title/TitleBasic';
@@ -15,35 +15,289 @@ import {jobs} from '@data/Jobs';
 import search from '@data/Search';
 import fonts from '@constant/fonts';
 import colors from '../../constant/colors';
+import {literacy, location, salary, workingForm} from '../../data/Jobs';
+import {listRank} from '../../data/ListJob';
+import Button from '../../components/Button/Button';
 
-export default function FilterScreen() {
-  const [check, setCheck] = useState(false);
+export default function FilterScreen({navigation}) {
+  const [state, setState] = useState('Ngành nghề');
+  const [listState, setListState] = useState(search);
+  const [listJob, setListJob] = useState(jobs);
+  const [listLocation, setListLocation] = useState(location);
+  const [listSalary, setListSalary] = useState(salary);
+  const [listWorkForm, setListWorkForm] = useState(workingForm);
+  // const [listPost, setListPost] = useState(listRank);
+  const [listAcademyLevel, setListAcademyLevel] = useState(literacy);
+  const [job, setJob] = useState('');
+  const [locations, setLocation] = useState('');
+  const [salarys, setSalary] = useState('');
+  // const [rank, setRank] = useState('');
+  const [workform, setWorkForm] = useState('');
+  const [academyLevel, setAcademyLevel] = useState('');
+
+  const renderItem = ({item, index}) => {
+    return (
+      <TouchableOpacity onPress={() => handleState(item, index)}>
+        <View style={styles.viewSearch}>
+          <View style={styles.imgSearch(item)}>{item.img}</View>
+          <Text style={styles.titleSearch}>{item.title}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  const handleState = (item, index) => {
+    setState(item.title);
+    const _listState = listState.map((it, idx) => {
+      return idx === index ? {...it, isCheck: true} : {...it, isCheck: false};
+    });
+    setListState(_listState);
+  };
+
+  const handleJob = (item, index) => {
+    setJob(item.title);
+    setLocation('');
+    setSalary('');
+    setWorkForm('');
+    setAcademyLevel('');
+    const _job = JSON.parse(JSON.stringify(listJob));
+    const _listJob = _job.map((it, idx) => {
+      return idx === index ? {...it, isCheck: true} : {...it, isCheck: false};
+    });
+    setListJob(_listJob);
+  };
+
+  const handleMap = (item, index) => {
+    setLocation(item.title);
+    setJob('');
+    setSalary('');
+    setWorkForm('');
+    setAcademyLevel('');
+    const _job = JSON.parse(JSON.stringify(listLocation));
+    const _listJob = _job.map((it, idx) => {
+      return idx === index ? {...it, isCheck: true} : {...it, isCheck: false};
+    });
+    setListLocation(_listJob);
+  };
+
+  const handleSalary = (item, index) => {
+    setSalary(item.title);
+    setJob('');
+    setLocation('');
+    setWorkForm('');
+    setAcademyLevel('');
+    const _job = JSON.parse(JSON.stringify(listSalary));
+    const _listJob = _job.map((it, idx) => {
+      return idx === index ? {...it, isCheck: true} : {...it, isCheck: false};
+    });
+    setListSalary(_listJob);
+  };
+
+  const handleWorkForm = (item, index) => {
+    setWorkForm(item.title);
+    setJob('');
+    setLocation('');
+    setSalary('');
+    setAcademyLevel('');
+    const _job = JSON.parse(JSON.stringify(listWorkForm));
+    const _listJob = _job.map((it, idx) => {
+      return idx === index ? {...it, isCheck: true} : {...it, isCheck: false};
+    });
+    setListWorkForm(_listJob);
+  };
+
+  // const handleRank = (item, index) => {
+  //   setRank(item.title);
+  //   const _job = JSON.parse(JSON.stringify(listPost));
+  //   const _listJob = _job.map((it, idx) => {
+  //     return idx === index ? {...it, isCheck: true} : {...it, isCheck: false};
+  //   });
+  //   setListPost(_listJob);
+  // };
+
+  const handleAcademyLevel = (item, index) => {
+    setAcademyLevel(item.title);
+    setJob('');
+    setLocation('');
+    setSalary('');
+    setWorkForm('');
+    const _job = JSON.parse(JSON.stringify(listAcademyLevel));
+    const _listJob = _job.map((it, idx) => {
+      return idx === index ? {...it, isCheck: true} : {...it, isCheck: false};
+    });
+    setListAcademyLevel(_listJob);
+  };
+
+  const confirm = () => {
+    navigation.navigate('ListJob', {
+      title: job,
+      salary: salarys,
+      min_education: academyLevel,
+      working_form: workform,
+      work_location: locations,
+      type: 'filter',
+    });
+  };
+
   return (
     <View>
       <TitleBasic title="Tìm kiếm nâng cao" />
       <View style={styles.content}>
-        {search.map(item => (
-          <View style={styles.viewSearch}>
-            <Image style={styles.imgSearch} source={item.img} />
-            <Text style={styles.titleSearch}>{item.title}</Text>
-          </View>
-        ))}
+        <FlatList
+          data={listState ? listState : search}
+          numColumns={3}
+          key={(item, index) => item.id}
+          renderItem={renderItem}
+        />
       </View>
-      <View style={styles.viewTextSearch}>
-        <TextInput placeholder="Nhập để tìm kiếm" style={styles.inputSearch} />
 
-        {jobs.map(item => (
-          <View style={styles.list}>
-            <TouchableOpacity onPress={() => setCheck(!check)}>
-              <Image
-                style={{marginTop: scale(4.5)}}
-                source={!check ? icons.check : icons.checked}
-              />
-            </TouchableOpacity>
-            <Text style={styles.title}>{item.title}</Text>
-          </View>
-        ))}
-      </View>
+      {state === 'Ngành nghề' && (
+        <View style={styles.viewTextSearch}>
+          <TextInput
+            placeholder="Nhập để tìm kiếm"
+            style={styles.inputSearch}
+          />
+          {listJob.map((item, index) => (
+            <View style={styles.list}>
+              <TouchableOpacity onPress={() => handleJob(item, index)}>
+                <Text style={styles.title}>
+                  <Image
+                    source={
+                      item.isCheck === false ? icons.check : icons.checked
+                    }
+                  />
+                  {'   '}
+                  {item.title}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
+      )}
+
+      {state === 'Địa điểm' && (
+        <View style={styles.viewTextSearch}>
+          <TextInput
+            placeholder="Nhập để tìm kiếm"
+            style={styles.inputSearch}
+          />
+          {listLocation.map((item, index) => (
+            <View style={styles.list}>
+              <TouchableOpacity onPress={() => handleMap(item, index)}>
+                <Text style={styles.title}>
+                  <Image
+                    source={
+                      item.isCheck === false ? icons.check : icons.checked
+                    }
+                  />
+                  {'   '}
+                  {item.title}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
+      )}
+
+      {state === 'Mức lương' && (
+        <View style={styles.viewTextSearch}>
+          <TextInput
+            placeholder="Nhập để tìm kiếm"
+            style={styles.inputSearch}
+          />
+          {listSalary.map((item, index) => (
+            <View style={styles.list}>
+              <TouchableOpacity onPress={() => handleSalary(item, index)}>
+                <Text style={styles.title}>
+                  <Image
+                    source={
+                      item.isCheck === false ? icons.check : icons.checked
+                    }
+                  />
+                  {'   '}
+                  {item.title}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
+      )}
+
+      {state === 'Hình thức làm việc' && (
+        <View style={styles.viewTextSearch}>
+          <TextInput
+            placeholder="Nhập để tìm kiếm"
+            style={styles.inputSearch}
+          />
+          {listWorkForm.map((item, index) => (
+            <View style={styles.list}>
+              <TouchableOpacity onPress={() => handleWorkForm(item, index)}>
+                <Text style={styles.title}>
+                  <Image
+                    source={
+                      item.isCheck === false ? icons.check : icons.checked
+                    }
+                  />
+                  {'   '}
+                  {item.title}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
+      )}
+
+      {/* {state === 'Cấp bậc' && (
+        <View style={styles.viewTextSearch}>
+          <TextInput
+            placeholder="Nhập để tìm kiếm"
+            style={styles.inputSearch}
+          />
+          {listPost.map((item, index) => (
+            <View style={styles.list}>
+              <TouchableOpacity onPress={() => handleRank(item, index)}>
+                <Text style={styles.title}>
+                  <Image
+                    source={
+                      item.isCheck === false ? icons.check : icons.checked
+                    }
+                  />
+                  {'   '}
+                  {item.title}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
+      )} */}
+
+      {state === 'Trình độ học vấn' && (
+        <View style={styles.viewTextSearch}>
+          <TextInput
+            placeholder="Nhập để tìm kiếm"
+            style={styles.inputSearch}
+          />
+          {listAcademyLevel.map((item, index) => (
+            <View style={styles.list}>
+              <TouchableOpacity onPress={() => handleAcademyLevel(item, index)}>
+                <Text style={styles.title}>
+                  <Image
+                    source={
+                      item.isCheck === false ? icons.check : icons.checked
+                    }
+                  />
+                  {'   '}
+                  {item.title}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
+      )}
+
+      <TouchableOpacity onPress={confirm} style={styles.btnConfirm}>
+        <Button bg={colors.BLUE} color={colors.WHITE} title="Áp dụng" />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -52,17 +306,24 @@ const styles = StyleSheet.create({
   content: {
     flexDirection: 'row',
     width: '100%',
-    height: scale(255),
+    height: scale(205),
     flexWrap: 'wrap',
     marginTop: scale(33),
     paddingLeft: scale(10),
   },
   viewSearch: {
     width: scale(110),
-    height: scale(110),
+    height: scale(100),
     alignItems: 'center',
   },
-  imgSearch: {height: scale(40), width: scale(40)},
+  imgSearch: item => ({
+    height: scale(40),
+    width: scale(40),
+    backgroundColor: item.isCheck === true ? colors.BLUE : '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: scale(10),
+  }),
   titleSearch: {
     textAlign: 'center',
     flexWrap: 'wrap',
@@ -90,6 +351,7 @@ const styles = StyleSheet.create({
     borderRadius: scale(30),
     paddingVertical: scale(8),
     paddingLeft: scale(20),
+    backgroundColor: colors.WHITE,
   },
   list: {
     marginTop: scale(5),
@@ -102,4 +364,5 @@ const styles = StyleSheet.create({
     marginLeft: scale(10),
     fontFamily: fonts.NORMAL,
   },
+  btnConfirm: {alignItems: 'center', bottom: '65%'},
 });

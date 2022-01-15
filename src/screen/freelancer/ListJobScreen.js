@@ -14,15 +14,55 @@ import fonts from '../../constant/fonts';
 import icons from '../../constant/icons';
 import images from '../../constant/images';
 import {useIsFocused} from '@react-navigation/native';
+import axios from 'axios';
+import {FilterMoreIcon} from '../../../assets/icon';
 
 export default function ListJobScreen({navigation, route}) {
-  const {list, title} = route.params;
-  const [listJob, setListJob] = useState('');
+  const {title, salary, min_education, working_form, work_location} =
+    route.params;
+  const [listJob, setListJob] = useState([]);
   const isFocued = useIsFocused();
 
   useEffect(() => {
-    const filter = list.filter(item => item.career === title);
-    setListJob(filter);
+    var config = {
+      method: 'get',
+      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/jobs',
+    };
+
+    axios(config)
+      .then(function (response) {
+        if (title) {
+          const filter = response.data.jobs.filter(
+            item => item.career === title,
+          );
+          setListJob(filter);
+        } else if (salary) {
+          const filter = response.data.jobs.filter(
+            item => item.salary === salary,
+          );
+          setListJob(filter);
+        } else if (work_location) {
+          const filter = response.data.jobs.filter(
+            item => item.work_location === work_location,
+          );
+          setListJob(filter);
+        } else if (min_education) {
+          const filter = response.data.jobs.filter(
+            item => item.min_education[0] === min_education,
+          );
+          setListJob(filter);
+        } else if (working_form) {
+          const filter = response.data.jobs.filter(
+            item => item.working_form === working_form,
+          );
+          setListJob(filter);
+        } else {
+          setListJob(response.data.jobs);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocued]);
@@ -68,10 +108,14 @@ export default function ListJobScreen({navigation, route}) {
   );
   return (
     <View style={styles.container}>
-      <TitleBasic title="danh sách việc" />
+      <TitleBasic
+        title="danh sách việc"
+        ic={<FilterMoreIcon />}
+        onPress={() => navigation.navigate('Filters')}
+      />
       <View style={styles.padding}>
         <FlatList
-          data={title === '' ? list : listJob}
+          data={listJob}
           keyExtractor={item => item._id}
           renderItem={renderItem}
         />

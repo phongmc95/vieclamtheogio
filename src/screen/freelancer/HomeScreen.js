@@ -113,6 +113,11 @@ export default function HomeScreen({navigation}) {
                   navigation.navigate('ListJob', {
                     list: listJobs,
                     title: item.title,
+                    salary: '',
+                    min_education: '',
+                    working_form: '',
+                    work_location: '',
+                    type: 'home',
                   })
                 }>
                 <View style={styles.boxCategory}>
@@ -130,6 +135,11 @@ export default function HomeScreen({navigation}) {
                   navigation.navigate('ListJob', {
                     list: listJobs,
                     title: '',
+                    salary: '',
+                    min_education: '',
+                    working_form: '',
+                    work_location: '',
+                    type: 'home',
                   })
                 }>
                 <Text style={styles.txtSeeMore}>Xem thêm</Text>

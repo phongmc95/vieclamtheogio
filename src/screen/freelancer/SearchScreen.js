@@ -7,6 +7,7 @@ import icons from '../../constant/icons';
 import {jobs} from '../../data/Jobs';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../constant/colors';
+import {TrashIcon} from '../../../assets/icon';
 
 export default function SearchScreen() {
   return (
@@ -15,7 +16,9 @@ export default function SearchScreen() {
       <View style={styles.viewSearch}>
         <View style={styles.row}>
           <Text style={styles.txtSearch}>Tìm kiếm gần đây</Text>
-          <Image style={styles} source={icons.trash_black} />
+          <View style={{marginBottom: scale(15), marginLeft: scale(8)}}>
+            <TrashIcon />
+          </View>
         </View>
         {jobs.map(item => (
           <Text style={styles.title}>{item.title}</Text>

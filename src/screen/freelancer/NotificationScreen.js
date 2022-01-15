@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     color: '#404040',
     fontFamily: fonts.NORMAL,
     flexWrap: 'wrap',
-    width: '50%',
+    width: '38%',
   },
   txtTime: {
     fontSize: scale(12),

@@ -131,8 +131,9 @@ const UV_Screen = ({navigation}) => {
   };
 
   const listData = data?.filter(item => item.createdBy === idEmp?.user?.userId);
-  const listUV = listData?.map(item => item.applicants_applied);
-
+  const listUV = listData
+    ?.map(item => item.applicants_applied)
+    .find(item => item);
   //console.log(item?.applicants_applied,">>>");
 
   const RenderItem = ({item}) => {
@@ -240,7 +241,7 @@ const UV_Screen = ({navigation}) => {
           </View>
         ) : (
           <SwipeListView
-            data={listUV[0]}
+            data={listUV}
             renderItem={({item}) => <RenderItem item={item} />}
             keyExtractor={item => item.positions}
             renderHiddenItem={renderHinderItem}

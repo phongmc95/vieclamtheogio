@@ -3,13 +3,16 @@ import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import fonts from '../../constant/fonts';
-import icons from '../../constant/icons';
 import {isIos} from '../../Utils/CheckDevice';
 import {useSelector} from 'react-redux';
 import images from '../../constant/images';
-import {NotificationICON} from '../../../assets/icon';
+import {
+  NotificationIcon,
+  NotificationICON,
+  SearchIcon,
+} from '../../../assets/icon';
 
-export default function TitleHome({name}) {
+export default function TitleHome({name, type}) {
   const dataq = useSelector(state => state.ProfileEPl.data);
   const navigation = useNavigation();
   return (
@@ -35,7 +38,7 @@ export default function TitleHome({name}) {
           dataq?.user?.avatar ? {uri: dataq?.user?.avatar} : images.avatar
         }
       />
-      <View style={{marginLeft: scale(10), width: '70%'}}>
+      <View style={{marginLeft: scale(10), width: '55%'}}>
         <Text
           style={{
             fontSize: scale(13),
@@ -49,15 +52,29 @@ export default function TitleHome({name}) {
             fontSize: scale(16),
             color: '#fff',
             fontFamily: fonts.BOLD,
+            marginTop: scale(5),
           }}>
           {name}
         </Text>
       </View>
       <TouchableOpacity
-        onPress={() => navigation.navigate('Notification')}
         style={{
-          width: scale(35),
-          height: scale(35),
+          borderRadius: scale(17.5),
+          backgroundColor: 'white',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: scale(10),
+          marginLeft: scale(15),
+          marginRight: scale(5),
+        }}
+        onPress={() => navigation.navigate('Search')}>
+        <SearchIcon />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate(type === 'epl' ? 'NotificationS' : 'Notification')
+        }
+        style={{
           borderRadius: scale(17.5),
           backgroundColor: 'white',
           alignItems: 'center',
@@ -65,7 +82,7 @@ export default function TitleHome({name}) {
           marginTop: scale(10),
           marginLeft: scale(10),
         }}>
-        <NotificationICON />
+        <NotificationIcon />
       </TouchableOpacity>
     </View>
   );

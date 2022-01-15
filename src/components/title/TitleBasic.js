@@ -14,6 +14,9 @@ export default function TitleBasic(props) {
         <Image style={styles.icBack} source={icons.back} />
       </TouchableOpacity>
       <Text style={styles.title}>{props.title}</Text>
+      <TouchableOpacity onPress={props.onPress}>
+        <View style={{marginTop: scale(5)}}>{props.ic}</View>
+      </TouchableOpacity>
       <Image style={styles.image} source={props.icon} />
     </View>
   );
@@ -30,13 +33,12 @@ const styles = StyleSheet.create({
     paddingTop: scale(isIos ? 60 : 10),
   },
   title: {
-    fontSize: scale(16),
-    lineHeight: scale(19),
+    fontSize: scale(22),
     color: '#fff',
     fontFamily: fonts.BOLD,
     textTransform: 'uppercase',
     marginLeft: scale(20),
-    marginTop: scale(8),
+    marginTop: scale(5),
     width: '78%',
   },
   image: {height: scale(30), width: scale(23)},

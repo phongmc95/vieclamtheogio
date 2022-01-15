@@ -4,6 +4,7 @@ import LogIn from './LogIn';
 import ProfileEmployer from './ProfileEmployer';
 import AddJob from './AddJob';
 import POSTUPDATEJOB from './UpdateJob';
+import Search from './Search';
 
 const rootReducer = combineReducers({
   Authen: LogIn,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   ProfileEPl: ProfileEmployer,
   AddJob: AddJob,
   UpDateJob: POSTUPDATEJOB,
+  Search: Search,
 });
 
 export default (state, action) => rootReducer(state, action);

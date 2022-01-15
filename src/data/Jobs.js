@@ -4,12 +4,30 @@ import icons from '../constant/icons';
 export const currentDate = moment(new Date()).format('DD/MM/YYYY');
 
 export const jobs = [
-  {id: 1, title: 'Bán hàng', img: icons.cart, count: '1000'},
-  {id: 2, title: 'Giao hàng', img: icons.solid, count: '1000'},
-  {id: 3, title: 'Hành chính', img: icons.man, count: '1000'},
-  {id: 4, title: 'Phục vụ/Tạp vụ', img: icons.house, count: '1000'},
-  {id: 5, title: 'Nấu ăn/Đầu bếp', img: icons.chef, count: '1000'},
-  {id: 6, title: 'Xây dựng/Công trình', img: icons.bulding, count: '1000'},
+  {id: 1, title: 'Bán hàng', img: icons.cart, count: '1000', isCheck: false},
+  {id: 2, title: 'Giao hàng', img: icons.solid, count: '1000', isCheck: false},
+  {id: 3, title: 'Hành chính', img: icons.man, count: '1000', isCheck: false},
+  {
+    id: 4,
+    title: 'Phục vụ/Tạp vụ',
+    img: icons.house,
+    count: '1000',
+    isCheck: false,
+  },
+  {
+    id: 5,
+    title: 'Nấu ăn/Đầu bếp',
+    img: icons.chef,
+    count: '1000',
+    isCheck: false,
+  },
+  {
+    id: 6,
+    title: 'Xây dựng/Công trình',
+    img: icons.bulding,
+    count: '1000',
+    isCheck: false,
+  },
 ];
 export const profession = [
   {id: '11', title: 'trông trẻ theo giờ', parent: '2'},
@@ -89,60 +107,105 @@ export const working_day = [
   },
 ];
 
-export const Salary = [
+export const salary = [
   {
     id: '1',
     title: 'Dưới 5 triệu',
+    isCheck: false,
   },
   {
     id: '2',
     title: '5 - 10 triệu',
+    isCheck: false,
   },
   {
     id: '3',
     title: '10 - 15 triệu',
+    isCheck: false,
   },
   {
     id: '4',
     title: 'Trên 20 triệu',
+    isCheck: false,
   },
 ];
 
-export const Literacy = [
+export const literacy = [
   {
     id: '1',
     title: 'Trung học cơ sở',
+    isCheck: false,
   },
   {
     id: '2',
     title: 'Trung học phổ thông',
+    isCheck: false,
   },
   {
     id: '3',
     title: 'Cao đẳng',
+    isCheck: false,
   },
   {
     id: '4',
     title: 'Đại học',
+    isCheck: false,
   },
 ];
 
-export const WorkingForm = [
+export const location = [
+  {
+    id: '1',
+    title: 'Hà Nội',
+    isCheck: false,
+  },
+  {
+    id: '2',
+    title: 'Hải Phòng',
+    isCheck: false,
+  },
+  {
+    id: '3',
+    title: 'Đà Nẵng',
+    isCheck: false,
+  },
+  {
+    id: '4',
+    title: 'Hồ Chí Minh',
+    isCheck: false,
+  },
+  {
+    id: '5',
+    title: 'Cần Thơ',
+    isCheck: false,
+  },
+  {
+    id: '6',
+    title: 'Biên Hoà',
+    isCheck: false,
+  },
+];
+
+export const workingForm = [
   {
     id: '1',
     title: 'Việc làm toàn thời gian',
+    isCheck: false,
   },
   {
     id: '2',
     title: 'Việc làm bán thời gian',
+    isCheck: false,
   },
   {
     id: '3',
     title: 'Việc làm tại nhà',
+    isCheck: false,
   },
   {
     id: '4',
     title: 'Việc làm thời vụ',
+    isCheck: false,
   },
 ];
 

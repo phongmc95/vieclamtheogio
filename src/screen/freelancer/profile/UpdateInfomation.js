@@ -33,10 +33,11 @@ const listMarital = [
 
 export default function UpdateInfomation({navigation, route}) {
   const {info} = route.params;
+  console.log('info: ', info);
   const [name, setName] = useState(info.name);
   const [birthday, setBirthday] = useState(info.birthday);
   const [gender, setGender] = useState('');
-  const [marital, setMarital] = useState('Tình trạng hôn nhân');
+  const [marital, setMarital] = useState(info.marital_status);
   const [address, setAddress] = useState(info.address);
   const [avatar, setAvatar] = useState({uri: info?.avatar});
   const [checkGender, setCheckGender] = useState(false);
@@ -167,7 +168,13 @@ export default function UpdateInfomation({navigation, route}) {
           <View style={{alignItems: 'center'}}>
             <Image
               style={styles.avatar}
-              source={avatar ? {uri: avatar.uri} : images.avatar}
+              source={
+                !avatar
+                  ? images.avatar
+                  : avatar.uri === null
+                  ? images.avatar
+                  : {uri: avatar.uri}
+              }
             />
             <TouchableOpacity onPress={openLibry}>
               <Text style={styles.txtAvatar}>Cập nhật ảnh đại diện</Text>
@@ -227,7 +234,9 @@ export default function UpdateInfomation({navigation, route}) {
                   : 'Tình trạng hôn nhân'
               }
             /> */}
-            <Text style={styles.textInput}>{marital}</Text>
+            <Text style={styles.textInput}>
+              {marital ? marital : 'Tình trạng hôn nhân'}
+            </Text>
             <TouchableOpacity onPress={handleMarital}>
               <Image style={styles.select} source={icons.select} />
             </TouchableOpacity>

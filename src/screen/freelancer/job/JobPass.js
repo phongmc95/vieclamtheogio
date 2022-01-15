@@ -144,7 +144,11 @@ export default function JobPass({navigation}) {
             <View style={styles.info}>
               <View style={styles.type}>
                 <Image style={styles.iconJob} source={icons.local} />
-                <Text style={styles.txtStatus}>{item.work_location}</Text>
+                <Text
+                  numberOfLines={1}
+                  style={[styles.txtStatus, {width: '80%'}]}>
+                  {item.work_location}
+                </Text>
               </View>
               <View style={styles.salary}>
                 <Image style={styles.iconJob} source={icons.calendar_blue} />

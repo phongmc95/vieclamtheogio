@@ -7,12 +7,10 @@ import {
   TouchableOpacity,
   ScrollView,
   FlatList,
-  SafeAreaView,
   Dimensions,
   StatusBar,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import Button from '../../../components/Button/Button';
 import HeaderStyle from '../../../components/HeaderStyle';
 import colors from '../../../constant/colors';
 import fonts from '../../../constant/fonts';
@@ -23,24 +21,12 @@ import {useIsFocused} from '@react-navigation/native';
 import ButtonStyle from '../../../components/ButtonStyle';
 import images from '../../../constant/images';
 import {LineChart} from 'react-native-chart-kit';
-import {ClockIcon, LocalIcon, PhoneIcon} from '../../../../assets/icon';
-import moment from 'moment';
+import {LocalIcon, PhoneIcon} from '../../../../assets/icon';
 import EmptyData from '../../../components/EmptyData';
+import TitleHome from '../../../components/title/TitleHome';
 
 const screenWidth = Dimensions.get('window').width;
 const Home = ({navigation}) => {
-  const chartConfig = {
-    backgroundGradientFrom: '#1E2923',
-    backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: '#08130D',
-    backgroundGradientToOpacity: 0.5,
-    // color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false, // optional
-    color: (opacity = 1) => `rgba(0, 0, 0,${opacity})`,
-  };
-
   const dispatch = useDispatch();
   const _id = useSelector(state => state.Authen.data);
   const data = useSelector(state => state.ProfileEPl.data);
@@ -51,10 +37,16 @@ const Home = ({navigation}) => {
   const [job, setJob] = useState([]);
 
   useEffect(() => {
-    dispatch(ProfileEPl(_id.user?.userId));
-  }, []);
+    dispatch(ProfileEPl(_id?.user?.userId));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [_id, isFocused]);
 
   useEffect(() => {
+    info();
+    return () => {};
+  }, [isFocused]);
+
+  const info = () => {
     var config = {
       method: 'get',
       url: 'https://fpt-jobs-api.herokuapp.com/api/v1/jobs',
@@ -67,8 +59,7 @@ const Home = ({navigation}) => {
       .catch(function (error) {
         console.log(error);
       });
-    return () => {};
-  }, [isFocused]);
+  };
 
   useEffect(() => {
     var config = {
@@ -108,6 +99,18 @@ const Home = ({navigation}) => {
 
   const listUV = listData.map(item => item.applicants_applied);
 
+  const chartConfig = {
+    backgroundGradientFrom: '#1E2923',
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: '#08130D',
+    backgroundGradientToOpacity: 0.5,
+    // color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    strokeWidth: 2, // optional, default 3
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false, // optional
+    color: (opacity = 1) => `rgba(0, 0, 0,${opacity})`,
+  };
+
   const DATA = {
     labels: ['T12', 'T1', 'T2', 'T3', 'T4', 'T5'],
     datasets: [
@@ -116,13 +119,8 @@ const Home = ({navigation}) => {
         color: (opacity = 1) => `rgba(48, 125, 241, ${opacity})`, // optional
         strokeWidth: 2, // optionalK
       },
-      {
-        data: [0, listData.length, 0, 0, 0, 0],
-        color: (opacity = 1) => `rgba(255, 40, 77, ${opacity})`, // optional
-        strokeWidth: 2, // optionalK
-      },
     ],
-    legend: ['Lượt ứng tuyển', 'Tin tuyển dụng'], // optional
+    legend: ['Lượt ứng tuyển'], // optional
   };
   const RenderItem = ({item}) => {
     return (
@@ -145,7 +143,9 @@ const Home = ({navigation}) => {
         </View>
         <View style={[styles.viewRow, {justifyContent: 'space-between'}]}>
           <Text style={styles.TextL}>Địa Chỉ</Text>
-          <Text style={styles.TextR}>{item?.work_location}</Text>
+          <Text numberOfLines={1} style={[styles.TextR]}>
+            {item?.work_location}
+          </Text>
         </View>
       </View>
     );
@@ -199,6 +199,7 @@ const Home = ({navigation}) => {
             <View style={[styles.viewRow, {width: '53%'}]}>
               <LocalIcon color={colors.BLUE} />
               <Text
+                numberOfLines={1}
                 style={[
                   styles.TextR,
                   {color: colors.BLACK, marginTop: scale(3)},
@@ -226,11 +227,7 @@ const Home = ({navigation}) => {
     <View style={styles.contener}>
       <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
       {/* tusBar */}
-      <HeaderStyle
-        type="home"
-        Title={data?.user?.name}
-        uri={data?.user?.avatar ? data?.user?.avatar : null}
-      />
+      <TitleHome name={data?.user?.name} type="epl" />
       {/* main */}
       <ScrollView>
         <View
@@ -253,7 +250,7 @@ const Home = ({navigation}) => {
           <View style={[styles.viewRow, {justifyContent: 'space-between'}]}>
             <Text style={styles.title}>DS tin tuyển dụng mới nhất</Text>
             <TouchableOpacity onPress={() => navigation.navigate('TD_Screen')}>
-              <Text style={[styles.TextR, {marginTop: scale(15)}]}>
+              <Text style={[styles.txtSeeMore, {marginTop: scale(15)}]}>
                 Xem thêm
               </Text>
             </TouchableOpacity>
@@ -295,7 +292,7 @@ const Home = ({navigation}) => {
           <View style={[styles.viewRow, {justifyContent: 'space-between'}]}>
             <Text style={styles.title}>Hồ sơ ứng tuyển mới nhất</Text>
             <TouchableOpacity onPress={() => navigation.navigate('UV_Screen')}>
-              <Text style={[styles.TextR, {marginTop: scale(15)}]}>
+              <Text style={[styles.txtSeeMore, {marginTop: scale(15)}]}>
                 Xem thêm
               </Text>
             </TouchableOpacity>
@@ -374,8 +371,16 @@ const styles = StyleSheet.create({
     fontSize: scale(13),
     marginLeft: scale(10),
     color: '#000000',
+    width: '40%',
   },
   TextR: {
+    fontSize: scale(13),
+    color: '#307DF1',
+    marginRight: scale(10),
+    marginLeft: scale(5),
+    fontFamily: fonts.NORMAL,
+  },
+  txtSeeMore: {
     fontSize: scale(13),
     color: '#307DF1',
     marginRight: scale(10),
@@ -403,7 +408,7 @@ const styles = StyleSheet.create({
     fontSize: scale(16),
     color: '#307DF1',
     marginLeft: scale(15),
-    marginTop: scale(10),
+    marginBottom: scale(5),
   },
   imgItem: {
     width: scale(60),

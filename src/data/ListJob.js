@@ -37,14 +37,14 @@ export const listJob = [
 ];
 
 export const listRank = [
-  {id: 1, title: 'Không yêu cầu'},
-  {id: 2, title: 'Nhân viên'},
-  {id: 3, title: 'Trưởng phòng'},
-  {id: 4, title: 'Giám Đốc'},
+  {id: 1, title: 'Không yêu cầu', isCheck: false},
+  {id: 2, title: 'Nhân viên', isCheck: false},
+  {id: 3, title: 'Trưởng phòng', isCheck: false},
+  {id: 4, title: 'Giám Đốc', isCheck: false},
 ];
 
 export const listType = [
-  {id: 1, title: 'Fulltime'},
-  {id: 2, title: 'Parttime'},
-  {id: 3, title: 'Theo ca'},
+  {id: 1, title: 'Fulltime', isCheck: false},
+  {id: 2, title: 'Parttime', isCheck: false},
+  {id: 3, title: 'Theo ca', isCheck: false},
 ];

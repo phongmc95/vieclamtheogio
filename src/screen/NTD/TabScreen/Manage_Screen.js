@@ -25,6 +25,7 @@ const Manage_Screen = ({navigation}) => {
   const hideModal = () => setVisible(false);
   const dispatch = useDispatch();
   const [profile, setProfile] = useState(null);
+  console.log('profile: ', profile);
   const isFocused = useIsFocused();
 
   useEffect(() => {
