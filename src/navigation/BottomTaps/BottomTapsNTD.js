@@ -12,9 +12,10 @@ import {
   NTDICON,
   UVICON,
   ChatICON,
-  ProfileICON,
-} from '../../../assets/icon';
+  ProfileICON, SearchTabIcon,
+} from "../../../assets/icon";
 import {isIos} from '../../Utils/CheckDevice';
+import SearchUser from "../../screen/NTD/TabScreen/SearchUser";
 
 const Tab = createBottomTabNavigator();
 const BottomTapsNTD = () => {
@@ -94,6 +95,38 @@ const BottomTapsNTD = () => {
               </View>
               <Text>
                 {focused ? <Text style={styles.blue}>Tuyển dụng</Text> : <></>}
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Search_User"
+        component={SearchUser}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <View style={styles.viewIcon}>
+              <View
+                style={
+                  focused
+                    ? [
+                        styles.viewIconTab,
+                        {
+                          marginTop: scale(-50),
+                          width: scale(60),
+                          height: scale(60),
+                        },
+                      ]
+                    : styles.viewIconTab
+                }>
+                <SearchTabIcon
+                  width={28}
+                  height={28}
+                  color={focused ? '#307DF1' : 'gray'}
+                />
+              </View>
+              <Text>
+                {focused ? <Text style={styles.blue}>Tìm kiếm</Text> : <></>}
               </Text>
             </View>
           ),
