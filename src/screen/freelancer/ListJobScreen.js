@@ -18,7 +18,7 @@ import axios from 'axios';
 import {FilterMoreIcon} from '../../../assets/icon';
 
 export default function ListJobScreen({navigation, route}) {
-  const {title, salary, min_education, working_form, work_location} =
+  const {title, salary, min_education, working_form, work_location, search} =
     route.params;
   const [listJob, setListJob] = useState([]);
   const isFocued = useIsFocused();
@@ -56,6 +56,27 @@ export default function ListJobScreen({navigation, route}) {
             item => item.working_form === working_form,
           );
           setListJob(filter);
+        } else if (search) {
+          const filter = response.data.jobs.filter(item => {
+            return item.job_posting_position
+              .trim()
+              .toLowerCase()
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .replace(/đ/g, 'd')
+              .replace(/Đ/g, 'D')
+              .match(
+                search
+                  .toString()
+                  .toLowerCase()
+                  .normalize('NFD')
+                  .replace(/[\u0300-\u036f]/g, '')
+                  .replace(/đ/g, 'd')
+                  .replace(/Đ/g, 'D'),
+              );
+          });
+          setListJob(filter);
+          console.log('filter: ', filter);
         } else {
           setListJob(response.data.jobs);
         }

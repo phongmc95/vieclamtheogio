@@ -36,6 +36,9 @@ import {
   FETCH_POST_UPDATE_JOB_REQUEST,
   FETCH_POST_UPDATE_JOB_SUCCESS,
   FETCH_POST_UPDATE_JOB_ERROR,
+  SEARCH_SUCCESS,
+  SEARCH_ERROR,
+  SEARCH_CLEAR,
 } from './type/Type';
 
 export const loadPostsLogIn = (email, pass) => async dispatch => {
@@ -64,6 +67,20 @@ export const checkLogin = data => {
   return {
     type: CHECK_TYPE_LOGIN,
     data: data,
+  };
+};
+
+export const search = data => {
+  return {
+    type: SEARCH_SUCCESS,
+    search: data,
+  };
+};
+
+export const clearSearch = () => {
+  return {
+    type: SEARCH_CLEAR,
+    history: [],
   };
 };
 

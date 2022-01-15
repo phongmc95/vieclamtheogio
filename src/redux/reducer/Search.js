@@ -15,7 +15,10 @@ const Search = (state = initialState, action) => {
       };
 
     case SEARCH_CLEAR:
-      return state;
+      return {
+        ...state,
+        history: [],
+      };
 
     default: {
       return state;

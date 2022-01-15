@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   ProfileEPl: ProfileEmployer,
   AddJob: AddJob,
   UpDateJob: POSTUPDATEJOB,
-  Search: Search,
+  search: Search,
 });
 
 export default (state, action) => rootReducer(state, action);

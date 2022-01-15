@@ -136,6 +136,7 @@ export default function FilterScreen({navigation}) {
       working_form: workform,
       work_location: locations,
       type: 'filter',
+      search: '',
     });
   };
 
