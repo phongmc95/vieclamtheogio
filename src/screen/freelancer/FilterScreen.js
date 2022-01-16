@@ -33,12 +33,12 @@ export default function FilterScreen({navigation}) {
   const [listWorkForm, setListWorkForm] = useState(workingForm);
   // const [listPost, setListPost] = useState(listRank);
   const [listAcademyLevel, setListAcademyLevel] = useState(literacy);
-  const [job, setJob] = useState('');
-  const [locations, setLocation] = useState('');
-  const [salarys, setSalary] = useState('');
+  const [job, setJob] = useState(null);
+  const [locations, setLocation] = useState(null);
+  const [salarys, setSalary] = useState(null);
   // const [rank, setRank] = useState('');
-  const [workform, setWorkForm] = useState('');
-  const [academyLevel, setAcademyLevel] = useState('');
+  const [workform, setWorkForm] = useState(null);
+  const [academyLevel, setAcademyLevel] = useState(null);
 
   console.log(role);
   const renderItem = ({item, index}) => {
@@ -118,13 +118,12 @@ export default function FilterScreen({navigation}) {
 
   const confirm = () => {
     navigation.navigate('ListJob', {
-      title: job,
+      career: job,
       salary: salarys,
       min_education: academyLevel,
       working_form: workform,
       work_location: locations,
-      type: 'filter',
-      search: '',
+      search: null,
     });
   };
   const params_filter = () => {

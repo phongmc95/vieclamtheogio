@@ -13,11 +13,5 @@ const Categories = [
   {id: 2, title: 'Khu vực', img: <IconFilerMap />, isCheck: false},
 
   // {id: 5, title: 'Cấp bậc', img: <IconFilterRank />, isCheck: false},
-  {
-    id: 6,
-    title: 'Trình độ học vấn',
-    img: <IconFilterAcademyLevel />,
-    isCheck: false,
-  },
 ];
 export default Categories;

@@ -23,11 +23,6 @@ const SearchUser = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const params = route.params;
-  console.log(params);
-  console.log(
-    'params>',
-    Object.filter(params, ps => ps !== null),
-  );
   const [Data, setData] = useState([]);
   const getAPi = async () => {
     let url = 'https://fpt-jobs-api.herokuapp.com/api/v1/users';
@@ -42,12 +37,12 @@ const SearchUser = () => {
     getAPi();
     return () => {};
   }, []);
-  console.log('>>>>', Data);
   return (
     <View style={styles.container}>
       <HeaderSearch onPress={() => navigation.navigate('Filters')} />
       <View>
         <FlatList
+          showsVerticalScrollIndicator={false}
           keyExtractor={item => item._id.toString()}
           data={
             params

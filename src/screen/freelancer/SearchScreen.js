@@ -8,9 +8,11 @@ import {TrashIcon} from '../../../assets/icon';
 import {useDispatch, useSelector} from 'react-redux';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {clearSearch} from '../../redux/actions/actions';
+import {useNavigation} from '@react-navigation/native';
 
 export default function SearchScreen() {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const [search, setSearch] = useState('');
   const {history} = useSelector(state => state.search);
 
@@ -27,7 +29,14 @@ export default function SearchScreen() {
           </TouchableOpacity>
         </View>
         {history.map(item => (
-          <Text style={styles.title}>{item}</Text>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('ListJob', {
+                search: item,
+              })
+            }>
+            <Text style={styles.title}>{item}</Text>
+          </TouchableOpacity>
         ))}
       </View>
     </View>
