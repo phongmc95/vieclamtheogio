@@ -2,15 +2,13 @@ import {
   FETCH_POST_UPDATE_JOB_ERROR,
   FETCH_POST_UPDATE_JOB_REQUEST,
   FETCH_POST_UPDATE_JOB_SUCCESS,
-} from "../actions/type/Type";
-
+} from '../actions/type/Type';
 
 const initialState = {
   requesting: false,
   success: false,
   message: null,
   data: null,
-
 };
 
 const POSTUPDATEJOB = (state = initialState, action) => {

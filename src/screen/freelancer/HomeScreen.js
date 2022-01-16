@@ -117,6 +117,7 @@ export default function HomeScreen({navigation}) {
                     min_education: '',
                     working_form: '',
                     work_location: '',
+                    search: '',
                     type: 'home',
                   })
                 }>
@@ -139,6 +140,7 @@ export default function HomeScreen({navigation}) {
                     min_education: '',
                     working_form: '',
                     work_location: '',
+                    search: '',
                     type: 'home',
                   })
                 }>

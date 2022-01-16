@@ -1,27 +1,33 @@
 import fonts from '@constant/fonts';
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import TitleSearch from '../../components/title/TitleSearch';
-import icons from '../../constant/icons';
-import {jobs} from '../../data/Jobs';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../constant/colors';
 import {TrashIcon} from '../../../assets/icon';
+import {useDispatch, useSelector} from 'react-redux';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {clearSearch} from '../../redux/actions/actions';
 
 export default function SearchScreen() {
+  const dispatch = useDispatch();
+  const [search, setSearch] = useState('');
+  const {history} = useSelector(state => state.search);
+
   return (
     <View style={styles.container}>
-      <TitleSearch title="Tìm kiếm" />
+      <TitleSearch title="Tìm kiếm" value={search} onChangeText={setSearch} />
       <View style={styles.viewSearch}>
         <View style={styles.row}>
           <Text style={styles.txtSearch}>Tìm kiếm gần đây</Text>
-          <View style={{marginBottom: scale(15), marginLeft: scale(8)}}>
+          <TouchableOpacity
+            onPress={() => dispatch(clearSearch())}
+            style={{marginBottom: scale(15), marginLeft: scale(8)}}>
             <TrashIcon />
-          </View>
+          </TouchableOpacity>
         </View>
-        {jobs.map(item => (
-          <Text style={styles.title}>{item.title}</Text>
+        {history.map(item => (
+          <Text style={styles.title}>{item}</Text>
         ))}
       </View>
     </View>
