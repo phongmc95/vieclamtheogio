@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     paddingTop: scale(isIos ? 60 : 10),
   },
   title: {
-    fontSize: scale(22),
+    fontSize: scale(18),
     color: '#fff',
     fontFamily: fonts.BOLD,
     textTransform: 'uppercase',

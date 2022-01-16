@@ -18,10 +18,15 @@ import colors from '../../constant/colors';
 import {literacy, location, salary, workingForm} from '../../data/Jobs';
 import {listRank} from '../../data/ListJob';
 import Button from '../../components/Button/Button';
+import {useSelector} from 'react-redux';
+import Categories from '../../data/Categories';
 
 export default function FilterScreen({navigation}) {
+  const role = useSelector(state => state.Authen.check_type);
   const [state, setState] = useState('Ngành nghề');
-  const [listState, setListState] = useState(search);
+  const [listState, setListState] = useState(
+    role === 'emp' ? Categories : search,
+  );
   const [listJob, setListJob] = useState(jobs);
   const [listLocation, setListLocation] = useState(location);
   const [listSalary, setListSalary] = useState(salary);
@@ -35,6 +40,7 @@ export default function FilterScreen({navigation}) {
   const [workform, setWorkForm] = useState('');
   const [academyLevel, setAcademyLevel] = useState('');
 
+  console.log(role);
   const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity onPress={() => handleState(item, index)}>
@@ -56,10 +62,7 @@ export default function FilterScreen({navigation}) {
 
   const handleJob = (item, index) => {
     setJob(item.title);
-    setLocation('');
-    setSalary('');
-    setWorkForm('');
-    setAcademyLevel('');
+
     const _job = JSON.parse(JSON.stringify(listJob));
     const _listJob = _job.map((it, idx) => {
       return idx === index ? {...it, isCheck: true} : {...it, isCheck: false};
@@ -69,10 +72,7 @@ export default function FilterScreen({navigation}) {
 
   const handleMap = (item, index) => {
     setLocation(item.title);
-    setJob('');
-    setSalary('');
-    setWorkForm('');
-    setAcademyLevel('');
+
     const _job = JSON.parse(JSON.stringify(listLocation));
     const _listJob = _job.map((it, idx) => {
       return idx === index ? {...it, isCheck: true} : {...it, isCheck: false};
@@ -82,10 +82,6 @@ export default function FilterScreen({navigation}) {
 
   const handleSalary = (item, index) => {
     setSalary(item.title);
-    setJob('');
-    setLocation('');
-    setWorkForm('');
-    setAcademyLevel('');
     const _job = JSON.parse(JSON.stringify(listSalary));
     const _listJob = _job.map((it, idx) => {
       return idx === index ? {...it, isCheck: true} : {...it, isCheck: false};
@@ -95,10 +91,6 @@ export default function FilterScreen({navigation}) {
 
   const handleWorkForm = (item, index) => {
     setWorkForm(item.title);
-    setJob('');
-    setLocation('');
-    setSalary('');
-    setAcademyLevel('');
     const _job = JSON.parse(JSON.stringify(listWorkForm));
     const _listJob = _job.map((it, idx) => {
       return idx === index ? {...it, isCheck: true} : {...it, isCheck: false};
@@ -117,10 +109,6 @@ export default function FilterScreen({navigation}) {
 
   const handleAcademyLevel = (item, index) => {
     setAcademyLevel(item.title);
-    setJob('');
-    setLocation('');
-    setSalary('');
-    setWorkForm('');
     const _job = JSON.parse(JSON.stringify(listAcademyLevel));
     const _listJob = _job.map((it, idx) => {
       return idx === index ? {...it, isCheck: true} : {...it, isCheck: false};
@@ -139,25 +127,32 @@ export default function FilterScreen({navigation}) {
       search: '',
     });
   };
+  const params_filter = () => {
+    navigation.navigate('Search_User', {
+      job_adress: locations,
+      industry: job,
+    });
+  };
 
   return (
     <View>
-      <TitleBasic title="Tìm kiếm nâng cao" />
+      <TitleBasic title="Bộ lọc" />
       <View style={styles.content}>
         <FlatList
-          data={listState ? listState : search}
+          data={listState ? listState : null}
           numColumns={3}
           key={(item, index) => item.id}
           renderItem={renderItem}
         />
       </View>
 
+      {job ? <Text>{job}</Text> : null}
+      {locations ? <Text>{locations}</Text> : null}
+      {salarys ? <Text>{salarys}</Text> : null}
+      {workform ? <Text>{workform}</Text> : null}
+      {academyLevel ? <Text>{academyLevel}</Text> : null}
       {state === 'Ngành nghề' && (
         <View style={styles.viewTextSearch}>
-          <TextInput
-            placeholder="Nhập để tìm kiếm"
-            style={styles.inputSearch}
-          />
           {listJob.map((item, index) => (
             <View style={styles.list}>
               <TouchableOpacity onPress={() => handleJob(item, index)}>
@@ -176,12 +171,8 @@ export default function FilterScreen({navigation}) {
         </View>
       )}
 
-      {state === 'Địa điểm' && (
+      {state === 'Khu vực' && (
         <View style={styles.viewTextSearch}>
-          <TextInput
-            placeholder="Nhập để tìm kiếm"
-            style={styles.inputSearch}
-          />
           {listLocation.map((item, index) => (
             <View style={styles.list}>
               <TouchableOpacity onPress={() => handleMap(item, index)}>
@@ -202,10 +193,6 @@ export default function FilterScreen({navigation}) {
 
       {state === 'Mức lương' && (
         <View style={styles.viewTextSearch}>
-          <TextInput
-            placeholder="Nhập để tìm kiếm"
-            style={styles.inputSearch}
-          />
           {listSalary.map((item, index) => (
             <View style={styles.list}>
               <TouchableOpacity onPress={() => handleSalary(item, index)}>
@@ -226,10 +213,6 @@ export default function FilterScreen({navigation}) {
 
       {state === 'Hình thức làm việc' && (
         <View style={styles.viewTextSearch}>
-          <TextInput
-            placeholder="Nhập để tìm kiếm"
-            style={styles.inputSearch}
-          />
           {listWorkForm.map((item, index) => (
             <View style={styles.list}>
               <TouchableOpacity onPress={() => handleWorkForm(item, index)}>
@@ -274,10 +257,6 @@ export default function FilterScreen({navigation}) {
 
       {state === 'Trình độ học vấn' && (
         <View style={styles.viewTextSearch}>
-          <TextInput
-            placeholder="Nhập để tìm kiếm"
-            style={styles.inputSearch}
-          />
           {listAcademyLevel.map((item, index) => (
             <View style={styles.list}>
               <TouchableOpacity onPress={() => handleAcademyLevel(item, index)}>
@@ -296,7 +275,11 @@ export default function FilterScreen({navigation}) {
         </View>
       )}
 
-      <TouchableOpacity onPress={confirm} style={styles.btnConfirm}>
+      <TouchableOpacity
+        onPress={() => {
+          role === 'emp' ? params_filter() : confirm();
+        }}
+        style={styles.btnConfirm}>
         <Button bg={colors.BLUE} color={colors.WHITE} title="Áp dụng" />
       </TouchableOpacity>
     </View>
@@ -365,5 +348,5 @@ const styles = StyleSheet.create({
     marginLeft: scale(10),
     fontFamily: fonts.NORMAL,
   },
-  btnConfirm: {alignItems: 'center', bottom: '65%'},
+  btnConfirm: {alignItems: 'center', bottom: '70%', borderRadius: 5},
 });
