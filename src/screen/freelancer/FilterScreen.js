@@ -336,7 +336,7 @@ const styles = StyleSheet.create({
   },
   viewTextSearch: {
     width: '100%',
-    height: '100%',
+    height: '60%',
     borderTopLeftRadius: scale(20),
     borderTopRightRadius: scale(20),
     backgroundColor: colors.LIGHT_WHITE,
@@ -365,5 +365,5 @@ const styles = StyleSheet.create({
     marginLeft: scale(10),
     fontFamily: fonts.NORMAL,
   },
-  btnConfirm: {alignItems: 'center', bottom: '65%'},
+  btnConfirm: {alignItems: 'center', bottom: '20%'},
 });
