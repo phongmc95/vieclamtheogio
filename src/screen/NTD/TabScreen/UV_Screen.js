@@ -224,7 +224,7 @@ const UV_Screen = ({navigation}) => {
       <HeaderStyle type="filter" Title="Ứng viên đã ứng tuyển" />
       {/* main */}
       <View style={styles.main}>
-        {listUV.length === 0 || listUV === null ? (
+        {listUV?.length === 0 || listUV === null ? (
           <View
             style={{
               paddingTop: scale(180),
