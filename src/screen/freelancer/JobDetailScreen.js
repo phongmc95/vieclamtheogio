@@ -74,7 +74,6 @@ export default function JobDetailScreen({navigation, route}) {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
         // Toast.showSuccess('Ứng tuyển thành công!');
         toggleModal();
         setContent('Yêu cầu nhận việc của bạn đã được gửi tới Nhà tuyển dụng');
@@ -165,7 +164,6 @@ export default function JobDetailScreen({navigation, route}) {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
         toggleSuccess();
         getDetailJob();
         setIsSave(true);

@@ -45,6 +45,7 @@ const TD_Screen = ({navigation}) => {
       });
     // setLoad(!load)
     return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [load, isFocused, newData]);
 
   const alertDelete = item =>

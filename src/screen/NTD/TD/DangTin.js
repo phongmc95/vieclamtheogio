@@ -15,10 +15,8 @@ import TextInputStyle from '../../../components/TextInputStyle';
 import ButtonStyle from '../../../components/ButtonStyle';
 import AddcalendarAddd from '../../../components/AddcalendarAddd';
 import TextInputSelected from '../../../components/TextInputSelected';
-import {jobs, Literacy, Salary, WorkingForm} from '../../../data/Jobs';
 import SelectModal from '../../../components/SelectModal';
-import {useDispatch, useSelector} from 'react-redux';
-import {AddPostJob, clearData} from '../../../redux/actions/actions';
+import {useSelector} from 'react-redux';
 import ModalStyle from '../../../components/ModalStyle';
 import {validateEmail, isVietnamesePhoneNumber} from '../../../base/Validate';
 import {isIos} from '../../../Utils/CheckDevice';
@@ -29,6 +27,12 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import fonts from '../../../constant/fonts';
 import LoadSreen from '../../../components/loadScreen';
 import axios from 'axios';
+import {
+  jobs,
+  literacy,
+  workingForm,
+  salary as salarys,
+} from '../../../data/Jobs';
 const reducer = (state, action) => {
   switch (action.type) {
     case 'START_TIME':
@@ -275,7 +279,6 @@ const DangTin = ({navigation}) => {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
         setSuccess(true);
         setModal(true);
         setError('Đăng tin thành công!!!');
@@ -580,7 +583,7 @@ const DangTin = ({navigation}) => {
         onBackdropPress={() => setIsSalary(false)}
         label={'Mức lương'}
         onPress={item => selectSalary(item)}
-        data={Salary}
+        data={salarys}
       />
 
       <SelectModal
@@ -588,7 +591,7 @@ const DangTin = ({navigation}) => {
         onBackdropPress={() => setIsWorkingForm(false)}
         label={'Hình thức làm việc'}
         onPress={item => selectWorkingForm(item)}
-        data={WorkingForm}
+        data={workingForm}
       />
 
       <SelectModal
@@ -596,7 +599,7 @@ const DangTin = ({navigation}) => {
         onBackdropPress={() => setIsLiteracy(false)}
         label={'Trình độ học vấn'}
         onPress={item => selectLiteracy(item)}
-        data={Literacy}
+        data={literacy}
       />
 
       <ModalStyle

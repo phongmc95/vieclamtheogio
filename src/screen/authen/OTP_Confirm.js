@@ -50,7 +50,6 @@ const OTP_Confirm = ({navigation, route}) => {
       email: email_otp,
       otp: otp,
     });
-    console.log('data: ', data);
 
     var config = {
       method: 'post',
@@ -63,7 +62,6 @@ const OTP_Confirm = ({navigation, route}) => {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
         if (type === 'forgot') {
           navigation.navigate('NewPass', {email_otp});
         } else if (type === 'register') {

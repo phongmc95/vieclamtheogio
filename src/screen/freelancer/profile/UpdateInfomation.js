@@ -33,7 +33,6 @@ const listMarital = [
 
 export default function UpdateInfomation({navigation, route}) {
   const {info} = route.params;
-  console.log('info: ', info);
   const [name, setName] = useState(info.name);
   const [birthday, setBirthday] = useState(info.birthday);
   const [gender, setGender] = useState('');
@@ -85,7 +84,6 @@ export default function UpdateInfomation({navigation, route}) {
       marital_status: marital,
       address: address,
     };
-    console.log('data: ', data);
 
     var config = {
       method: 'patch',
@@ -98,7 +96,6 @@ export default function UpdateInfomation({navigation, route}) {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
         uploadImage();
         if (navigation.canGoBack) {
           navigation.goBack();
@@ -122,7 +119,7 @@ export default function UpdateInfomation({navigation, route}) {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        console.log('ok!');
       })
       .catch(function (error) {
         console.log(error);

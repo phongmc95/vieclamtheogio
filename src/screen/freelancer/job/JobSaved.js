@@ -72,7 +72,6 @@ export default function JobSaved({navigation}) {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
         setIsOpen(true);
         getJobSave();
       })

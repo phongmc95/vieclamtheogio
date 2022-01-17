@@ -48,7 +48,6 @@ export default function UpdatePassword({navigation}) {
         oldPassword: oldPass,
         newPassword: newPass,
       };
-      console.log('data: ', data);
 
       var config = {
         method: 'patch',
@@ -58,7 +57,6 @@ export default function UpdatePassword({navigation}) {
 
       axios(config)
         .then(function (response) {
-          console.log(JSON.stringify(response.data));
           toggleModal();
         })
         .catch(function (error) {

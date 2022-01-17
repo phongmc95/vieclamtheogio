@@ -101,13 +101,19 @@ export default function HomeScreen({navigation}) {
               flexDirection: 'row',
             }}>
             <Text style={styles.txtTitle}>Danh sách công việc</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('JobHot')}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('JobHot', {list: jobs})}>
               <Text style={styles.txtSeeMore}>Xem thêm</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.listJob}>
             {jobs.map(item => (
-              <TouchableOpacity onPress={() => navigation.navigate('ListJob')}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('ListJob', {
+                    career: item.title,
+                  })
+                }>
                 <View style={styles.boxCategory}>
                   <Image style={styles.iconCategory} source={item.img} />
                   <Text style={styles.txtCategory}>{item.title}</Text>

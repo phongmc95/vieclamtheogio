@@ -237,7 +237,6 @@ const SuaTin = ({navigation, route}) => {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
         setSuccess(true);
       })
       .catch(function (error) {

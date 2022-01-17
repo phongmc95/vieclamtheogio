@@ -25,7 +25,7 @@ const SelectModal = props => {
       <View style={styles.viewModal}>
         <Text style={styles.title}>{label}</Text>
         <ScrollView>
-          {data.map(item => {
+          {data?.map(item => {
             return (
               <TouchableOpacity key={item.id} onPress={() => onPress(item)}>
                 <View style={styles.viewContent}>

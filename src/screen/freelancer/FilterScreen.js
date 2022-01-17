@@ -16,7 +16,7 @@ import search from '@data/Search';
 import fonts from '@constant/fonts';
 import colors from '../../constant/colors';
 import {literacy, location, salary, workingForm} from '../../data/Jobs';
-import {listRank} from '../../data/ListJob';
+// import {listRank} from '../../data/ListJob';
 import Button from '../../components/Button/Button';
 import {useSelector} from 'react-redux';
 import Categories from '../../data/Categories';
@@ -40,7 +40,6 @@ export default function FilterScreen({navigation}) {
   const [workform, setWorkForm] = useState(null);
   const [academyLevel, setAcademyLevel] = useState(null);
 
-  console.log(role);
   const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity onPress={() => handleState(item, index)}>
@@ -145,13 +144,17 @@ export default function FilterScreen({navigation}) {
         />
       </View>
 
-      {job ? <Text>{job}</Text> : null}
+      {/* {job ? <Text>{job}</Text> : null}
       {locations ? <Text>{locations}</Text> : null}
       {salarys ? <Text>{salarys}</Text> : null}
-      {workform ? <Text>{workform}</Text> : null}
-      {academyLevel ? <Text>{academyLevel}</Text> : null}
+      {workform ? <Text>{workform}</Text> : null} */}
+      {/* {academyLevel ? <Text>{academyLevel}</Text> : null} */}
       {state === 'Ngành nghề' && (
         <View style={styles.viewTextSearch}>
+          <TextInput
+            placeholder="Nhập để tìm kiếm"
+            style={styles.inputSearch}
+          />
           {listJob.map((item, index) => (
             <View style={styles.list}>
               <TouchableOpacity onPress={() => handleJob(item, index)}>
@@ -172,6 +175,10 @@ export default function FilterScreen({navigation}) {
 
       {state === 'Khu vực' && (
         <View style={styles.viewTextSearch}>
+          <TextInput
+            placeholder="Nhập để tìm kiếm"
+            style={styles.inputSearch}
+          />
           {listLocation.map((item, index) => (
             <View style={styles.list}>
               <TouchableOpacity onPress={() => handleMap(item, index)}>
@@ -192,6 +199,10 @@ export default function FilterScreen({navigation}) {
 
       {state === 'Mức lương' && (
         <View style={styles.viewTextSearch}>
+          <TextInput
+            placeholder="Nhập để tìm kiếm"
+            style={styles.inputSearch}
+          />
           {listSalary.map((item, index) => (
             <View style={styles.list}>
               <TouchableOpacity onPress={() => handleSalary(item, index)}>
@@ -212,6 +223,10 @@ export default function FilterScreen({navigation}) {
 
       {state === 'Hình thức làm việc' && (
         <View style={styles.viewTextSearch}>
+          <TextInput
+            placeholder="Nhập để tìm kiếm"
+            style={styles.inputSearch}
+          />
           {listWorkForm.map((item, index) => (
             <View style={styles.list}>
               <TouchableOpacity onPress={() => handleWorkForm(item, index)}>
@@ -256,6 +271,10 @@ export default function FilterScreen({navigation}) {
 
       {state === 'Trình độ học vấn' && (
         <View style={styles.viewTextSearch}>
+          <TextInput
+            placeholder="Nhập để tìm kiếm"
+            style={styles.inputSearch}
+          />
           {listAcademyLevel.map((item, index) => (
             <View style={styles.list}>
               <TouchableOpacity onPress={() => handleAcademyLevel(item, index)}>
@@ -347,5 +366,5 @@ const styles = StyleSheet.create({
     marginLeft: scale(10),
     fontFamily: fonts.NORMAL,
   },
-  btnConfirm: {alignItems: 'center', bottom: '70%', borderRadius: 5},
+  btnConfirm: {alignItems: 'center', bottom: '20%', borderRadius: 5},
 });

@@ -43,7 +43,6 @@ export default function JobPass({navigation}) {
           ),
         );
         setListJobs(listApply);
-        // console.log('listApply: ', JSON.stringify(listApply));
       })
       .catch(function (error) {
         console.log(error);
@@ -73,7 +72,7 @@ export default function JobPass({navigation}) {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        console.log('ok!');
       })
       .catch(function (error) {
         console.log(error);

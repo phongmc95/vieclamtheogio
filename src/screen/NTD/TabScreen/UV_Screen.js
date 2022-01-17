@@ -119,7 +119,7 @@ const UV_Screen = ({navigation}) => {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        console.log('ok!');
       })
       .catch(function (error) {
         console.log(error);
@@ -134,7 +134,6 @@ const UV_Screen = ({navigation}) => {
   const listUV = listData
     ?.map(item => item.applicants_applied)
     .find(item => item);
-  //console.log(item?.applicants_applied,">>>");
 
   const RenderItem = ({item}) => {
     const epl = dataUV.find(it => it.name === item?.name);

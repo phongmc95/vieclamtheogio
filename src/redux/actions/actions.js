@@ -293,8 +293,6 @@ export const UpdateProfileEPl =
         phone,
         email,
       });
-      console.log('data: ', data);
-
       const response = await axiosClient.patch(url, data);
       dispatch({type: PROFILE_UPDATE_EPL_SUCCESS, data: response});
     } catch (err) {
@@ -317,7 +315,6 @@ export const PostLogo = (logo, email) => async dispatch => {
         name: logo.assets[0].fileName,
         type: logo.assets[0].type,
       };
-      console.log(file);
       data.append('photo', file);
     }
     data.append('email', email);
@@ -329,7 +326,6 @@ export const PostLogo = (logo, email) => async dispatch => {
       data: response,
     });
   } catch (error) {
-    console.log('KKKKK', error);
     dispatch({
       type: LOGO_ERROR,
       message: error,
@@ -405,13 +401,11 @@ export const GetJob = () => async dispatch => {
     dispatch({type: FETCH_GET_JOB_REQUEST});
     const url = '/jobs';
     const response = await axiosClient.get(url);
-    console.log('Data >>>: ', response);
     dispatch({
       type: FETCH_GET_JOB_SUCCESS,
       data: response,
     });
   } catch (error) {
-    console.log('hhhh');
     dispatch({
       type: FETCH_GET_JOB_ERROR,
       message: error,
@@ -445,7 +439,6 @@ export const UpdateJob =
     try {
       dispatch({type: FETCH_POST_UPDATE_JOB_REQUEST});
       const url = `jobs/${idJob}`;
-      console.log('data: ', data);
       const data = JSON.stringify({
         job_posting_position,
         career,

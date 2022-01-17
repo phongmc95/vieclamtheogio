@@ -138,7 +138,7 @@ export default function ListJobScreen({navigation, route}) {
           ListEmptyComponent={() => (
             <EmptyData content="Không tìm thấy công việc" />
           )}
-          ListFooterComponent={() => <View style={{marginBottom: 500}} />}
+          ListFooterComponent={() => <View style={{marginBottom: scale(50)}} />}
         />
       </View>
     </View>

@@ -34,7 +34,6 @@ const SearchUser = () => {
     getAPi();
     return () => {};
   }, []);
-  console.log('>>>>', Data);
   return (
     <View style={styles.container}>
       <HeaderSearch onPress={() => navigation.navigate('Filters')} />

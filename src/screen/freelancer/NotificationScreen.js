@@ -11,7 +11,6 @@ import images from '../../constant/images';
 
 export default function NotificationScreen() {
   const [data, setData] = useState([]);
-  console.log('data: ', data);
   const user = useSelector(state => state.Authen.data);
   const isFocused = useIsFocused();
 

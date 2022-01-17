@@ -139,7 +139,6 @@ export default function DetailUV({route}) {
       <FooterButton
         phone={() => {
           const phones = user?.phone;
-          console.log(user?.phone);
           if (phones) {
             let phoneNumber = '';
 

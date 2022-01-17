@@ -29,7 +29,6 @@ export default function UpdateDesiredJob({navigation}) {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
         if (navigation.canGoBack) {
           navigation.goBack();
         }

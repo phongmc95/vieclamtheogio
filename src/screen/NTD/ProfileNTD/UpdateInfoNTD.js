@@ -64,7 +64,6 @@ const UpdateInfoNTD = ({navigation, route}) => {
     };
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
         uploadImage();
         setSuccess(true);
       })
@@ -77,7 +76,6 @@ const UpdateInfoNTD = ({navigation, route}) => {
     var data = new FormData();
     data.append('photo', logo);
     data.append('email', item.email);
-    console.log('data: ', JSON.stringify(data));
 
     var config = {
       method: 'post',
@@ -87,7 +85,7 @@ const UpdateInfoNTD = ({navigation, route}) => {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        console.log('ok!');
       })
       .catch(function (error) {
         console.log(error);

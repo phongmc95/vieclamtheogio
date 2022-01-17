@@ -37,7 +37,7 @@ export default function TitleSearch({value, onChangeText}) {
         />
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('ListJob', {search: value});
+            navigation.navigate('ListJob', {search: value, type: 'search'});
             dispatch(search(value));
           }}>
           <IconSearch />

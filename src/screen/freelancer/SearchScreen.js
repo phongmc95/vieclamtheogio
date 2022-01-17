@@ -33,6 +33,7 @@ export default function SearchScreen() {
             onPress={() =>
               navigation.navigate('ListJob', {
                 search: item,
+                type: 'search',
               })
             }>
             <Text style={styles.title}>{item}</Text>
