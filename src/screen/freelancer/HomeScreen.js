@@ -93,7 +93,7 @@ export default function HomeScreen({navigation}) {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#307df1" />
-      <TitleHome name={data?.user?.name} />
+      <TitleHome name={data?.user?.name} type="flc" />
       <ScrollView style={styles.scroll}>
         <View style={styles.viewCategory}>
           <View

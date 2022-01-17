@@ -16,19 +16,21 @@ import icons from '../../constant/icons';
 import {search} from '../../redux/actions/actions';
 import {isIos} from '../../Utils/CheckDevice';
 
-export default function TitleSearch({value, onChangeText}) {
+export default function TitleSearch({value, onChangeText, role}) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   return (
     <View style={styles.content}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Image
-          style={{height: scale(30), width: scale(30), marginTop: scale(3)}}
-          source={icons.back}
-        />
-      </TouchableOpacity>
-      <View style={styles.search}>
+      {role !== 'employer' && (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image
+            style={{height: scale(30), width: scale(30), marginTop: scale(3)}}
+            source={icons.back}
+          />
+        </TouchableOpacity>
+      )}
+      <View style={styles.search(role)}>
         <TextInput
           value={value}
           onChangeText={onChangeText}
@@ -37,7 +39,10 @@ export default function TitleSearch({value, onChangeText}) {
         />
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('ListJob', {search: value, type: 'search'});
+            navigation.navigate(
+              role === 'employer' ? 'Search_User' : 'ListJob',
+              {search: value},
+            );
             dispatch(search(value));
           }}>
           <IconSearch />
@@ -73,8 +78,8 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: scale(20),
     borderBottomRightRadius: scale(20),
   },
-  search: {
-    width: '75%',
+  search: role => ({
+    width: role === 'employer' ? '82%' : '75%',
     height: scale(40),
     borderRadius: scale(20),
     borderWidth: 1,
@@ -84,5 +89,5 @@ const styles = StyleSheet.create({
     paddingLeft: scale(15),
     flexDirection: 'row',
     alignItems: 'center',
-  },
+  }),
 });

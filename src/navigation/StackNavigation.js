@@ -43,10 +43,10 @@ import UpdateDesiredJob from '../screen/freelancer/profile/UpdateDesiredJob';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistor, store} from '../redux/store/Store';
 import {StatusBar} from 'react-native';
-import NotificationS from "../screen/NTD/TD/NotificationS";
+import NotificationS from '../screen/NTD/TD/NotificationS';
+import SearchUser from '../screen/NTD/TabScreen/SearchUser';
 const Stack = createStackNavigator();
 const StackNavigation = () => {
-
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -74,6 +74,7 @@ const StackNavigation = () => {
             <Stack.Screen name="UpdateInfoNTD" component={UpdateInfoNTD} />
             <Stack.Screen name="ChangePassNTD" component={ChangePassNTD} />
             <Stack.Screen name="DetailUV" component={DetailUV} />
+            <Stack.Screen name="Search_User" component={SearchUser} />
 
             {/* ứng viên */}
             <Stack.Screen name="TabTopFlc" component={TabTopFlc} />
@@ -101,7 +102,7 @@ const StackNavigation = () => {
             <Stack.Screen name="UpdateWork" component={UpdateWorkSession} />
             <Stack.Screen name="JobDetail" component={JobDetailScreen} />
             <Stack.Screen name="ListJob" component={ListJobScreen} />
-            <Stack.Screen name={'NotificationS'} component={NotificationS}/>
+            <Stack.Screen name={'NotificationS'} component={NotificationS} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

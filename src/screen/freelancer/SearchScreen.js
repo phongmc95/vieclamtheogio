@@ -10,15 +10,21 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {clearSearch} from '../../redux/actions/actions';
 import {useNavigation} from '@react-navigation/native';
 
-export default function SearchScreen() {
+export default function SearchScreen({route}) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [search, setSearch] = useState('');
   const {history} = useSelector(state => state.search);
+  const authen = useSelector(state => state.Authen.data);
 
   return (
     <View style={styles.container}>
-      <TitleSearch title="Tìm kiếm" value={search} onChangeText={setSearch} />
+      <TitleSearch
+        title="Tìm kiếm"
+        value={search}
+        onChangeText={setSearch}
+        role={authen?.role}
+      />
       <View style={styles.viewSearch}>
         <View style={styles.row}>
           <Text style={styles.txtSearch}>Tìm kiếm gần đây</Text>
@@ -31,10 +37,13 @@ export default function SearchScreen() {
         {history.map(item => (
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate('ListJob', {
-                search: item,
-                type: 'search',
-              })
+              authen?.user?.role === 'employer'
+                ? navigation.navigate('Search_User', {
+                    search: item,
+                  })
+                : navigation.navigate('ListJob', {
+                    search: item,
+                  })
             }>
             <Text style={styles.title}>{item}</Text>
           </TouchableOpacity>

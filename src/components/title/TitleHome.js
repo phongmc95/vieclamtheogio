@@ -15,6 +15,7 @@ import {
 export default function TitleHome({name, type}) {
   const dataq = useSelector(state => state.ProfileEPl.data);
   const navigation = useNavigation();
+
   return (
     <View
       style={{

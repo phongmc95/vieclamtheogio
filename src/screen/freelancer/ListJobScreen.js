@@ -13,25 +13,24 @@ import colors from '../../constant/colors';
 import fonts from '../../constant/fonts';
 import icons from '../../constant/icons';
 import images from '../../constant/images';
-import {useIsFocused} from '@react-navigation/native';
-import axios from 'axios';
 import {FilterMoreIcon} from '../../../assets/icon';
 import axiosClient from '../../config/axios';
 import EmptyData from '../../components/EmptyData';
-function findByTemplate(allPersons, template) {
-  return allPersons.filter(person => {
-    return Object.keys(template).every(
-      propertyName => person[propertyName] === template[propertyName],
-    );
+
+function findByTemplate(data, params) {
+  return data.filter(item => {
+    return Object.keys(params).every(keys => {
+      return item[keys] === params[keys];
+    });
   });
 }
 Object.filter = (obj, predicate) =>
   Object.keys(obj)
     .filter(key => predicate(obj[key]))
     .reduce((res, key) => ((res[key] = obj[key]), res), {});
+
 export default function ListJobScreen({navigation, route}) {
   const params = route.params;
-
   const [listJob, setListJob] = useState([]);
   const [DataFilter, setDataFilter] = useState([]);
 
@@ -40,30 +39,31 @@ export default function ListJobScreen({navigation, route}) {
     try {
       const res = await axiosClient.get(url);
       setListJob(res.jobs);
-      setDataFilter(
-        res.jobs.filter(item => {
-          const itemdata = item.job_posting_position
-            ? item.job_posting_position
-                .toUpperCase()
-                .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .replace(/đ/g, 'd')
-                .replace(/Đ/g, 'D')
-            : ''
-                .toUpperCase()
-                .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .replace(/đ/g, 'd')
-                .replace(/Đ/g, 'D');
-          const textdata = params?.search
-            .toUpperCase()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .replace(/đ/g, 'd')
-            .replace(/Đ/g, 'D');
-          return itemdata.indexOf(textdata) > -1;
-        }),
-      );
+      params.search &&
+        setDataFilter(
+          res.jobs.filter(item => {
+            const itemdata = item.job_posting_position
+              ? item.job_posting_position
+                  .toUpperCase()
+                  .normalize('NFD')
+                  .replace(/[\u0300-\u036f]/g, '')
+                  .replace(/đ/g, 'd')
+                  .replace(/Đ/g, 'D')
+              : ''
+                  .toUpperCase()
+                  .normalize('NFD')
+                  .replace(/[\u0300-\u036f]/g, '')
+                  .replace(/đ/g, 'd')
+                  .replace(/Đ/g, 'D');
+            const textdata = params?.search
+              .toUpperCase()
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .replace(/đ/g, 'd')
+              .replace(/Đ/g, 'D');
+            return itemdata.indexOf(textdata) > -1;
+          }),
+        );
     } catch (error) {
       console.log(error);
     }

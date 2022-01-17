@@ -80,7 +80,6 @@ const TD_Screen = ({navigation}) => {
             style={styles.delete}
             onPress={() => {
               alertDelete(item);
-              console.log('Delete');
             }}>
             <DeleteICon />
           </TouchableOpacity>

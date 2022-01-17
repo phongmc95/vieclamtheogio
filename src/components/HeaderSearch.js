@@ -1,16 +1,8 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  TextInput,
-} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {isIos} from '../Utils/CheckDevice';
 import fonts from '../constant/fonts';
-import {SearchIcon} from '../../assets/icon';
 const HeaderSearch = props => {
   return (
     <View style={styles.container}>
@@ -21,8 +13,8 @@ const HeaderSearch = props => {
           source={require('../../assets/icons/ic_filter.png')}
           resizeMode={'contain'}
           style={{
-            height: scale(30),
-            width: scale(30),
+            height: scale(25),
+            width: scale(25),
           }}
         />
       </TouchableOpacity>

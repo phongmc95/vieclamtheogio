@@ -12,10 +12,12 @@ import {
   NTDICON,
   UVICON,
   ChatICON,
-  ProfileICON, SearchTabIcon,
-} from "../../../assets/icon";
+  ProfileICON,
+  SearchTabIcon,
+} from '../../../assets/icon';
 import {isIos} from '../../Utils/CheckDevice';
-import SearchUser from "../../screen/NTD/TabScreen/SearchUser";
+import SearchUser from '../../screen/NTD/TabScreen/SearchUser';
+import SearchScreen from '../../screen/freelancer/SearchScreen';
 
 const Tab = createBottomTabNavigator();
 const BottomTapsNTD = () => {
@@ -101,8 +103,8 @@ const BottomTapsNTD = () => {
         }}
       />
       <Tab.Screen
-        name="Search_User"
-        component={SearchUser}
+        name="Search"
+        component={SearchScreen}
         options={{
           tabBarIcon: ({focused}) => (
             <View style={styles.viewIcon}>
