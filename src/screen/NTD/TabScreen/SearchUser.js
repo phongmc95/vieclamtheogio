@@ -2,12 +2,9 @@ import React, {useState} from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
 import HeaderSearch from '../../../components/HeaderSearch';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
 import axiosClient from '../../../config/axios';
 import Render from '../../../components/Render';
 import EmptyData from '../../../components/EmptyData';
-import filter from '../UV/Filter';
-import datepickerModal from '../../../components/DatepickerModal';
 function findByTemplate(allPersons, template) {
   return allPersons.filter(person => {
     return Object.keys(template).every(
@@ -37,12 +34,12 @@ const SearchUser = () => {
     getAPi();
     return () => {};
   }, []);
+  console.log('>>>>', Data);
   return (
     <View style={styles.container}>
       <HeaderSearch onPress={() => navigation.navigate('Filters')} />
       <View>
         <FlatList
-          showsVerticalScrollIndicator={false}
           keyExtractor={item => item._id.toString()}
           data={
             params
