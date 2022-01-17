@@ -39,7 +39,8 @@ export default function TitleHome({name, type}) {
           dataq?.user?.avatar ? {uri: dataq?.user?.avatar} : images.avatar
         }
       />
-      <View style={{marginLeft: scale(10), width: '55%'}}>
+      <View
+        style={{marginLeft: scale(10), width: type === 'epl' ? '65%' : '55%'}}>
         <Text
           style={{
             fontSize: scale(13),
@@ -69,7 +70,7 @@ export default function TitleHome({name, type}) {
           marginRight: scale(5),
         }}
         onPress={() => navigation.navigate('Search')}>
-        <SearchIcon />
+        {type !== 'epl' && <SearchIcon />}
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() =>

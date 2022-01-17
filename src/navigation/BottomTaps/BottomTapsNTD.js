@@ -14,10 +14,10 @@ import {
   ChatICON,
   ProfileICON,
   SearchTabIcon,
+  HsIcon,
 } from '../../../assets/icon';
 import {isIos} from '../../Utils/CheckDevice';
 import SearchUser from '../../screen/NTD/TabScreen/SearchUser';
-import SearchScreen from '../../screen/freelancer/SearchScreen';
 
 const Tab = createBottomTabNavigator();
 const BottomTapsNTD = () => {
@@ -57,8 +57,8 @@ const BottomTapsNTD = () => {
                     : styles.viewIconTab
                 }>
                 <HomeICON
-                  width={21}
-                  height={19}
+                  width={focused ? 28 : 20}
+                  height={focused ? 28 : 20}
                   color={focused ? '#307DF1' : 'gray'}
                 />
               </View>
@@ -90,8 +90,8 @@ const BottomTapsNTD = () => {
                     : styles.viewIconTab
                 }>
                 <NTDICON
-                  width={28}
-                  height={28}
+                  width={focused ? 28 : 20}
+                  height={focused ? 28 : 20}
                   color={focused ? '#307DF1' : 'gray'}
                 />
               </View>
@@ -103,8 +103,8 @@ const BottomTapsNTD = () => {
         }}
       />
       <Tab.Screen
-        name="Search"
-        component={SearchScreen}
+        name="Search_User"
+        component={SearchUser}
         options={{
           tabBarIcon: ({focused}) => (
             <View style={styles.viewIcon}>
@@ -121,14 +121,14 @@ const BottomTapsNTD = () => {
                       ]
                     : styles.viewIconTab
                 }>
-                <SearchTabIcon
-                  width={28}
-                  height={28}
+                <ProfileICON
+                  width={focused ? 28 : 20}
+                  height={focused ? 28 : 20}
                   color={focused ? '#307DF1' : 'gray'}
                 />
               </View>
               <Text>
-                {focused ? <Text style={styles.blue}>Tìm kiếm</Text> : <></>}
+                {focused ? <Text style={styles.blue}>Ứng viên</Text> : <></>}
               </Text>
             </View>
           ),
@@ -154,13 +154,13 @@ const BottomTapsNTD = () => {
                     : styles.viewIconTab
                 }>
                 <UVICON
-                  width={18}
-                  height={22}
+                  width={focused ? 28 : 20}
+                  height={focused ? 28 : 20}
                   color={focused ? '#307DF1' : 'gray'}
                 />
               </View>
               <Text>
-                {focused ? <Text style={styles.blue}>Ứng viên</Text> : <></>}
+                {focused ? <Text style={styles.blue}>Ứng tuyển</Text> : <></>}
               </Text>
             </View>
           ),
@@ -186,9 +186,9 @@ const BottomTapsNTD = () => {
                       ]
                     : styles.viewIconTab
                 }>
-                <ProfileICON
-                  width={20}
-                  height={20}
+                <HsIcon
+                  width={focused ? 30 : 20}
+                  height={focused ? 30 : 20}
                   color={focused ? '#307DF1' : 'gray'}
                 />
               </View>

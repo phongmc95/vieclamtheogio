@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: scale(22),
+    fontSize: scale(18),
     marginLeft: scale(20),
     fontFamily: fonts.BOLD,
     textTransform: 'uppercase',

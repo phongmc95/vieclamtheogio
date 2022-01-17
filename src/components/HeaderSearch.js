@@ -6,7 +6,7 @@ import fonts from '../constant/fonts';
 const HeaderSearch = props => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tìm kiếm ứng viên</Text>
+      <Text style={styles.title}>Danh sách ứng viên</Text>
 
       <TouchableOpacity onPress={props.onPress}>
         <Image
@@ -15,6 +15,7 @@ const HeaderSearch = props => {
           style={{
             height: scale(25),
             width: scale(25),
+            marginTop: scale(5),
           }}
         />
       </TouchableOpacity>
@@ -45,8 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: scale(16),
-    lineHeight: scale(19),
+    fontSize: scale(20),
     color: '#fff',
     fontFamily: fonts.BOLD,
     textTransform: 'uppercase',

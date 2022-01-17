@@ -15,16 +15,10 @@ export default function SearchScreen({route}) {
   const navigation = useNavigation();
   const [search, setSearch] = useState('');
   const {history} = useSelector(state => state.search);
-  const authen = useSelector(state => state.Authen.data);
 
   return (
     <View style={styles.container}>
-      <TitleSearch
-        title="Tìm kiếm"
-        value={search}
-        onChangeText={setSearch}
-        role={authen?.role}
-      />
+      <TitleSearch title="Tìm kiếm" value={search} onChangeText={setSearch} />
       <View style={styles.viewSearch}>
         <View style={styles.row}>
           <Text style={styles.txtSearch}>Tìm kiếm gần đây</Text>
@@ -37,13 +31,9 @@ export default function SearchScreen({route}) {
         {history.map(item => (
           <TouchableOpacity
             onPress={() =>
-              authen?.user?.role === 'employer'
-                ? navigation.navigate('Search_User', {
-                    search: item,
-                  })
-                : navigation.navigate('ListJob', {
-                    search: item,
-                  })
+              navigation.navigate('ListJob', {
+                search: item,
+              })
             }>
             <Text style={styles.title}>{item}</Text>
           </TouchableOpacity>

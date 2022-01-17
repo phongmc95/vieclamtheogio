@@ -74,7 +74,7 @@ const StackNavigation = () => {
             <Stack.Screen name="UpdateInfoNTD" component={UpdateInfoNTD} />
             <Stack.Screen name="ChangePassNTD" component={ChangePassNTD} />
             <Stack.Screen name="DetailUV" component={DetailUV} />
-            <Stack.Screen name="Search_User" component={SearchUser} />
+            {/* <Stack.Screen name="Search_User" component={SearchUser} /> */}
 
             {/* ứng viên */}
             <Stack.Screen name="TabTopFlc" component={TabTopFlc} />

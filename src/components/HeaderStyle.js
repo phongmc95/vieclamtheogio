@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   NameNTD: {
     color: 'white',
-    fontSize: scale(14),
+    fontSize: scale(20),
     textTransform: 'uppercase',
     fontFamily: fonts.BOLD,
     marginLeft: scale(20),

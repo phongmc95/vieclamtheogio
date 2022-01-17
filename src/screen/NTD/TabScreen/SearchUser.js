@@ -25,7 +25,6 @@ const SearchUser = () => {
   const params = route.params;
   const [textSearch, setTextSearch] = useState('');
   const [Data, setData] = useState([]);
-  const [dataSearch, setDataSearch] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
   const getAPi = async () => {
@@ -33,39 +32,7 @@ const SearchUser = () => {
     try {
       const res = await axiosClient.get(url);
       setRefreshing(false);
-
-      if (params) {
-        if (params?.search) {
-          setTextSearch(params?.search);
-          const filter = res.users.filter(item => {
-            return item.industry
-              .trim()
-              .toLowerCase()
-              .normalize('NFD')
-              .replace(/[\u0300-\u036f]/g, '')
-              .replace(/đ/g, 'd')
-              .replace(/Đ/g, 'D')
-              .match(
-                textSearch
-                  .toString()
-                  .toLowerCase()
-                  .normalize('NFD')
-                  .replace(/[\u0300-\u036f]/g, '')
-                  .replace(/đ/g, 'd')
-                  .replace(/Đ/g, 'D'),
-              );
-          });
-          setDataSearch(filter);
-        } else {
-          const filter = findByTemplate(
-            res.users,
-            Object.filter(params, ps => ps !== null),
-          );
-          setDataSearch(filter);
-        }
-      } else {
-        setData(res.users);
-      }
+      setData(res.users);
     } catch (error) {
       setRefreshing(false);
       console.log(error);
@@ -88,15 +55,18 @@ const SearchUser = () => {
   }, [textSearch, Data, params]);
   return (
     <View style={styles.container}>
-      <TitleBasic
-        title="Tìm kiếm"
-        ic={<FilterMoreIcon />}
-        onPress={() => navigation.navigate('Filters')}
-      />
+      <HeaderSearch onPress={() => navigation.navigate('Filters')} />
       <View>
         <FlatList
           keyExtractor={(item, index) => index.toString()}
-          data={!params ? Data : dataSearch}
+          data={
+            !params
+              ? Data
+              : findByTemplate(
+                  Data,
+                  Object.filter(params, ps => ps !== null),
+                )
+          }
           renderItem={({item}) => (
             <Render
               item={item}
