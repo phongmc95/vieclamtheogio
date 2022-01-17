@@ -101,26 +101,13 @@ export default function HomeScreen({navigation}) {
               flexDirection: 'row',
             }}>
             <Text style={styles.txtTitle}>Danh sách công việc</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('JobHot', {list: listJobs})}>
+            <TouchableOpacity onPress={() => navigation.navigate('JobHot')}>
               <Text style={styles.txtSeeMore}>Xem thêm</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.listJob}>
             {jobs.map(item => (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('ListJob', {
-                    list: listJobs,
-                    title: item.title,
-                    salary: '',
-                    min_education: '',
-                    working_form: '',
-                    work_location: '',
-                    search: '',
-                    type: 'home',
-                  })
-                }>
+              <TouchableOpacity onPress={() => navigation.navigate('ListJob')}>
                 <View style={styles.boxCategory}>
                   <Image style={styles.iconCategory} source={item.img} />
                   <Text style={styles.txtCategory}>{item.title}</Text>
@@ -131,19 +118,7 @@ export default function HomeScreen({navigation}) {
           <View>
             <View style={styles.row}>
               <Text style={styles.txtTitle}>Việc làm mới nhất</Text>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('ListJob', {
-                    list: listJobs,
-                    title: '',
-                    salary: '',
-                    min_education: '',
-                    working_form: '',
-                    work_location: '',
-                    search: '',
-                    type: 'home',
-                  })
-                }>
+              <TouchableOpacity onPress={() => navigation.navigate('ListJob')}>
                 <Text style={styles.txtSeeMore}>Xem thêm</Text>
               </TouchableOpacity>
             </View>

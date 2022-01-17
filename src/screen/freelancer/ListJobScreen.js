@@ -16,77 +16,63 @@ import images from '../../constant/images';
 import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
 import {FilterMoreIcon} from '../../../assets/icon';
-
+import axiosClient from '../../config/axios';
+import EmptyData from '../../components/EmptyData';
+function findByTemplate(allPersons, template) {
+  return allPersons.filter(person => {
+    return Object.keys(template).every(
+      propertyName => person[propertyName] === template[propertyName],
+    );
+  });
+}
+Object.filter = (obj, predicate) =>
+  Object.keys(obj)
+    .filter(key => predicate(obj[key]))
+    .reduce((res, key) => ((res[key] = obj[key]), res), {});
 export default function ListJobScreen({navigation, route}) {
-  const {title, salary, min_education, working_form, work_location, search} =
-    route.params;
+  const params = route.params;
+
   const [listJob, setListJob] = useState([]);
-  const isFocued = useIsFocused();
+  const [DataFilter, setDataFilter] = useState([]);
 
+  const getAPi = async () => {
+    let url = 'https://fpt-jobs-api.herokuapp.com/api/v1/jobs';
+    try {
+      const res = await axiosClient.get(url);
+      setListJob(res.jobs);
+      setDataFilter(
+        res.jobs.filter(item => {
+          const itemdata = item.job_posting_position
+            ? item.job_posting_position
+                .toUpperCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd')
+                .replace(/Đ/g, 'D')
+            : ''
+                .toUpperCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd')
+                .replace(/Đ/g, 'D');
+          const textdata = params?.search
+            .toUpperCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/đ/g, 'd')
+            .replace(/Đ/g, 'D');
+          return itemdata.indexOf(textdata) > -1;
+        }),
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    var config = {
-      method: 'get',
-      url: 'https://fpt-jobs-api.herokuapp.com/api/v1/jobs',
-    };
-
-    axios(config)
-      .then(function (response) {
-        if (title) {
-          const filter = response.data.jobs.filter(
-            item => item.career === title,
-          );
-          setListJob(filter);
-        } else if (salary) {
-          const filter = response.data.jobs.filter(
-            item => item.salary === salary,
-          );
-          setListJob(filter);
-        } else if (work_location) {
-          const filter = response.data.jobs.filter(
-            item => item.work_location === work_location,
-          );
-          setListJob(filter);
-        } else if (min_education) {
-          const filter = response.data.jobs.filter(
-            item => item.min_education[0] === min_education,
-          );
-          setListJob(filter);
-        } else if (working_form) {
-          const filter = response.data.jobs.filter(
-            item => item.working_form === working_form,
-          );
-          setListJob(filter);
-        } else if (search) {
-          const filter = response.data.jobs.filter(item => {
-            return item.job_posting_position
-              .trim()
-              .toLowerCase()
-              .normalize('NFD')
-              .replace(/[\u0300-\u036f]/g, '')
-              .replace(/đ/g, 'd')
-              .replace(/Đ/g, 'D')
-              .match(
-                search
-                  .toString()
-                  .toLowerCase()
-                  .normalize('NFD')
-                  .replace(/[\u0300-\u036f]/g, '')
-                  .replace(/đ/g, 'd')
-                  .replace(/Đ/g, 'D'),
-              );
-          });
-          setListJob(filter);
-          console.log('filter: ', filter);
-        } else {
-          setListJob(response.data.jobs);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    getAPi();
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocued]);
+  }, []);
 
   const renderItem = ({item}) => (
     <TouchableOpacity
@@ -136,9 +122,23 @@ export default function ListJobScreen({navigation, route}) {
       />
       <View style={styles.padding}>
         <FlatList
-          data={listJob}
-          keyExtractor={item => item._id}
+          showsVerticalScrollIndicator={false}
+          data={
+            params?.search
+              ? DataFilter
+              : !params
+              ? listJob
+              : findByTemplate(
+                  listJob,
+                  Object.filter(params, ps => ps !== null),
+                )
+          }
+          keyExtractor={item => item._id.toString()}
           renderItem={renderItem}
+          ListEmptyComponent={() => (
+            <EmptyData content="Không tìm thấy công việc" />
+          )}
+          ListFooterComponent={() => <View style={{marginBottom: 500}} />}
         />
       </View>
     </View>
