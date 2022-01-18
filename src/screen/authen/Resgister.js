@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,7 +13,7 @@ import ButtonStyle from '../../components/ButtonStyle';
 import SelectModal from '../../components/SelectModal';
 import TextInputSelected from '../../components/TextInputSelected';
 import fonts from '../../constant/fonts';
-import {jobs, provinces} from '../../data/Jobs';
+import {jobs, location} from '../../data/Jobs';
 import ModalStyle from '../../components/ModalStyle';
 import {validateEmail, isVietnamesePhoneNumber} from '../../base/Validate';
 import LoadSreen from '../../components/loadScreen';
@@ -35,6 +35,12 @@ const Resgister = ({navigation, route}) => {
   const [isValidate, setIsValidate] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [locations, setLocation] = useState([]);
+
+  useEffect(() => {
+    provinces();
+    return () => {};
+  }, []);
 
   const submit = () => {
     if (!email || !pass || !phone || !name || !address) {
@@ -87,6 +93,22 @@ const Resgister = ({navigation, route}) => {
       })
       .catch(function (error) {
         setSuccess(false);
+        console.log(error);
+      });
+  };
+
+  const provinces = () => {
+    var config = {
+      method: 'get',
+      url: 'http://61e5c3e7c14c7a0017124e62.mockapi.io/poly/api/areafpt',
+      headers: {},
+    };
+
+    axios(config)
+      .then(function (response) {
+        setLocation(response.data);
+      })
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -200,7 +222,7 @@ const Resgister = ({navigation, route}) => {
         onBackdropPress={handleSelectProvince}
         label={'Nơi làm việc mong muốn'}
         onPress={item => selectProvince(item)}
-        data={provinces}
+        data={locations ? locations : location}
       />
       <ModalStyle
         isVisible={isValidate}

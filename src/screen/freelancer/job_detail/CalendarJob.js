@@ -13,7 +13,7 @@ import fonts from '../../../constant/fonts';
 import colors from '../../../constant/colors';
 
 const CalendarJob = ({item}) => {
-  const [check, setCheck] = useState(false);
+  console.log('item: ', item);
   return (
     <View>
       <ScrollView>
@@ -32,9 +32,8 @@ const CalendarJob = ({item}) => {
 
           <FlatList
             data={item?.job?.work_schedule}
-            keyExtractor={item => item.day}
-            numColumns={3}
-            renderItem={({item}) => {
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({item, index}) => {
               return (
                 <View style={{marginBottom: scale(20)}}>
                   <View style={{flexDirection: 'row'}}>

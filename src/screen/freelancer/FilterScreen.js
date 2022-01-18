@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -20,6 +20,7 @@ import {literacy, location, salary, workingForm} from '../../data/Jobs';
 import Button from '../../components/Button/Button';
 import {useSelector} from 'react-redux';
 import Categories from '../../data/Categories';
+import axios from 'axios';
 
 export default function FilterScreen({navigation}) {
   const role = useSelector(state => state.Authen.check_type);
@@ -39,6 +40,31 @@ export default function FilterScreen({navigation}) {
   // const [rank, setRank] = useState('');
   const [workform, setWorkForm] = useState(null);
   const [academyLevel, setAcademyLevel] = useState(null);
+
+  useEffect(() => {
+    provinces();
+    return () => {};
+  }, []);
+
+  const provinces = () => {
+    var config = {
+      method: 'get',
+      url: 'http://61e5c3e7c14c7a0017124e62.mockapi.io/poly/api/areafpt',
+      headers: {},
+    };
+
+    axios(config)
+      .then(function (response) {
+        const item = response.data.map(it => {
+          return {...it, isCheck: false};
+        });
+        setListLocation(item);
+      })
+      .catch(function (error) {
+        setLocation(location);
+        console.log(error);
+      });
+  };
 
   const renderItem = ({item, index}) => {
     return (

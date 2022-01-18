@@ -112,7 +112,7 @@ const Home = ({navigation}) => {
   };
 
   const DATA = {
-    labels: ['T12', 'T1', 'T2', 'T3', 'T4', 'T5'],
+    labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6'],
     datasets: [
       {
         data: [0, listUV.length, 0, 0, 0, 0],

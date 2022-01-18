@@ -161,27 +161,12 @@ export const location = [
   },
   {
     id: '2',
-    title: 'Hải Phòng',
-    isCheck: false,
-  },
-  {
-    id: '3',
     title: 'Đà Nẵng',
     isCheck: false,
   },
   {
-    id: '4',
+    id: '3',
     title: 'Hồ Chí Minh',
-    isCheck: false,
-  },
-  {
-    id: '5',
-    title: 'Cần Thơ',
-    isCheck: false,
-  },
-  {
-    id: '6',
-    title: 'Biên Hoà',
     isCheck: false,
   },
 ];
